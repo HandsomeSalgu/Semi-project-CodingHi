@@ -9,6 +9,10 @@ SINU EDUCATION<br>
 요구사항 정의서(요약) : https://docs.google.com/spreadsheets/d/147WjfOWef2_o3XEG2xKvcAu19u_1TWi5jS9nv38thGU/edit?gid=0#gid=0
 <br><br>
 스토리보드 : https://docs.google.com/spreadsheets/d/1PKM2LZvoxpxz0yrGDRvB0tje1XFkgFDtjGWUlNVznAY/edit?gid=0#gid=0
+<br><br>
+피그마 : https://www.figma.com/design/FWbQwK8cDey828fvj2quW4/%EC%8B%A0%EC%9A%B0%EC%97%90%EB%93%80?node-id=0-1&p=f&t=x7Q8V1afYVgsHcAv-0
+<br><br>
+ERD : https://www.erdcloud.com/d/EZcxe8wdpekm2Z6gP
 
 <h3>[현재 해야될 일]</h3>
 <a>문성종 : 탑바, 사이드바 ,메인페이지 <br></a>
