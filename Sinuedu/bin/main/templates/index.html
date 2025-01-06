@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            position: relative;
+            width: 1920px;
+            height: 100vh;
+            margin: 0 auto;
+            background-color: #F5F8FF;
+        }
+        .main-container {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            width: 100%; 
+            max-width: 1920px; 
+            padding: 0 20px; 
+            box-sizing: border-box; 
+        }
+        .container {
+            position: fixed;
+            top: 45%;
+            left: 250px;
+            transform: translateY(-50%);
+            width: 260px;
+            height: 1000px;
+            border-radius: 30px;
+            border-right: 1px solid #E6E4F0;
+            background: #FFF;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            
+        }
+
+        .header {
+            padding: 20px;
+        }
+
+
+        .header img {
+            width: 170px;
+            height: 85px;
+            flex-shrink: 0;
+            margin-top: 10px;
+            margin-left: 30px;
+        }
+
+        .header img:hover{
+            cursor: pointer;
+        }
+
+        .form {
+            margin: 5px;
+            padding: 20px;
+            width: 210px;
+            height: 250px;
+            border-radius: 20px;
+            border: 1px solid #dfdfdf;
+        }
+
+        .form input {
+            width: 200px;
+            height: 40px;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #57f;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            margin-top: 10px;
+        }
+
+        .form button:hover {
+            background-color: #1e5491;
+        }
+
+        .form button:active {
+            background-color: #6a8eff;
+            color: white;
+        }
+
+        .links {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #888;
+            text-align: center;
+        }
+
+        .links a {
+            color: #6a8eff;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .menu {
+            background-color: #ffffff;
+            padding: 15px;
+            border-top: 1px solid #e5e5e5;
+            margin-top: 20px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 5px;
+            color: #555;
+            text-decoration: none;
+            border-radius: 15px;
+            background-color: #ffffff;
+        }
+
+        .menu a img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .menu a span {
+            line-height: 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+
+        .menu a.active {
+            background-color: #6a8eff;
+            color: white;
+        }
+
+        .menu a:hover {
+            background-color: #6a8eff;
+            color: white;
+        }
+        .category {
+            background-color: #ffffff;
+            padding: 15px;
+            border-top: 1px solid #e5e5e5;
+        
+        }
+
+        .category a {
+            display: flex;
+            align-items: center;
+            padding: 7px;
+            margin-bottom: 5px;
+            color: #555;
+            text-decoration: none;
+            border-radius: 15px;
+            background-color: #ffffff;
+            margin-left: 20px;
+        }
+
+        .category a img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .category a span {
+            line-height: 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+
+        .category a:hover {
+            background-color: #d8e1ff;
+        }
+
+
+        .banner{
+            width: 800px; height: 515px; 
+            flex-shrink: 0; 
+            border: 1px solid #bcbcbc; 
+            border-radius: 30px; 
+            left: 560px; top: 30px; 
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            position: absolute;
+            background-color: white;
+        }
+        .banner-img{
+            width: 770px;
+            height: 240px;
+            margin: 15px;
+            border-radius: 15px;
+
+        }
+        .banner-left{
+            margin: 20px;
+            float: left;
+            width: 370px;
+            height: 180px;
+        }
+        .banner-left td{
+            width: 185px;
+            height: 45;
+            padding-left: 20px;
+            font-size: 15px;
+            
+        }
+        .banner-left td span{
+            font-weight: bold;
+            line-height: 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .banner-left td div{
+            background-color: lightgray;
+            width: 70px;
+            text-align: center;
+            border-radius: 30px;
+        }
+        .banner-right{
+            display:flex;
+            flex-direction: column;
+            margin: 20px;
+            width: 370px;
+            height: 180px;
+            
+        }
+        .banner-right span{
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .banner2{
+            width: 800px; height: 1600px; 
+            flex-shrink: 0; 
+            border: 1px solid #bcbcbc; 
+            border-radius: 30px; 
+            left: 560px; top: 600px; 
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            position: absolute;
+            background-color: #fff;
+            
+        }
+
+        .qna-container {
+            position: absolute;
+            top: 45%;
+            right: 250px;
+            transform: translateY(-50%);
+            width: 260px;
+            height: 1000px;
+            border-radius: 30px;
+            border-right: 1px solid #E6E4F0;
+            background: #FFF;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            
+        }
+        
+    </style>
+</head>
+<body>
+    <div class ="main-container">
+        <div class="container">
+            <div class="header">
+                
+                <img src="logo2.png">
+            </div>
+            <div class="form">
+                <a>ID</a>
+                <input type="text" placeholder="아이디를 입력해주세요.">
+                <p></p>
+                <a>Password</a>
+                <input type="password" placeholder="비밀번호를 입력해주세요.">
+                <button>Sign In</button>
+                <div class="links">
+                    <a href="view/join1">회원가입</a> / <a href="#">아이디</a> /<a href="#"> 패스워드 찾기</a>
+                </div>
+            </div>
+            <div class="menu">
+                <a href="#" class="active"><img src="homeicon.png" alt="Home"><span>HOME</span></a>
+                <a href="#"><img src="calander.png"><span>SINU EDU 소개</span></a>
+                <a href="#"><img src="Graph.png"><span>강사 소개</span></a>
+                <a href="#"><img src="act.png" ><span>질문 게시판</span></a>
+                <a href="#"><img src="Folder.png"><span>강의 목록</span></a>
+            </div>
+            <div class="category">
+                <a href="#"><img src="cgred.png"><span>JAVA</span></a>
+                <a href="#"><img src="cgblue.png"><span>ORCLE</span></a>
+                <a href="#"><img src="cgpurple.png" ><span>JDBC</span></a>
+                <a href="#"><img src="cggreen.png"><span>HTML / CSS</span></a>
+            </div>
+            
+        </div>
+        <div class = "banner">
+            <div >
+                <img class = "banner-img" src="banner.png">
+            </div>
+            <table class="banner-left">
+                <tr>
+                    <td>???</td>
+                    <td>???</td>
+                </tr>
+                <tr>
+                    <td><img src="Folder.png"><span>강좌수</span></td>
+                    <td><div style="background-color: rgb(255, 146, 146); color: rgb(153, 32, 32)"><b>21개!</b></div></td>
+                </tr>
+                <tr>
+                    <td><img src="Graph.png"><span>수강생 수</span></td>
+                    <td><div>31명</div></td>
+                </tr>
+                <tr>
+                    <td><img src="calander.png"><span>평균 평점</span></td>
+                    <td><div>4.7★</div></td>
+                </tr>
+            </table>
+            <div class="banner-right">
+                <p><b>Describtion</b></p>
+                <span>코딩 학습을 시작하고 싶지만, 비용이나 시작 방법 때문에 고민 중이신가요? 
+                        이제 더 이상 망설이지 마세요! 무료 코딩 수강 플랫폼을 통해 누구나 
+                        손쉽게 프로그래밍의 세계로 발을 들여놓을 수 있습니다.
+                </span>
+            </div>
+        
+        </div>
+        
+        <div class = "banner2">
+
+        </div>
+        
+
+        <div class = "qna-container">
+
+
+        </div>
+    </div>
+</body>
+</html>

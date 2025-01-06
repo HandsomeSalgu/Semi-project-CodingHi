@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+        }
+
+        .top-box{
+            background-color: #FFFFDA;
+            width: 1000px;
+            height: 370px;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);    
+        }
+
+        .bottom-box{
+            background-color: #ffffff;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .image-box{
+            width: 520px;
+            height: 310px;
+            float:left;
+            margin: 30px;    
+        }
+
+        .image-thumbnail{
+            border-radius: 5px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .text-box-top{
+            width: 850px;
+             padding-top: 30px
+        }
+
+        .text-box-top>a:first-child{
+            font-size:24px;
+            font-weight: bold;
+        }
+
+        .text-box-top>a:nth-child(3){
+            font-size:20px;
+            color: #757575;
+        }
+
+        .manager-function{
+            float: right;
+        }
+
+        .text-box-bottom{
+            width: 950px;
+            font-size: 16px;
+        }
+
+        .lecture-list{
+            padding-left: 60px;
+            padding-right: 60px;
+            padding-bottom: 30px;
+            padding-top: 30px;
+        }
+
+        .lecture-item{
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lecture-item:hover {
+            background-color: #f8f8f8;
+        }
+
+        .lecture-item>div{
+            padding: 7px;
+        }
+
+        .lecture-item>div>a:first-child{
+            font-weight: bold;
+            font-size: 18px
+        }
+
+        .manager-function{
+            padding:20px;
+        }
+
+        .image-bookmark{
+            height: 35px;
+        }
+
+        .function-option{
+            width: 400px;
+            float: left;
+        }
+
+        .function-option>div{
+            float: left;
+            margin-top: 30px;
+            margin-left: 70px;
+            text-align: center;
+        }
+
+        .function-option>div>a{
+            color: #757575;
+            font-size: 10px;
+        }
+
+        .function-option>div>p{
+            font-size:16px;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    <section>
+        <div class="top-box">
+            <div class="image-box">
+                <img src="../../../static/photo/example.png" class="image-thumbnail">
+            </div>
+            <div class="manager-function">
+                <img src="../../../static/photo/update.png" class="image-bookmark"/>
+                <img src="../../../static/photo/delete.png" class="image-bookmark"/>
+                <img src="../../../static/photo/bookmark-icon.png" class="image-bookmark"/>
+            </div>
+            <div class="text-box-top">
+                <a>프로그래밍 기초</a>
+                <br>
+                <a>객체 지향 프로그래밍</a><br>       
+            </div>
+            <div class="text-box-bottom">
+                <p>Java는 객체 지향 프로그래밍(OOP) 언어로, 전 세계적으로 널리 사용 되는 강력하고 안정적인 언어입니다. 
+                    특히 크로스 플랫폼 애플리케이션을 개발하는 데 탁월한 특징을 가지고 있습니다.
+                </p>
+            </div>
+            <div class="function-option">
+                <div>
+                    <img src="../../../static/photo/Inbox.png" class="image-bookmark"/>
+                    <br>
+                    <a>chapter</a>
+                    <p>8</p>
+                </div>
+                <div>
+                    <img src="../../../static/photo/Forward.png" class="image-bookmark"/>
+                    <br>
+                    <a>Percent</a>
+                    <p>32%</p>
+                </div>
+                <div>
+                    <img src="../../../static/photo/Emote_Smile.png" class="image-bookmark"/>
+                    <br>
+                    <a>Rating(5)</a>
+                    <p>4.5</p>
+                </div> 
+            </div>
+        </div>
+        <div class="bottom-box">
+                <div class="lecture-list">
+                    <div class="lecture-item">
+                        <div>
+                            <a>Chpater1</a><br>
+                            <a>프로그래밍이란?</a>
+                        </div>
+                        <span>
+                            <img src="../../../static/photo/update.png" class="image-bookmark"/>
+                            <img src="../../../static/photo/delete.png" class="image-bookmark"/>
+                        </span>
+                    </div>
+                    <div class="lecture-item">
+                        <div>
+                            <a>Chpater2</a><br>
+                            <a>프로그래밍 언어 정리</a>
+                        </div>
+                        <span>
+                            <img src="../../../static/photo/update.png" class="image-bookmark"/>
+                            <img src="../../../static/photo/delete.png" class="image-bookmark"/>
+                        </span>
+                    </div>
+                    <div class="lecture-item">
+                        <div>
+                            <a>Chpater3</a><br>
+                            <a>자바 언어 특징</a>
+                        </div>
+                        <span>
+                            <img src="../../../static/photo/update.png" class="image-bookmark"/>
+                            <img src="../../../static/photo/delete.png" class="image-bookmark"/>
+                        </span>
+                    </div>
+                    <div class="lecture-item">
+                        <div>
+                            <a>Chpater4</a><br>
+                            <a>자바 언어 특징</a>
+                        </div>
+                        <span>
+                            <img src="../../../static/photo/update.png" class="image-bookmark"/>
+                            <img src="../../../static/photo/delete.png" class="image-bookmark"/>
+                        </span>
+                    </div>
+                    <div class="lecture-item">
+                        <div>
+                            <a>Chpater5</a><br>
+                            <a>자바 개발 환경</a>
+                        </div>
+                        <span>
+                            <img src="../../../static/photo/update.png" class="image-bookmark"/>
+                            <img src="../../../static/photo/delete.png" class="image-bookmark"/>
+                        </span>
+                    </div>
+                </div>  
+            </table>
+        </div>
+    </section>
+</body>
+</html>
