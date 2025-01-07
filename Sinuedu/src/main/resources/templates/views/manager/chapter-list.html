@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,22 +6,30 @@
 <title>챕터 목록</title>
 <style>
 body {
-	font-family: Arial, sans-serif;
 	margin: 0;
-	padding: 0;
-	height: 100vh;
-	background-color: #f8f8f8;
+	font-family: Arial, sans-serif;
+	display: flex;
+	justify-content: center;
+	background-color: #f4f4f4;
+	align-items: center;
+	min-height: 100vh;
+}
+
+.container {
+	display: flex;
+	width: 100%;
+	max-width: 1400px;
 }
 
 .content-container {
-	position: absolute;
-	left: 550px;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 1020px;
+	display: flex;
+	flex-direction: column;
+	width: 1100px;
+	min-height: 750px;
 	background: #FFF;
 	border-radius: 20px;
-	padding: 30px;
+	padding: 20px;
+	margin: 0 auto;
 	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -31,6 +38,9 @@ body {
 	padding: 20px;
 	border-radius: 15px;
 	margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .content-header h2 {
@@ -44,7 +54,7 @@ body {
 }
 
 .chapter-table th, .chapter-table td {
-	padding: 12px;
+	padding: 11px;
 	text-align: center;
 	border-bottom: 1px solid #E6E4F0;
 }
@@ -58,159 +68,384 @@ body {
 	background-color: #f5f5f5;
 }
 
+.chapter-table td {
+	vertical-align: middle;
+}
+
+.add-btn {
+	background-color: transparent;
+	color: #333;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 32px;
+	transition: all 0.3s ease;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+}
+
+.add-btn:hover {
+	background-color: rgba(0, 0, 0, 0.05);
+	transform: rotate(90deg);
+}
+
+.add-btn span {
+	font-weight: 300;
+	line-height: 1;
+}
+
 .action-buttons {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: 5px;
+	gap: 8px;
 }
 
 .edit-btn, .delete-btn {
-	width: 24px;
-	height: 24px;
+	width: 32px;
+	height: 32px;
 	padding: 0;
 	border: none;
-	border-radius: 4px;
+	border-radius: 6px;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 14px;
+	font-size: 16px;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .edit-btn {
-	background-color: #57f;
+	background-color: #7AA2FF;
 	color: white;
 }
 
 .delete-btn {
-	background-color: #ff5757;
+	background-color: #FF9B9B;
 	color: white;
 }
 
-.chapter-table td {
-	vertical-align: middle;
+.edit-btn:hover {
+	background-color: #6088E0;
+}
+
+.delete-btn:hover {
+	background-color: #E88282;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#categoryFilter {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	background-color: white;
+	cursor: pointer;
+	outline: none;
+	font-size: 13px;
+	text-align: center;
+	appearance: none;
+	background-image:
+		url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+	background-repeat: no-repeat;
+	background-position: right 8px center;
+	background-size: 16px;
+	padding-right: 30px;
+	background-repeat: no-repeat;
+	background-position: right 8px center;
+	background-size: 16px;
+	background-position: right 8px center;
+	background-size: 16px;
+	background-size: 16px;
+}
+
+#categoryFilter:hover {
+	border-color: #4285f4;
+}
+
+#categoryFilter:focus {
+	border-color: #4285f4;
+	box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.1);
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border-radius: 15px;
+	width: 300px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.modal-header h3 {
+	margin: 0;
+	color: #333;
+}
+
+.close {
+	color: #aaa;
+	font-size: 28px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close:hover {
+	color: #666;
+}
+
+.modal-body {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 10px;
+}
+
+.modal-btn {
+	flex: 1;
+	padding: 12px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 14px;
+	transition: all 0.3s ease;
+}
+
+.lecture-btn {
+	background-color: #7AA2FF;
+	color: white;
+}
+
+.chapter-btn {
+	background-color: #FF9B9B;
+	color: white;
+}
+
+.modal-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lecture-btn:hover {
+	background-color: #6088E0;
+}
+
+.chapter-btn:hover {
+	background-color: #E88282;
 }
 </style>
 </head>
 <body>
-	<div class="content-container">
-		<div class="content-header">
-			<h2>챕터 목록</h2>
+	<div class="container">
+		<div class="content-container">
+			<div class="content-header">
+				<h2>챕터 목록</h2>
+				<button class="add-btn">
+					<span>+</span>
+				</button>
+			</div>
+			<table class="chapter-table">
+				<thead>
+					<tr>
+						<th><select id="categoryFilter"
+							style="padding: 5px; border-radius: 4px; border: 1px solid #ddd;">
+								<option value="all">카테고리</option>
+								<option value="JAVA">JAVA</option>
+								<option value="JDBC">JDBC</option>
+								<option value="HTML/CSS">HTML/CSS</option>
+								<option value="JavaScript">JavaScript</option>
+								<option value="Spring">Spring</option>
+								<option value="MySQL">MySQL</option>
+								<option value="React">React</option>
+								<option value="Node.js">Node.js</option>
+								<option value="Git">Git</option>
+						</select></th>
+						<th>강의 목록</th>
+						<th>강사명</th>
+						<th>작성일</th>
+						<th>수정 / 삭제</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>JAVA</td>
+						<td>기초 문법</td>
+						<td>박신우</td>
+						<td>2024/01/01</td>
+						<td class="action-buttons">
+							<button class="edit-btn">✎</button>
+							<button class="delete-btn">✕</button>
+						</td>
+					</tr>
+					<tr>
+						<td>JAVA</td>
+						<td>객체지향 프로그래밍</td>
+						<td>박신우</td>
+						<td>2024/01/02</td>
+						<td class="action-buttons">
+							<button class="edit-btn">✎</button>
+							<button class="delete-btn">✕</button>
+						</td>
+					</tr>
+					<tr>
+						<td>JDBC</td>
+						<td>데이터베이스 연결</td>
+						<td>박신우</td>
+						<td>2024/01/03</td>
+						<td class="action-buttons">
+							<button class="edit-btn">✎</button>
+							<button class="delete-btn">✕</button>
+						</td>
+					</tr>
+					<tr>
+						<td>HTML/CSS</td>
+						<td>웹 페이지 구조</td>
+						<td>박신우</td>
+						<td>2024/01/04</td>
+						<td class="action-buttons">
+							<button class="edit-btn">✎</button>
+							<button class="delete-btn">✕</button>
+						</td>
+					</tr>
+					<tr>
+						<td>JavaScript</td>
+						<td>DOM 조작</td>
+						<td>박신우</td>
+						<td>2024/01/05</td>
+						<td class="action-buttons">
+							<button class="edit-btn">✎</button>
+							<button class="delete-btn">✕</button>
+						</td>
+					</tr>
+					<tr>
+						<td>Spring</td>
+						<td>프레임워크 기초</td>
+						<td>박신우</td>
+						<td>2024/01/06</td>
+						<td class="action-buttons">
+							<button class="edit-btn">✎</button>
+							<button class="delete-btn">✕</button>
+						</td>
+					</tr>
+					<tr>
+						<td>MySQL</td>
+						<td>데이터베이스 설계</td>
+						<td>박신우</td>
+						<td>2024/01/07</td>
+						<td class="action-buttons">
+							<button class="edit-btn">✎</button>
+							<button class="delete-btn">✕</button>
+						</td>
+					</tr>
+					<tr>
+						<td>React</td>
+						<td>컴포넌트 생명주기</td>
+						<td>박신우</td>
+						<td>2024/01/08</td>
+						<td class="action-buttons">
+							<button class="edit-btn">✎</button>
+							<button class="delete-btn">✕</button>
+						</td>
+					</tr>
+					<tr>
+						<td>Node.js</td>
+						<td>서버 구축하기</td>
+						<td>박신우</td>
+						<td>2024/01/09</td>
+						<td class="action-buttons">
+							<button class="edit-btn">✎</button>
+							<button class="delete-btn">✕</button>
+						</td>
+					</tr>
+					<tr>
+						<td>Git</td>
+						<td>버전 관리 시스템</td>
+						<td>박신우</td>
+						<td>2024/01/10</td>
+						<td class="action-buttons">
+							<button class="edit-btn">✎</button>
+							<button class="delete-btn">✕</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		<table class="chapter-table">
-			<thead>
-				<tr>
-					<th>카테고리</th>
-					<th>강의 목록</th>
-					<th>강사명</th>
-					<th>작성일</th>
-					<th>수정/삭제</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>JAVA</td>
-					<td>기초 문법</td>
-					<td>박신우</td>
-					<td>2024/01/01</td>
-					<td class="action-buttons">
-						<button class="edit-btn">✎</button>
-						<button class="delete-btn">✕</button>
-					</td>
-				</tr>
-				<tr>
-					<td>JAVA</td>
-					<td>객체지향 프로그래밍</td>
-					<td>박신우</td>
-					<td>2024/01/02</td>
-					<td class="action-buttons">
-						<button class="edit-btn">✎</button>
-						<button class="delete-btn">✕</button>
-					</td>
-				</tr>
-				<tr>
-					<td>JDBC</td>
-					<td>데이터베이스 연결</td>
-					<td>박신우</td>
-					<td>2024/01/03</td>
-					<td class="action-buttons">
-						<button class="edit-btn">✎</button>
-						<button class="delete-btn">✕</button>
-					</td>
-				</tr>
-				<tr>
-					<td>HTML/CSS</td>
-					<td>웹 페이지 구조</td>
-					<td>박신우</td>
-					<td>2024/01/04</td>
-					<td class="action-buttons">
-						<button class="edit-btn">✎</button>
-						<button class="delete-btn">✕</button>
-					</td>
-				</tr>
-				<tr>
-					<td>JavaScript</td>
-					<td>DOM 조작</td>
-					<td>박신우</td>
-					<td>2024/01/05</td>
-					<td class="action-buttons">
-						<button class="edit-btn">✎</button>
-						<button class="delete-btn">✕</button>
-					</td>
-				</tr>
-				<tr>
-					<td>Spring</td>
-					<td>프레임워크 기초</td>
-					<td>박신우</td>
-					<td>2024/01/06</td>
-					<td class="action-buttons">
-						<button class="edit-btn">✎</button>
-						<button class="delete-btn">✕</button>
-					</td>
-				</tr>
-				<tr>
-					<td>MySQL</td>
-					<td>데이터베이스 설계</td>
-					<td>박신우</td>
-					<td>2024/01/07</td>
-					<td class="action-buttons">
-						<button class="edit-btn">✎</button>
-						<button class="delete-btn">✕</button>
-					</td>
-				</tr>
-				<tr>
-					<td>React</td>
-					<td>컴포넌트 생명주기</td>
-					<td>박신우</td>
-					<td>2024/01/08</td>
-					<td class="action-buttons">
-						<button class="edit-btn">✎</button>
-						<button class="delete-btn">✕</button>
-					</td>
-				</tr>
-				<tr>
-					<td>Node.js</td>
-					<td>서버 구축하기</td>
-					<td>박신우</td>
-					<td>2024/01/09</td>
-					<td class="action-buttons">
-						<button class="edit-btn">✎</button>
-						<button class="delete-btn">✕</button>
-					</td>
-				</tr>
-				<tr>
-					<td>Git</td>
-					<td>버전 관리 시스템</td>
-					<td>박신우</td>
-					<td>2024/01/10</td>
-					<td class="action-buttons">
-						<button class="edit-btn">✎</button>
-						<button class="delete-btn">✕</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
 	</div>
+	<div id="addModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>추가하기</h3>
+				<span class="close">&times;</span>
+			</div>
+			<div class="modal-body">
+				<button class="modal-btn lecture-btn">강의 추가</button>
+				<button class="modal-btn chapter-btn">챕터 추가</button>
+			</div>
+		</div>
+	</div>
+	<script>
+		document.getElementById('categoryFilter').addEventListener('change', function() {
+		    const selectedCategory = this.value;
+		    const rows = document.querySelectorAll('.chapter-table tbody tr');
+		    rows.forEach(row => {
+		        const category = row.querySelector('td:first-child').textContent;
+		        if (selectedCategory === 'all' || category === selectedCategory) {
+		            row.style.display = '';
+		        } else {
+		            row.style.display = 'none';
+		        }
+		    });
+		});
+		
+		const modal = document.getElementById('addModal');
+		const addBtn = document.querySelector('.add-btn');
+		const closeBtn = document.querySelector('.close');
+		addBtn.onclick = function() {
+		    modal.style.display = "block";
+		}
+		closeBtn.onclick = function() {
+		    modal.style.display = "none";
+		}
+		window.onclick = function(event) {
+		    if (event.target == modal) {
+		        modal.style.display = "none";
+		    }
+		}
+		document.querySelector('.lecture-btn').onclick = function() {
+		    console.log('강의 추가');
+		    modal.style.display = "none";
+		}
+		document.querySelector('.chapter-btn').onclick = function() {
+		    console.log('챕터 추가');
+		    modal.style.display = "none";
+		}
+	</script>
 </body>
 </html>
