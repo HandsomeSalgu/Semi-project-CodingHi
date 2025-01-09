@@ -6,10 +6,11 @@
 <meta charset="utf-8">
     <style>
         body{
+        	justify-content: center;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             display: flex;
-            justify-content: center;
+            gap: 20px;
         }
 
         .top-box{
@@ -130,64 +131,161 @@
     </style>
 </head>
 <body>
-	<main>
-		<div th:replace="~{views/menu-bar.html}"></div>
-	    <div>
-	        <div class="top-box">
-	            <div class="image-box">
-	                <img src="../../../static/photo/classes/example.png" class="image-thumbnail">
-	            </div>
-	            <div class="manager-function">
-	                <img src="../../../static/photo/classes/update.png" class="image-bookmark"/>
-	                <img src="../../../static/photo/classes/delete.png" class="image-bookmark"/>
-	                <img src="../../../static/photo/classes/bookmark-icon.png" class="image-bookmark"/>
-	            </div>
-	            <div class="text-box-top">
-	                <a>프로그래밍 기초</a>
-	                <br>
-	                <a>객체 지향 프로그래밍</a><br>       
-	            </div>
-	            <div class="text-box-bottom">
-	                <p>Java는 객체 지향 프로그래밍(OOP) 언어로, 전 세계적으로 널리 사용 되는 강력하고 안정적인 언어입니다. 
-	                    특히 크로스 플랫폼 애플리케이션을 개발하는 데 탁월한 특징을 가지고 있습니다.
-	                </p>
-	            </div>
-	            <div class="function-option">
-	                <div>
-	                    <img src="../../../static/photo/classes/Inbox.png" class="image-bookmark"/>
-	                    <br>
-	                    <a>chapter</a>
-	                    <p>8</p>
-	                </div>
-	                <div>
-	                    <img src="../../../static/photo/classes/Forward.png" class="image-bookmark"/>
-	                    <br>
-	                    <a>Percent</a>
-	                    <p>32%</p>
-	                </div>
-	                <div>
-	                    <img src="../../../static/photo/classes/Emote_Smile.png" class="image-bookmark"/>
-	                    <br>
-	                    <a>Rating(5)</a>
-	                    <p>4.5</p>
-	                </div> 
-	            </div>
-	        </div>
-	        <div class="bottom-box">
-                <div class="lecture-list">
-                    <div class="lecture-item">
-                        <div>
-                            <a>Chpater1</a><br>
-                            <a>프로그래밍이란?</a>
-                        </div>
-                        <span>
-                            <img src="../../../static/photo/classes/update.png" class="image-bookmark"/>
-                            <img src="../../../static/photo/classes/delete.png" class="image-bookmark"/>
-                        </span>
-                    </div>
-                </div>  
-	        </div>
-	    </div>
-    </main>
+	<section th:insert="~{views/menu-bar.html}"></section>
+	
+    <section class="post-list">
+        <div class="top-box">
+            <div class="image-box">
+                <img src="/photo/classes/example.png" class="image-thumbnail">
+            </div>
+            <div class="manager-function">
+                <img src="/photo/classes/update.png" class="image-bookmark"/>
+                <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                <img src="/photo/classes/bookmark-icon.png" class="image-bookmark"/>
+            </div>
+            <div class="text-box-top">
+                <a>프로그래밍 기초</a>
+                <br>
+                <a>객체 지향 프로그래밍</a><br>       
+            </div>
+            <div class="text-box-bottom">
+                <p>Java는 객체 지향 프로그래밍(OOP) 언어로, 전 세계적으로 널리 사용 되는 강력하고 안정적인 언어입니다. 
+                    특히 크로스 플랫폼 애플리케이션을 개발하는 데 탁월한 특징을 가지고 있습니다.
+                </p>
+            </div>
+            <div class="function-option">
+                <div>
+                    <img src="/photo/classes/Inbox.png" class="image-bookmark"/>
+                    <br>
+                    <a>chapter</a>
+                    <p>8</p>
+                </div>
+                <div>
+                    <img src="/photo/classes/Forward.png" class="image-bookmark"/>
+                    <br>
+                    <a>Percent</a>
+                    <p>32%</p>
+                </div>
+                <div>
+                    <img src="/photo/classes/Emote_Smile.png" class="image-bookmark"/>
+                    <br>
+                    <a>Rating(5)</a>
+                    <p>4.5</p>
+                </div> 
+            </div>
+        </div>
+        <div class="bottom-box">
+             <div class="lecture-list">
+                 <div class="lecture-item">
+                     <div>
+                         <a>Chpater1</a><br>
+                         <a>프로그래밍이란?</a>
+                     </div>
+                     <span>
+                         <img src="/photo/classes/update.png" class="image-bookmark"/>
+                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     </span>
+                 </div>
+                 <div class="lecture-item">
+                     <div>
+                         <a>Chpater1</a><br>
+                         <a>프로그래밍이란?</a>
+                     </div>
+                     <span>
+                         <img src="/photo/classes/update.png" class="image-bookmark"/>
+                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     </span>
+                 </div>
+                 <div class="lecture-item">
+                     <div>
+                         <a>Chpater1</a><br>
+                         <a>프로그래밍이란?</a>
+                     </div>
+                     <span>
+                         <img src="/photo/classes/update.png" class="image-bookmark"/>
+                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     </span>
+                 </div>
+                 <div class="lecture-item">
+                     <div>
+                         <a>Chpater1</a><br>
+                         <a>프로그래밍이란?</a>
+                     </div>
+                     <span>
+                         <img src="/photo/classes/update.png" class="image-bookmark"/>
+                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     </span>
+                 </div>
+                 <div class="lecture-item">
+                     <div>
+                         <a>Chpater1</a><br>
+                         <a>프로그래밍이란?</a>
+                     </div>
+                     <span>
+                         <img src="/photo/classes/update.png" class="image-bookmark"/>
+                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     </span>
+                 </div>
+                 <div class="lecture-item">
+                     <div>
+                         <a>Chpater1</a><br>
+                         <a>프로그래밍이란?</a>
+                     </div>
+                     <span>
+                         <img src="/photo/classes/update.png" class="image-bookmark"/>
+                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     </span>
+                 </div>
+                 <div class="lecture-item">
+                     <div>
+                         <a>Chpater1</a><br>
+                         <a>프로그래밍이란?</a>
+                     </div>
+                     <span>
+                         <img src="/photo/classes/update.png" class="image-bookmark"/>
+                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     </span>
+                 </div>
+                 <div class="lecture-item">
+                     <div>
+                         <a>Chpater1</a><br>
+                         <a>프로그래밍이란?</a>
+                     </div>
+                     <span>
+                         <img src="/photo/classes/update.png" class="image-bookmark"/>
+                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     </span>
+                 </div>
+                 <div class="lecture-item">
+                     <div>
+                         <a>Chpater1</a><br>
+                         <a>프로그래밍이란?</a>
+                     </div>
+                     <span>
+                         <img src="/photo/classes/update.png" class="image-bookmark"/>
+                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     </span>
+                 </div><div class="lecture-item">
+                     <div>
+                         <a>Chpater1</a><br>
+                         <a>프로그래밍이란?</a>
+                     </div>
+                     <span>
+                         <img src="/photo/classes/update.png" class="image-bookmark"/>
+                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     </span>
+                 </div><div class="lecture-item">
+                     <div>
+                         <a>Chpater1</a><br>
+                         <a>프로그래밍이란?</a>
+                     </div>
+                     <span>
+                         <img src="/photo/classes/update.png" class="image-bookmark"/>
+                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     </span>
+                 </div>
+             </div>  
+        </div>
+    </section>
 </body>
 </html>
