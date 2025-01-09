@@ -143,7 +143,7 @@ body {
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#categoryFilter {
+#categoryFilter, #lectureFilter {
 	width: 100%;
 	padding: 8px;
 	border: 1px solid #ddd;
@@ -168,11 +168,11 @@ body {
 	background-size: 16px;
 }
 
-#categoryFilter:hover {
+#categoryFilter:hover, #lectureFilter:hover {
 	border-color: #4285f4;
 }
 
-#categoryFilter:focus {
+#categoryFilter:focus, #lectureFilter:focus {
 	border-color: #4285f4;
 	box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.1);
 }
@@ -286,9 +286,19 @@ body {
 								<option value="Node.js">Node.js</option>
 								<option value="Git">Git</option>
 						</select></th>
-						<th>강의 목록</th>
+						<th><select id="lectureFilter"
+							style="padding: 5px; border-radius: 4px; border: 1px solid #ddd;">
+								<option value="all">강의목록</option>
+								<option value="기초 문법">기초 문법</option>
+								<option value="데이터베이스 연결">데이터베이스 연결</option>
+								<option value="DOM 조작">DOM 조작</option>
+								<option value="프레임워크 기초">프레임워크 기초</option>
+								<option value="데이터베이스 설계">데이터베이스 설계</option>
+								<option value="컴포넌트 생명주기">컴포넌트 생명주기</option>
+								<option value="서버 구축하기">서버 구축하기</option>
+						</select></th>
 						<th>강사명</th>
-						<th>작성일</th>
+						<th>챕터</th>
 						<th>수정 / 삭제</th>
 					</tr>
 				</thead>
@@ -298,7 +308,7 @@ body {
 						<td>JAVA</td>
 						<td>기초 문법</td>
 						<td>박신우</td>
-						<td>2024/01/01</td>
+						<td>Chapter1</td>
 						<td class="action-buttons">
 							<button class="edit-btn">✎</button>
 							<button class="delete-btn">✕</button>
@@ -306,9 +316,9 @@ body {
 					</tr>
 					<tr>
 						<td>JAVA</td>
-						<td>객체지향 프로그래밍</td>
+						<td>기초 문법</td>
 						<td>박신우</td>
-						<td>2024/01/02</td>
+						<td>Chapter2</td>
 						<td class="action-buttons">
 							<button class="edit-btn">✎</button>
 							<button class="delete-btn">✕</button>
@@ -318,7 +328,7 @@ body {
 						<td>JDBC</td>
 						<td>데이터베이스 연결</td>
 						<td>박신우</td>
-						<td>2024/01/03</td>
+						<td>Chapter1</td>
 						<td class="action-buttons">
 							<button class="edit-btn">✎</button>
 							<button class="delete-btn">✕</button>
@@ -328,7 +338,7 @@ body {
 						<td>HTML/CSS</td>
 						<td>웹 페이지 구조</td>
 						<td>박신우</td>
-						<td>2024/01/04</td>
+						<td>Chapter5</td>
 						<td class="action-buttons">
 							<button class="edit-btn">✎</button>
 							<button class="delete-btn">✕</button>
@@ -338,7 +348,7 @@ body {
 						<td>JavaScript</td>
 						<td>DOM 조작</td>
 						<td>박신우</td>
-						<td>2024/01/05</td>
+						<td>Chapter7</td>
 						<td class="action-buttons">
 							<button class="edit-btn">✎</button>
 							<button class="delete-btn">✕</button>
@@ -348,7 +358,7 @@ body {
 						<td>Spring</td>
 						<td>프레임워크 기초</td>
 						<td>박신우</td>
-						<td>2024/01/06</td>
+						<td>Chapter1</td>
 						<td class="action-buttons">
 							<button class="edit-btn">✎</button>
 							<button class="delete-btn">✕</button>
@@ -358,7 +368,7 @@ body {
 						<td>MySQL</td>
 						<td>데이터베이스 설계</td>
 						<td>박신우</td>
-						<td>2024/01/07</td>
+						<td>Chapter1</td>
 						<td class="action-buttons">
 							<button class="edit-btn">✎</button>
 							<button class="delete-btn">✕</button>
@@ -368,7 +378,7 @@ body {
 						<td>React</td>
 						<td>컴포넌트 생명주기</td>
 						<td>박신우</td>
-						<td>2024/01/08</td>
+						<td>Chapter2</td>
 						<td class="action-buttons">
 							<button class="edit-btn">✎</button>
 							<button class="delete-btn">✕</button>
@@ -378,7 +388,7 @@ body {
 						<td>Node.js</td>
 						<td>서버 구축하기</td>
 						<td>박신우</td>
-						<td>2024/01/09</td>
+						<td>Chapter3</td>
 						<td class="action-buttons">
 							<button class="edit-btn">✎</button>
 							<button class="delete-btn">✕</button>
@@ -388,7 +398,7 @@ body {
 						<td>Git</td>
 						<td>버전 관리 시스템</td>
 						<td>박신우</td>
-						<td>2024/01/10</td>
+						<td>Chapter1</td>
 						<td class="action-buttons">
 							<button class="edit-btn">✎</button>
 							<button class="delete-btn">✕</button>
@@ -411,19 +421,25 @@ body {
 		</div>
 	</div>
 	<script>
-		document.getElementById('categoryFilter').addEventListener('change', function() {
-		    const selectedCategory = this.value;
+		document.getElementById('categoryFilter').addEventListener('change', filterTable);
+		document.getElementById('lectureFilter').addEventListener('change', filterTable);
+	
+		function filterTable() {
+		    const selectedCategory = document.getElementById('categoryFilter').value;
+		    const selectedLecture = document.getElementById('lectureFilter').value;
 		    const rows = document.querySelectorAll('.chapter-table tbody tr');
 		    rows.forEach(row => {
-		        const category = row.querySelector('td:first-child').textContent;
-		        if (selectedCategory === 'all' || category === selectedCategory) {
+		        const category = row.querySelector('td:nth-child(1)').textContent;
+		        const lecture = row.querySelector('td:nth-child(2)').textContent;
+		        
+		        if ((selectedCategory === 'all' || category === selectedCategory) &&
+		            (selectedLecture === 'all' || lecture === selectedLecture)) {
 		            row.style.display = '';
 		        } else {
 		            row.style.display = 'none';
 		        }
 		    });
-		});
-		
+		}
 		const modal = document.getElementById('addModal');
 		const addBtn = document.querySelector('.add-btn');
 		const closeBtn = document.querySelector('.close');
