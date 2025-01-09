@@ -18,7 +18,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	min-height: 100vh;
 	text-align: center;
 	max-width: 1420px;
 	width: 80%;
@@ -44,26 +44,28 @@ body {
 	float: right;
 	padding: 20px;
 	width: 1100px;
+
 }
 
 .notice{
 	float: right;
 	background: #f8f8f8;
-	width: 8%;
+	width: 6%;
 	border-radius: 10px;
 	border: 1px solid #cbcbcb;
 	color: #605F5F;
-	padding: 10px;
+	padding: 8px;
 
 }
 
-.noticeImage{
+.noticeImage img{
 
-	width: 10%;
-	height: 10%;
+	width: 20px;
+	height: 20px;
 	margin: auto;
 
 }
+
 #noticeBox{
 	width: 15px;
 	height: 15px;
@@ -89,11 +91,27 @@ body {
 .category {
 	float: left;
 	margin: 10px;
+
+}
+
+.deletePost{
+	float: right;
+	background-color: white;
+	width: 4%;
+	padding: 8px;
+	border: 1px solid #e3f7ff;
+	border-radius: 5px;
+	display: inline-block;
+	border: 1px solid #ddd;
+}
+
+.deletePost img{
+	width: 20px;
 }
 
 .editor {
 	background-color: white;
-	padding: 20px;
+	padding: 10px;
 	border: 1px solid #ddd;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
@@ -113,17 +131,23 @@ body {
 }
 
 .save-button {
-	text-align: center;
+	/*text-align: center;*/
+
 }
 
 .save-button button {
-	padding: 10px 30px;
+	margin: 10px;
+	margin-bottom: 30px;
+	padding: 10px 20px;
+	font-size: 14px;
 	background-color: #007bff;
 	color: white;
-	font-size: 16px;
 	border: none;
-	border-radius: 5px;
+	border-radius: 30px;
 	cursor: pointer;
+	float: right;
+	margin: 0 auto;
+
 }
 
 .save-button button:hover {
@@ -144,7 +168,7 @@ body {
 				<label for="noticeBox"></label>
 			</span></div>
 			<div class="header">
-				
+
 				<span class="category"> <select name="category" id="category"
 					required>
 						<option value="java">Java</option>
@@ -154,8 +178,12 @@ body {
 						<option value="python">Python</option>
 						<option value="c#">C#</option>
 				</select>
-				</span> <span class="title"> <input type="text" placeholder="제목">
 				</span>
+				<span class="title"> <input type="text" placeholder="제목">
+				</span>
+				<span class="deletePost"><img src="../../../static/photo/question/File%20X%2002.png" alt="deletePost"></span>
+
+
 			</div>
 			<!-- 본문 입력 -->
 			<div class="editor">

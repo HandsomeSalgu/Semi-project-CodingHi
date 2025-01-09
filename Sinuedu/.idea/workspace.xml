@@ -30,6 +30,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;SUCRESUCCES&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/HandsomeSalgu/Semi-project-CodingHi.git&quot;,
+    &quot;accountId&quot;: &quot;5e208280-81e3-4588-a294-fbbf1b698483&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -42,7 +54,9 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "<알 수 없음>",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/semi-git/Sinuedu",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -78,6 +92,8 @@
       <option name="presentableId" value="Default" />
       <updated>1736403263047</updated>
       <workItem from="1736403264578" duration="8572000" />
+      <workItem from="1736429925944" duration="200000" />
+      <workItem from="1736430132001" duration="4030000" />
     </task>
     <servers />
   </component>
