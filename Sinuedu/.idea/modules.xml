@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Sinuedu.iml" filepath="$PROJECT_DIR$/.idea/modules/Sinuedu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Sinuedu.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Sinuedu.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Sinuedu.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Sinuedu.test.iml" />
+    </modules>
+  </component>
+</project>
