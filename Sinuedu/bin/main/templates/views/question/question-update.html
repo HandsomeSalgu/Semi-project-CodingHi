@@ -48,12 +48,22 @@ body {
 
 .notice{
 	float: right;
-	background: #e3f7ff;
-	width: 10%;
-	border-top-left-radius: 20px;
-	border-top-right-radius: 20px;
+	background: #f8f8f8;
+	width: 8%;
+	border-radius: 20px;
+	border: 1px solid #cbcbcb;
 	color: #605F5F;
-	padding: 15px;
+	padding: 10px;
+}
+
+.noticeBox{
+	float: right;
+	background: #f8f8f8;
+	width: 8%;
+	border-radius: 10px;
+	border: 1px solid #cbcbcb;
+	color: #605F5F;
+	padding: 10px;
 }
 .header {
 	margin-top: 100px;
@@ -121,7 +131,9 @@ body {
 	<div class="container">
 		<!-- 제목 및 카테고리 입력 -->
 		<div class="content">
-			<div class="notice">사진</div>
+			<div class="notice">
+				<div class="noticeImage"></div>
+			<div class="noticeBox"></div></div>
 			<div class="header">
 				
 				<span class="category"> <select name="category" id="category"
