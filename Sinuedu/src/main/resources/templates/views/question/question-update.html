@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>질문 게시물 작성</title>
+<title>질문 게시물 수정페이지</title>
 <style>
 /* 기본 스타일 초기화 */
 * {
@@ -50,23 +50,27 @@ body {
 	float: right;
 	background: #f8f8f8;
 	width: 8%;
-	border-radius: 20px;
-	border: 1px solid #cbcbcb;
-	color: #605F5F;
-	padding: 10px;
-}
-
-.noticeBox{
-	float: right;
-	background: #f8f8f8;
-	width: 8%;
 	border-radius: 10px;
 	border: 1px solid #cbcbcb;
 	color: #605F5F;
 	padding: 10px;
+
 }
+
+.noticeImage{
+
+	width: 10%;
+	height: 10%;
+	margin: auto;
+
+}
+#noticeBox{
+	width: 15px;
+	height: 15px;
+}
+
 .header {
-	margin-top: 100px;
+	margin-top: 50px;
 	background: #e3f7ff;
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
@@ -132,8 +136,13 @@ body {
 		<!-- 제목 및 카테고리 입력 -->
 		<div class="content">
 			<div class="notice">
-				<div class="noticeImage"></div>
-			<div class="noticeBox"></div></div>
+				<span class="noticeImage">
+					<img src="../../../static/photo/question/Bell%2002.png" alt="bell">
+				</span>
+			<span class="noticeBoxDiv">
+				<input type="checkbox" id="noticeBox" name="noticeBox" value="notice"/>
+				<label for="noticeBox"></label>
+			</span></div>
 			<div class="header">
 				
 				<span class="category"> <select name="category" id="category"
@@ -150,45 +159,45 @@ body {
 			</div>
 			<!-- 본문 입력 -->
 			<div class="editor">
-				<div class="editorbox">
-					<form action="#">
-						<select name="fontType">
-							<option value="글씨체1">글씨체1</option>
-							<option value="글씨체2">글씨체2</option>
-							<option value="글씨체3">글씨체3</option>
-							<option value="글씨체4">글씨체4</option>
-							<option value="글씨체5">글씨체5</option>
-						</select>
-					</form>
-					<form action="#">
-						<select name="fontSize">
-							<option value=10>10</option>
-							<option value=11>11</option>
-							<option value=12>12</option>
-							<option value=13>13</option>
-							<option value=14>14</option>
-						</select>
-					</form>
-					<form action="#">
-						<select name="fontColor">
-							<option value=>글꼴1</option>
-							<option value="글꼴2">글꼴2</option>
-							<option value="글꼴3">글꼴3</option>
-							<option value="글꼴4">글꼴4</option>
-							<option value="글꼴5">글꼴5</option>
-						</select>
-					</form>
-					<form action="#">
-						<select name="bgColor">
-							<option value="글꼴1">글꼴1</option>
-							<option value="글꼴2">글꼴2</option>
-							<option value="글꼴3">글꼴3</option>
-							<option value="글꼴4">글꼴4</option>
-							<option value="글꼴5">글꼴5</option>
-						</select>
-					</form>
-					
-				</div>
+<!--				<div class="editorbox">-->
+<!--					<form action="#">-->
+<!--						<select name="fontType">-->
+<!--							<option value="글씨체1">글씨체1</option>-->
+<!--							<option value="글씨체2">글씨체2</option>-->
+<!--							<option value="글씨체3">글씨체3</option>-->
+<!--							<option value="글씨체4">글씨체4</option>-->
+<!--							<option value="글씨체5">글씨체5</option>-->
+<!--						</select>-->
+<!--					</form>-->
+<!--					<form action="#">-->
+<!--						<select name="fontSize">-->
+<!--							<option value=10>10</option>-->
+<!--							<option value=11>11</option>-->
+<!--							<option value=12>12</option>-->
+<!--							<option value=13>13</option>-->
+<!--							<option value=14>14</option>-->
+<!--						</select>-->
+<!--					</form>-->
+<!--					<form action="#">-->
+<!--						<select name="fontColor">-->
+<!--							<option value=>글꼴1</option>-->
+<!--							<option value="글꼴2">글꼴2</option>-->
+<!--							<option value="글꼴3">글꼴3</option>-->
+<!--							<option value="글꼴4">글꼴4</option>-->
+<!--							<option value="글꼴5">글꼴5</option>-->
+<!--						</select>-->
+<!--					</form>-->
+<!--					<form action="#">-->
+<!--						<select name="bgColor">-->
+<!--							<option value="글꼴1">글꼴1</option>-->
+<!--							<option value="글꼴2">글꼴2</option>-->
+<!--							<option value="글꼴3">글꼴3</option>-->
+<!--							<option value="글꼴4">글꼴4</option>-->
+<!--							<option value="글꼴5">글꼴5</option>-->
+<!--						</select>-->
+<!--					</form>-->
+<!--					-->
+<!--				</div>-->
 				<textarea placeholder="내용을 입력하세요"></textarea>
 			</div>
 			<!-- 저장 버튼 -->
