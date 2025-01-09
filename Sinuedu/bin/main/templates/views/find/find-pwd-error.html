@@ -19,149 +19,6 @@ width: 100%;
 max-width: 1400px;
 }
 
-/* 사이드 바*/
-.sidebar {
-position: sticky;
-top: 100%;
-margin: 50px;
-width: 260px;
-height: 1000px;
-border-radius: 30px;
-border-right: 1px solid #E6E4F0;
-background: #FFF;
-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
-.header {
-padding: 20px;
-}
-.header img {
-width: 170px;
-height: 85px;
-flex-shrink: 0;
-margin-top: 10px;
-margin-left: 30px;
-}
-.header img:hover {
-cursor: pointer;
-}
-.form {
-margin: 5px;
-padding: 20px;
-width: 210px;
-height: 250px;
-border-radius: 20px;
-border: 1px solid #dfdfdf;
-}
-.form input {
-width: 200px;
-height: 40px;
-padding: 5px;
-margin-bottom: 10px;
-border: 1px solid #ccc;
-border-radius: 5px;
-font-size: 14px;
-}
-.form button {
-width: 100%;
-padding: 12px;
-border: none;
-border-radius: 5px;
-background-color: #57f;
-color: #ffffff;
-font-size: 16px;
-cursor: pointer;
-transition: background-color 0.3s, color 0.3s;
-margin-top: 10px;
-}
-.form button:hover {
-background-color: #1e5491;
-}
-.form button:active {
-background-color: #6a8eff;
-color: white;
-}
-.links {
-margin-top: 10px;
-font-size: 13px;
-color: #888;
-text-align: center;
-}
-.links a {
-color: #6a8eff;
-text-decoration: none;
-}
-.links a:hover {
-text-decoration: underline;
-}
-.menu {
-background-color: #ffffff;
-padding: 15px;
-border-top: 1px solid #e5e5e5;
-margin-top: 20px;
-}
-.menu a {
-display: flex;
-align-items: center;
-padding: 15px;
-margin-bottom: 5px;
-color: #555;
-text-decoration: none;
-border-radius: 15px;
-background-color: #ffffff;
-}
-.menu a img {
-width: 20px;
-height: 20px;
-margin-right: 10px;
-vertical-align: middle;
-}
-.menu a span {
-line-height: 20px;
-display: inline-block;
-vertical-align: middle;
-}
-.menu a.active {
-background-color: #6a8eff;
-color: white;
-}
-.menu a:hover {
-background-color: #e8edff;
-}
-.category {
-background-color: #ffffff;
-padding: 15px;
-border-top: 1px solid #e5e5e5;
-}
-.category a {
-display: flex;
-align-items: center;
-padding: 7px;
-margin-bottom: 5px;
-color: #555;
-text-decoration: none;
-border-radius: 15px;
-background-color: #ffffff;
-margin-left: 20px;
-}
-.category a img {
-width: 20px;
-height: 20px;
-margin-right: 10px;
-vertical-align: middle;
-}
-.category a span {
-line-height: 20px;
-display: inline-block;
-vertical-align: middle;
-}
-.category a.active {
-background-color: #6a8eff;
-color: white;
-}
-.category a:hover {
-background-color: #e8edff;
-}
-
 /* 메인 바*/
 .content-container{
 position: relative;
@@ -269,36 +126,7 @@ margin-bottom: 10px;
 </head>
 <body>
     <div class="container">
-        <div class="sidebar">
-			<div class="header">
-            	<img src="logo2.png" alt="Profile">
-			</div>
-			<div class="form">
-				<a>ID</a>
-				<input type="text" placeholder="아이디를 입력해주세요.">
-				<p></p>
-				<a>Password</a>
-				<input type="password" placeholder="비밀번호를 입력해주세요.">
-				<button>Sign In</button>
-				<div class="links">
-					<a href="#">회원가입</a> / <a href="#">아이디</a> /<a href="#"> 패스워드 찾기</a>
-				</div>
-			</div>
-			<div class="menu">
-				<a href="#" class="active"><img src="homeicon.png" alt="Home"><span>HOME</span></a>
-				<a href="#"><img src="calander.png"><span>SINU EDU 소개</span></a>
-				<a href="#"><img src="Graph.png"><span>강사 소개</span></a>
-				<a href="#"><img src="act.png" ><span>질문 게시판</span></a>
-				<a href="#"><img src="Folder.png"><span>강의 목록</span></a>
-			</div>
-			<div class="category">
-				<a href="#"><img src="cgred.png"><span>JAVA</span></a>
-				<a href="#"><img src="cgblue.png"><span>ORCLE</span></a>
-				<a href="#"><img src="cgpurple.png" ><span>JDBC</span></a>
-				<a href="#"><img src="cggreen.png"><span>HTML / CSS</span></a>
-			</div>
-		</div>
-        <div class="content-container"> 
+    	<div class="content-container"> 
 			<div class="steps">
 				<div class="step">
 					비밀번호 찾기
@@ -332,10 +160,10 @@ margin-bottom: 10px;
 				<br/>
 				<div class="button">
 					<div class="pwd-button">
-						<button class="pwd-button" id="pwdButton">비밀번호 찾기</button>
+						<button class="pwd-button" id="pwdButton" onclick="location.href='find-pwd.html'">비밀번호 찾기</button>
 					</div>
 					<div class="main-button">
-						<button class="main-button" id="mainButton">메인 페이지</button>
+						<button class="main-button" id="mainButton" onclick="location.href='../../index.html'">메인 페이지</button>
 					</div>
 				</div>
 			</div>
