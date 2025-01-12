@@ -155,7 +155,7 @@ textarea {
 	<div class="container">
 		<div class="content-container">
 			<div class="content-header">
-				<h2>강의 추가</h2>
+				<h2>챕터 추가</h2>
 			</div>
 			<form>
 				<div class="form-section">
@@ -172,6 +172,18 @@ textarea {
 							<option value="React">React</option>
 							<option value="Node.js">Node.js</option>
 							<option value="Git">Git</option>
+						</select> <select id="categoryFilter"
+							style="padding: 5px; border-radius: 4px; border: 1px solid #ddd;">
+							<option value="all">강의</option>
+							<option value="JAVA">JAVA 기초</option>
+							<option value="JDBC">JDBC 기초</option>
+							<option value="HTML/CSS">HTML/CSS 기초</option>
+							<option value="JavaScript">JavaScript 기초</option>
+							<option value="Spring">Spring 기초</option>
+							<option value="MySQL">MySQL 기초</option>
+							<option value="React">React 기초</option>
+							<option value="Node.js">Node.js 기초</option>
+							<option value="Git">Git 기초</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -179,12 +191,12 @@ textarea {
 					</div>
 					<div class="form-group">
 						<textarea id="description" name="description"
-							placeholder="강의 소개를 입력하세요 (200자 이내)"></textarea>
+							placeholder="내용을 입력하세요 (200자 이내)"></textarea>
 					</div>
-				<div class="button-group">
-					<button type="submit" class="add-btn">추가</button>
-					<button type="button" class="cancel-btn">취소</button>
-				</div>
+					<div class="button-group">
+						<button type="submit" class="add-btn">추가</button>
+						<button type="button" class="cancel-btn">취소</button>
+					</div>
 				</div>
 			</form>
 		</div>

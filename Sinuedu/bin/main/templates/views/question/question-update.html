@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>질문 게시물 작성</title>
+<title>질문 게시물 수정페이지</title>
 <style>
 /* 기본 스타일 초기화 */
 * {
@@ -18,7 +18,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	min-height: 100vh;
 	text-align: center;
 	max-width: 1420px;
 	width: 80%;
@@ -44,19 +44,35 @@ body {
 	float: right;
 	padding: 20px;
 	width: 1100px;
+
 }
 
 .notice{
 	float: right;
-	background: #e3f7ff;
-	width: 10%;
-	border-top-left-radius: 20px;
-	border-top-right-radius: 20px;
+	background: #f8f8f8;
+	width: 6%;
+	border-radius: 10px;
+	border: 1px solid #cbcbcb;
 	color: #605F5F;
-	padding: 15px;
+	padding: 8px;
+
 }
+
+.noticeImage img{
+
+	width: 20px;
+	height: 20px;
+	margin: auto;
+
+}
+
+#noticeBox{
+	width: 15px;
+	height: 15px;
+}
+
 .header {
-	margin-top: 100px;
+	margin-top: 50px;
 	background: #e3f7ff;
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
@@ -75,11 +91,27 @@ body {
 .category {
 	float: left;
 	margin: 10px;
+
+}
+
+.deletePost{
+	float: right;
+	background-color: white;
+	width: 4%;
+	padding: 8px;
+	border: 1px solid #e3f7ff;
+	border-radius: 5px;
+	display: inline-block;
+	border: 1px solid #ddd;
+}
+
+.deletePost img{
+	width: 20px;
 }
 
 .editor {
 	background-color: white;
-	padding: 20px;
+	padding: 10px;
 	border: 1px solid #ddd;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
@@ -99,17 +131,23 @@ body {
 }
 
 .save-button {
-	text-align: center;
+	/*text-align: center;*/
+
 }
 
 .save-button button {
-	padding: 10px 30px;
+	margin: 10px;
+	margin-bottom: 30px;
+	padding: 10px 20px;
+	font-size: 14px;
 	background-color: #007bff;
 	color: white;
-	font-size: 16px;
 	border: none;
-	border-radius: 5px;
+	border-radius: 30px;
 	cursor: pointer;
+	float: right;
+	margin: 0 auto;
+
 }
 
 .save-button button:hover {
@@ -121,9 +159,16 @@ body {
 	<div class="container">
 		<!-- 제목 및 카테고리 입력 -->
 		<div class="content">
-			<div class="notice">사진</div>
+			<div class="notice">
+				<span class="noticeImage">
+					<img src="../../../static/photo/question/Bell%2002.png" alt="bell">
+				</span>
+			<span class="noticeBoxDiv">
+				<input type="checkbox" id="noticeBox" name="noticeBox" value="notice"/>
+				<label for="noticeBox"></label>
+			</span></div>
 			<div class="header">
-				
+
 				<span class="category"> <select name="category" id="category"
 					required>
 						<option value="java">Java</option>
@@ -133,50 +178,54 @@ body {
 						<option value="python">Python</option>
 						<option value="c#">C#</option>
 				</select>
-				</span> <span class="title"> <input type="text" placeholder="제목">
 				</span>
+				<span class="title"> <input type="text" placeholder="제목">
+				</span>
+				<span class="deletePost"><img src="../../../static/photo/question/File%20X%2002.png" alt="deletePost"></span>
+
+
 			</div>
 			<!-- 본문 입력 -->
 			<div class="editor">
-				<div class="editorbox">
-					<form action="#">
-						<select name="fontType">
-							<option value="글씨체1">글씨체1</option>
-							<option value="글씨체2">글씨체2</option>
-							<option value="글씨체3">글씨체3</option>
-							<option value="글씨체4">글씨체4</option>
-							<option value="글씨체5">글씨체5</option>
-						</select>
-					</form>
-					<form action="#">
-						<select name="fontSize">
-							<option value=10>10</option>
-							<option value=11>11</option>
-							<option value=12>12</option>
-							<option value=13>13</option>
-							<option value=14>14</option>
-						</select>
-					</form>
-					<form action="#">
-						<select name="fontColor">
-							<option value=>글꼴1</option>
-							<option value="글꼴2">글꼴2</option>
-							<option value="글꼴3">글꼴3</option>
-							<option value="글꼴4">글꼴4</option>
-							<option value="글꼴5">글꼴5</option>
-						</select>
-					</form>
-					<form action="#">
-						<select name="bgColor">
-							<option value="글꼴1">글꼴1</option>
-							<option value="글꼴2">글꼴2</option>
-							<option value="글꼴3">글꼴3</option>
-							<option value="글꼴4">글꼴4</option>
-							<option value="글꼴5">글꼴5</option>
-						</select>
-					</form>
-					
-				</div>
+<!--				<div class="editorbox">-->
+<!--					<form action="#">-->
+<!--						<select name="fontType">-->
+<!--							<option value="글씨체1">글씨체1</option>-->
+<!--							<option value="글씨체2">글씨체2</option>-->
+<!--							<option value="글씨체3">글씨체3</option>-->
+<!--							<option value="글씨체4">글씨체4</option>-->
+<!--							<option value="글씨체5">글씨체5</option>-->
+<!--						</select>-->
+<!--					</form>-->
+<!--					<form action="#">-->
+<!--						<select name="fontSize">-->
+<!--							<option value=10>10</option>-->
+<!--							<option value=11>11</option>-->
+<!--							<option value=12>12</option>-->
+<!--							<option value=13>13</option>-->
+<!--							<option value=14>14</option>-->
+<!--						</select>-->
+<!--					</form>-->
+<!--					<form action="#">-->
+<!--						<select name="fontColor">-->
+<!--							<option value=>글꼴1</option>-->
+<!--							<option value="글꼴2">글꼴2</option>-->
+<!--							<option value="글꼴3">글꼴3</option>-->
+<!--							<option value="글꼴4">글꼴4</option>-->
+<!--							<option value="글꼴5">글꼴5</option>-->
+<!--						</select>-->
+<!--					</form>-->
+<!--					<form action="#">-->
+<!--						<select name="bgColor">-->
+<!--							<option value="글꼴1">글꼴1</option>-->
+<!--							<option value="글꼴2">글꼴2</option>-->
+<!--							<option value="글꼴3">글꼴3</option>-->
+<!--							<option value="글꼴4">글꼴4</option>-->
+<!--							<option value="글꼴5">글꼴5</option>-->
+<!--						</select>-->
+<!--					</form>-->
+<!--					-->
+<!--				</div>-->
 				<textarea placeholder="내용을 입력하세요"></textarea>
 			</div>
 			<!-- 저장 버튼 -->
