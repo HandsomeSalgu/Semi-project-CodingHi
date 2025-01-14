@@ -18,7 +18,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	min-height: 100vh;
 	text-align: center;
 	max-width: 1420px;
 	width: 80%;
@@ -27,7 +27,6 @@ body {
 
 .qContainer {
 	width: 100%;
-	/
 	/* 	margin: 0 auto; */
 }
 
@@ -68,6 +67,7 @@ body {
 	border: 1px solid #e3f7ff;
 	border-radius: 5px;
 	background-color: white;
+
 }
 
 .createDate {
@@ -119,13 +119,17 @@ body {
 .editPost{
 	float: right;
 	background-color: white;
-    width: 5%;	
+    width: 4%;
     padding: 8px;
     border: 1px solid #e3f7ff;
     border-radius: 5px;
     display: inline-block;
-		
 }
+
+.editPost img{
+	width: 20px;
+}
+
 .zero {
 	float: right;
 }
@@ -216,7 +220,8 @@ table th {
 				<span class="view">조회수</span>
 			</div>
 			<div class="titleSection">
-				<span class="category">카테고리</span> <span class="title">제목</span> <span class="editPost">삭제</span>
+				<span class="category">카테고리</span> <span class="title">제목</span>
+				<span class="editPost"><img src="../../../static/photo/question/Edit%2003.png" alt="edit"></span>
 
 			</div>
 
