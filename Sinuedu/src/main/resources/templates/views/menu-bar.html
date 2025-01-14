@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,7 @@
         .container {
         	position: fixed;
         	transition: ease-out;
-        	margin-left: -260px;
+        	margin-left: -30px;
             width: 260px;
             height: 1000px;
             border-radius: 30px;
@@ -187,17 +187,33 @@
             
             <img src="logo2.png" alt="Profile">
         </div>
+        
+        <form action="/member/login" th:if="${session.loginUser == null}">
         <div class="form">
             <a>ID</a>
-            <input type="text" placeholder="아이디를 입력해주세요.">
+            <input type="text" placeholder="아이디를 입력해주세요." name="userId">
             <p></p>
             <a>Password</a>
-            <input type="password" placeholder="비밀번호를 입력해주세요.">
+            <input type="password" placeholder="비밀번호를 입력해주세요." name="userPw">
             <button>Sign In</button>
             <div class="links">
                 <a href="/member/join">회원가입</a> / <a href="/member/findid">아이디</a> /<a href="/member/findpwd"> 패스워드 찾기</a>
             </div>
         </div>
+        </form>
+        
+        <form action="/member/logout" th:if="${session.loginUser != null}">
+        <div class="form" >
+			<br/>
+			<a>[[${session.loginUser.admin == "Y" ? "관리자" : "일반회원"}]]</a> <br/><br/>
+			<span>[[${session.loginUser.userName}]] 환영합니다</span>
+			<br/><br/><br/>
+			<button>로그아웃</button>
+		</div>
+		</form>
+        
+        
+        
         <div class="menu">
             <a href="/home" class="active"><img src="homeicon.png" alt="Home"><span>HOME</span></a>
             <a href="/home/info"><img src="calander.png"><span>SINU EDU 소개</span></a>

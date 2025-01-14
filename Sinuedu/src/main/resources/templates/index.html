@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -275,35 +275,9 @@
 </head>
 <body>
     <div class ="main-container">
-        <div class="container">
-	        <div class="header">
-	            <img src="logo2.png" alt="Profile">
-	        </div>
-	        <div class="form">
-	            <a>ID</a>
-	            <input type="text" placeholder="아이디를 입력해주세요.">
-	            <p></p>
-	            <a>Password</a>
-	            <input type="password" placeholder="비밀번호를 입력해주세요.">
-	            <button>Sign In</button>
-	            <div class="links">
-	                <a href="/member/join">회원가입</a> / <a href="/member/findid">아이디</a> /<a href="/member/findpwd"> 패스워드 찾기</a>
-	            </div>
-	        </div>
-	        <div class="menu">
-	            <a href="/home" class="active"><img src="homeicon.png" alt="Home"><span>HOME</span></a>
-	            <a href="/home/info"><img src="calander.png"><span>SINU EDU 소개</span></a>
-	            <a href="/home/mentor"><img src="Graph.png"><span>강사 소개</span></a>
-	            <a href="/qna/list"><img src="act.png" ><span>질문 게시판</span></a>
-	            <a href="/lecture/list"><img src="Folder.png"><span>강의 목록</span></a>
-	        </div>
-	        <div class="category">
-	            <a href="#"><img src="cgred.png"><span>JAVA</span></a>
-	            <a href="#"><img src="cgblue.png"><span>ORCLE</span></a>
-	            <a href="#"><img src="cgpurple.png" ><span>JDBC</span></a>
-	            <a href="#"><img src="cggreen.png"><span>HTML / CSS</span></a>
-	        </div>
-    	</div>
+    
+        <div th:replace="~{views/menu-bar.html}"></div>
+        
         <div class = "banner">
             <div >
                 <img class = "banner-img" src="banner.png">
