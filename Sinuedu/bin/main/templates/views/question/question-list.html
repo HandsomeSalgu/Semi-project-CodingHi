@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -184,86 +184,42 @@ table th {
                             <th>조회수</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                    <tbody>                 
+                       <tr th:each="q : ${list}">
+                       		<td>[[${q.qnaNo}]]</td>
+                       		<td th:text="${q.cgNo}"></td>
+                       		<td>[[${q.qnaTitle}]]</td>
+                       		<td>[[${q.writer}]]</td>
+                       		<td th:text="${q.createDate}"></td>
+                       		<td>[[${q.views}]]</td>
+                       </tr>
                     </tbody>
                 </table>
             </div>
             <div class="write-button">
                 <button>글쓰기</button>
             </div>
-            <div class="pagination">
-                <a href="#"><</a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">></a>
-            </div>
+            <ul class="pagination">
+            	<!-- 이전 페이지 -->
+                <li>
+	                <a th:href="@{${loc}(page=${pi.currentPage-1})}" aria-label="Previous">
+	                	<span aria-hidden="true">&laquo;</span>
+	                </a>
+                </li>
+                
+                <!-- 숫자 --> 
+                <li th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}">
+                	<a th:href="@{${loc}(page=${p})}">[[${p}]]</a> 
+                </li>
+                
+                <!-- 다음 페이지 -->	
+                <li> 
+                	<a th:href="@{${loc}(page=${pi.currentPage+1})}" aria-label="Next">
+	            		<span aria-hidden="true">&raquo;</span>
+	            	</a>
+                </li>
+                
+            </ul>
             <div class="search">
                 <input type="search" placeholder="Search" size="20">
                 <button>검색</button>

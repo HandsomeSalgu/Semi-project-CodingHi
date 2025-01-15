@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sinuedu.board.qna.model.mapper.QnaMapper">
+
+	<select id = "getListCount">
+		select count(*)
+		from qna
+	</select>
+
+	<select id="selectBoardList">
+		select *
+		from qna
+			 join users on(WRITER = USER_NO)
+		order by QNA_NO desc
+	</select>
+	
+</mapper>
