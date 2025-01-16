@@ -1,0 +1,21 @@
+package com.sinuedu.board.lecture.model.vo;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Lecture {
+	private int lecNo;
+	private String lecTitle;
+	private String lecSubtitle;
+	private String lecDesc;
+	private int cgNo;
+	private String lecImg;
+}
