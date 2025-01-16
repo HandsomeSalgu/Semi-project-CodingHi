@@ -14,4 +14,8 @@ public interface QnaMapper {
 
 	ArrayList<Qna> selectBoardList(RowBounds rowBounds);
 
+	Qna selectBoard(int qNo);
+
+	int insertBoard(Qna q);
+
 }

@@ -25,6 +25,10 @@ body {
     margin: 0 auto;
 }
 
+ul, li {
+	list-style: none;
+}
+
 .container {
     width: 100%;
     margin: 0 auto;
@@ -84,14 +88,17 @@ body {
     padding: 10px;
     background: #E3EEFF;
     border: none;
-    border-bottom: px solid transparent;
+    /* border-bottom: px solid transparent; */
     cursor: pointer;
 }
 
-.tabs button.active {
+.tabs button:hover, tabs button.active {
     font-weight: bold;
     border-bottom: 2px solid #605F5F;
+    color: #000000;
 }
+
+
 
 .table-container {
     background: #fff;
@@ -112,6 +119,10 @@ table th, table td {
     border-bottom: 1px solid #ccc;
 }
 
+td:hover{
+	cursor: pointer;
+}
+
 table th {
     background: #f8f9fa;
 }
@@ -119,17 +130,21 @@ table th {
 .pagination {
     margin: 10px 0;
     text-align: center;
-    
 }
 
-.pagination a {
+.pagination li {
+	display: inline-block;
+}
+
+ 	.pagination a {
     margin: 0 5px;
     padding: 5px 10px;
-    text-decoration: none;
+    text-decoration: none; 
     background: hidden;
     color: #605F5F;
     border-radius: 4px;
-}
+    
+} 
 
 .pagination a:hover {
     color: #000000;
@@ -163,14 +178,15 @@ table th {
 </style>
 </head>
 <body>
+	<!-- <div th:replace="~{views/menu-bar.html}"></div> -->
     <div class="container">
-    <script src="/semiProject/menuBar.html"></script>
+    <!-- <script src="/semiProject/menuBar.html"></script> -->
         <div class="content">
             <div class="contenthead"><h2>질문 게시판</h2></div>
             <div class="tabs">
-                <button class="active">ALL</button>
-                <button>NOTICE</button>
-                <button>Q&A</button>
+                <button class="active" onclick="filterContent('ALL')">ALL</button>
+                <button class="active" onclick="filterContent('NOTICE')">NOTICE</button>
+                <button class="active" onclick="filterContent('Q&A')">Q&A</button>
             </div>
             <div class="table-container">
                 <table>
@@ -187,9 +203,9 @@ table th {
                     <tbody>                 
                        <tr th:each="q : ${list}">
                        		<td>[[${q.qnaNo}]]</td>
-                       		<td th:text="${q.cgNo}"></td>
+                       		<td th:text="${q.cgName}"></td>
                        		<td>[[${q.qnaTitle}]]</td>
-                       		<td>[[${q.writer}]]</td>
+                       		<td>[[${q.userNick}]]</td>
                        		<td th:text="${q.createDate}"></td>
                        		<td>[[${q.views}]]</td>
                        </tr>
@@ -197,7 +213,9 @@ table th {
                 </table>
             </div>
             <div class="write-button">
-                <button>글쓰기</button>
+                <button onclick="location.href='/qna/write'">글쓰기</button>	<!-- 나중에 지워도됨 -->
+                <button th:if="${session.loginUser != null}" class="btn btn-outline-success" type="button" onclick="location.href='/board/write'">WRITE BOARD</button>
+				<!-- 조건식은 넣어도 되고 안넣어도 상관없다?  th:if="${session.loginUser != null}" -->
             </div>
             <ul class="pagination">
             	<!-- 이전 페이지 -->
@@ -218,14 +236,49 @@ table th {
 	            		<span aria-hidden="true">&raquo;</span>
 	            	</a>
                 </li>
-                
             </ul>
+            
             <div class="search">
                 <input type="search" placeholder="Search" size="20">
                 <button>검색</button>
             </div>
-           
         </div>
     </div>
+    <script th:inline="javascript">
+    	window.onload = () => {
+    		const tbody = document.querySelector('tbody');
+			const tds = tbody.querySelectorAll('td');
+    		for(const td of tds){
+    			td.addEventListener('click', function(){
+    				const trTds = this.parentElement.querySelectorAll('td');
+    				const qnaNo = trTds[0].innerText;
+    				location.href="/question/" + qnaNo + "/" + /*<![CDATA[*//*[[${pi.currentPage}]]*/1/*]]>*/;
+    			});
+    		}
+    		 window.filterContent = function(category) {
+    	            const rows = tbody.querySelectorAll('tr');  // 모든 행을 가져옵니다.
+    	            
+    	            rows.forEach(row => {
+    	                const categoryTd = row.querySelectorAll('td')[1]; // '카테고리'가 있는 td
+    	                const isNotice = categoryTd.innerText.trim() === 'Y';  // 'NOTICE'가 'Y'인지 확인
+    	                
+    	                // 조건에 맞는 항목만 표시하고 나머지는 숨깁니다.
+    	                if (category === 'ALL') {
+    	                    row.style.display = '';  // 'ALL'을 선택하면 모든 항목을 보이게 합니다.
+    	                } else if (category === 'NOTICE' && isNotice) {
+    	                    row.style.display = '';  // 'NOTICE'는 'Y'인 항목만 보이게
+    	                } else {
+    	                    row.style.display = 'none';  // 나머지는 숨깁니다.
+    	                }
+    	            });
+    	            const buttons = document.querySelectorAll('.tabs button'); // 모든 버튼 가져오기
+    	            buttons.forEach(button => {
+    	                button.classList.remove('active'); // 모든 버튼의 'active' 클래스 제거
+    	            });
+    	            	clickedButton.classList.add('active'); // 클릭된 버튼에만 'active' 클래스 추가
+    	        };
+    	    };
+    </script>
+
 </body>
 </html>

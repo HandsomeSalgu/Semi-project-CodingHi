@@ -190,6 +190,7 @@
 </head>
 <body>
 <div class="container">
+	<form class="needs" action="/qna/insert" method="POST">
     <!-- 제목 및 카테고리 입력 -->
     <div class="content">
         <div class="notice">
@@ -214,7 +215,7 @@
 						<option value="Node.js">Node.js</option>
 						<option value="Git">Git</option>
 				</select>
-				</span> <span class="title"> <input type="text" placeholder="제목">
+				</span> <span class="title"> <input type="text" name="qnaTitle" placeholder="제목" >
 				</span>
         </div>
         <!-- 본문 입력 -->
@@ -258,13 +259,14 @@
             <!--					</form>-->
             <!--					-->
             <!--				</div>-->
-            <textarea placeholder="내용을 입력하세요"></textarea>
+            <textarea name="qnaDetail" placeholder="내용을 입력하세요"></textarea>
         </div>
         <!-- 저장 버튼 -->
         <div class="save-button">
             <button>저장</button>
         </div>
     </div>
+    </form>
 </div>
 </body>
 </html>
