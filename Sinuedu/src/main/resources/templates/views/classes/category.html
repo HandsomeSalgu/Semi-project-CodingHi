@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -10,6 +10,7 @@
         display: flex;
         justify-content: center;
     }
+
 
     .class-list{
         background-color: #FFFFFF;
@@ -39,6 +40,7 @@
     }
 
     .class-element{
+    	cursor: pointer;
         display: inline-block;
         width: 240px;
         height: 200px;
@@ -73,11 +75,11 @@
         margin-right: 17px;
         height: 35px;
     }
-
+    
     .options{
-        display: inline-block;
-        margin-left: 18px;
-        margin-right: 18px;
+    	display: inline-block;
+    	margin-left : 12px;
+    	margin-right : 12px;
     }
 
     .options>p:nth-child(1){
@@ -100,26 +102,31 @@
 </style>
 </head>
 <body>
+
+<!-- 	<div th:replace="~{views/menu-bar}"></div> -->
+	
     <section>
         <div class="write">
-            <img src="../../../static/photo/classes/write.png"/>
+            <img src="/photo/classes/write.png"/>
         </div>
         <div class="class-list">
             <div class="class-elements">
-                <div class="class-element">
+                <div class="class-element" th:each="lec : ${list}">
+                	<input type="hidden" name="lectureNo"
                     <div class="image-box">
-                        <img src="../../../static/photo/classes/example.png" class="image-thumbnail">
+                        <img src="/photo/classes/example.png" class="image-thumbnail">
                     </div>
                     <div class="element-title">
-                        <p>프로그래밍 기초</p>
-                        <p>JAVA</p>
+                        <p>[[${lec.lecTitle}]]</p>
+                        <p>[[${lec.cgName}]]</p>
                     </div>
                     <div>
-                        <img src="../../../static/photo/classes/bookmark-icon.png" class="image-bookmark"/>
+                        <img src="/photo/classes/bookmark-icon.png" class="image-bookmark"/>
                     </div>
+                    <br><br>
                     <div class="option-list">
                         <div class="options">
-                            <p>8</p>
+                            <p>[[${lec.totalChap}]]</p>
                             <p>Chpater</p>
                         </div>
                         <div class="options">
@@ -132,9 +139,23 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     </section>
+    
+    <script>
+    	window.onload= () =>{
+    		const elements = document.getElementsByClassName("class-element");
+    		const lec
+    		for(const element of elements){
+    			element.addEventListener('click', function(){
+    				$.ajax({
+    					url:'/lecture/postlist',
+    					data:
+    				})
+    			});
+    		}
+    	}
+    </script>
 </body>
 </html>
