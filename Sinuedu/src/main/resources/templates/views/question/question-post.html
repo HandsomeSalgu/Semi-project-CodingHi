@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <title>질문 게시물</title>
 <style>
 * {
@@ -43,13 +43,13 @@ body {
 
 .userInfo {
 	margin-top: 100px;
-    background: #e3f7ff;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    color: #605F5F;
-    padding: 15px;
-    /* height: auto; */
-    overflow: hidden;
+	background: #e3f7ff;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	color: #605F5F;
+	padding: 15px;
+	/* height: auto; */
+	overflow: hidden;
 }
 
 .userInfo input {
@@ -67,16 +67,15 @@ body {
 	border: 1px solid #e3f7ff;
 	border-radius: 5px;
 	background-color: white;
-
 }
 
 .createDate {
 	background-color: white;
-    width: 15%;
-    padding: 5px;
-    border: 1px solid #e3f7ff;
-    border-radius: 5px;
-    display: inline-block;
+	width: 15%;
+	padding: 5px;
+	border: 1px solid #e3f7ff;
+	border-radius: 5px;
+	display: inline-block;
 }
 
 .view {
@@ -88,7 +87,6 @@ body {
 	border-radius: 5px;
 }
 
-
 .titleSection {
 	flex: 1;
 	padding: 10px;
@@ -99,34 +97,33 @@ body {
 	float: left;
 	margin-left: 5px;
 	background-color: white;
-    width: 15%;
-    padding: 8px;
-    border: 1px solid #e3f7ff;
-    border-radius: 5px;
-    display: inline-block;
+	width: 15%;
+	padding: 8px;
+	border: 1px solid #e3f7ff;
+	border-radius: 5px;
+	display: inline-block;
 }
 
 .title {
 	background-color: white;
-    width: 50%;
-    padding: 8px;
-    border: 1px solid #e3f7ff;
-    border-radius: 5px;
-    display: inline-block;
-	
+	width: 50%;
+	padding: 8px;
+	border: 1px solid #e3f7ff;
+	border-radius: 5px;
+	display: inline-block;
 }
 
-.editPost{
+.editPost {
 	float: right;
 	background-color: white;
-    width: 4%;
-    padding: 8px;
-    border: 1px solid #e3f7ff;
-    border-radius: 5px;
-    display: inline-block;
+	width: 4%;
+	padding: 8px;
+	border: 1px solid #e3f7ff;
+	border-radius: 5px;
+	display: inline-block;
 }
 
-.editPost img{
+.editPost img {
 	width: 20px;
 }
 
@@ -213,89 +210,58 @@ table th {
 </head>
 <body>
 	<div class="qContainer">
-		<script src="/semiProject/menuBar.html"></script>
+		<!-- <div th:replace="~{views/menu-bar.html}"></div> -->
 		<div class="content">
-			<div class="userInfo">
-				<span class="writer">작성자</span> <span class="createDate">작성일</span>
-				<span class="view">조회수</span>
-			</div>
-			<div class="titleSection">
-				<span class="category">카테고리</span> <span class="title">제목</span>
-				<span class="editPost"><img src="../../../static/photo/question/Edit%2003.png" alt="edit"></span>
-
-			</div>
-
-			<div class="question-container">
-				<div class="questionDetail">
-					<a>이클립스에서 서버릿 작업을 해보려고 합니다.<br> 저는 서버릿도 생초보 아구요. 당연히 이클립스를
-						사용해 본 적 없습니다.<br> 단순히 스터디 차원은 아니구요.<br> 업무상황을 보며 코드 리뷰와
-						팀장님의 지시로 이것저것 알아보고 있습니다.<br> unix 서버에 있는 jsqm 파일(데이터),
-						sharedmemory(데이터 통합) 등을 받아<br> 화면에 뿌리는 작업입니다.<br> <br>
-						현재 기존 서버들은 unix 서버에서 에디터로 작업했었는데요.<br> 그 작업들을 이클립스와 같은 툴을
-						사용하여 개발 환경에 적용하려 합니다.<br> 단순히 에디터로서 서버릿 코드도 하고 테스트도 이클립스 상에서
-						할 수 있으면 합니다.<br> 이클립스에서 코딩하고 ftp로 서버로 올려서 테스트하는 방법이 아닌...<br>
-						<br> 이클립스, 톰캣 설치 등은 찾았고 로컬에서 간단한 서버릿은 테스트 해봤는데<br> unix
-						서버에 어떻게 연동시켜 작업을 할 수 있는지 궁금합니다.<br> <br> 경험 있으신 분들의 조언을
-						기다립니다.<br> 어느 것이든 좋습니다. 많은 답변 해주시면 좋겠습니다.<br></a>
+			<form class="need" method="POST" id="detailForm">
+				<div class="userInfo">
+					<span class="writer">[[${q.userNick}]]</span> <span class="createDate">[[${q.createDate}]]</span>
+					<span class="view">[[${q.views}]]</span>
 				</div>
-				<div class="commentList">
-					<table>
-						<thead>
-							<tr>
-								<th>댓글 작성자</th>
-								<th>댓글</th>
-
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>권태혁</td>
-								<td>저는 바부입니다</td>
-							</tr>
-							<tr>
-								<td>효뿌</td>
-								<td>태혁님의 말에 공감해요~</td>
-								
-							</tr>
-							<tr>
-								<td>까미창</td>
-								<td>감히~!~!~!~!~!~!~!~!</td>
-								
-							</tr>
-					</table>
-					<!-- 					<div class="cOpinion"> -->
-					<!-- 						<p class="c-opinion__list-nick"> -->
-					<!-- 							<a href="#">태혁</a> -->
-					<!-- 						</p> -->
-					<!-- 						<div class="cOpinionText"> -->
-					<!-- 							<p>오늘은 눈이와요</p> -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
-					<!-- 					<div class="cOpinion"> -->
-					<!-- 						<p class="c-opinion__list-nick"> -->
-					<!-- 							<a href="#">효뿌</a> -->
-					<!-- 						</p> -->
-					<!-- 						<div class="cOpinionText"> -->
-					<!-- 							<p>오늘 그래서 눈피크민이 뜬답니다</p> -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
-					<!-- 					<div class="cOpinion"> -->
-					<!-- 						<p class="c-opinion__list-nick"> -->
-					<!-- 							<a -->
-					<!-- 								href="#">까미창</a> -->
-					<!-- 						</p> -->
-					<!-- 						<div class="cOpinionText"> -->
-					<!-- 							<p>감히~!~!~!~!~!~!~!~!</p> -->
-					<!-- 						</div> -->
+				<div class="titleSection">
+					<span class="category">[[${q.cgName}]]</span> <span class="title">[[${q.qnaTitle}]]</span> 
+					<span class="editPost"><img src="../../../static/photo/question/Edit%2003.png" alt="edit"></span>
 				</div>
-				<div class="comment-section">
-					<textarea id="comment" placeholder="댓글을 남겨주세요"></textarea>
-					<button>등록</button>
-				</div>
-			</div>
 
+				<div class="question-container">
+					<div class="questionDetail">
+						<p>
+							[[${q.qnaDetail}]]
+						</p>
+					</div>
+					<div class="commentList">
+						<table>
+							<thead>
+								<tr>
+									<th>댓글 작성자</th>
+									<th>댓글</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>권태혁</td>
+									<td>저는 바부입니다</td>
+								</tr>
+								<tr>
+									<td>효뿌</td>
+									<td>태혁님의 말에 공감해요~</td>
+
+								</tr>
+								<tr>
+									<td>까미창</td>
+									<td>감히~!~!~!~!~!~!~!~!</td>
+
+								</tr>
+								</tbody>
+						</table>
+					</div>
+					<div class="comment-section">
+						<textarea id="comment" placeholder="댓글을 남겨주세요"></textarea>
+						<button>등록</button>
+					</div>
+				</div>
+			</form>
 		</div>
-	</div>
 	</div>
 </body>
 </html>

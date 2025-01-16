@@ -12,7 +12,18 @@
 		select *
 		from qna
 			 join users on(WRITER = USER_NO)
+			 join category using(CG_NO)
 		order by QNA_NO desc
 	</select>
 	
+	<insert id="insertBoard">
+		insert into qna
+		values(QNA_SEQ.nextval, #{qnaTitle}, #{qnaDetail}, #{writer}, sysdate, sysdate, #{views}, #{cgNo}, default)
+	</insert>
+	
+	<select id="selectBoard">
+		select *
+		from qna
+		where QNA_NO = #{qnaNo}
+	</select>
 </mapper>

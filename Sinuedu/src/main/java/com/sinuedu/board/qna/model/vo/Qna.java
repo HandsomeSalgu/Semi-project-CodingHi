@@ -19,6 +19,7 @@ public class Qna {
 	   private String qnaDetail;
 	   private int writer;
 	   private String userNick;
+	   private String cgName;
 	   private Date createDate;
 	   private Date updateDate;
 	   private int views;
