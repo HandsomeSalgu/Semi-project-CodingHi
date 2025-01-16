@@ -1,6 +1,7 @@
 package com.sinuedu.user.member.model.vo;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,8 @@ public class Member {
 	private String userPw;
 	private String userName;
 	private String userNick;
+	private String phone;
+	private Date birthDate;
 	private Date joinDate;
 	private String hint;
 	private String hintAnswer;
