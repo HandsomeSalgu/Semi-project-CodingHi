@@ -30,13 +30,23 @@ public class QnaService {
 	public int insertBoard(Qna q) {
 		return mapper.insertBoard(q);
 	}
+
 	
-	
-	/*
-	 * public Qna selectBoard(int qNo, String id) { Qna q = mapper.selectBoard(qNo);
-	 * if(q != null && id != null && !q.getUserNick().equals(id)) { int result =
-	 * mapper.updateViews(qNo); q.setViews(q.getViews()); } return null; }
-	 */
+//	 public Qna selectBoard(int qNo, String id) { 
+//		 Qna q = mapper.selectBoard(qNo);
+//		 if(q != null && id != null && !q.getUserNick().equals(id)) { 
+//			 int result = mapper.updateViews(qNo); q.setViews(q.getViews()); 
+//			 } 
+//		 return null; 
+//		 }
+
+	public Qna selectBoard(int qNo) {
+		return mapper.selectBoard(qNo);
+	}
 
 
+//	public Qna selectBoard(int qNo, int page) {
+//		return mapper.selectBoard(qNo,page);
+//	}
+		
 }

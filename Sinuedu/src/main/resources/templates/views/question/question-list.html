@@ -252,32 +252,19 @@ table th {
     			td.addEventListener('click', function(){
     				const trTds = this.parentElement.querySelectorAll('td');
     				const qnaNo = trTds[0].innerText;
-    				location.href="/question/" + qnaNo + "/" + /*<![CDATA[*//*[[${pi.currentPage}]]*/1/*]]>*/;
+    				location.href="/qna/" + qnaNo + "/" + /*<![CDATA[*//*[[${pi.currentPage}]]*/1/*]]>*/;
     			});
     		}
-    		 window.filterContent = function(category) {
-    	            const rows = tbody.querySelectorAll('tr');  // 모든 행을 가져옵니다.
-    	            
-    	            rows.forEach(row => {
-    	                const categoryTd = row.querySelectorAll('td')[1]; // '카테고리'가 있는 td
-    	                const isNotice = categoryTd.innerText.trim() === 'Y';  // 'NOTICE'가 'Y'인지 확인
-    	                
-    	                // 조건에 맞는 항목만 표시하고 나머지는 숨깁니다.
-    	                if (category === 'ALL') {
-    	                    row.style.display = '';  // 'ALL'을 선택하면 모든 항목을 보이게 합니다.
-    	                } else if (category === 'NOTICE' && isNotice) {
-    	                    row.style.display = '';  // 'NOTICE'는 'Y'인 항목만 보이게
-    	                } else {
-    	                    row.style.display = 'none';  // 나머지는 숨깁니다.
-    	                }
-    	            });
-    	            const buttons = document.querySelectorAll('.tabs button'); // 모든 버튼 가져오기
-    	            buttons.forEach(button => {
-    	                button.classList.remove('active'); // 모든 버튼의 'active' 클래스 제거
-    	            });
-    	            	clickedButton.classList.add('active'); // 클릭된 버튼에만 'active' 클래스 추가
-    	        };
-    	    };
+    		const activeBtns = document.getElementsByClassName('active');
+    		for(const btn of activeBtns){
+    			btn.addEventListener('click', function(){
+    				if(nextHiiden.value == ''){
+    					this.style.borderColor = 'black';
+
+    				}
+    	    });
+    	    }
+    	}
     </script>
 
 </body>

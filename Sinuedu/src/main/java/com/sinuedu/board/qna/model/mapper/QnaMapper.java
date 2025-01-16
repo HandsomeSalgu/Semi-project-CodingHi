@@ -18,4 +18,8 @@ public interface QnaMapper {
 
 	int insertBoard(Qna q);
 
+	int updateViews(int qNo);
+
+	//Qna selectBoard(int qNo, int page);
+
 }

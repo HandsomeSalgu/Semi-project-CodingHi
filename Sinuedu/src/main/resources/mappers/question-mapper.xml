@@ -21,4 +21,9 @@
 		values(QNA_SEQ.nextval, #{qnaTitle}, #{qnaDetail}, #{writer}, sysdate, sysdate, #{views}, #{cgNo}, default)
 	</insert>
 	
+	<select id="selectBoard">
+		select *
+		from qna
+		where QNA_NO = #{qnaNo}
+	</select>
 </mapper>
