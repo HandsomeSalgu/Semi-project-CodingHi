@@ -31,7 +31,9 @@ CREATE TABLE USERS (
     user_pw       VARCHAR2(100)  NOT NULL,
     user_name     VARCHAR2(50)   NOT NULL,
     user_nick     VARCHAR2(50)   NOT NULL,
-    joindate      DATE           DEFAULT SYSDATE NOT NULL,
+    phone	        VARCHAR(13)     NOT NULL,
+    brith_date    DATE               NOT NULL,
+    join_date      DATE           DEFAULT SYSDATE NOT NULL,
     hint          VARCHAR2(200)  NOT NULL,
     hint_answer   VARCHAR2(200)  NOT NULL,
     admin         VARCHAR2(1)    DEFAULT 'N' CHECK (admin IN ('Y', 'N')),
@@ -55,9 +57,9 @@ ALTER TABLE USERS ADD CONSTRAINT PK_USER PRIMARY KEY (
 
 CREATE SEQUENCE USERS_SEQ;
 
-INSERT INTO USERS VALUES(USERS_SEQ.NEXTVAL, 'admin', 'admin', '권태혁', 'salgu', sysdate, '내가 태어난 지역의 이름은?', '대전', 'Y', 'Y');
-INSERT INTO USERS VALUES(USERS_SEQ.NEXTVAL, 'wajangchang', 'wajangchang', '이창', '와장창', sysdate, '내가 태어난 지역의 이름은?', '평택', 'N', 'Y');
-INSERT INTO USERS VALUES(USERS_SEQ.NEXTVAL, 'sedketchup', 'sedketchupg', '조민주', '슬픈캐찹', sysdate, '내가 태어난 지역의 이름은?', '안양', 'N', 'Y');
+INSERT INTO USERS VALUES(USERS_SEQ.NEXTVAL, 'admin', 'admin', '권태혁', 'salgu', '010-1111-2222' , '20200101' ,sysdate, '내가 태어난 지역의 이름은?', '대전', 'Y', 'Y');
+INSERT INTO USERS VALUES(USERS_SEQ.NEXTVAL, 'wajangchang', 'wajangchang', '이창', '와장창', '010-2222-3333', '20200101' ,sysdate, '내가 태어난 지역의 이름은?', '평택', 'N', 'Y');
+INSERT INTO USERS VALUES(USERS_SEQ.NEXTVAL, 'sedketchup', 'sedketchupg', '조민주', '슬픈캐찹', '010-3333-4444' , '20200101' ,sysdate, '내가 태어난 지역의 이름은?', '안양', 'N', 'Y');
 
 
 
@@ -200,6 +202,29 @@ CREATE SEQUENCE LECTURE_SEQ;
 
 insert into lecture values(LECTURE_SEQ.nextval, '프로그래밍 기초', '객체 지향 프로그래밍', 'Java는 객체 지향 프로그래밍(OOP) 언어로, 전 세계적으로 널리 사용 되는 강력하고 안정적인 언어입니다. 특히 크로스 플랫폼 애플리케이션을 개발하는 데 탁월한 특징을 가지고 있습니다.',
                            1, default);
+insert into lecture values(LECTURE_SEQ.nextval, '변수', '데이터를 저장하는 메모리 공간', '변수는 특정 타입의 값을 저장할 수 있는 메모리 공간입니다. 변수를 선언할 때, 변수의 자료형과 이름을 지정합니다. 변수의 값은 프로그램 실행 중에 바뀔 수 있습니다.',
+                           1, default);
+insert into lecture values(LECTURE_SEQ.nextval, '연산자', '변수나 값에 대해 특정 연산을 수행하는 기호','자바에서 연산자는 프로그램 내에서 데이터를 처리하고 조건을 평가하는 데 필수적인 역할을 합니다.',
+                           1, default);
+insert into lecture values(LECTURE_SEQ.nextval, '제어문', '프로그램의 흐름을 제어하는 문장', '프로그램의 흐름을 유동적으로 제어하는 핵심 요소로, 조건에 따라 다양한 실행 경로를 선택하고 반복문으로 반복적인 작업을 효율적으로 처리할 수 있게 도와줍니다.',
+                           1, default);
+insert into lecture values(LECTURE_SEQ.nextval, '배열', '데이터를 하나의 변수로 묶어서 저장하는 자료구조', '배열을 사용하면 여러 개의 값을 하나의 변수 이름으로 관리할 수 있으며, 각 값은 **인덱스(index)**를 통해 접근할 수 있습니다.',
+                           1, default);
+
+insert into lecture values(LECTURE_SEQ.nextval, '네트워크', '여러 대의 컴퓨터를 통신 회선으로 연결한 것', '배열을 사용하면 여러 개의 값을 하나의 변수 이름으로 관리할 수 있으며, 각 값은 **인덱스(index)**를 통해 접근할 수 있습니다.',
+                           2, default);
+insert into lecture values(LECTURE_SEQ.nextval, 'Oracle Database', '데이터를 하나의 변수로 묶어서 저장하는 자료구조', '배열을 사용하면 여러 개의 값을 하나의 변수 이름으로 관리할 수 있으며, 각 값은 **인덱스(index)**를 통해 접근할 수 있습니다.',
+                           2, default);
+insert into lecture values(LECTURE_SEQ.nextval, '개발환경구축', '데이터를 하나의 변수로 묶어서 저장하는 자료구조', '배열을 사용하면 여러 개의 값을 하나의 변수 이름으로 관리할 수 있으며, 각 값은 **인덱스(index)**를 통해 접근할 수 있습니다.',
+                           2, default);
+insert into lecture values(LECTURE_SEQ.nextval, 'DQL', '데이터를 하나의 변수로 묶어서 저장하는 자료구조', '배열을 사용하면 여러 개의 값을 하나의 변수 이름으로 관리할 수 있으며, 각 값은 **인덱스(index)**를 통해 접근할 수 있습니다.',
+                           2, default);
+insert into lecture values(LECTURE_SEQ.nextval, 'DML', '데이터를 하나의 변수로 묶어서 저장하는 자료구조', '배열을 사용하면 여러 개의 값을 하나의 변수 이름으로 관리할 수 있으며, 각 값은 **인덱스(index)**를 통해 접근할 수 있습니다.',
+                           2, default);
+insert into lecture values(LECTURE_SEQ.nextval, 'ORACLE', '데이터를 하나의 변수로 묶어서 저장하는 자료구조', '배열을 사용하면 여러 개의 값을 하나의 변수 이름으로 관리할 수 있으며, 각 값은 **인덱스(index)**를 통해 접근할 수 있습니다.',
+                           2, default);
+
+
 
 ----------챕터 테이블---------
 CREATE TABLE chapter (
