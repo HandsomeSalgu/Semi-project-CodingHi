@@ -1,11 +1,10 @@
 package com.sinuedu.user.member.controller;
 
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,12 +58,11 @@ public class MemberController {
 	
 	@PostMapping("login")
 	public String login(Member m, HttpSession session) {
+		System.out.println(bcrypt.encode("admin"));
 		Member loginUser = mService.login(m);
-		System.out.println(m);
-		System.out.println(bcrypt.encode("1234"));
-		System.out.println(loginUser);
 		if(loginUser != null && bcrypt.matches(m.getUserPw(), loginUser.getUserPw())) {
 			session.setAttribute("loginUser", loginUser);
+			System.out.println(loginUser);
 			return "redirect:/";
 		} else {
 			throw new MemberException("로그인을 실패하였습니다");
@@ -100,12 +98,19 @@ public class MemberController {
 						@RequestParam("birth3") String birth3) throws ParseException {
 		m.setPhone(phone1 + "-" + phone2 + "-" + phone3);
 		
-		String Birth = birth1+birth2+birth3;
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-        Date date = formatter.parse(Birth);
+		String Birth = birth1 + "-" + birth2+ "-" +birth3;
+		System.out.println(Birth);
+		System.out.println(birth1);
+		System.out.println(birth2);
+		System.out.println(birth3);
+		
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date utilDate = formatter.parse(Birth);
+        
+        Date date = new Date(utilDate.getTime());
+        System.out.println(date);
         m.setBirthDate(date);
         m.setUserPw(bcrypt.encode(m.getUserPw()));
-        System.out.println(m);
 		int result = mService.insertMember(m);
 		
 		
