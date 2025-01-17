@@ -74,44 +74,44 @@ public class QnaController {
 	}
 
 		// 상세 페이지 글 조회 이동
-//		@GetMapping("/{qnaNo}/{page}") // 글번호/페이지
-//		public ModelAndView selectBoard(@PathVariable("qnaNo") int qNo, @PathVariable("page") int page,
-//	   		  							HttpSession session, ModelAndView mv) {
-//		  
-//				  Member loginUser = (Member)session.getAttribute("loginUser"); 
-//				  String id = null; 
-//				  if( loginUser != null) { 
-//					 	id = loginUser.getUserId(); 
-//				  	}
-//				  
-//				  Qna q = bService.selectBoard(qNo, id);
-//				  //ArrayList<Qna> list = bService.selectBoardList(qNo, id);
-//				  
-//				  if(q != null) { 
-//					  	mv.addObject("q", q).addObject("page",page).setViewName("views/question/question-post"); 
-//					  	return mv; 
-//				  }else { 
-//						throw new QnaException("게시글 상세조회를 실패하였습니다."); }
-//			  
-//			  }
+		@PostMapping("/{qnaNo}/{page}") // 글번호/페이지
+		public ModelAndView selectBoard(@PathVariable("qnaNo") int qNo, @PathVariable("page") int page,
+	   		  							HttpSession session, ModelAndView mv) {
+		  
+				  Member loginUser = (Member)session.getAttribute("loginUser"); 
+				  String id = null; 
+				  if( loginUser != null) { 
+					 	id = loginUser.getUserId(); 
+				  	}
+				  
+				  Qna q = bService.selectBoard(qNo, id);
+				  //ArrayList<Qna> list = bService.selectBoardList(qNo, id);
+				  
+				  if(q != null) { 
+					  	mv.addObject("q", q).addObject("page",page).setViewName("views/question/question-post"); 
+					  	return mv; 
+				  }else { 
+						throw new QnaException("게시글 상세조회를 실패하였습니다."); }
+			  
+			  }
 		 
-		 @GetMapping("/{qnaNo}/{page}")
-		    public String selectBoard(@PathVariable("qnaNo") int qNo,
-		                                    @PathVariable("page") int page,
-		                                    Model model) {
-		        // 서비스 레이어를 통해 데이터를 가져옴
-		        Qna question = bService.selectBoard(qNo);
-		        //ArrayList<Qna> comments = bService.getComments(qnaNo);
-
-		        // 모델에 데이터를 추가
-		        model.addAttribute("question", question);
-		       // model.addAttribute("comments", comments);
-		        model.addAttribute("page", page);
-
-		        // question-post 뷰로 이동
-		        return "views/question/question-post";
-		    }
-		}
+//		 @PostMapping("/{qnaNo}/{page}")
+//		    public String selectBoard(@PathVariable("qnaNo") int qNo,
+//		                                    @PathVariable("page") int page,
+//		                                    Model model) {
+//		        // 서비스 레이어를 통해 데이터를 가져옴
+//		        Qna question = bService.selectBoard(qNo);
+//		        //ArrayList<Qna> comments = bService.getComments(qnaNo);
+//
+//		        // 모델에 데이터를 추가
+//		        model.addAttribute("question", question);
+//		       // model.addAttribute("comments", comments);
+//		        model.addAttribute("page", page);
+//
+//		        // question-post 뷰로 이동
+//		        return "views/question/question-post";
+//		    }
+//		}
 
 	
 //		@GetMapping("/{qnaNo}/{page}")
@@ -120,4 +120,4 @@ public class QnaController {
 //			Qna q = bService.selectBoard(qNo, page);
 //			model.addAttribute("q", q);
 //			return "views/question/question-post";
-//}
+}

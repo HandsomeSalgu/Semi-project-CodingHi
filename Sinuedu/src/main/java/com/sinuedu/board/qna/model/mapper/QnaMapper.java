@@ -18,7 +18,7 @@ public interface QnaMapper {
 
 	int insertBoard(Qna q);
 
-	int updateViews(int qNo);
+	int updateCount(int qNo);
 
 	//Qna selectBoard(int qNo, int page);
 
