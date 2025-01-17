@@ -19,4 +19,8 @@ public class LectureService {
 		return cMapper.selectLectureList();
 	}
 
+	public int captherCount(int lecNo) {
+		return cMapper.captherCount(lecNo);
+	}
+
 }

@@ -11,4 +11,6 @@ public interface LectureMapper {
 
 	ArrayList<Lecture> selectLectureList();
 
+	int captherCount(int lecNo);
+
 }

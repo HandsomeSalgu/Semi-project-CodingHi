@@ -16,6 +16,7 @@ public class Lecture {
 	private String lecTitle;
 	private String lecSubtitle;
 	private String lecDesc;
-	private int cgNo;
+	private String cgName;
 	private String lecImg;
+	private int totalChap;
 }

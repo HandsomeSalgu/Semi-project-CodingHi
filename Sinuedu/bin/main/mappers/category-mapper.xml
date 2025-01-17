@@ -5,6 +5,13 @@
 	<select id="selectLectureList">
 		select *
 		from LECTURE
+			 join category using(cg_no)
+	</select>
+	
+	<select id="captherCount">
+		select count(*)
+		from chapter
+		where LEC_NO = #{lecNo}
 	</select>
 </mapper>
 
