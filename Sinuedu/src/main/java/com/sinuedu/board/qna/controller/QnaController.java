@@ -74,7 +74,7 @@ public class QnaController {
 	}
 
 		// 상세 페이지 글 조회 이동
-		@PostMapping("/{qnaNo}/{page}") // 글번호/페이지
+		@GetMapping("/{qnaNo}/{page}") // 글번호/페이지
 		public ModelAndView selectBoard(@PathVariable("qnaNo") int qNo, @PathVariable("page") int page,
 	   		  							HttpSession session, ModelAndView mv) {
 		  
@@ -85,6 +85,7 @@ public class QnaController {
 				  	}
 				  
 				  Qna q = bService.selectBoard(qNo, id);
+				  System.out.println(q);
 				  //ArrayList<Qna> list = bService.selectBoardList(qNo, id);
 				  
 				  if(q != null) { 
