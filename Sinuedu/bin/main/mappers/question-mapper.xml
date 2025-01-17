@@ -24,6 +24,8 @@
 	<select id="selectBoard">
 		select *
 		from qna
-		where QNA_NO = #{qnaNo}
+			 join users on(WRITER = USER_NO)
+			 join category using(CG_NO)
+		where QNA_NO =#{qnaNo}
 	</select>
 </mapper>

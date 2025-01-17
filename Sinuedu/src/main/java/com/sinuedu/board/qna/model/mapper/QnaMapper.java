@@ -20,6 +20,5 @@ public interface QnaMapper {
 
 	int updateCount(int qNo);
 
-	//Qna selectBoard(int qNo, int page);
 
 }

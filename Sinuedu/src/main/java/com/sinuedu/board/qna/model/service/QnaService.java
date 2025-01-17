@@ -38,8 +38,8 @@ public class QnaService {
 			 int result = mapper.updateCount(qNo);
 			 q.setViews(q.getViews());
 			 }else {
-		 return q; 
 		 }
+		return q;
 
 	 }
 
