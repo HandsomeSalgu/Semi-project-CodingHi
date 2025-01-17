@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <title>관리자 페이지</title>
 <style>
 body {
@@ -84,11 +85,10 @@ body {
 					<tr>
 						<th>no</th>
 						<th>아이디</th>
-						<th>닉네임</th>
 						<th>이름</th>
-						<th>비밀번호</th>
-						<th>생년월일</th>
+						<th>닉네임</th>
 						<th>전화번호</th>
+						<th>생년월일</th>
 						<th>힌트 질문</th>
 						<th>힌트 답</th>
 						<th>관리자 여부</th>
@@ -96,135 +96,17 @@ body {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>id123</td>
-						<td>별명</td>
-						<td>김사과</td>
-						<td>ksa0512</td>
-						<td>20000501</td>
-						<td>010-1234-5678</td>
-						<td>서울</td>
-						<td>1000</td>
-						<td>N</td>
-						<td>삭제</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>user456</td>
-						<td>하늘</td>
-						<td>이바다</td>
-						<td>lbd0713</td>
-						<td>19990713</td>
-						<td>010-2345-6789</td>
-						<td>부산</td>
-						<td>500</td>
-						<td>N</td>
-						<td>삭제</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>java789</td>
-						<td>코딩왕</td>
-						<td>박자바</td>
-						<td>pjv0825</td>
-						<td>19980825</td>
-						<td>010-3456-7890</td>
-						<td>대구</td>
-						<td>2000</td>
-						<td>N</td>
-						<td>삭제</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td>spring123</td>
-						<td>봄봄</td>
-						<td>최봄</td>
-						<td>csb0404</td>
-						<td>20010404</td>
-						<td>010-4567-8901</td>
-						<td>인천</td>
-						<td>800</td>
-						<td>N</td>
-						<td>삭제</td>
-					</tr>
-					<tr>
-						<td>5</td>
-						<td>admin001</td>
-						<td>관리자</td>
-						<td>정관리</td>
-						<td>jkr1111</td>
-						<td>19901111</td>
-						<td>010-5678-9012</td>
-						<td>광주</td>
-						<td>5000</td>
-						<td>Y</td>
-						<td>삭제</td>
-					</tr>
-					<tr>
-						<td>6</td>
-						<td>db456</td>
-						<td>디비맨</td>
-						<td>강디비</td>
-						<td>kdb0606</td>
-						<td>19950606</td>
-						<td>010-6789-0123</td>
-						<td>대전</td>
-						<td>1500</td>
-						<td>N</td>
-						<td>삭제</td>
-					</tr>
-					<tr>
-						<td>7</td>
-						<td>web789</td>
-						<td>웹마스터</td>
-						<td>송웹</td>
-						<td>swb0707</td>
-						<td>19970707</td>
-						<td>010-7890-1234</td>
-						<td>울산</td>
-						<td>3000</td>
-						<td>N</td>
-						<td>삭제</td>
-					</tr>
-					<tr>
-						<td>8</td>
-						<td>css123</td>
-						<td>디자이너</td>
-						<td>윤디자인</td>
-						<td>ydz0808</td>
-						<td>19960808</td>
-						<td>010-8901-2345</td>
-						<td>제주</td>
-						<td>2500</td>
-						<td>N</td>
-						<td>삭제</td>
-					</tr>
-					<tr>
-						<td>9</td>
-						<td>js456</td>
-						<td>스크립트</td>
-						<td>한자바</td>
-						<td>hjs0909</td>
-						<td>19940909</td>
-						<td>010-9012-3456</td>
-						<td>경기</td>
-						<td>1200</td>
-						<td>N</td>
-						<td>삭제</td>
-					</tr>
-					<tr>
-						<td>10</td>
-						<td>python789</td>
-						<td>파이썬</td>
-						<td>조파이</td>
-						<td>cpy1010</td>
-						<td>19931010</td>
-						<td>010-0123-4567</td>
-						<td>강원</td>
-						<td>1800</td>
-						<td>N</td>
-						<td>삭제</td>
+					<tr th:each="user : ${list}">
+						<td th:text="${userStat.count}"></td>
+						<td th:text="${user.userId}"></td>
+						<td th:text="${user.userName}"></td>
+						<td th:text="${user.userNick}"></td>
+						<td th:text="${user.phone}"></td>
+						<td th:text="${user.birthDate}"></td>
+						<td th:text="${user.hint}"></td>
+						<td th:text="${user.hintAnswer}"></td>
+						<td th:text="${user.admin}"></td>
+						<td th:text="${user.status}"></td>
 					</tr>
 				</tbody>
 			</table>
