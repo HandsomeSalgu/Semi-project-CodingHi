@@ -17,4 +17,12 @@ public class MemberService {
 		return mapper.login(m);
 	}
 
+	public int insertMember(Member m) {
+		return mapper.insertMember(m);
+	}
+
+	public int checkId(String id) {
+		return mapper.checkId(id);
+	}
+
 }

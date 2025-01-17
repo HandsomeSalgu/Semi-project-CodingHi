@@ -9,4 +9,8 @@ public interface MemberMapper {
 
 	Member login(Member m);
 
+	int insertMember(Member m);
+
+	int checkId(String id);
+
 }

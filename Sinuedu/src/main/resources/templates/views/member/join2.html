@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <title>join2</title>
 <style>
 body {
@@ -40,6 +43,7 @@ height: 830px;
 box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 border-radius: 30px;
 margin: 0 auto;
+margin-top: 80px;
 }
 .steps {
 display: flex;
@@ -173,10 +177,10 @@ text-align: left;
 <body>
     <div class="topbar">
         <div class="menu-icon">
-            <div><img src="logo2.png" height= "100px" width="100%"/></div>
+            <div><img src="/photo/menuBar/logo2.png" height="100px" width="100%"/></div>
         </div>
         <div class="join">
-            <p style="margin-bottom: 0; margin-right: 450px;">회원가입</p>
+            <p style="margin-top: 80px; margin-right: 450px;">회원가입</p>
         </div>
     </div>
     <div class="main-contents-contain">
@@ -187,58 +191,63 @@ text-align: left;
         </div>
         
         <div class="content">
-            <br/>
-            <h5 style="margin-bottom: 0; margin-right: 360px;">이름</h5>
-            <input type="text" class="input" id="name" name="name" placeholder="이름을 입력하세요" />
-                    <span id="idMessage" class="message"></span>
-            <form>
-                <label for="nickname"></label>
-                <div>
-                    <h5 style="margin-bottom: 0; margin-right: 350px;">닉네임</h5>
-                    <input type="text" class="input" id="nickname" name="nickname" placeholder="닉네임을 입력하세요" />
-                    <span id="pwdMessage" class="message"></span>
-                </div>
-            </form>
-            <div class="birthdate">
-                <h5 style="margin-bottom: 0; margin-right: 340px;">생년월일</h5>
-                <input type="text" id="year" placeholder="2000" maxlength="4">
-                <span>년</span>
-                <input type="text" id="month" placeholder="01" maxlength="2">
-                <span>월</span>
-                <input type="text" id="day" placeholder="01" maxlength="2">
-                <span>일</span>
-            </div>
-            <div class="phone">
-                <h5 style="margin-bottom: 0; margin-right: 340px;">전화번호</h5>
-                <input type="text" id="phone1" placeholder="010" maxlength="3">
-                <span>-</span>
-                <input type="text" id="phone2" placeholder="1234" maxlength="4">
-                <span>-</span>
-                <input type="text" id="phone3" placeholder="5678" maxlength="4">
-            </div>
-            <div class="pwd-hint">
-                <form>
-                    <h5 style="margin-bottom: 0; margin-right: 320px;">비밀번호 힌트</h5>
-                    <select name="hint" size="1">
-                        <option value="hint1">내가 태어난 지역의 이름은?</option>
-                        <option value="hint2">내가 졸업한 초등학교 이름은?</option>
-                        <option value="hint3">내가 가장 좋아하는 과일의 이름은?</option>
-                        <option value="hint4" selected>나의 아버지 성함은?</option>
-                        <option value="hint5">나의 어머니 성함은?</option>
-                    </select>
-                    <h5 style="margin-bottom: 0; margin-right: 290px;">비밀번호 힌트 답변</h5>
-                        <input type="text" id="answer" name="answer" placeholder="힌트에 대한 답을 입력하세요">
-                </form>
-            </div>
-            <br/>
-            <div class="button">
-                <div class="prev-button">
-                    <button class="prev-button" id="prevButton" onclick="location.href='join1.html'">이전 페이지</button>
-                </div>
-                <div class="next-button">
-                    <button class="next-button" id="nextButton" onclick="location.href='join3.html'">다음 페이지</button>
-                </div>
-            </div>
+	        <form class="needs-validation" action="/member/join3" method="POST">
+	        	<input type="hidden" class="input" id="id" name="userId" th:value="${member.userId}">
+	        	<input type="hidden" class="input" id="pwd" name="userPw" th:value="${member.userPw}">
+	            <br/>
+	            <div class="divs">
+	            	<div class="name">
+		            	<label for="name"></label>
+		            	<h5 style="margin-bottom: 0; margin-right: 360px;">이름</h5>
+		            	<input type="text" class="input" id="name" name="userName" placeholder="이름을 입력하세요" />
+	                    <span id="idMessage" class="message"></span>
+	            	</div>
+	                <div class="nickname">
+	                	<label for="nickname"></label>
+	                    <h5 style="margin-bottom: 0; margin-right: 350px;">닉네임</h5>
+	                    <input type="text" class="input" id="nickname" name="userNick" placeholder="닉네임을 입력하세요" />
+	                    <span id="pwdMessage" class="message"></span>
+	                </div>
+		            <div class="birthdate">
+		                <h5 style="margin-bottom: 0; margin-right: 340px;">생년월일</h5>
+		                <input type="text" id="year" placeholder="2000" maxlength="4" name="birth1">
+		                <span>년</span>
+		                <input type="text" id="month" placeholder="01" maxlength="2" name="birth2">
+		                <span>월</span>
+		                <input type="text" id="day" placeholder="01" maxlength="2" name="birth3">
+		                <span>일</span>
+		            </div>
+		            <div class="phone">
+		                <h5 style="margin-bottom: 0; margin-right: 340px;">전화번호</h5>
+		                <input type="text" id="phone1" placeholder="010" maxlength="3" name="phone1">
+		                <span>-</span>
+		                <input type="text" id="phone2" placeholder="1234" maxlength="4" name="phone2">
+		                <span>-</span>
+		                <input type="text" id="phone3" placeholder="5678" maxlength="4" name="phone3">
+		            </div>
+		            <div class="pwd-hint">
+		                    <h5 style="margin-bottom: 0; margin-right: 320px;">비밀번호 힌트</h5>
+		                    <select name="hint" size="1">
+		                        <option value="내가 태어난 지역의 이름은?">내가 태어난 지역의 이름은?</option>
+		                        <option value="내가 졸업한 초등학교 이름은?">내가 졸업한 초등학교 이름은?</option>
+		                        <option value="내가 가장 좋아하는 과일의 이름은?">내가 가장 좋아하는 과일의 이름은?</option>
+		                        <option value="나의 아버지 성함은?" selected>나의 아버지 성함은?</option>
+		                        <option value="나의 어머니 성함은?">나의 어머니 성함은?</option>
+		                    </select>
+		                    <h5 style="margin-bottom: 0; margin-right: 290px;">비밀번호 힌트 답변</h5>
+		                    <input type="text" id="answer" placeholder="힌트에 대한 답을 입력하세요" name="hintAnswer">
+		            </div>
+		        </div>
+	            <br/>
+	            <div class="button">
+	                <div class="prev-button">
+	                    <button class="prev-button" id="prevButton">이전 페이지</button>
+	                </div>
+	                <div class="next-button">
+	                    <button class="next-button" id="nextButton">다음 페이지</button>
+	                </div>
+	            </div>
+	    	</form>
         </div>
        
     </div>
