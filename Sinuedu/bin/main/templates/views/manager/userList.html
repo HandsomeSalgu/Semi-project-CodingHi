@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
 <title>관리자 페이지</title>
 <style>
 body {
@@ -72,6 +74,10 @@ body {
 .user-table td {
 	vertical-align: middle;
 }
+
+td:hover {
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -96,8 +102,11 @@ body {
 					</tr>
 				</thead>
 				<tbody>
+					<tr th:if="${list.empty}">
+						<td colspan="10">No users found</td>
+					</tr>
 					<tr th:each="user : ${list}">
-						<td th:text="${userStat.count}"></td>
+						<td th:text="${user.userNo}"></td>
 						<td th:text="${user.userId}"></td>
 						<td th:text="${user.userName}"></td>
 						<td th:text="${user.userNick}"></td>
