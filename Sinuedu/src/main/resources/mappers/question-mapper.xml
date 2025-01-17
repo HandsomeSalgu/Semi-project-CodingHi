@@ -16,6 +16,13 @@
 		order by QNA_NO desc
 	</select>
 	
+	<select id="selectReply">
+		select *
+		from reply
+			 join users using(USER_NO)
+		order by REP_NO desc
+	</select>
+	
 	<insert id="insertBoard">
 		insert into qna
 		values(QNA_SEQ.nextval, #{qnaTitle}, #{qnaDetail}, #{writer}, sysdate, sysdate, #{views}, #{cgNo}, default)

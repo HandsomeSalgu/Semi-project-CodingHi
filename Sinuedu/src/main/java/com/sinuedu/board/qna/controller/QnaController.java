@@ -17,6 +17,7 @@ import com.sinuedu.board.qna.exception.QnaException;
 import com.sinuedu.board.qna.model.service.QnaService;
 import com.sinuedu.board.qna.model.vo.PageInfo;
 import com.sinuedu.board.qna.model.vo.Qna;
+import com.sinuedu.board.qna.model.vo.reply;
 import com.sinuedu.common.Pagination;
 import com.sinuedu.user.member.model.vo.Member;
 
@@ -36,7 +37,7 @@ public class QnaController {
 	public String selectList(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model m,
 			HttpServletRequest request) {
 		int listCount = bService.getListCount();
-
+		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
 		ArrayList<Qna> list = bService.selectBoardList(pi);
 
@@ -52,6 +53,7 @@ public class QnaController {
 
 	@GetMapping("write")
 	public String insertBoard() {
+		
 		return "views/question/question-write";
 	}
 
@@ -85,14 +87,20 @@ public class QnaController {
 				  	}
 				  
 				  Qna q = bService.selectBoard(qNo, id);
-				  System.out.println(q);
+				  
+				  ArrayList<reply> r = bService.selectReply(qNo);
+				  for(reply rp : r) {
+					  System.out.println(rp);
+				  }
 				  //ArrayList<Qna> list = bService.selectBoardList(qNo, id);
 				  
 				  if(q != null) { 
-					  	mv.addObject("q", q).addObject("page",page).setViewName("views/question/question-post"); 
+					  	mv.addObject("q", q).addObject("page",page)
+					  	.addObject("r", r).setViewName("views/question/question-post"); 
 					  	return mv; 
 				  }else { 
-						throw new QnaException("게시글 상세조회를 실패하였습니다."); }
+						throw new QnaException("게시글 상세조회를 실패하였습니다."); 
+					}
 			  
 			  }
 		 

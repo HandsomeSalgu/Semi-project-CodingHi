@@ -143,6 +143,7 @@ body {
 	width: 100%;
 	border-collapse: collapse;
 	margin: 30px;
+	min-height: 100vh;
 }
 
 .commentList {
@@ -236,25 +237,14 @@ table th {
 								<tr>
 									<th>댓글 작성자</th>
 									<th>댓글</th>
-
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>권태혁</td>
-									<td>저는 바부입니다</td>
+								<tr th:each="r : ${reply}">
+									<td>[[${q.writer}]]</td>
+									<td>${q.repComment}</td>
 								</tr>
-								<tr>
-									<td>효뿌</td>
-									<td>태혁님의 말에 공감해요~</td>
-
-								</tr>
-								<tr>
-									<td>까미창</td>
-									<td>감히~!~!~!~!~!~!~!~!</td>
-
-								</tr>
-								</tbody>
+							</tbody>
 						</table>
 					</div>
 					<div class="comment-section">
