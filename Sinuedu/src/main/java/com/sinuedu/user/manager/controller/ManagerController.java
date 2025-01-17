@@ -18,14 +18,14 @@ import lombok.RequiredArgsConstructor;
 @SessionAttributes("loginUser")
 @RequestMapping("/manager")
 public class ManagerController {
-    
+
     private final ManagerService aService;
-    
-    @GetMapping("userList")
+
+    @GetMapping("/userList")
     public String userList(Model model) {
-        List<Member> userList = aService.userList();
-        System.out.println("User list size: " + userList.size());
-        model.addAttribute("list", userList);
-        return "/views/manager/userList"; 
+        List<Member> list = aService.userList();
+        System.out.println("조회된 회원 수: " + list.size());
+        model.addAttribute("list", list);
+        return "views/manager/userList";
     }
 }
