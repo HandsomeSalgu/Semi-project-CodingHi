@@ -146,7 +146,6 @@ body {
 
 #categoryFilter, #lectureFilter {
 	width: 100%;
-	height: 30px;
 	padding: 8px;
 	border: 1px solid #ddd;
 	border-radius: 6px;
@@ -166,6 +165,7 @@ body {
 	background-position: right 8px center;
 	background-size: 16px;
 	background-position: right 8px center;
+	background-size: 16px;
 	background-size: 16px;
 }
 
@@ -422,55 +422,47 @@ body {
 		</div>
 	</div>
 	<script>
-	window.onload = function() {
-		// 필터
-	    document.getElementById('categoryFilter').addEventListener('change', filterTable);
-	    document.getElementById('lectureFilter').addEventListener('change', filterTable);
-
-	    function filterTable() {
-	        const selectedCategory = document.getElementById('categoryFilter').value;
-	        const selectedLecture = document.getElementById('lectureFilter').value;
-	        const rows = document.querySelectorAll('.chapter-table tbody tr');
-	        rows.forEach(row => {
-	            const category = row.querySelector('td:nth-child(1)').textContent;
-	            const lecture = row.querySelector('td:nth-child(2)').textContent;
-	            
-	            if ((selectedCategory === 'all' || category === selectedCategory) &&
-	                (selectedLecture === 'all' || lecture === selectedLecture)) {
-	                row.style.display = '';
-	            } else {
-	                row.style.display = 'none';
-	            }
-	        });
-	    }
-
-	    // 모달
-	    const modal = document.getElementById('addModal');
-	    const addBtn = document.querySelector('.add-btn');
-	    const closeBtn = document.querySelector('.close');
-
-	    addBtn.onclick = function() {
-	        modal.style.display = "block";
-	    }
-
-	    closeBtn.onclick = function() {
-	        modal.style.display = "none";
-	    }
-
-	    window.onclick = function(event) {
-	        if (event.target == modal) {
-	            modal.style.display = "none";
-	        }
-	    }
-
-	    document.querySelector('.lecture-btn').onclick = function() {
-	        window.location.href = 'lecture-add.html';
-	    }
-
-	    document.querySelector('.chapter-btn').onclick = function() {
-	    	window.location.href = 'chapter-add.html';
-	    }
-	}
+		document.getElementById('categoryFilter').addEventListener('change', filterTable);
+		document.getElementById('lectureFilter').addEventListener('change', filterTable);
+	
+		function filterTable() {
+		    const selectedCategory = document.getElementById('categoryFilter').value;
+		    const selectedLecture = document.getElementById('lectureFilter').value;
+		    const rows = document.querySelectorAll('.chapter-table tbody tr');
+		    rows.forEach(row => {
+		        const category = row.querySelector('td:nth-child(1)').textContent;
+		        const lecture = row.querySelector('td:nth-child(2)').textContent;
+		        
+		        if ((selectedCategory === 'all' || category === selectedCategory) &&
+		            (selectedLecture === 'all' || lecture === selectedLecture)) {
+		            row.style.display = '';
+		        } else {
+		            row.style.display = 'none';
+		        }
+		    });
+		}
+		const modal = document.getElementById('addModal');
+		const addBtn = document.querySelector('.add-btn');
+		const closeBtn = document.querySelector('.close');
+		addBtn.onclick = function() {
+		    modal.style.display = "block";
+		}
+		closeBtn.onclick = function() {
+		    modal.style.display = "none";
+		}
+		window.onclick = function(event) {
+		    if (event.target == modal) {
+		        modal.style.display = "none";
+		    }
+		}
+		document.querySelector('.lecture-btn').onclick = function() {
+		    console.log('강의 추가');
+		    modal.style.display = "none";
+		}
+		document.querySelector('.chapter-btn').onclick = function() {
+		    console.log('챕터 추가');
+		    modal.style.display = "none";
+		}
 	</script>
 </body>
 </html>
