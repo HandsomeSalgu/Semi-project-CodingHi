@@ -59,13 +59,12 @@ public class QnaController {
 
 	@PostMapping("insert")
 	public String insertBoard(@ModelAttribute Qna q, HttpSession session) {
-
-		q.setUserNick(session.getId());
-		q.setWriter(3);
+		/*q.setUserNick(session.getId());*/
+		q.setWriter(((Member)session.getAttribute("loginUser")).getUserNo());
 		q.setCgNo(3);
-
+		
 		// System.out.println(q);
-
+		
 		int result = bService.insertBoard(q);
 		if (result > 0) {
 			return "redirect:/qna/list";
@@ -80,10 +79,10 @@ public class QnaController {
 		public ModelAndView selectBoard(@PathVariable("qnaNo") int qNo, @PathVariable("page") int page,
 	   		  							HttpSession session, ModelAndView mv) {
 		  
-				  Member loginUser = (Member)session.getAttribute("loginUser"); 
-				  String id = null; 
+				  Member loginUser = (Member)session.getAttribute("loginUser");
+				  String id = null;
 				  if( loginUser != null) { 
-					 	id = loginUser.getUserId(); 
+					 	id = loginUser.getUserId();
 				  	}
 				  
 				  Qna q = bService.selectBoard(qNo, id);
@@ -92,6 +91,7 @@ public class QnaController {
 				  for(reply rp : r) {
 					  System.out.println(rp);
 				  }
+				  
 				  //ArrayList<Qna> list = bService.selectBoardList(qNo, id);
 				  
 				  if(q != null) { 
@@ -104,29 +104,5 @@ public class QnaController {
 			  
 			  }
 		 
-//		 @PostMapping("/{qnaNo}/{page}")
-//		    public String selectBoard(@PathVariable("qnaNo") int qNo,
-//		                                    @PathVariable("page") int page,
-//		                                    Model model) {
-//		        // 서비스 레이어를 통해 데이터를 가져옴
-//		        Qna question = bService.selectBoard(qNo);
-//		        //ArrayList<Qna> comments = bService.getComments(qnaNo);
-//
-//		        // 모델에 데이터를 추가
-//		        model.addAttribute("question", question);
-//		       // model.addAttribute("comments", comments);
-//		        model.addAttribute("page", page);
-//
-//		        // question-post 뷰로 이동
-//		        return "views/question/question-post";
-//		    }
-//		}
 
-	
-//		@GetMapping("/{qnaNo}/{page}")
-//		public String selectBoard(@RequestParam("qnaNo") int qNo, @RequestParam("page") int page,
-//								  Model model) {
-//			Qna q = bService.selectBoard(qNo, page);
-//			model.addAttribute("q", q);
-//			return "views/question/question-post";
 }

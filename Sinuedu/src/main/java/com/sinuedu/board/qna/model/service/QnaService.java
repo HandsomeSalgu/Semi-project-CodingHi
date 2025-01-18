@@ -45,7 +45,6 @@ public class QnaService {
 			 }else {
 		 }
 		return q;
-
 	 }
 
 	

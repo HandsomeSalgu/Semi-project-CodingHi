@@ -213,8 +213,8 @@ table th {
                 </table>
             </div>
             <div class="write-button">
-                <button onclick="location.href='/qna/write'">글쓰기</button>	<!-- 나중에 지워도됨 -->
-                <button th:if="${session.loginUser != null}" class="btn btn-outline-success" type="button" onclick="location.href='/board/write'">WRITE BOARD</button>
+               <!--  <button onclick="location.href='/qna/write'">글쓰기</button> -->
+                <button th:if="${session.loginUser != null}" th:onclick="location.href='/qna/write'">글쓰기</button>
 				<!-- 조건식은 넣어도 되고 안넣어도 상관없다?  th:if="${session.loginUser != null}" -->
             </div>
             <ul class="pagination">
