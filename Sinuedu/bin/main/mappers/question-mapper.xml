@@ -16,9 +16,23 @@
 		order by QNA_NO desc
 	</select>
 	
+	<select id="selectReply">
+		select *
+		from reply
+			 join users using(USER_NO)
+		order by REP_NO desc
+	</select>
+	
+	<update id="updateCount">
+		update QNA 
+		set VIEWS = VIEWS + 1 
+		where QNA_NO = #{QNA_NO}
+	</update>
+	
 	<insert id="insertBoard">
 		insert into qna
-		values(QNA_SEQ.nextval, #{qnaTitle}, #{qnaDetail}, #{writer}, sysdate, sysdate, #{views}, #{cgNo}, default)
+		values(QNA_SEQ.nextval, #{qnaTitle}, #{qnaDetail}, #{writer}, 
+		sysdate, sysdate, #{views}, #{cgNo}, default)
 	</insert>
 	
 	<select id="selectBoard">

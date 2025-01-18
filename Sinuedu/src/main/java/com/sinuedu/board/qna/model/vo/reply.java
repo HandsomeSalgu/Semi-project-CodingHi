@@ -14,6 +14,6 @@ import lombok.ToString;
 public class reply {
 	   private int repNo;
 	   private String repComment;
-	   private int userNo;
+	   private String userNick;
 	   private int qnaNo;
 }

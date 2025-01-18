@@ -36,7 +36,7 @@ body {
 	color: #605F5F;
 	display: inline-block;
 	padding-left: px;
-	float: right;
+	/* float: right; */
 	padding: 20px;
 	width: 1100px;
 }
@@ -143,6 +143,7 @@ body {
 	width: 100%;
 	border-collapse: collapse;
 	margin: 30px;
+	min-height: 30vh;
 }
 
 .commentList {
@@ -213,6 +214,8 @@ table th {
 		<!-- <div th:replace="~{views/menu-bar.html}"></div> -->
 		<div class="content">
 			<form class="need" method="POST" id="detailForm">
+			<input type="hidden" name="qnaNo" th:value="${q.qnaNo}">
+			<input type="hidden" name="page" th:value="${page}">
 				<div class="userInfo">
 					<span class="writer">[[${q.userNick}]]</span> 
 					<span class="createDate">[[${q.createDate}]]</span>
@@ -236,25 +239,14 @@ table th {
 								<tr>
 									<th>댓글 작성자</th>
 									<th>댓글</th>
-
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>권태혁</td>
-									<td>저는 바부입니다</td>
+								<tr th:each="r : ${r}">
+									<td>[[${r.userNick}]]</td>
+									<td>[[${r.repComment}]]</td>
 								</tr>
-								<tr>
-									<td>효뿌</td>
-									<td>태혁님의 말에 공감해요~</td>
-
-								</tr>
-								<tr>
-									<td>까미창</td>
-									<td>감히~!~!~!~!~!~!~!~!</td>
-
-								</tr>
-								</tbody>
+							</tbody>
 						</table>
 					</div>
 					<div class="comment-section">

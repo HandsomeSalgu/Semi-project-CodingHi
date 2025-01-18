@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.sinuedu.board.qna.model.mapper.QnaMapper;
 import com.sinuedu.board.qna.model.vo.PageInfo;
 import com.sinuedu.board.qna.model.vo.Qna;
+import com.sinuedu.board.qna.model.vo.reply;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +28,10 @@ public class QnaService {
 		return mapper.selectBoardList(rowBounds);
 	}
 
+	public ArrayList<reply> selectReply(int rNo) {
+		return mapper.selectReply(rNo);
+	}
+	
 	public int insertBoard(Qna q) {
 		return mapper.insertBoard(q);
 	}
@@ -40,8 +45,10 @@ public class QnaService {
 			 }else {
 		 }
 		return q;
-
 	 }
+
+	
+
 
 
 //	public Qna selectBoard(int qNo, int page) {
