@@ -13,5 +13,11 @@
 		from chapter
 		where LEC_NO = #{lecNo}
 	</select>
+	
+	<select id="selectLecture">
+		select *
+		from chapter
+		where LEC_NO = #{lecNo}
+	</select>
 </mapper>
 

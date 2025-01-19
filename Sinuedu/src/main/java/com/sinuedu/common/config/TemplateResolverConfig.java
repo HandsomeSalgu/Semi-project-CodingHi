@@ -19,4 +19,40 @@ public class TemplateResolverConfig {
 		mResolver.setCheckExistence(true);
 		return mResolver;
 	}
+	
+	@Bean
+	public ClassLoaderTemplateResolver LectureResolver() {
+		ClassLoaderTemplateResolver mResolver = new ClassLoaderTemplateResolver();
+		mResolver.setPrefix("templates/views/classes/");
+		mResolver.setSuffix(".html");
+		mResolver.setTemplateMode(TemplateMode.HTML);
+		mResolver.setCharacterEncoding("UTF-8");
+		mResolver.setCacheable(false);
+		mResolver.setCheckExistence(true);
+		return mResolver;
+	}
+	
+	@Bean
+	public ClassLoaderTemplateResolver questionResolver() {
+		ClassLoaderTemplateResolver mResolver = new ClassLoaderTemplateResolver();
+		mResolver.setPrefix("templates/views/question/");
+		mResolver.setSuffix(".html");
+		mResolver.setTemplateMode(TemplateMode.HTML);
+		mResolver.setCharacterEncoding("UTF-8");
+		mResolver.setCacheable(false);
+		mResolver.setCheckExistence(true);
+		return mResolver;
+	}
+	
+	@Bean
+	public ClassLoaderTemplateResolver managerResolver() {
+		ClassLoaderTemplateResolver mResolver = new ClassLoaderTemplateResolver();
+		mResolver.setPrefix("templates/views/manager/");
+		mResolver.setSuffix(".html");
+		mResolver.setTemplateMode(TemplateMode.HTML);
+		mResolver.setCharacterEncoding("UTF-8");
+		mResolver.setCacheable(false);
+		mResolver.setCheckExistence(true);
+		return mResolver;
+	}
 }

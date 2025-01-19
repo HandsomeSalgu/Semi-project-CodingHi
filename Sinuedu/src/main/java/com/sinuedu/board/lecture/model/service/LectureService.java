@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 
 import com.sinuedu.board.lecture.model.mapper.LectureMapper;
+import com.sinuedu.board.lecture.model.vo.Chapter;
 import com.sinuedu.board.lecture.model.vo.Lecture;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,10 @@ public class LectureService {
 
 	public int captherCount(int lecNo) {
 		return cMapper.captherCount(lecNo);
+	}
+
+	public Chapter selectLecture(int lecNo) {
+		return cMapper.selectLecture(lecNo);
 	}
 
 }

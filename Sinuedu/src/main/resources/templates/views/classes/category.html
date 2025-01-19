@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <style>
     body{
@@ -112,7 +113,7 @@
         <div class="class-list">
             <div class="class-elements">
                 <div class="class-element" th:each="lec : ${list}">
-                	<input type="hidden" name="lectureNo">
+                	<input type="hidden" name="lectureNo" th:value="${lec.lecNo}">
                     <div class="image-box">
                         <img src="/photo/classes/example.png" class="image-thumbnail">
                     </div>
@@ -146,13 +147,11 @@
     <script>
     	window.onload= () =>{
     		const elements = document.getElementsByClassName("class-element");
-    		const lec
+    		
     		for(const element of elements){
+    			const lecNo = element.children[0].value
     			element.addEventListener('click', function(){
-    				$.ajax({
-    					url:'/lecture/postlist',
-    					data:
-    				})
+    				location.href= lecNo;
     			});
     		}
     	}
