@@ -21,4 +21,14 @@
 		from users
 		where user_id = #{userId}
 	</select>
+	
+	<select id="findMyId" resultMap="findId">
+		select user_id
+		from users
+		where user_name = #{userName} and phone = #{phone} and birth_date = #{birthDate} 
+	</select>
+	
+	<resultMap type="com.sinuedu.user.member.model.vo.Member" id="findId">
+		<result column="BRITH_DATE" property="birthDate"/>
+	</resultMap>
 </mapper>

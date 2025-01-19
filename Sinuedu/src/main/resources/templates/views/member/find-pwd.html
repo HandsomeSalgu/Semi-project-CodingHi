@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>findpwd</title>
+<title>find-pwd</title>
 <style>
 body {
 background-color:  #f9fbff;
@@ -149,35 +149,40 @@ margin-bottom: 10px;
 				<br/>
 				<h5>* 회원가입 시 입력했던 아이디, 비밀번호 힌트 답변이 일치할 경우 임시 비밀번호를 발급 받으실 수 있습니다.</h5>
 				<br/>
-				<h5 style="margin-bottom: 0; margin-right: 380px;">아이디</h5>
-            	<input type="text" class="input" id="id" name="id" placeholder="아이디를 입력하세요" />
-                <span id="idMessage" class="message"></span>
-				<div class="pwd-hint">
-					<form>
-						<h5 style="margin-bottom: 0; margin-right: 320px;">비밀번호 힌트</h5>
-						<select name="hint" size="1">
-							<option value="hint1">내가 태어난 지역의 이름은?</option>
-							<option value="hint2">내가 졸업한 초등학교 이름은?</option>
-							<option value="hint3">내가 가장 좋아하는 과일의 이름은?</option>
-							<option value="hint4" selected>나의 아버지 성함은?</option>
-							<option value="hint5">나의 어머니 성함은?</option>
-						</select>
-						<h5 style="margin-bottom: 0; margin-right: 290px;">비밀번호 힌트 답변</h5>
+				<form class="needs-validation" action="/member/find-pwd" method="POST">
+					<div class="divs">
+			            <div class="div">
+			            	<label for="id"></label>
+				            <h5 style="margin-bottom: 0; margin-right: 350px;">아이디</h5>
+            				<input type="text" class="input" id="id" name="id" placeholder="아이디를 입력하세요">
+                			<span id="idMessage" class="message"></span>
+						</div>
+						<div class="pwd-hint">
+							<h5 style="margin-bottom: 0; margin-right: 320px;">비밀번호 힌트</h5>
+							<select name="hint" size="1">
+								<option value="hint1">내가 태어난 지역의 이름은?</option>
+								<option value="hint2">내가 졸업한 초등학교 이름은?</option>
+								<option value="hint3">내가 가장 좋아하는 과일의 이름은?</option>
+								<option value="hint4" selected>나의 아버지 성함은?</option>
+								<option value="hint5">나의 어머니 성함은?</option>
+							</select>
+							<h5 style="margin-bottom: 0; margin-right: 290px;">비밀번호 힌트 답변</h5>
 							<input type="text" id="answer" name="answer" placeholder="힌트에 대한 답을 입력하세요">
-					</form>
-				</div>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<div class="button">
-					<div class="tempwd-button">
-						<button class="tempwd-button" id="tempwdButton" onclick="location.href='find-pwd-success.html'">임시 비밀번호 발급</button>
+						</div>
 					</div>
-					<div class="main-button">
-						<button class="main-button" id="mainButton" onclick="location.href='../../index.html'">메인 페이지</button>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+					<div class="button">
+						<div class="tempwd-button">
+							<button class="tempwd-button" id="tempwdButton" onclick="location.href='find-pwd-success.html'">임시 비밀번호 발급</button>
+						</div>
+						<div class="main-button">
+							<button class="main-button" id="mainButton" onclick="location.href='../../index.html'">메인 페이지</button>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
     </div>

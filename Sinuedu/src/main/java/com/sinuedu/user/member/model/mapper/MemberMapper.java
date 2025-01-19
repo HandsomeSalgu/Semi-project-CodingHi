@@ -11,6 +11,8 @@ public interface MemberMapper {
 
 	int insertMember(Member m);
 
-	int checkId(String id);
+	int checkId(String userId);
+
+	String findMyId(String userName, String phone, String birthDate);
 
 }
