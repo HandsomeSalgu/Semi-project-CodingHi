@@ -144,21 +144,21 @@
                 <img src="/photo/classes/bookmark-icon.png" class="image-bookmark"/>
             </div>
             <div class="text-box-top">
-                <a>프로그래밍 기초</a>
+                <a>[[${lec.lecTitle}]]</a>
                 <br>
-                <a>객체 지향 프로그래밍</a><br>       
+                <a>[[${lec.lecSubtitle}]]</a><br>       
             </div>
             <div class="text-box-bottom">
-                <p>Java는 객체 지향 프로그래밍(OOP) 언어로, 전 세계적으로 널리 사용 되는 강력하고 안정적인 언어입니다. 
-                    특히 크로스 플랫폼 애플리케이션을 개발하는 데 탁월한 특징을 가지고 있습니다.
+                <p>
+                	[[${lec.lecDesc}]]
                 </p>
             </div>
             <div class="function-option">
                 <div>
                     <img src="/photo/classes/Inbox.png" class="image-bookmark"/>
                     <br>
-                    <a>chapter</a>
-                    <p>8</p>
+                    <a>Chapter</a>
+                    <p>[[${capCount}]]</p>
                 </div>
                 <div>
                     <img src="/photo/classes/Forward.png" class="image-bookmark"/>
@@ -176,10 +176,10 @@
         </div>
         <div class="bottom-box">
              <div class="lecture-list">
-                 <div class="lecture-item">
+                 <div class="lecture-item" th:each="Chap : ${cList}">
                      <div>
-                         <a>Chpater1</a><br>
-                         <a>프로그래밍이란?</a>
+                         <a>Chpater [[${Chap.lecChapNum}]]</a><br>
+                         <a>[[${Chap.chapTitle}]]</a>
                      </div>
                      <span>
                          <img src="/photo/classes/update.png" class="image-bookmark"/>

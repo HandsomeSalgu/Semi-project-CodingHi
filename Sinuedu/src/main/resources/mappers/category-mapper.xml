@@ -5,10 +5,14 @@
 	<select id="selectLectureList">
 		select *
 		from LECTURE
-			 join category using(cg_no)
+			join category using(cg_no)
+		<if test="lecNo != null">
+		where LEC_NO= #{lecNo}
+		</if>
+		order by LEC_NO
 	</select>
 	
-	<select id="captherCount">
+	<select id="chapterCount">
 		select count(*)
 		from chapter
 		where LEC_NO = #{lecNo}

@@ -16,6 +16,7 @@ import lombok.ToString;
 public class Chapter {
 	
 	public int chapNo;
+	public int lecChapNum;
 	public String chapTitle;
 	public String chapDetail;
 	public Date createDate;

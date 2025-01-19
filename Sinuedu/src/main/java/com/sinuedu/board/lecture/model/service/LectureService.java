@@ -16,15 +16,15 @@ public class LectureService {
 	
 	private final LectureMapper cMapper;
 
-	public ArrayList<Lecture> selectLectureList() {
-		return cMapper.selectLectureList();
+	public ArrayList<Lecture> selectLectureList(Integer lecNo) {
+		return cMapper.selectLectureList(lecNo);
 	}
 
-	public int captherCount(int lecNo) {
-		return cMapper.captherCount(lecNo);
+	public int chapterCount(int lecNo) {
+		return cMapper.chapterCount(lecNo);
 	}
 
-	public Chapter selectLecture(int lecNo) {
+	public ArrayList<Chapter> selectLecture(int lecNo) {
 		return cMapper.selectLecture(lecNo);
 	}
 
