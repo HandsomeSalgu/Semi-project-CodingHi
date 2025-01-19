@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
 <title>관리자 페이지</title>
 <style>
 body {
@@ -71,6 +73,11 @@ body {
 
 .user-table td {
 	vertical-align: middle;
+	font-size: 13px;
+}
+
+td:hover {
+	cursor: pointer;
 }
 </style>
 </head>
@@ -83,7 +90,7 @@ body {
 			<table class="user-table">
 				<thead>
 					<tr>
-						<th>no</th>
+						<th>No</th>
 						<th>아이디</th>
 						<th>이름</th>
 						<th>닉네임</th>
@@ -97,16 +104,19 @@ body {
 				</thead>
 				<tbody>
 					<tr th:each="user : ${list}">
-						<td th:text="${userStat.count}"></td>
+						<td th:text="${user.userNo}"></td>
 						<td th:text="${user.userId}"></td>
 						<td th:text="${user.userName}"></td>
 						<td th:text="${user.userNick}"></td>
 						<td th:text="${user.phone}"></td>
-						<td th:text="${user.birthDate}"></td>
+						<td th:text="${#dates.format(user.birthDate, 'yyyy-MM-dd')}"></td>
 						<td th:text="${user.hint}"></td>
 						<td th:text="${user.hintAnswer}"></td>
 						<td th:text="${user.admin}"></td>
 						<td th:text="${user.status}"></td>
+					</tr>
+					<tr th:if="${list.empty}">
+						<td colspan="10">No users found</td>
 					</tr>
 				</tbody>
 			</table>
