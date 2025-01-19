@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>findid</title>
+<title>find-id</title>
 <style>
 body {
 background-color:  #f9fbff;
@@ -88,40 +88,38 @@ margin-bottom: 10px;
 			</div>
 
 			<div class="content">
+				<form class="needs-validation" action="/member/find-id" method="POST">
 				<br/>
 				<h5>* 회원가입 시 입력했던 이름, 생년월일, 전화번호가 일치할 경우 해당 회원 정보의 아이디를 확인하실 수 있습니다.</h5>
 				<br/>
-				<form>
-					<label for="name"></label>
-					<div>
-						<h5 style="margin-bottom: 0; margin-right: 370px;">이름</h5>
-						<input type="text" class="input" id="nickname" name="nickname" placeholder="이름을 입력하세요" />
-						<span id="pwdMessage" class="message"></span>
+					<div class="divs">
+			            <div class="div">
+			            	<label for="name"></label>
+				            <h5 style="margin-bottom: 0; margin-right: 370px;">이름</h5>
+							<input type="text" class="input" id="userName" name="userName" placeholder="이름을 입력하세요" />
+							<span id="pwdMessage" class="message"></span>
+						</div>
+				        <div class="div">
+				        	<label for="phone"></label>
+				        	<h5 style="margin-bottom: 0; margin-right: 350px;">전화번호</h5>
+							<input type="text" class="input" id="phone" name="phone" placeholder="전화번호를 입력하세요" />
+							<span id="phoneMessage" class="message"></span>
+				        </div>
+						<div class="div">
+							<label for="birthdate"></label>
+							<h5 style="margin-bottom: 0; margin-right: 350px;">생년월일</h5>
+							<input type="text" class="input" id="birthDate" name="birthDate" placeholder="생년월일을 입력하세요" />
+							<span id="birthMessage" class="message"></span>
+						</div>
+					</div>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<div class="next-button">
+						<button class="next-button" id="nextButton">다음 페이지</button>
 					</div>
 				</form>
-				<form>
-					<label for="phone"></label>
-					<div>
-						<h5 style="margin-bottom: 0; margin-right: 350px;">전화번호</h5>
-						<input type="text" class="input" id="phone" name="phone" placeholder="전화번호를 입력하세요" />
-						<span id="phoneMessage" class="message"></span>
-					</div>
-				</form>
-				<form>
-					<label for="birthdate"></label>
-					<div>
-						<h5 style="margin-bottom: 0; margin-right: 350px;">생년월일</h5>
-						<input type="text" class="input" id="birthdate" name="birthdate" placeholder="생년월일을 입력하세요" />
-						<span id="birthMessage" class="message"></span>
-					</div>
-				</form>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<div class="next-button">
-					<button class="next-button" id="nextButton" onclick="location.href='join2.html'">다음 페이지</button>
-				</div>
 			</div>
 		</div>
     </div>

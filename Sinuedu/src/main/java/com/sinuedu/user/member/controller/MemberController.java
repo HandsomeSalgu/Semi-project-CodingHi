@@ -123,24 +123,47 @@ public class MemberController {
 	}
 	
 	@GetMapping("checkId")
-	public void checkId(@RequestParam("id") String id, PrintWriter out) {
-		int count = mService.checkId(id);
+	public void checkId(@RequestParam("userId") String userId, PrintWriter out) {
+		int count = mService.checkId(userId);
 		out.print(count);
 	}
 	
-	@GetMapping("findId")
+	@GetMapping("find-id")
 	public String findId() {
-		
-		return "findId";
+		return "find-id";
 	}
 	
-	@GetMapping("findPwd")
+	@PostMapping("find-id")
+	public String findMyId(@ModelAttribute Member m,
+						 @RequestParam("userName") String userName,
+						 @RequestParam("phone") String phone,
+						 @RequestParam("birthDate") String birthDate,
+						 Model model) throws ParseException {
+//			m.setPhone(phone1 + "-" + phone2 + "-" + phone3);
+			
+		String userId = mService.findMyId(userName, phone, birthDate);
+		System.out.println(userName);
+		System.out.println(phone);
+		System.out.println(birthDate);
+			
+		if(userId != null) {
+			model.addAttribute("userId", userId);
+			return "find-id-success";
+		} else {
+			return "find-id-error";
+		}
+	}
+	
+	@GetMapping("find-pwd")
 	public String findPwd() {
 		
-		return "findPwd";
+		return "find-pwd";
 	}
 	
-	
+	@GetMapping("edit")
+	public String edit() {
+		return "edit";
+	}
 	
 	
 	

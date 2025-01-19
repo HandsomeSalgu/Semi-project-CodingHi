@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>join1</title>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <style>
 body {
 background-color:  #f9fbff;
@@ -35,10 +38,11 @@ font-weight: bold;
 .main-contents-contain{
 background-color: white;
 width: 800px;
-height: 700px;
+height: 830px;
 box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 border-radius: 30px;
 margin: 0 auto;
+margin-top: 80px;
 }
 .steps {
 display: flex;
@@ -108,7 +112,7 @@ text-align: left;
 padding: 20px;
 margin-top: 20px;
 border-radius: 5px;
-width: 330px;
+width: 360px;
 margin-left: 220px;
 }
 .terms-list label {
@@ -138,23 +142,21 @@ margin-left: 0px;
 	            <div class="divs">
 		            <div class="div">
 		            	<label for="id"></label>
-			            <h5 style="margin-bottom: 0; margin-right: 380px;">아이디</h5>
-			            <input type="text" class="input" id="id" name="userId" placeholder="아이디를 입력하세요" required>
-		                <span id="idMessage" class="message"></span>
-		                <label id="idCheckResult"></label>
+			            <h5 style="margin-bottom: 0; margin-right: 350px;">아이디</h5>
+			            <input type="text" class="input" id="userId" name="userId" placeholder="아이디를 입력하세요" required>
+		                <span id="idCheckResult" style="display: block; margin-top: 5px; margin-right: 200px; font-size: 0.9em;"></span>
 			        </div>
 			        <div class="div">
 			            <label for="pwd"></label>
-			            <h5 style="margin-bottom: 0; margin-right: 370px;">비밀번호</h5>
-			            <input type="password" class="input" id="pwd" name="userPw" placeholder="8~15자 사이의 영문숫자특수문자로 조합해주세요 " required>
-			            <span id="pwdMessage" class="message"></span>
-			            <label id="pwdCheckResult"></label>
+			            <h5 style="margin-bottom: 0; margin-right: 330px;">비밀번호</h5>
+			            <input type="password" class="input" id="userPw" name="userPw" placeholder="8~15자 사이의 영문숫자특수문자로 조합해주세요 " required>
+			            <span id="pwdCheckResult" style="display: block; margin-top: 5px; font-size: 0.9em;"></span>
 			        </div>
 			        <div class="div">
 			        	<label for="pwdConfirm"></label>
-			            <h5 style="margin-bottom: 0; margin-right: 340px;">비밀번호 확인</h5>
-			            <input type="password" class="input" id="pwdConfrim" name="pwdConfrim" placeholder="8~15자 사이의 영문숫자특수문자로 조합해주세요" required>
-			            <label id="pwdConfirmCheckResult"></label>
+			            <h5 style="margin-bottom: 0; margin-right: 280px;">비밀번호 확인</h5>
+			            <input type="password" class="input" id="pwdConfirm" name="pwdConfirm" placeholder="8~15자 사이의 영문숫자특수문자로 조합해주세요" required>
+			            <span id="pwdConfirmCheckResult" style="display: block; margin-top: 5px; margin-right: 200px; font-size: 0.9em;"></span>
 			        </div>        
 		            
 		            <br/>
@@ -202,35 +204,89 @@ margin-left: 0px;
 	        });
 	    });
 	    
-	    nextButton.addEventListener('click', function () {
-	        const allChecked = Array.from(termCheckboxes).every(term => term.checked);
-	        if (!allChecked) {
-	            alert('약관 동의는 필수입니다');
-	        } else {
-	        	window.location.href = 'join2';
-	        }
-	    });
+// 	    nextButton.addEventListener('click', function () {
+// 	        const allChecked = Array.from(termCheckboxes).every(term => term.checked);
+// 	        if (!allChecked) {
+// 	            alert('약관 동의는 필수입니다');
+// 	        } else {
+// 	        	window.location.href = 'join2';
+// 	        }
+// 	    });
+
+		document.addEventListener('DOMContentLoaded', function () {
+    		const nextButton = document.getElementById('nextButton'); // nextButton 요소 가져오기
+    		const termCheckboxes = document.querySelectorAll('.term'); // 약관 체크박스 가져오기
+
+    	nextButton.addEventListener('click', function () {
+        	const allChecked = Array.from(termCheckboxes).every(term => term.checked);
+        	if (!allChecked) {
+            	alert('약관 동의는 필수입니다');
+        	} else {
+            	window.location.href = 'join2'; // 다음 페이지로 이동
+        		}
+    		});
+		});
+		
+		document.addEventListener('DOMContentLoaded', function() {
+			const passwordInput = document.getElementById('userPw');
+		    const passwordMessage = document.getElementById('pwdCheckResult');
+		    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+
+		    passwordInput.addEventListener('blur', function () {
+		        const password = passwordInput.value;
+
+		        if (passwordPattern.test(password)) {
+		            passwordMessage.textContent = '사용 가능한 비밀번호입니다.';
+		            passwordMessage.style.color = 'green';
+		        } else {
+		            passwordMessage.textContent = '비밀번호는 8~15자이며, 영문, 숫자, 특수문자를 포함해야 합니다.';
+		            passwordMessage.style.color = 'red';
+		        }
+		    });
+		})
+		
+// 		document.addEventListener('DOMContentLoaded', function () {
+//     const passwordInput = document.getElementById('userPw'); // 비밀번호 입력 필드
+//     const confirmPasswordInput = document.getElementById('pwdConfirm'); // 비밀번호 확인 필드
+//     const confirmMessage = document.getElementById('pwdConfirmCheckResult'); // 확인 메시지 표시 영역
+
+//     // 비밀번호 확인 입력 필드에 입력 중일 때 검증
+//     confirmPasswordInput.addEventListener('blur', function () {
+//         const password = passwordInput.value.trim();
+//         const confirmPassword = confirmPasswordInput.value.trim();
+
+//         // 비밀번호 확인 로직
+//         if (confirmPassword === '') {
+//             confirmMessage.textContent = ''; // 메시지 없음
+//         } else if (password === confirmPassword) {
+//             confirmMessage.textContent = '비밀번호가 일치합니다.';
+//             confirmMessage.style.color = 'green'; // 초록색 메시지
+//         } else {
+//             confirmMessage.textContent = '비밀번호를 확인해주세요.';
+//             confirmMessage.style.color = 'red'; // 빨간색 메시지
+//         }
+//     });
 	    
        window.onload = () =>{
-    		document.getElementById('id').addEventListener('change', function() {
+    		document.getElementById('userId').addEventListener('change', function() {
     			const idResult = document.getElementById('idCheckResult');
     			if(this.value.trim() == ''){
-    				idResult.innerText = '아이디를 확인해주세요';
-    				idResult.style.color = 'black';
+//     				idResult.innerText = '아이디를 확인해주세요';
+//     				idResult.style.color = 'black';
     			} else {
     				$.ajax({
     					url:'/member/checkId',
-    					data: {id:this.value.trim()},
+    					data: {userId:this.value.trim()},
     					success: data => {
-    						if(data == '0'){
-    							idResult.innerText = '사용가능한 아이디 입니다.'
-    							idResult.style.color = 'green';
-    						} else {
-    							idResult.innerText = '이미 사용 중인 아이디입니다.'
-    							idResult.style.color = 'red';
-    						}
-    					},
-    					error : data => console.log(data)
+    				        if (data == '0') {
+    				            idResult.innerText = '사용가능한 아이디 입니다.';
+    				            idResult.style.color = 'green';
+    				        } else {
+    				            idResult.innerText = '이미 사용 중인 아이디입니다.';
+    				            idResult.style.color = 'red';
+    				        }
+    				    },
+    				    error: data => console.log(data)
     				});
     			}
     		}); 

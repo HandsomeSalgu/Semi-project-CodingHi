@@ -21,8 +21,12 @@ public class MemberService {
 		return mapper.insertMember(m);
 	}
 
-	public int checkId(String id) {
-		return mapper.checkId(id);
+	public int checkId(String userId) {
+		return mapper.checkId(userId);
+	}
+
+	public String findMyId(String userName, String phone, String birthDate) {
+		return mapper.findMyId(userName, phone, birthDate);
 	}
 
 }
