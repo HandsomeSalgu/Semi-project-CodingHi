@@ -47,12 +47,8 @@ public class QnaService {
 		return q;
 	 }
 
-	
+	public int insertReply(reply r) {
+		return mapper.insertReply(r);
+	}
 
-
-
-//	public Qna selectBoard(int qNo, int page) {
-//		return mapper.selectBoard(qNo,page);
-//	}
-		
 }

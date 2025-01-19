@@ -23,6 +23,8 @@ public interface QnaMapper {
 
 	int updateCount(int qNo);
 
+	int insertReply(reply r);
+
 
 
 

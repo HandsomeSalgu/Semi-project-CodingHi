@@ -178,7 +178,7 @@ table th {
 </style>
 </head>
 <body>
-	<!-- <div th:replace="~{views/menu-bar.html}"></div> -->
+	<div th:replace="~{views/menu-bar.html}"></div>
     <div class="container">
     <!-- <script src="/semiProject/menuBar.html"></script> -->
         <div class="content">
@@ -231,15 +231,17 @@ table th {
                 </li>
                 
                 <!-- 다음 페이지 -->	
-                <li> 
+                <li th:if="${pi.endPage != pi.maxPage}"> 
+               		<!-- th:if="${pi.endPage != pi.maxPage}" 이 함수 사용하려면 어케?-->
                 	<a th:href="@{${loc}(page=${pi.currentPage+1})}" aria-label="Next">
 	            		<span aria-hidden="true">&raquo;</span>
+	            		
 	            	</a>
                 </li>
             </ul>
             
             <div class="search">
-                <input type="search" placeholder="Search" size="20">
+                <input type="search" name="search" placeholder="Search" size="20">
                 <button>검색</button>
             </div>
         </div>

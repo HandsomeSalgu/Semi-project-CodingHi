@@ -213,7 +213,7 @@ table th {
 	<div class="qContainer">
 		<!-- <div th:replace="~{views/menu-bar.html}"></div> -->
 		<div class="content">
-			<form class="need" method="POST" id="detailForm">
+			<form class="need" method="POST" id="detailForm" action="/qna/insertReply">
 			<input type="hidden" name="qnaNo" th:value="${q.qnaNo}">
 			<input type="hidden" name="page" th:value="${page}">
 				<div class="userInfo">
@@ -250,7 +250,7 @@ table th {
 						</table>
 					</div>
 					<div class="comment-section">
-						<textarea id="comment" placeholder="댓글을 남겨주세요"></textarea>
+						<textarea id="comment" name="repComment" placeholder="댓글을 남겨주세요"></textarea>
 						<button>등록</button>
 					</div>
 				</div>
