@@ -15,5 +15,6 @@ public class reply {
 	   private int repNo;
 	   private String repComment;
 	   private String userNick;
+	   private int userNo;
 	   private int qnaNo;
 }

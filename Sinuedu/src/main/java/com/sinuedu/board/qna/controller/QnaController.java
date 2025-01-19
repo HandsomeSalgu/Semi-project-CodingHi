@@ -88,9 +88,9 @@ public class QnaController {
 				  Qna q = bService.selectBoard(qNo, id);
 				  
 				  ArrayList<reply> r = bService.selectReply(qNo);
-				  for(reply rp : r) {
-					  System.out.println(rp);
-				  }
+					/*
+					 * for(reply rp : r) { System.out.println(rp); }
+					 */
 				  
 				  //ArrayList<Qna> list = bService.selectBoardList(qNo, id);
 				  
@@ -103,6 +103,26 @@ public class QnaController {
 					}
 			  
 			  }
+		
+		@PostMapping("insertReply")
+		public String insertReply(@ModelAttribute Qna q, @ModelAttribute reply r, @RequestParam("page") int page, HttpSession session) {
+			r.setUserNo(((Member)session.getAttribute("loginUser")).getUserNo());
+			r.setQnaNo(q.getQnaNo());
+			
+			System.out.println(page);
+			int result = bService.insertReply(r);
+			if(result > 0) {
+				return String.format("redirect:/qna/%d/%d", q.getQnaNo(), page);
+			}else {
+				throw new QnaException("댓글 등록을 실패하셨습니다.");
+			}
 		 
-
+		}
+		
+		@GetMapping("search")
+		public String searchTitle(@RequestParam("search") String search, Model model) {
+			
+			return search;
+			
+		}
 }

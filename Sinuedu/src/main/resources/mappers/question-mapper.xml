@@ -20,6 +20,7 @@
 		select *
 		from reply
 			 join users using(USER_NO)
+		where qna_no = #{qNo}
 		order by REP_NO desc
 	</select>
 	
@@ -34,6 +35,18 @@
 		values(QNA_SEQ.nextval, #{qnaTitle}, #{qnaDetail}, #{writer}, 
 		sysdate, sysdate, #{views}, #{cgNo}, default)
 	</insert>
+	
+	<insert id="insertReply">
+	 <selectKey order="BEFORE" resultType="_int" keyProperty="repNo">
+      <!-- 수행되기 전에 내가 먼저 수행이 되겠다 -->
+         select REPLY_SEQ.nextval from dual
+      </selectKey>
+		insert into reply
+		values (#{repNo}, #{repComment}, #{userNo}, #{qnaNo})
+	</insert>
+	
+	<!-- 인서트리플리,,,다시 고쳐야함.....하... -->
+	
 	
 	<select id="selectBoard">
 		select *
