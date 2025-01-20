@@ -7,7 +7,7 @@
 		from users
 	</select>
 
-	<select id="chapterList" resultType="com.sinuedu.user.manager.model.vo.ChapterDTO">
+	<select id="chapterList" resultType="com.sinuedu.board.lecture.model.vo.Chapter">
 		select c.cg_name as cgname, l.lec_title as lectitle, ch.chap_title as chaptitle, ch.update_date as updatedate
 		from chapter ch
 		inner join lecture l on ch.lec_no = l.lec_no

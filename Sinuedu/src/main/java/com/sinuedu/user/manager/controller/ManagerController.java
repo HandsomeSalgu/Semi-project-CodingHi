@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.sinuedu.user.manager.model.vo.ChapterDTO;
+import com.sinuedu.board.lecture.model.vo.Chapter;
 import com.sinuedu.user.manager.model.service.ManagerService;
 import com.sinuedu.user.member.model.vo.Member;
 
@@ -31,7 +31,7 @@ public class ManagerController {
 
 	@GetMapping("/chapterList")
 	public String chapterList(Model model) {
-	    List<ChapterDTO> list = mService.chapterList();
+	    List<Chapter> list = mService.chapterList();
 	    model.addAttribute("list", list);
 	    return "chapterList";
 	}

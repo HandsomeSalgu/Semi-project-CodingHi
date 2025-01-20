@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.sinuedu.user.manager.model.mapper.ManagerMapper;
-import com.sinuedu.user.manager.model.vo.ChapterDTO;
+import com.sinuedu.board.lecture.model.vo.Chapter;
 import com.sinuedu.user.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class ManagerService {
 		return mapper.userList();
 	}
 
-	public List<ChapterDTO> chapterList() {
+	public List<Chapter> chapterList() {
 	    return mapper.chapterList();
 	}
 
