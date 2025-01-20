@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -274,138 +273,38 @@ body {
 			<table class="chapter-table">
 				<thead>
 					<tr>
-						<th><select id="categoryFilter"
-							style="padding: 5px; border-radius: 4px; border: 1px solid #ddd;">
-								<option value="all">카테고리</option>
+						<th><select id="categoryFilter">
+								<option value="">카테고리 선택</option>
 								<option value="JAVA">JAVA</option>
+								<option value="ORACLE">ORACLE</option>
 								<option value="JDBC">JDBC</option>
-								<option value="HTML/CSS">HTML/CSS</option>
-								<option value="JavaScript">JavaScript</option>
-								<option value="Spring">Spring</option>
-								<option value="MySQL">MySQL</option>
-								<option value="React">React</option>
-								<option value="Node.js">Node.js</option>
-								<option value="Git">Git</option>
+								<option value="HTML">HTML</option>
 						</select></th>
-						<th><select id="lectureFilter"
-							style="padding: 5px; border-radius: 4px; border: 1px solid #ddd;">
-								<option value="all">강의목록</option>
-								<option value="기초 문법">기초 문법</option>
-								<option value="데이터베이스 연결">데이터베이스 연결</option>
-								<option value="DOM 조작">DOM 조작</option>
-								<option value="프레임워크 기초">프레임워크 기초</option>
-								<option value="데이터베이스 설계">데이터베이스 설계</option>
-								<option value="컴포넌트 생명주기">컴포넌트 생명주기</option>
-								<option value="서버 구축하기">서버 구축하기</option>
+						<th><select id="lectureFilter" disabled>
+								<option value="">강의 선택</option>
 						</select></th>
-						<th>강사명</th>
 						<th>챕터</th>
+						<th>마지막 수정 날짜</th>
 						<th>수정 / 삭제</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<tr>
-						<td>JAVA</td>
-						<td>기초 문법</td>
-						<td>박신우</td>
-						<td>Chapter1</td>
+					<tr th:each="chapter : ${list}">
+						<td th:text="${chapter.cgName}"></td>
+						<td th:text="${chapter.lecTitle}"></td>
+						<td th:text="${chapter.chapTitle}"></td>
+						<td th:text="${#dates.format(chapter.updateDate, 'yyyy-MM-dd')}"></td>
 						<td class="action-buttons">
 							<button class="edit-btn">✎</button>
 							<button class="delete-btn">✕</button>
 						</td>
 					</tr>
-					<tr>
-						<td>JAVA</td>
-						<td>기초 문법</td>
-						<td>박신우</td>
-						<td>Chapter2</td>
-						<td class="action-buttons">
-							<button class="edit-btn">✎</button>
-							<button class="delete-btn">✕</button>
-						</td>
-					</tr>
-					<tr>
-						<td>JDBC</td>
-						<td>데이터베이스 연결</td>
-						<td>박신우</td>
-						<td>Chapter1</td>
-						<td class="action-buttons">
-							<button class="edit-btn">✎</button>
-							<button class="delete-btn">✕</button>
-						</td>
-					</tr>
-					<tr>
-						<td>HTML/CSS</td>
-						<td>웹 페이지 구조</td>
-						<td>박신우</td>
-						<td>Chapter5</td>
-						<td class="action-buttons">
-							<button class="edit-btn">✎</button>
-							<button class="delete-btn">✕</button>
-						</td>
-					</tr>
-					<tr>
-						<td>JavaScript</td>
-						<td>DOM 조작</td>
-						<td>박신우</td>
-						<td>Chapter7</td>
-						<td class="action-buttons">
-							<button class="edit-btn">✎</button>
-							<button class="delete-btn">✕</button>
-						</td>
-					</tr>
-					<tr>
-						<td>Spring</td>
-						<td>프레임워크 기초</td>
-						<td>박신우</td>
-						<td>Chapter1</td>
-						<td class="action-buttons">
-							<button class="edit-btn">✎</button>
-							<button class="delete-btn">✕</button>
-						</td>
-					</tr>
-					<tr>
-						<td>MySQL</td>
-						<td>데이터베이스 설계</td>
-						<td>박신우</td>
-						<td>Chapter1</td>
-						<td class="action-buttons">
-							<button class="edit-btn">✎</button>
-							<button class="delete-btn">✕</button>
-						</td>
-					</tr>
-					<tr>
-						<td>React</td>
-						<td>컴포넌트 생명주기</td>
-						<td>박신우</td>
-						<td>Chapter2</td>
-						<td class="action-buttons">
-							<button class="edit-btn">✎</button>
-							<button class="delete-btn">✕</button>
-						</td>
-					</tr>
-					<tr>
-						<td>Node.js</td>
-						<td>서버 구축하기</td>
-						<td>박신우</td>
-						<td>Chapter3</td>
-						<td class="action-buttons">
-							<button class="edit-btn">✎</button>
-							<button class="delete-btn">✕</button>
-						</td>
-					</tr>
-					<tr>
-						<td>Git</td>
-						<td>버전 관리 시스템</td>
-						<td>박신우</td>
-						<td>Chapter1</td>
-						<td class="action-buttons">
-							<button class="edit-btn">✎</button>
-							<button class="delete-btn">✕</button>
-						</td>
+					<tr th:if="${list.empty}">
+						<td colspan="5">No chapters found</td>
 					</tr>
 				</tbody>
+
 			</table>
 		</div>
 	</div>
@@ -423,28 +322,56 @@ body {
 	</div>
 	<script>
 	window.onload = function() {
-		// 필터
-	    document.getElementById('categoryFilter').addEventListener('change', filterTable);
-	    document.getElementById('lectureFilter').addEventListener('change', filterTable);
+	    const categoryFilter = document.getElementById('categoryFilter');
+	    const lectureFilter = document.getElementById('lectureFilter');
+
+	    // 카테고리 필터 변경 이벤트
+	    categoryFilter.addEventListener('change', function() {
+	        updateLectureFilter();
+	        filterTable();
+	    });
+
+	    // 강의 필터 변경 이벤트
+	    lectureFilter.addEventListener('change', filterTable);
+
+	    function updateLectureFilter() {
+	        const selectedCategory = categoryFilter.value;
+	        lectureFilter.innerHTML = '<option value="">강의 선택</option>';
+	        lectureFilter.disabled = !selectedCategory;
+
+	        if (selectedCategory) {
+	            // 서버에서 선택된 카테고리에 해당하는 강의 목록을 가져오는 AJAX 호출
+	            fetch(`/api/lectures?category=${selectedCategory}`)
+	                .then(response => response.json())
+	                .then(lectures => {
+	                    lectures.forEach(lecture => {
+	                        const option = document.createElement('option');
+	                        option.value = lecture.id;
+	                        option.textContent = lecture.title;
+	                        lectureFilter.appendChild(option);
+	                    });
+	                })
+	                .catch(error => console.error('Error:', error));
+	        }
+	    }
 
 	    function filterTable() {
-	        const selectedCategory = document.getElementById('categoryFilter').value;
-	        const selectedLecture = document.getElementById('lectureFilter').value;
+	        const selectedCategory = categoryFilter.value;
+	        const selectedLecture = lectureFilter.value;
 	        const rows = document.querySelectorAll('.chapter-table tbody tr');
+
 	        rows.forEach(row => {
 	            const category = row.querySelector('td:nth-child(1)').textContent;
 	            const lecture = row.querySelector('td:nth-child(2)').textContent;
 	            
-	            if ((selectedCategory === 'all' || category === selectedCategory) &&
-	                (selectedLecture === 'all' || lecture === selectedLecture)) {
-	                row.style.display = '';
-	            } else {
-	                row.style.display = 'none';
-	            }
+	            const categoryMatch = !selectedCategory || category === selectedCategory;
+	            const lectureMatch = !selectedLecture || lecture === selectedLecture;
+
+	            row.style.display = categoryMatch && lectureMatch ? '' : 'none';
 	        });
 	    }
 
-	    // 모달
+	    // 모달 관련 코드
 	    const modal = document.getElementById('addModal');
 	    const addBtn = document.querySelector('.add-btn');
 	    const closeBtn = document.querySelector('.close');
@@ -464,11 +391,10 @@ body {
 	    }
 
 	    document.querySelector('.lecture-btn').onclick = function() {
-	        window.location.href = 'lecture-add.html';
+	        window.location.href = '/manager/lectureAdd';
 	    }
-
 	    document.querySelector('.chapter-btn').onclick = function() {
-	    	window.location.href = 'chapter-add.html';
+	        window.location.href = '/manager/chapterAdd';
 	    }
 	}
 	</script>
