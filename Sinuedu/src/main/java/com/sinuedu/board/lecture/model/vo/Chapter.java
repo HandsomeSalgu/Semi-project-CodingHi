@@ -17,6 +17,7 @@ public class Chapter {
 	
 	private int chapNo;
 	private int lecChapNum;
+	private String lecTitle;
 	private String chapTitle;
 	private String chapDetail;
 	private Date createDate;
