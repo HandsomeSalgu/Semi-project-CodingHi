@@ -10,10 +10,9 @@ import com.sinuedu.board.lecture.model.vo.Lecture;
 @Mapper
 public interface LectureMapper {
 
-	ArrayList<Lecture> selectLectureList();
+	ArrayList<Lecture> selectLectureList(Integer lecNo);
 
-	int captherCount(int lecNo);
+	int chapterCount(int lecNo);
 
-	Chapter selectLecture(int lecNo);
-
+	ArrayList<Chapter> selectLecture(int lecNo);
 }

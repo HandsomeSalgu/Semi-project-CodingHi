@@ -26,11 +26,11 @@ public class LectureController {
 	@GetMapping("list")
 	public ModelAndView selectLectureList(ModelAndView mv) {
 		
-		ArrayList<Lecture> list = cService.selectLectureList();
+		ArrayList<Lecture> list = cService.selectLectureList(null);
 		
 		for(Lecture lec : list) {
 			int lecNo = lec.getLecNo();
-			int capCount = cService.captherCount(lecNo);
+			int capCount = cService.chapterCount(lecNo);
 			lec.setTotalChap(capCount);
 		}
 		
@@ -42,11 +42,16 @@ public class LectureController {
 	@GetMapping("/{id}")
 	public ModelAndView selectLecture(@PathVariable("id") int lecNo, ModelAndView mv) {
 		
-		Chapter chp = cService.selectLecture(lecNo);
+		ArrayList<Chapter> cList = cService.selectLecture(lecNo);
+		int capCount = cService.chapterCount(lecNo);
+		ArrayList<Lecture> lList = cService.selectLectureList(lecNo);
+		Lecture lec = lList.get(0);
 		
-		mv.addObject("chapter", chp).setViewName("postlist");
+		for(int i =1 ; i<=cList.size() ; i++) {
+			cList.get(i-1).setLecChapNum(i);
+		}
+		
+		mv.addObject("lec", lec).addObject("cList", cList).addObject("capCount", capCount).setViewName("postlist");
 		return mv;
 	}
-
-	
 }
