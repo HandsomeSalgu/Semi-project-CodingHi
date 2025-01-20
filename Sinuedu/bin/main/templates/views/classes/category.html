@@ -51,6 +51,10 @@
         margin-bottom: 20px;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
     }
+    
+    .class-element:hover{
+    	background-color: #f8f8f8;
+    }
 
     .element-title{
         float: left;
@@ -107,7 +111,7 @@
 <!-- 	<div th:replace="~{views/menu-bar}"></div> -->
 	
     <section>
-        <div class="write">
+        <div class="write" th:if="${loginUser.admin == 'Y'}">
             <img src="/photo/classes/write.png"/>
         </div>
         <div class="class-list">
@@ -150,7 +154,7 @@
     		
     		for(const element of elements){
     			const lecNo = element.children[0].value
-    			element.addEventListener('click', function(){
+    			element.addEventListener('click', ()=>{
     				location.href= lecNo;
     			});
     		}

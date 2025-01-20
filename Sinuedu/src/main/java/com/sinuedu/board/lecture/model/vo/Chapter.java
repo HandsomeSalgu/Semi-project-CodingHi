@@ -15,14 +15,15 @@ import lombok.ToString;
 @ToString
 public class Chapter {
 	
-	public int chapNo;
-	public int lecChapNum;
-	public String chapTitle;
-	public String chapDetail;
-	public Date createDate;
-	public Date updateDate;
-	public int views;
-	public int lecNo;
-	public int chapRate;
+	private int chapNo;
+	private int lecChapNum;
+	private String chapTitle;
+	private String chapDetail;
+	private Date createDate;
+	private Date updateDate;
+	private int views;
+	private int lecNo;
+	private String cgName;
+	private int chapRate;
 	
 }

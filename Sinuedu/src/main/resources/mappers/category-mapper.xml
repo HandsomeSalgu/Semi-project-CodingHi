@@ -23,5 +23,13 @@
 		from chapter
 		where LEC_NO = #{lecNo}
 	</select>
+	
+	<select id="selectChapter">
+		select *
+		from chapter
+			 join LECTURE using(LEC_NO)
+			 join CATEGORY using(CG_NO)
+		where CHAP_NO = #{chapNo}
+	</select>
 </mapper>
 
