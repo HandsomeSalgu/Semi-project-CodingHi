@@ -55,4 +55,13 @@
 			 join category using(CG_NO)
 		where QNA_NO =#{qnaNo}
 	</select>
+	
+	<select id="selectCategory">
+		select *
+		from category
+	</select>
+	
+	
+	
+	
 </mapper>

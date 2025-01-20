@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>질문 게시물 작성페이지</title>
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<title>질문 게시물 작성페이지</title>
+<style>
         /* 기본 스타일 초기화 */
         * {
             margin: 0;
@@ -203,62 +204,17 @@
 			</span></div>
         <div class="header">
 
-				<span class="category"> <select name="category" id="category"
-                                                required>
-					<option value="java">Java</option>
-						<option value="Oracle">JDBC</option>
-						<option value="php">HTML/CSS</option>
-						<option value="golang">JavaScript</option>
-						<option value="python">Spring</option>
-						<option value="MySQL">MySQL</option>
-						<option value="React">React</option>
-						<option value="Node.js">Node.js</option>
-						<option value="Git">Git</option>
+				<span class="category"> 
+				<select name="cgNo" id="category" required>
+					<th:block th:each="c: ${categories}">
+						<option th:value="${c.cgNo}">[[${c.cgName}]]</option>
+					</th:block>
 				</select>
 				</span> <span class="title"> <input type="text" name="qnaTitle" placeholder="제목" >
 				</span>
         </div>
         <!-- 본문 입력 -->
         <div class="editor">
-            <!--				<div class="editorbox">-->
-            <!--					<form action="#">-->
-            <!--						<select name="fontType">-->
-            <!--							<option value="글씨체1">글씨체1</option>-->
-            <!--							<option value="글씨체2">글씨체2</option>-->
-            <!--							<option value="글씨체3">글씨체3</option>-->
-            <!--							<option value="글씨체4">글씨체4</option>-->
-            <!--							<option value="글씨체5">글씨체5</option>-->
-            <!--						</select>-->
-            <!--					</form>-->
-            <!--					<form action="#">-->
-            <!--						<select name="fontSize">-->
-            <!--							<option value=10>10</option>-->
-            <!--							<option value=11>11</option>-->
-            <!--							<option value=12>12</option>-->
-            <!--							<option value=13>13</option>-->
-            <!--							<option value=14>14</option>-->
-            <!--						</select>-->
-            <!--					</form>-->
-            <!--					<form action="#">-->
-            <!--						<select name="fontColor">-->
-            <!--							<option value=>글꼴1</option>-->
-            <!--							<option value="글꼴2">글꼴2</option>-->
-            <!--							<option value="글꼴3">글꼴3</option>-->
-            <!--							<option value="글꼴4">글꼴4</option>-->
-            <!--							<option value="글꼴5">글꼴5</option>-->
-            <!--						</select>-->
-            <!--					</form>-->
-            <!--					<form action="#">-->
-            <!--						<select name="bgColor">-->
-            <!--							<option value="글꼴1">글꼴1</option>-->
-            <!--							<option value="글꼴2">글꼴2</option>-->
-            <!--							<option value="글꼴3">글꼴3</option>-->
-            <!--							<option value="글꼴4">글꼴4</option>-->
-            <!--							<option value="글꼴5">글꼴5</option>-->
-            <!--						</select>-->
-            <!--					</form>-->
-            <!--					-->
-            <!--				</div>-->
             <textarea name="qnaDetail" placeholder="내용을 입력하세요"></textarea>
         </div>
         <!-- 저장 버튼 -->
@@ -268,5 +224,22 @@
     </div>
     </form>
 </div>
+	
+	<script th:inline="javascript">
+	document.addEventListener('DOMContentLoaded', function () {
+	    const noticeCheckbox = document.getElementById('noticeCheckbox');
+	    const noticeValue = document.getElementById('noticeValue');
+
+	    // 체크박스 상태 변경 감지
+	    noticeCheckbox.addEventListener('change', function () {
+	        if (this.checked) {
+	            noticeValue.textContent = 'Y'; // 체크된 경우 'Y'로 변경
+	        } else {
+	            noticeValue.textContent = 'N'; // 체크 해제된 경우 'N'으로 변경
+	        }
+	    });
+	});
+	</script>
+
 </body>
 </html>

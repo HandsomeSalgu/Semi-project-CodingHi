@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sinuedu.board.lecture.model.vo.Category;
 import com.sinuedu.board.qna.exception.QnaException;
 import com.sinuedu.board.qna.model.service.QnaService;
 import com.sinuedu.board.qna.model.vo.PageInfo;
@@ -52,18 +53,25 @@ public class QnaController {
 	}
 
 	@GetMapping("write")
-	public String insertBoard() {
+	public ModelAndView insertBoard(ModelAndView mv) {
+		ArrayList<Category> categories = bService.selectCategory();
 		
-		return "views/question/question-write";
+		
+		if(categories != null) {
+			mv.addObject("categories",categories).setViewName("question-write");
+			return mv;
+		}else {
+			throw new QnaException("카테고리 목록이 없습니다.");
+		}
+		
 	}
 
 	@PostMapping("insert")
 	public String insertBoard(@ModelAttribute Qna q, HttpSession session) {
 		/*q.setUserNick(session.getId());*/
 		q.setWriter(((Member)session.getAttribute("loginUser")).getUserNo());
-		q.setCgNo(3);
 		
-		// System.out.println(q);
+		 System.out.println(q);
 		
 		int result = bService.insertBoard(q);
 		if (result > 0) {
@@ -71,7 +79,6 @@ public class QnaController {
 		} else {
 			throw new QnaException("게시글 작성을 실패하였습니다.");
 		}
-
 	}
 
 		// 상세 페이지 글 조회 이동
@@ -119,10 +126,15 @@ public class QnaController {
 		 
 		}
 		
+		@GetMapping("updatePost")
+		public String updatePost() {
+			return "updatePost";
+		}
+		
+		
 		@GetMapping("search")
 		public String searchTitle(@RequestParam("search") String search, Model model) {
 			
-			return search;
-			
+			return search;	
 		}
 }
