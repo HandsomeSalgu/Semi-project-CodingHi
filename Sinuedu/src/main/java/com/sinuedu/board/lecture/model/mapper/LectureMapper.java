@@ -15,4 +15,6 @@ public interface LectureMapper {
 	int chapterCount(int lecNo);
 
 	ArrayList<Chapter> selectLecture(int lecNo);
+
+	Chapter selectChapter(int chapNo);
 }

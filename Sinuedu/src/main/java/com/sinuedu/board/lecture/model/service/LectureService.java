@@ -28,4 +28,8 @@ public class LectureService {
 		return cMapper.selectLecture(lecNo);
 	}
 
+	public Chapter selectChapter(int chapNo) {
+		return cMapper.selectChapter(chapNo);
+	}
+
 }

@@ -50,8 +50,19 @@ public class LectureController {
 		for(int i =1 ; i<=cList.size() ; i++) {
 			cList.get(i-1).setLecChapNum(i);
 		}
-		
+		mv.addObject("lecNo",lecNo);
 		mv.addObject("lec", lec).addObject("cList", cList).addObject("capCount", capCount).setViewName("postlist");
+		return mv;
+	}
+	
+	@GetMapping("/{lNo}/{cNo}")
+	public ModelAndView selectChapter(@PathVariable("lNo") int lecNo, @PathVariable("cNo") int chapNo, 
+								ModelAndView mv) {
+		
+		Chapter chapter = cService.selectChapter(chapNo);
+		System.out.println(chapter);
+		mv.addObject("chapter", chapter).addObject("chapNo",chapNo).setViewName("post");
+		
 		return mv;
 	}
 }
