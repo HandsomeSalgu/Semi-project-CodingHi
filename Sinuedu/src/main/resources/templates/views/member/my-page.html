@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>mypage</title>
+<title>my-page</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <style>
 body {
@@ -183,62 +182,64 @@ margin-bottom: 10px;
 				<h5>* 회원가입 시 입력했던 정보들을 수정할 수 있습니다. (단, 아이디는 제외)</h5>
 				<br/>
 				<div>
-					<form action="/member/editMyInfo" method="post">
+					<form class="needs-validation" action="/member/my-page" method="POST">
 						<div class="left-right">
 							<div class="left">
-								
+								<div class="pwd">
 									<label for="pwd"></label>
-									<div>
-										<h5 style="margin-bottom: 0; margin-right: 350px;">비밀번호</h5>
-										<input type="password" class="input" id="pwd" name="pwd" placeholder="8~15자 사이의 영문숫자특수문자로 조합해주세요 " />
-										<span id="pwdMessage" class="message"></span>
-										<h5 style="margin-bottom: 0; margin-right: 320px;">비밀번호 확인</h5>
-										<input type="password" class="input" id="pwdConrim" name="pwdConrim" placeholder="8~15자 사이의 영문숫자특수문자로 조합해주세요" />
-									</div>
-								
-								<div class="pwd-hint">
-									
-										<h5 style="margin-bottom: 0; margin-right: 310px;">비밀번호 힌트</h5>
-										<select name="hint" size="1">
-											<option value="hint1">내가 태어난 지역의 이름은?</option>
-											<option value="hint2">내가 졸업한 초등학교 이름은?</option>
-											<option value="hint3">내가 가장 좋아하는 과일의 이름은?</option>
-											<option value="hint4" selected>나의 아버지 성함은?</option>
-											<option value="hint5">나의 어머니 성함은?</option>
-										</select>
-										<h5 style="margin-bottom: 0; margin-right: 280px;">비밀번호 힌트 답변</h5>
-											<input type="text" id="answer" name="answer" placeholder="힌트에 대한 답을 입력하세요">
-									
+									<h5 style="margin-bottom: 0; margin-right: 350px;">비밀번호</h5>
+									<input type="password" class="input" id="newUserPw" name="newUserPw" placeholder="8~15자 사이의 영문숫자특수문자로 조합해주세요">
+									<span id="newUserPwCheckResult" class="message"></span>
+								</div>
+								<div class="pwdConfirm">
+									<label for="pwdConfirm"></label>
+									<h5 style="margin-bottom: 0; margin-right: 320px;">비밀번호 확인</h5>
+									<input type="password" class="input" id="newUserPwConfirm" name="newUserPwConfirm" placeholder="비밀번호를 다시 입력해주세요">
+									<span id="newUserPwConfirmCheckResult" class="message"></span>
+								</div>
+								<div class="pwd-hint">	
+									<h5 style="margin-bottom: 0; margin-right: 310px;">비밀번호 힌트</h5>
+									<select name="hint" size="1" th:value="${session.loginUser.hint}">
+										<option value="hint1">내가 태어난 지역의 이름은?</option>
+										<option value="hint2">내가 졸업한 초등학교 이름은?</option>
+										<option value="hint3">내가 가장 좋아하는 과일의 이름은?</option>
+										<option value="hint4">나의 아버지 성함은?</option>
+										<option value="hint5">나의 어머니 성함은?</option>
+									</select>
+									<label for="pwdHintAnswer"></label>
+									<h5 style="margin-bottom: 0; margin-right: 280px;">비밀번호 힌트 답변</h5>
+									<input type="text" id="answer" name="answer" placeholder="힌트에 대한 답을 입력하세요" th:value="${session.loginUser.hintAnswer}">
 								</div>
 							</div>
 							<div class="right">
-								<h5 style="margin-bottom: 0; margin-right: 360px;">이름</h5>
-								<input type="text" class="input" id="name" name="name" placeholder="이름을 입력하세요" />
-										<span id="idMessage" class="message"></span>
-								
-									<label for="nickname"></label>
-									<div>
-										<h5 style="margin-bottom: 0; margin-right: 350px;">닉네임</h5>
-										<input type="text" class="input" id="nickname" name="nickname" placeholder="닉네임을 입력하세요" />
-										<span id="pwdMessage" class="message"></span>
-									</div>
-								
+								<div class="name">
+									<label for="name"></label>
+									<h5 style="margin-bottom: 0; margin-right: 360px;">이름</h5>
+									<input type="text" class="input" id="name" name="name" th:value="${session.loginUser.userName}">
+									<span id="idMessage" class="message"></span>
+								</div>
+								<div class="nickName">
+									<label for="nickName"></label>
+									<h5 style="margin-bottom: 0; margin-right: 350px;">닉네임</h5>
+									<input type="text" class="input" id="nickname" name="nickname" th:value="${session.loginUser.userNick}"/>
+									<span id="pwdMessage" class="message"></span>
+								</div>
 								<div class="birthdate">
 									<h5 style="margin-bottom: 0; margin-right: 340px;">생년월일</h5>
-									<input type="text" id="year" placeholder="2000" maxlength="4">
+									<input type="text" id="year" placeholder="2000" maxlength="4" th:value="${#strings.arraySplit(session.loginUser.birthDate, '-')[0]}">
 									<span>년</span>
-									<input type="text" id="month" placeholder="01" maxlength="2">
+									<input type="text" id="month" placeholder="01" maxlength="2" th:value="${#strings.arraySplit(session.loginUser.birthDate, '-')[1]}">
 									<span>월</span>
-									<input type="text" id="day" placeholder="01" maxlength="2">
+									<input type="text" id="day" placeholder="01" maxlength="2" th:value="${#strings.arraySplit(session.loginUser.birthDate, '-')[2]}">
 									<span>일</span>
 								</div>
 								<div class="phone">
 									<h5 style="margin-bottom: 0; margin-right: 340px;">전화번호</h5>
-									<input type="text" id="phone1" placeholder="010" maxlength="3">
+									<input type="text" id="phone1" placeholder="010" maxlength="3" th:value="${#strings.arraySplit(session.loginUser.phone, '-')[0]}">
 									<span>-</span>
-									<input type="text" id="phone2" placeholder="1234" maxlength="4">
+									<input type="text" id="phone2" placeholder="1234" maxlength="4" th:value="${#strings.arraySplit(session.loginUser.phone, '-')[1]}">
 									<span>-</span>
-									<input type="text" id="phone3" placeholder="5678" maxlength="4">
+									<input type="text" id="phone3" placeholder="5678" maxlength="4" th:value="${#strings.arraySplit(session.loginUser.phone, '-')[2]}">
 								</div>
 							</div>
 						</div>
@@ -250,14 +251,24 @@ margin-bottom: 10px;
 				<br/>
 				<div class="button">
 					<div class="edit-button">
-						<button class="edit-button" id="editButton" onclick="location.href='../../index.html'">수정</button>
-					</div>
-					<div class="main-button">
-						<button class="main-button" id="mainButton" onclick="location.href='../index.html'">메인 페이지</button>
+						<button class="edit-button" id="editButton">수정</button>
 					</div>
 				</div>
 			</div>
 		</div>
     </div>
+    
+    <script>
+//     	document.addEventListener('DOMContentLoaded', function () {
+        
+//         	const birthDate = "yyyy/MM/dd";
+
+//         	const [year, month, day] = birthDate.split('-');
+
+// 			document.getElementById('year').value = year;
+//         	document.getElementById('month').value = month;
+//         	document.getElementById('day').value = day;
+//     	});
+    </script>
 </body>
 </html>

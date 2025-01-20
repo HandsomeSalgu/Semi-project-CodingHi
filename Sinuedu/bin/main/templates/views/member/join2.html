@@ -199,14 +199,13 @@ text-align: left;
 	            	<div class="name">
 		            	<label for="name"></label>
 		            	<h5 style="margin-bottom: 0; margin-right: 360px;">이름</h5>
-		            	<input type="text" class="input" id="name" name="userName" placeholder="이름을 입력하세요" />
-	                    <span id="idMessage" class="message"></span>
+		            	<input type="text" class="input" id="userName" name="userName" placeholder="이름을 입력하세요">
 	            	</div>
 	                <div class="nickname">
 	                	<label for="nickname"></label>
 	                    <h5 style="margin-bottom: 0; margin-right: 350px;">닉네임</h5>
-	                    <input type="text" class="input" id="nickname" name="userNick" placeholder="닉네임을 입력하세요" />
-	                    <span id="pwdMessage" class="message"></span>
+	                    <input type="text" class="input" id="userNick" name="userNick" placeholder="닉네임을 입력하세요"><br/>
+	                    <span id="userNickCheckResult" class="message" style="visibility: hidden;"></span>
 	                </div>
 		            <div class="birthdate">
 		                <h5 style="margin-bottom: 0; margin-right: 340px;">생년월일</h5>
@@ -253,7 +252,28 @@ text-align: left;
     </div>
 
     <script>
-       
+    window.onload = () =>{
+		document.getElementById('userNick').addEventListener('change', function() {
+			const userNickResult = document.getElementById('userNickCheckResult');
+			if(this.value.trim() == ''){
+			} else {
+				$.ajax({
+					url:'/member/checkUserNick',
+					data: {userNick:this.value.trim()},
+					success: data => {
+				        if (data == '0') {
+				            userNickResult.innerText = '사용가능한 닉네임 입니다.';
+				            userNickResult.style.color = 'green';
+				        } else {
+				            userNickResult.innerText = '이미 사용 중인 닉네임입니다.';
+				            userNickResult.style.color = 'red';
+				        }
+				    },
+				    error: data => console.log(data)
+				});
+			}
+		}); 
+   }
 
     </script>
 </body>

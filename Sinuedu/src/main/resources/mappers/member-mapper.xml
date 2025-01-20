@@ -8,7 +8,7 @@
 	</select>
 	
 	<resultMap type="com.sinuedu.user.member.model.vo.Member" id="resultLogin">
-		<result column="BRITH_DATE" property="birthDate"/>
+		<result column="BIRTH_DATE" property="birthDate"/>
 	</resultMap>
 
 	<insert id="insertMember">
@@ -22,6 +22,12 @@
 		where user_id = #{userId}
 	</select>
 	
+	<select id="checkUserNick" resultType="_int">
+		select count(*)
+		from users
+		where user_nick = #{userNick}
+	</select>
+	
 	<select id="findMyId" resultMap="findId">
 		select user_id
 		from users
@@ -29,6 +35,18 @@
 	</select>
 	
 	<resultMap type="com.sinuedu.user.member.model.vo.Member" id="findId">
-		<result column="BRITH_DATE" property="birthDate"/>
+		<result column="BIRTH_DATE" property="birthDate"/>
 	</resultMap>
+	
+	<update id="updateMember">
+		update users
+		set user_name = #{userName}
+		    user_nick = #{userNick}
+		    user_pw = #{userPw}
+		    phone = #{phone}
+		    birth_date = #{birthDate}
+		    hint = #{hint}
+		    hint_answer = #{hintAnswer}
+		where user_id = #{userId}
+	</update>
 </mapper>
