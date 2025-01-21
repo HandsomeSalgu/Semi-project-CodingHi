@@ -100,16 +100,11 @@ public class MemberController {
 		m.setPhone(phone1 + "-" + phone2 + "-" + phone3);
 		
 		String Birth = birth1 + "-" + birth2+ "-" +birth3;
-		System.out.println(Birth);
-		System.out.println(birth1);
-		System.out.println(birth2);
-		System.out.println(birth3);
 		
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date utilDate = formatter.parse(Birth);
         
         Date date = new Date(utilDate.getTime());
-        System.out.println(date);
         m.setBirthDate(date);
         m.setUserPw(bcrypt.encode(m.getUserPw()));
 		int result = mService.insertMember(m);
@@ -144,16 +139,27 @@ public class MemberController {
 	
 	@PostMapping("find-id")
 	public String findMyId(@ModelAttribute Member m,
-						 @RequestParam("userName") String userName,
-						 @RequestParam("phone") String phone,
-						 @RequestParam("birthDate") String birthDate,
-						 Model model) throws ParseException {
-//			m.setPhone(phone1 + "-" + phone2 + "-" + phone3);
+						   @RequestParam("userName") String userName,
+						   @RequestParam("phone1") String phone1, 
+						   @RequestParam("phone2") String phone2, 
+						   @RequestParam("phone3") String phone3, 
+						   @RequestParam("birth1") String birth1,
+						   @RequestParam("birth2") String birth2, 
+						   @RequestParam("birth3") String birth3,
+						   Model model) throws ParseException {
 			
-		String userId = mService.findMyId(userName, phone, birthDate);
-		System.out.println(userName);
-		System.out.println(phone);
-		System.out.println(birthDate);
+		
+		m.setUserName(userName);
+		m.setPhone(phone1 + "-" + phone2 + "-" + phone3);
+	    
+		String Birth = birth1 + "-" + birth2+ "-" +birth3;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date utilDate = formatter.parse(Birth);
+        
+        Date date = new Date(utilDate.getTime());
+        m.setBirthDate(date);
+        
+	    String userId = mService.findMyId(m);
 			
 		if(userId != null) {
 			model.addAttribute("userId", userId);
@@ -176,19 +182,49 @@ public class MemberController {
 		return "my-page";
 	}
 	
+	// 내 정보 수정
 	@PostMapping("my-page")
-	public String editMyInfo(@RequestParam("newUserPw") String newPw, 
-						   Model model) {
-		Member m =(Member)model.getAttribute("loginUser");
+	public String editMyInfo(@ModelAttribute Member m,
+							 @RequestParam("newUserPw") String newPw, 
+						   	 @RequestParam("phone1") String phone1, 
+							 @RequestParam("phone2") String phone2, 
+							 @RequestParam("phone3") String phone3, 
+							 @RequestParam("birth1") String birth1,
+							 @RequestParam("birth2") String birth2, 
+							 @RequestParam("birth3") String birth3, HttpSession session) throws ParseException {
+		Member loginUser =(Member)session.getAttribute("loginUser");
 		
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("id", m.getUserId());
-		map.put("newUserPw", bcrypt.encode(newPw));
+		String Phone = phone1 + "-" + phone2 + "-" + phone3;
+		m.setPhone(Phone);
 		
-		int result = mService.updateMember(map);
+		String Birth = birth1 + "-" + birth2 + "-" + birth3;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date utilDate = formatter.parse(Birth);
+        
+        Date date = new Date(utilDate.getTime());
+        
+        m.setBirthDate(date);
+        m.setUserId(loginUser.getUserId());
+        
+        
+        if (bcrypt.matches(newPw, m.getUserPw())) {
+            throw new MemberException("새 비밀번호는 기존 비밀번호와 다르게 설정해주세요.");
+        }
+        
+        m.setUserPw(bcrypt.encode(newPw));
+
+        // 비밀번호 암호화 및 업데이트
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id", m.getUserId());
+        map.put("newUserPw", bcrypt.encode(newPw));
+
+		int result = mService.updateMember(m);
+		System.out.println("result : " + result);
 		
 		if(result > 0) {
-			model.addAttribute("loginUser", mService.login(m));
+			Member updatedUser = mService.login(m);
+	        session.setAttribute("loginUser", updatedUser);
+	        System.out.println(updatedUser);
 			return "redirect:/";
 		} else {
 			throw new MemberException("회원정보 수정을 실패하였습니다");

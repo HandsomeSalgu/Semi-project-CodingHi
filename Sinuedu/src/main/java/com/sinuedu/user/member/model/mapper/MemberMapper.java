@@ -17,8 +17,8 @@ public interface MemberMapper {
 	
 	int checkUserNick(String userNick);
 
-	String findMyId(String userName, String phone, String birthDate);
+	String findMyId(Member m);
 
-	int updateMember(HashMap<String, String> map);
+	int updateMember(Member m);
 
 }

@@ -63,6 +63,28 @@ width: 380px;
 outline: none;
 text-align: left;
 }
+.birthdate input{
+margin: 10px;
+padding: 12px;
+font-size: 16px;
+background-color: #f0f0f0;
+border: 2px solid #ccc;
+border-radius: 8px;
+width: 70px;
+outline: none;
+text-align: left;
+}
+.phone input{
+margin: 10px;
+padding: 12px;
+font-size: 16px;
+background-color: #f0f0f0;
+border: 2px solid #ccc;
+border-radius: 8px;
+width: 80px;
+outline: none;
+text-align: left;
+}
 .next-button{
 margin: 0 auto;
 font-size: 20px;
@@ -99,18 +121,23 @@ margin-bottom: 10px;
 							<input type="text" class="input" id="userName" name="userName" placeholder="이름을 입력하세요" />
 							<span id="pwdMessage" class="message"></span>
 						</div>
-				        <div class="div">
-				        	<label for="phone"></label>
-				        	<h5 style="margin-bottom: 0; margin-right: 350px;">전화번호</h5>
-							<input type="text" class="input" id="phone" name="phone" placeholder="전화번호를 입력하세요" />
-							<span id="phoneMessage" class="message"></span>
-				        </div>
-						<div class="div">
-							<label for="birthdate"></label>
-							<h5 style="margin-bottom: 0; margin-right: 350px;">생년월일</h5>
-							<input type="text" class="input" id="birthDate" name="birthDate" placeholder="생년월일을 입력하세요" />
-							<span id="birthMessage" class="message"></span>
-						</div>
+				        <div class="phone">
+			                <h5 style="margin-bottom: 0; margin-right: 340px;">전화번호</h5>
+			                <input type="text" id="phone1" placeholder="010" maxlength="3" name="phone1">
+			                <span>-</span>
+			                <input type="text" id="phone2" placeholder="1234" maxlength="4" name="phone2">
+			                <span>-</span>
+			                <input type="text" id="phone3" placeholder="5678" maxlength="4" name="phone3">
+			            </div>
+						<div class="birthdate">
+			                <h5 style="margin-bottom: 0; margin-right: 340px;">생년월일</h5>
+			                <input type="text" id="year" placeholder="2000" maxlength="4" name="birth1">
+			                <span>년</span>
+			                <input type="text" id="month" placeholder="01" maxlength="2" name="birth2">
+			                <span>월</span>
+			                <input type="text" id="day" placeholder="01" maxlength="2" name="birth3">
+			                <span>일</span>
+			            </div>
 					</div>
 					<br/>
 					<br/>

@@ -131,7 +131,7 @@ margin-left: 0px;
 <body>
     <div class="topbar">
         <div class="menu-icon">
-            <div><img src="/photo/menuBar/logo2.png" height= "100px" width="100%"/></div>
+            <div><img src="/photo/menuBar/logo2.png" height= "100px" width="100%" id="clickImg"/></div>
         </div>
         <div class="join">
             <p style="margin-bottom: 0; margin-right: 450px;">회원가입</p>
@@ -334,6 +334,10 @@ margin-left: 0px;
     	        }
     	    });
     	});
+       
+       document.getElementById('clickImg').addEventListener('click', function () {
+           window.location.href = '/';
+       });
 
     </script>
 </body>
