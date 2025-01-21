@@ -140,7 +140,7 @@
                 <img src="/photo/classes/example.png" class="image-thumbnail">
             </div>
             <div class="manager-function">
-            	<th:block th:if="${loginUser.admin == 'Y'}">
+            	<th:block th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
                 <img src="/photo/classes/update.png" class="image-bookmark"/>
                 <img src="/photo/classes/delete.png" class="image-bookmark"/>
                 </th:block>
@@ -186,7 +186,7 @@
                          <a>Chpater [[${Chap.lecChapNum}]]</a><br>
                          <a>[[${Chap.chapTitle}]]</a>
                      </div>
-                     <span th:if="${loginUser.admin == 'Y'}">
+                     <span th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
                          <img src="/photo/classes/update.png" class="image-bookmark"/>
                          <img src="/photo/classes/delete.png" class="image-bookmark"/>
                      </span>
