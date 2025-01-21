@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -121,6 +122,7 @@ public class MemberController {
 			throw new MemberException("회원가입을 실패하였습니다");
 		}
 	}
+
 	
 	@GetMapping("checkId")
 	public void checkId(@RequestParam("userId") String userId, PrintWriter out) {
@@ -128,6 +130,13 @@ public class MemberController {
 		out.print(count);
 	}
 	
+	@GetMapping("checkUserNick")
+	public void checkUserNick(@RequestParam("userNick") String userNick, PrintWriter out) {
+		int count = mService.checkUserNick(userNick);
+		out.print(count);
+	}
+	
+	// 아이디 찾기
 	@GetMapping("find-id")
 	public String findId() {
 		return "find-id";
@@ -154,18 +163,37 @@ public class MemberController {
 		}
 	}
 	
+	// 비밀번호 찾기
 	@GetMapping("find-pwd")
 	public String findPwd() {
 		
 		return "find-pwd";
 	}
 	
-	@GetMapping("edit")
+	// 마이페이지
+	@GetMapping("my-page")
 	public String edit() {
-		return "edit";
+		return "my-page";
 	}
 	
-	
+	@PostMapping("my-page")
+	public String editMyInfo(@RequestParam("newUserPw") String newPw, 
+						   Model model) {
+		Member m =(Member)model.getAttribute("loginUser");
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("id", m.getUserId());
+		map.put("newUserPw", bcrypt.encode(newPw));
+		
+		int result = mService.updateMember(map);
+		
+		if(result > 0) {
+			model.addAttribute("loginUser", mService.login(m));
+			return "redirect:/";
+		} else {
+			throw new MemberException("회원정보 수정을 실패하였습니다");
+		}
+	}
 	
 	
 }
