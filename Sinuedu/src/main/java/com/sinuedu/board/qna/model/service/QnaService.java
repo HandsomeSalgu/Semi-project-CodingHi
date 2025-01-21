@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
+import com.sinuedu.board.lecture.model.vo.Category;
 import com.sinuedu.board.qna.model.mapper.QnaMapper;
 import com.sinuedu.board.qna.model.vo.PageInfo;
 import com.sinuedu.board.qna.model.vo.Qna;
@@ -50,5 +51,15 @@ public class QnaService {
 	public int insertReply(reply r) {
 		return mapper.insertReply(r);
 	}
+
+	public ArrayList<Category> selectCategory() {
+		return mapper.selectCategory();
+	}
+
+	public int updateBoard(Qna q) {
+		return mapper.updateBoard(q);
+	}
+	
+
 
 }

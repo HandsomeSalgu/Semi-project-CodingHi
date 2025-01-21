@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
+import com.sinuedu.board.lecture.model.vo.Category;
 import com.sinuedu.board.qna.model.vo.Qna;
 import com.sinuedu.board.qna.model.vo.reply;
 
@@ -24,6 +25,11 @@ public interface QnaMapper {
 	int updateCount(int qNo);
 
 	int insertReply(reply r);
+
+	ArrayList<Category> selectCategory();
+
+	int updateBoard(Qna q);
+
 
 
 
