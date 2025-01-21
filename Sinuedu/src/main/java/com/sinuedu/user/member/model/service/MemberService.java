@@ -1,5 +1,7 @@
 package com.sinuedu.user.member.model.service;
 
+import java.util.HashMap;
+
 import org.springframework.stereotype.Service;
 
 import com.sinuedu.user.member.model.mapper.MemberMapper;
@@ -25,8 +27,15 @@ public class MemberService {
 		return mapper.checkId(userId);
 	}
 
+	public int checkUserNick(String userNick) {
+		return mapper.checkUserNick(userNick);
+	}
 	public String findMyId(String userName, String phone, String birthDate) {
 		return mapper.findMyId(userName, phone, birthDate);
+	}
+
+	public int updateMember(HashMap<String, String> map) {
+		return mapper.updateMember(map);
 	}
 
 }
