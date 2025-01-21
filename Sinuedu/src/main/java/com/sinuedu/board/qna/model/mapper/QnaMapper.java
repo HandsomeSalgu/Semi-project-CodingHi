@@ -28,6 +28,9 @@ public interface QnaMapper {
 
 	ArrayList<Category> selectCategory();
 
+	int updateBoard(Qna q);
+
+
 
 
 

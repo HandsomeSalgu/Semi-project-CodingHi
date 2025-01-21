@@ -56,4 +56,10 @@ public class QnaService {
 		return mapper.selectCategory();
 	}
 
+	public int updateBoard(Qna q) {
+		return mapper.updateBoard(q);
+	}
+	
+
+
 }

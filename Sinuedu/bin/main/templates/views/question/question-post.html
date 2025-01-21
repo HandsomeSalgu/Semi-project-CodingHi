@@ -225,7 +225,8 @@ table th {
 					<span class="category">[[${q.cgName}]]</span> 
 					<span class="title">[[${q.qnaTitle}]]</span> 
 					<span class="editPost">
-					<button action="/qna/updatePost"><img src="/photo/question/Edit%2003.png" alt="edit"></button></span>
+					<button type="button" th:onclick="|location.href='${page}/@{updatePost}'|" id="updateForm">
+					<img src="/photo/question/Edit%2003.png" alt="edit" ></button></span>
 				</div>
 
 				<div class="question-container">
@@ -258,5 +259,17 @@ table th {
 			</form>
 		</div>
 	</div>
+	 	<!-- <script th:inline="javascript">
+		    window.onload = () => {
+		       const upd = document.getElementById('updateForm');
+		       const form = document.getElementById('detailForm');
+		       if(upd != null){
+		          upd.addEventListener('click', () => {
+		             form.action = '/board/updForm';
+		             form.submit();
+		          });
+		       }
+		    }
+	</script> -->
 </body>
 </html>
