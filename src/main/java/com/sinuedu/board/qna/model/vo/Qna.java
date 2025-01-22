@@ -24,5 +24,5 @@ public class Qna {
 	   private Date updateDate;
 	   private int views;
 	   private int cgNo;
-	   private char notice;
+	   private String notice;
 }

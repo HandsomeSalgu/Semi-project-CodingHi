@@ -33,7 +33,7 @@
 	<insert id="insertBoard">
 		insert into qna
 		values(QNA_SEQ.nextval, #{qnaTitle}, #{qnaDetail}, #{writer}, 
-		sysdate, sysdate, #{views}, #{cgNo}, default)
+		sysdate, sysdate, #{views}, #{cgNo}, #{notice})
 	</insert>
 	
 	<insert id="insertReply">

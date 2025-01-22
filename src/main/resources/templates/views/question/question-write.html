@@ -199,7 +199,7 @@
 					<img src="/photo/question/Bell%2002.png" alt="bell">
 				</span>
             <span class="noticeBoxDiv">
-				<input type="checkbox" id="noticeBox" name="noticeBox" value="notice"/>
+				<input type="checkbox" id="noticeBox" name="noticeBox"/>
 				<label for="noticeBox"></label>
 			</span></div>
         <div class="header">
@@ -226,7 +226,7 @@
 </div>
 	
 	<script th:inline="javascript">
-	document.addEventListener('DOMContentLoaded', function () {
+	/* document.addEventListener('DOMContentLoaded', function () {
 	    const noticeBox = document.getElementById('noticeBox');
 	    const noticeValue = document.getElementById('notice');
 
@@ -245,7 +245,7 @@
 	            noticeValue.innerText = 'N'; // 체크 해제된 경우 'N'으로 변경
 	        }
 		});
-	})
+	}) */
 	</script>
 
 </body>
