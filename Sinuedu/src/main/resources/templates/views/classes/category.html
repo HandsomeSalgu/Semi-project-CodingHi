@@ -111,7 +111,7 @@
 <!-- 	<div th:replace="~{views/menu-bar}"></div> -->
 	
     <section>
-        <div class="write" th:if="${loginUser.admin == 'Y'}">
+        <div class="write" th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
             <img src="/photo/classes/write.png"/>
         </div>
         <div class="class-list">
