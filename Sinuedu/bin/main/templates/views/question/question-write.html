@@ -227,18 +227,25 @@
 	
 	<script th:inline="javascript">
 	document.addEventListener('DOMContentLoaded', function () {
-	    const noticeCheckbox = document.getElementById('noticeCheckbox');
-	    const noticeValue = document.getElementById('noticeValue');
+	    const noticeBox = document.getElementById('noticeBox');
+	    const noticeValue = document.getElementById('notice');
 
 	    // 체크박스 상태 변경 감지
 	    noticeCheckbox.addEventListener('change', function () {
 	        if (this.checked) {
-	            noticeValue.textContent = 'Y'; // 체크된 경우 'Y'로 변경
-	        } else {
-	            noticeValue.textContent = 'N'; // 체크 해제된 경우 'N'으로 변경
+	        	$.ajax({
+	        		url: '/qna/notice',
+	        		data: {qnaNo : qnaNo, notice : notice},
+	        		success: data => {
+	            		noticeValue.innerText = 'Y'; // 체크된 경우 'Y'로 변경
+	        		}, 
+	        		error: data => console.log(data)
+	        	});
+	        }else{
+	            noticeValue.innerText = 'N'; // 체크 해제된 경우 'N'으로 변경
 	        }
-	    });
-	});
+		});
+	})
 	</script>
 
 </body>

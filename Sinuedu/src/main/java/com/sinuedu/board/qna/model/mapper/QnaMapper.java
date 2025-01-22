@@ -30,6 +30,8 @@ public interface QnaMapper {
 
 	int updateBoard(Qna q);
 
+	int noticeBoard(Qna q);
+
 
 
 
