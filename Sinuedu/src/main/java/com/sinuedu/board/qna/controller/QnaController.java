@@ -165,6 +165,11 @@ public class QnaController {
 		}
 	}
 
+	@GetMapping("notice")
+	public int noticeBoard(@ModelAttribute Qna q) {
+		return bService.noticeBoard(q);
+	}// notice 확인해야함
+	
 	@GetMapping("search")
 	public String searchTitle(@RequestParam("search") String search, Model model) {
 

@@ -207,7 +207,9 @@ table th {
 </head>
 <body>
 	<div class="qContainer">
-		<!-- <div th:replace="~{views/menu-bar.html}"></div> -->
+	
+		<!-- <div th:insert="~{views/menu-bar.html}"></div> -->
+		
 		<div class="content">
 			<form class="need" method="POST" id="detailForm" action="/qna/insertReply">
 			<input type="hidden" name="qnaNo" th:value="${q.qnaNo}">

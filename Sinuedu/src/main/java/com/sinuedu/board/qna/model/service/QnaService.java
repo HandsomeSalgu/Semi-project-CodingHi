@@ -59,6 +59,10 @@ public class QnaService {
 	public int updateBoard(Qna q) {
 		return mapper.updateBoard(q);
 	}
+
+	public int noticeBoard(Qna q) {
+		return mapper.noticeBoard(q);
+	}
 	
 
 
