@@ -5,7 +5,9 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.client.RestTemplate;
 
 import com.sinuedu.user.member.exception.MemberException;
 import com.sinuedu.user.member.model.service.MemberService;
 import com.sinuedu.user.member.model.vo.Member;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -90,34 +95,63 @@ public class MemberController {
 	}
 	
 	@PostMapping("join3")
-	public String join3(@ModelAttribute Member m, 
-						@RequestParam("phone1") String phone1, 
-						@RequestParam("phone2") String phone2, 
-						@RequestParam("phone3") String phone3, 
-						@RequestParam("birth1") String birth1,
-						@RequestParam("birth2") String birth2, 
-						@RequestParam("birth3") String birth3) throws ParseException {
-		m.setPhone(phone1 + "-" + phone2 + "-" + phone3);
-		
-		String Birth = birth1 + "-" + birth2+ "-" +birth3;
-		
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date utilDate = formatter.parse(Birth);
-        
-        Date date = new Date(utilDate.getTime());
-        m.setBirthDate(date);
-        m.setUserPw(bcrypt.encode(m.getUserPw()));
-		int result = mService.insertMember(m);
-		
-		
-		
-		if(result > 0) {
-			return "join3";
-		} else {
-			throw new MemberException("회원가입을 실패하였습니다");
-		}
-	}
+	public String join3(
+	        @ModelAttribute Member m,
+	        @RequestParam("phone1") String phone1,
+	        @RequestParam("phone2") String phone2,
+	        @RequestParam("phone3") String phone3,
+	        @RequestParam("birth1") String birth1,
+	        @RequestParam("birth2") String birth2,
+	        @RequestParam("birth3") String birth3,
+	        @RequestParam("g-recaptcha-response") String recaptchaResponse,
+	        HttpServletResponse response) throws ParseException {
 
+	    // 1. reCAPTCHA 검증
+	    String secretKey = "6LdsX78qAAAAAAJawRV6tzp60CI-vGiy4oY6-iC3"; // Google 비밀 키
+	    String verifyUrl = "https://www.google.com/recaptcha/api/siteverify";
+
+	    RestTemplate restTemplate = new RestTemplate();
+	    Map<String, String> body = new HashMap<>();
+	    body.put("secret", secretKey);
+	    body.put("response", recaptchaResponse);
+
+	    // Google API에 검증 요청
+	    ResponseEntity<Map> apiResponse = restTemplate.postForEntity(verifyUrl, body, Map.class);
+
+	    // 응답 확인
+	    if (apiResponse.getBody() == null || !Boolean.TRUE.equals(apiResponse.getBody().get("success"))) {
+	        throw new MemberException("reCAPTCHA 인증에 실패했습니다.");
+	    }
+
+	    // 2. 쿠키 추가 (reCAPTCHA 응답 저장)
+	    Cookie recaptchaCookie = new Cookie("g-recaptcha-response", recaptchaResponse);
+	    recaptchaCookie.setHttpOnly(true); // JavaScript에서 접근 불가
+	    recaptchaCookie.setSecure(true);  // HTTPS 요청에서만 전송
+	    recaptchaCookie.setPath("/");     // 사이트 전역에서 사용 가능
+	    recaptchaCookie.setMaxAge(60 * 5); // 쿠키 유효 시간 (5분)
+	    response.addCookie(recaptchaCookie);
+
+	    // 3. 사용자 정보 처리
+	    m.setPhone(phone1 + "-" + phone2 + "-" + phone3);
+
+	    String Birth = birth1 + "-" + birth2 + "-" + birth3;
+	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	    java.util.Date utilDate = formatter.parse(Birth);
+
+	    Date date = new Date(utilDate.getTime());
+	    m.setBirthDate(date);
+	    m.setUserPw(bcrypt.encode(m.getUserPw()));
+
+	    // 4. 회원 가입 로직
+	    int result = mService.insertMember(m);
+
+	    // 5. 처리 결과 반환
+	    if (result > 0) {
+	        return "join3"; // 성공 페이지로 이동
+	    } else {
+	        throw new MemberException("회원가입을 실패하였습니다");
+	    }
+	}
 	
 	@GetMapping("checkId")
 	public void checkId(@RequestParam("userId") String userId, PrintWriter out) {
