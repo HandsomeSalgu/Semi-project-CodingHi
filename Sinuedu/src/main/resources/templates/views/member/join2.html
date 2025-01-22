@@ -6,6 +6,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <title>join2</title>
 <style>
 body {
@@ -34,7 +35,7 @@ margin-right: 250px;
 .join{
 font-size: 30px;
 font-weight: bold;
-}       
+}     
 .main-contents-contain{
 background-color: white;
 text-align: center;
@@ -43,7 +44,7 @@ height: 830px;
 box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 border-radius: 30px;
 margin: 0 auto;
-margin-top: 80px;
+margin-top: 100px;
 }
 .steps {
 display: flex;
@@ -76,6 +77,15 @@ width: 33%;
 }
 .content {
 text-align: center;
+}
+.left-right{
+display: flex;
+}
+.left{
+width: 50%;
+}
+.right{
+width: 50%;
 }
 .button{
 display: flex;
@@ -124,7 +134,7 @@ background-color: #f0f0f0;
 border: 2px solid #ccc;
 border-radius: 8px;
 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-width: 380px;
+width: 300px;
 outline: none;
 text-align: left;
 }
@@ -135,7 +145,6 @@ font-size: 16px;
 background-color: #f0f0f0;
 border: 2px solid #ccc;
 border-radius: 8px;
-width: 70px;
 outline: none;
 text-align: left;
 }
@@ -146,7 +155,6 @@ font-size: 16px;
 background-color: #f0f0f0;
 border: 2px solid #ccc;
 border-radius: 8px;
-width: 80px;
 outline: none;
 text-align: left;
 }
@@ -157,7 +165,7 @@ font-size: 16px;
 background-color: #f0f0f0;
 border: 2px solid #ccc;
 border-radius: 8px;
-width: 400px;
+width: 300px;
 outline: none;
 text-align: left;
 }
@@ -168,19 +176,22 @@ font-size: 16px;
 background-color: #f0f0f0;
 border: 2px solid #ccc;
 border-radius: 8px;
-width: 380px;
+width: 300px;
 outline: none;
 text-align: left;
+}
+.g-recaptcha{
+margin-left: 250px;
 }
 </style>
 </head>
 <body>
     <div class="topbar">
         <div class="menu-icon">
-            <div><img src="/photo/menuBar/logo2.png" height="100px" width="100%" id="clickImg"/></div>
+            <div><img src="/photo/menuBar/logo2.png" height="100px" width="100%" style="cursor: pointer;" id="clickImg"/></div>
         </div>
         <div class="join">
-            <p style="margin-top: 80px; margin-right: 450px;">회원가입</p>
+            <p style="margin-top: 80px; margin-right: 450px; margin-top: 80px;">회원가입</p>
         </div>
     </div>
     <div class="main-contents-contain">
@@ -191,52 +202,64 @@ text-align: left;
         </div>
         
         <div class="content">
-	        <form class="needs-validation" action="/member/join3" method="POST">
+	        <form class="needs-validation" action="/join3" method="POST">
 	        	<input type="hidden" class="input" id="id" name="userId" th:value="${member.userId}">
 	        	<input type="hidden" class="input" id="pwd" name="userPw" th:value="${member.userPw}">
 	            <br/>
 	            <div class="divs">
-	            	<div class="name">
-		            	<label for="name"></label>
-		            	<h5 style="margin-bottom: 0; margin-right: 360px;">이름</h5>
-		            	<input type="text" class="input" id="userName" name="userName" placeholder="이름을 입력하세요">
-	            	</div>
-	                <div class="nickname">
-	                	<label for="nickname"></label>
-	                    <h5 style="margin-bottom: 0; margin-right: 350px;">닉네임</h5>
-	                    <input type="text" class="input" id="userNick" name="userNick" placeholder="닉네임을 입력하세요"><br/>
-	                    <span id="userNickCheckResult" class="message" style="visibility: hidden;"></span>
-	                </div>
-		            <div class="birthdate">
-		                <h5 style="margin-bottom: 0; margin-right: 340px;">생년월일</h5>
-		                <input type="text" id="year" placeholder="2000" maxlength="4" name="birth1">
-		                <span>년</span>
-		                <input type="text" id="month" placeholder="01" maxlength="2" name="birth2">
-		                <span>월</span>
-		                <input type="text" id="day" placeholder="01" maxlength="2" name="birth3">
-		                <span>일</span>
-		            </div>
-		            <div class="phone">
-		                <h5 style="margin-bottom: 0; margin-right: 340px;">전화번호</h5>
-		                <input type="text" id="phone1" placeholder="010" maxlength="3" name="phone1">
-		                <span>-</span>
-		                <input type="text" id="phone2" placeholder="1234" maxlength="4" name="phone2">
-		                <span>-</span>
-		                <input type="text" id="phone3" placeholder="5678" maxlength="4" name="phone3">
-		            </div>
-		            <div class="pwd-hint">
-		                    <h5 style="margin-bottom: 0; margin-right: 320px;">비밀번호 힌트</h5>
-		                    <select name="hint" size="1">
-		                        <option value="내가 태어난 지역의 이름은?">내가 태어난 지역의 이름은?</option>
-		                        <option value="내가 졸업한 초등학교 이름은?">내가 졸업한 초등학교 이름은?</option>
-		                        <option value="내가 가장 좋아하는 과일의 이름은?">내가 가장 좋아하는 과일의 이름은?</option>
-		                        <option value="나의 아버지 성함은?" selected>나의 아버지 성함은?</option>
-		                        <option value="나의 어머니 성함은?">나의 어머니 성함은?</option>
-		                    </select>
-		                    <h5 style="margin-bottom: 0; margin-right: 290px;">비밀번호 힌트 답변</h5>
-		                    <input type="text" id="answer" placeholder="힌트에 대한 답을 입력하세요" name="hintAnswer">
-		            </div>
+	            	<div class="left-right">
+	            		<div class="left">
+			            	<div class="name">
+				            	<label for="name"></label>
+				            	<h6 style="margin-bottom: 0; margin-right: 260px;">이름</h6>
+				            	<input type="text" class="input" id="userName" name="userName" placeholder="이름을 입력하세요">
+			            	</div>
+			            	<div class="birthdate">
+				                <h6 style="margin-bottom: 0; margin-right: 230px;">생년월일</h6>
+				                <input type="text" id="year" placeholder="2000" maxlength="4" style="width: 70px;" name="birth1">
+				                <span>년</span>
+				                <input type="text" id="month" placeholder="01" maxlength="2" style="width: 50px;" name="birth2">
+				                <span>월</span>
+				                <input type="text" id="day" placeholder="01" maxlength="2" style="width: 50px;" name="birth3">
+				                <span>일</span>
+				            </div>
+				            <div class="pwd-hint">
+			                    <h6 style="margin-bottom: 0; margin-right: 200px;">비밀번호 힌트</h6>
+				                    <select name="hint" size="1">
+				                        <option value="내가 태어난 지역의 이름은?">내가 태어난 지역의 이름은?</option>
+				                        <option value="내가 졸업한 초등학교 이름은?">내가 졸업한 초등학교 이름은?</option>
+				                        <option value="내가 가장 좋아하는 과일의 이름은?">내가 가장 좋아하는 과일의 이름은?</option>
+				                        <option value="나의 아버지 성함은?" selected>나의 아버지 성함은?</option>
+				                        <option value="나의 어머니 성함은?">나의 어머니 성함은?</option>
+				                    </select>
+				            </div>
+				        </div>
+				        <div class="right">
+			                <div class="nickname">
+			                	<label for="nickname"></label>
+			                    <h6 style="margin-bottom: 0; margin-right: 250px;">닉네임</h6>
+			                    <input type="text" class="input" id="userNick" name="userNick" placeholder="닉네임을 입력하세요"><br/>
+			                    <span id="userNickCheckResult" class="message" style="visibility: hidden;"></span>
+			                </div>
+				            <div class="phone">
+				                <h6 style="margin-bottom: 0; margin-right: 230px;">전화번호</h6>
+				                <input type="text" id="phone1" placeholder="010" maxlength="3" style="width: 70px;" name="phone1">
+				                <span>-</span>
+				                <input type="text" id="phone2" placeholder="1234" maxlength="4" style="width: 80px;" name="phone2">
+				                <span>-</span>
+				                <input type="text" id="phone3" placeholder="5678" maxlength="4" style="width: 80px;" name="phone3">
+				            </div>
+			            	<div class="pwd-hint">
+			            		<h6 style="margin-bottom: 0; margin-right: 160px;">비밀번호 힌트 답변</h6>
+				                <input type="text" id="answer" placeholder="힌트에 대한 답을 입력하세요" name="hintAnswer">
+			            	</div>
+			    		</div>
+			    	</div>
 		        </div>
+		        <br/>
+		        <br/>
+		        <div class="g-recaptcha" data-sitekey="6LdsX78qAAAAAAKUbvv6YL-WwilK5k1wRCne4PTS"></div>
+	            <br/>
 	            <br/>
 	            <div class="button">
 	                <div class="prev-button">
