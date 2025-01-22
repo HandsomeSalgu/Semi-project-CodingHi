@@ -66,10 +66,14 @@ public class QnaController {
 	}
 
 	@PostMapping("insert")
-	public String insertBoard(@ModelAttribute Qna q, HttpSession session) {
+	public String insertBoard(@ModelAttribute Qna q, HttpSession session, @RequestParam(value="noticeBox", required = false) boolean noticeBox) {
 		/* q.setUserNick(session.getId()); */
 		q.setWriter(((Member) session.getAttribute("loginUser")).getUserNo());
+		
+		String notice = noticeBox ? "Y" : "N";
+		//System.out.println(notice);
 
+		q.setNotice(notice);
 		System.out.println(q);
 
 		int result = bService.insertBoard(q);
