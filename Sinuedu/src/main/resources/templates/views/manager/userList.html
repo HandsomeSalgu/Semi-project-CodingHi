@@ -73,7 +73,7 @@ body {
 
 .user-table td {
 	vertical-align: middle;
-	font-size: 13px;
+	font-size: 15px;
 }
 
 td:hover {
@@ -90,7 +90,6 @@ td:hover {
 			<table class="user-table">
 				<thead>
 					<tr>
-						<th>No</th>
 						<th>아이디</th>
 						<th>이름</th>
 						<th>닉네임</th>
@@ -98,13 +97,12 @@ td:hover {
 						<th>생년월일</th>
 						<th>힌트 질문</th>
 						<th>힌트 답</th>
-						<th>관리자 여부</th>
-						<th>회원 상태</th>
+						<th>관리자<br>여부</th>
+						<th>회원<br>상태</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="user : ${list}">
-						<td th:text="${user.userNo}"></td>
 						<td th:text="${user.userId}"></td>
 						<td th:text="${user.userName}"></td>
 						<td th:text="${user.userNick}"></td>

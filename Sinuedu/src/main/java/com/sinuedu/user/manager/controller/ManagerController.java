@@ -1,6 +1,8 @@
 package com.sinuedu.user.manager.controller;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +34,11 @@ public class ManagerController {
 	@GetMapping("/chapterList")
 	public String chapterList(Model model) {
 	    List<Chapter> list = mService.chapterList();
+	    Set<String> categories = list.stream()
+	        .map(Chapter::getCgName)
+	        .collect(Collectors.toSet());
 	    model.addAttribute("list", list);
+	    model.addAttribute("categories", categories);
 	    return "chapterList";
 	}
 
