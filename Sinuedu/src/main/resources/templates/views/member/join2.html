@@ -177,7 +177,7 @@ text-align: left;
 <body>
     <div class="topbar">
         <div class="menu-icon">
-            <div><img src="/photo/menuBar/logo2.png" height="100px" width="100%"/></div>
+            <div><img src="/photo/menuBar/logo2.png" height="100px" width="100%" id="clickImg"/></div>
         </div>
         <div class="join">
             <p style="margin-top: 80px; margin-right: 450px;">회원가입</p>
@@ -252,28 +252,32 @@ text-align: left;
     </div>
 
     <script>
-    window.onload = () =>{
-		document.getElementById('userNick').addEventListener('change', function() {
-			const userNickResult = document.getElementById('userNickCheckResult');
-			if(this.value.trim() == ''){
-			} else {
-				$.ajax({
-					url:'/member/checkUserNick',
-					data: {userNick:this.value.trim()},
-					success: data => {
-				        if (data == '0') {
-				            userNickResult.innerText = '사용가능한 닉네임 입니다.';
-				            userNickResult.style.color = 'green';
-				        } else {
-				            userNickResult.innerText = '이미 사용 중인 닉네임입니다.';
-				            userNickResult.style.color = 'red';
-				        }
-				    },
-				    error: data => console.log(data)
-				});
-			}
-		}); 
-   }
+	    window.onload = () =>{
+			document.getElementById('userNick').addEventListener('change', function() {
+				const userNickResult = document.getElementById('userNickCheckResult');
+				if(this.value.trim() == ''){
+				} else {
+					$.ajax({
+						url:'/member/checkUserNick',
+						data: {userNick:this.value.trim()},
+						success: data => {
+					        if (data == '0') {
+					            userNickResult.innerText = '사용가능한 닉네임 입니다.';
+					            userNickResult.style.color = 'green';
+					        } else {
+					            userNickResult.innerText = '이미 사용 중인 닉네임입니다.';
+					            userNickResult.style.color = 'red';
+					        }
+					    },
+					    error: data => console.log(data)
+					});
+				}
+			}); 
+	   }
+	    
+	    document.getElementById('clickImg').addEventListener('click', function () {
+	           window.location.href = '/';
+	       });
 
     </script>
 </body>

@@ -30,12 +30,12 @@ public class MemberService {
 	public int checkUserNick(String userNick) {
 		return mapper.checkUserNick(userNick);
 	}
-	public String findMyId(String userName, String phone, String birthDate) {
-		return mapper.findMyId(userName, phone, birthDate);
+	public String findMyId(Member m) {
+		return mapper.findMyId(m);
 	}
 
-	public int updateMember(HashMap<String, String> map) {
-		return mapper.updateMember(map);
+	public int updateMember(Member m) {
+		return mapper.updateMember(m);
 	}
 
 }

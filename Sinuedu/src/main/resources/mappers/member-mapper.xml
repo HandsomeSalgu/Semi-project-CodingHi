@@ -28,7 +28,7 @@
 		where user_nick = #{userNick}
 	</select>
 	
-	<select id="findMyId" resultMap="findId">
+	<select id="findMyId" parameterType="map" resultType="String">
 		select user_id
 		from users
 		where user_name = #{userName} and phone = #{phone} and birth_date = #{birthDate} 
@@ -39,14 +39,14 @@
 	</resultMap>
 	
 	<update id="updateMember">
-		update users
-		set user_name = #{userName}
-		    user_nick = #{userNick}
-		    user_pw = #{userPw}
-		    phone = #{phone}
-		    birth_date = #{birthDate}
-		    hint = #{hint}
-		    hint_answer = #{hintAnswer}
-		where user_id = #{userId}
+	    UPDATE users
+	    SET user_name = COALESCE(#{userName}, user_name),
+	        user_nick = COALESCE(#{userNick}, user_nick),
+	        user_pw = COALESCE(#{userPw}, user_pw),
+	        phone = COALESCE(#{phone}, phone),
+	        birth_date = COALESCE(#{birthDate}, birth_date),
+	        hint = COALESCE(#{hint}, hint),
+	        hint_answer = COALESCE(#{hintAnswer}, hint_answer)
+	    WHERE user_id = #{userId}
 	</update>
 </mapper>

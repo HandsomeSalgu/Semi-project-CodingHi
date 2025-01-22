@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>findidsuccess</title>
+<title>find-id-success</title>
 <style>
 body {
 background-color:  #f9fbff;
@@ -138,7 +138,7 @@ margin-bottom: 10px;
 				<br/>
 				<br/>
 				<h3>귀하의 아이디는</h3>
-				<h3>______________</h3>
+				<p>" <strong th:text="${userId}"></strong> "</p>
 				<h3>입니다.</h3>
 				<br/>
 				<br/>
@@ -147,10 +147,10 @@ margin-bottom: 10px;
 				<br/>
 				<div class="button">
 					<div class="pwd-button">
-						<button class="pwd-button" id="pwdButton" onclick="location.href='find-pwd.html'">비밀번호 찾기</button>
+						<button class="pwd-button" id="pwdButton" onclick="location.href='/member/find-pwd'">비밀번호 찾기</button>
 					</div>
 					<div class="main-button">
-						<button class="main-button" id="mainButton" onclick="location.href='../../index.html'">메인 페이지</button>
+						<button class="main-button" id="mainButton" onclick="location.href='/'">메인 페이지</button>
 					</div>
 				</div>
 			</div>
