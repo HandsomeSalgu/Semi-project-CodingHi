@@ -1,6 +1,10 @@
 package com.sinuedu.board.qna.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sinuedu.board.lecture.model.vo.Category;
 import com.sinuedu.board.qna.exception.QnaException;
 import com.sinuedu.board.qna.model.service.QnaService;
+import com.sinuedu.board.qna.model.vo.Image;
 import com.sinuedu.board.qna.model.vo.PageInfo;
 import com.sinuedu.board.qna.model.vo.Qna;
 import com.sinuedu.board.qna.model.vo.reply;
@@ -187,4 +193,52 @@ public class QnaController {
 	 * 
 	 * return "search"; // 템플릿 파일 이름 (search.html) } }
 	 */
+	
+	
+	//summernote에서 받아온 파일 저장하고 반환 메소드
+//	@PostMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=UTF-8")
+//	public void uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
+//		
+//		if(!multipartFile.getOriginalFilename().equals("")) {
+//			String[] returnArr = saveFile(multipartFile);
+//			if(returnArr[1] != null) {
+//				Image a = new Image();
+//				a.setImgName(multipartFile.getOriginalFilename());
+//				a.setImgRename(returnArr[1]);
+//				a.setImgPath(returnArr[0]);
+//			}
+//		}
+//		
+//	}
+//	
+//	//첨부파일 폴더에 파일 저장하는 메소드
+//	private String[] saveFile(MultipartFile multipartFile) {
+//		String savePath = "d:\\dev\\summernote_image";
+//		File folder = new File(savePath);
+//		if(!folder.exists()) {
+//			folder.mkdirs();
+//		}
+//		//폴더 명이 없으면 폴더 명 생성
+//		
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+//		//날짜를 원하는 대로 가져오고 싶을 때 사용
+//		
+//		int ranNum = (int)(Math.random()*100000);
+//		String originFileName = multipartFile.getOriginalFilename();
+//		String renameFileName = sdf.format(new Date()) + ranNum + originFileName.substring(originFileName.lastIndexOf("."));
+//		
+//		String renamePath = folder + "\\" + renameFileName;
+//		
+//		try {
+//			multipartFile.transferTo(new File(renamePath));
+//		} catch (IllegalStateException | IOException e) {
+//			System.out.println("파일 전송 에러 : " + e.getMessage());
+//		}
+//		
+//		String[] returnArr = new String[2];
+//		returnArr[0] = savePath;
+//		returnArr[1] = renameFileName;
+//		
+//		return returnArr;
+//	}
 }
