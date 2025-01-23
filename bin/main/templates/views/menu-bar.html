@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<style>
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+}
+
 
         .bar-container {
             position: fixed;
@@ -27,6 +28,14 @@
             padding: 15px;
         }
 
+
+.bar-header img {
+	width: 130px;
+	height: 65px;
+	flex-shrink: 0;
+	margin-top: 8px;
+	margin-left: 23px;
+}
 
         .bar-header img {
             width: 130px;
@@ -87,21 +96,23 @@
             color: white;
         }
 
-        .links {
-            margin-top: 8px;
-            font-size: 10px;
-            color: #888;
-            text-align: center;
-        }
 
-        .links a {
-            color: #6a8eff;
-            text-decoration: none;
-        }
+.links {
+	margin-top: 8px;
+	font-size: 10px;
+	color: #888;
+	text-align: center;
+}
 
-        .links a:hover {
-            text-decoration: underline;
-        }
+.links a {
+	color: #6a8eff;
+	text-decoration: none;
+}
+
+.links a:hover {
+	text-decoration: underline;
+}
+
 
         .bar-menu {
             background-color: #ffffff;
@@ -133,6 +144,12 @@
             display: inline-block;
             vertical-align: middle;
         }
+
+
+.bar-menu a.active {
+	background-color: #6a8eff;
+	color: white;
+}
 
 
         .bar-menu a.active {
@@ -174,6 +191,12 @@
             display: inline-block;
             vertical-align: middle;
         }
+
+
+.category-list a.active {
+	background-color: #6a8eff;
+	color: white;
+}
 
 
         .category-list a.active {
@@ -244,6 +267,7 @@
     </div>
 </div>
 <script>
+
     document.addEventListener("DOMContentLoaded", () => {
         const currentPath = window.location.pathname; // 현재 URL 경로
         const menuLinks = document.querySelectorAll("a"); // 모든 <a> 태그 선택

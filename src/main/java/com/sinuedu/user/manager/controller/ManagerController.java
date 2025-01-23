@@ -7,7 +7,10 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.sinuedu.board.lecture.model.vo.Chapter;
@@ -33,23 +36,27 @@ public class ManagerController {
 
 	@GetMapping("/chapterList")
 	public String chapterList(Model model) {
-	    List<Chapter> list = mService.chapterList();
-	    Set<String> categories = list.stream()
-	        .map(Chapter::getCgName)
-	        .collect(Collectors.toSet());
-	    model.addAttribute("list", list);
-	    model.addAttribute("categories", categories);
-	    return "chapterList";
+		List<Chapter> list = mService.chapterList();
+		Set<String> categories = list.stream().map(Chapter::getCgName).collect(Collectors.toSet());
+		model.addAttribute("list", list);
+		model.addAttribute("categories", categories);
+		return "chapterList";
 	}
 
 	@GetMapping("/lectureAdd")
 	public String lectureAddPage() {
-	    return "lectureAdd";
+		return "lectureAdd";
 	}
 
 	@GetMapping("/chapterAdd")
 	public String chapterAddPage() {
-	    return "chapterAdd";
+		return "chapterAdd";
+	}
+
+	@PostMapping("/deleteChapter")
+	@ResponseBody
+	public int deleteChapter(@RequestParam("chapTitle") String chapTitle) {
+		return mService.deleteChapter(chapTitle);
 	}
 
 }

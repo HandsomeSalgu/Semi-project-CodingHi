@@ -15,4 +15,6 @@ public interface ManagerMapper {
 
 	List<Chapter> chapterList();
 
+	int deleteChapter(String chapTitle);
+
 }

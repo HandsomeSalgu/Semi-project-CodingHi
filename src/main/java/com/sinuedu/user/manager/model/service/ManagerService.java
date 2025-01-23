@@ -21,7 +21,10 @@ public class ManagerService {
 	}
 
 	public List<Chapter> chapterList() {
-	    return mapper.chapterList();
+		return mapper.chapterList();
 	}
 
+	public int deleteChapter(String chapTitle) {
+		return mapper.deleteChapter(chapTitle);
+	}
 }
