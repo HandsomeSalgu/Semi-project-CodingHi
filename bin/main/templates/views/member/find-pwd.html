@@ -154,7 +154,7 @@ margin-bottom: 10px;
 			            <div class="div">
 			            	<label for="id"></label>
 				            <h5 style="margin-bottom: 0; margin-right: 350px;">아이디</h5>
-            				<input type="text" class="input" id="id" name="id" placeholder="아이디를 입력하세요">
+            				<input type="text" class="input" id="userId" name="userId" placeholder="아이디를 입력하세요" required>
                 			<span id="idMessage" class="message"></span>
 						</div>
 						<div class="pwd-hint">
@@ -167,7 +167,7 @@ margin-bottom: 10px;
 								<option value="hint5">나의 어머니 성함은?</option>
 							</select>
 							<h5 style="margin-bottom: 0; margin-right: 290px;">비밀번호 힌트 답변</h5>
-							<input type="text" id="answer" name="answer" placeholder="힌트에 대한 답을 입력하세요">
+							<input type="text" id="hintAnswer" name="hintAnswer" placeholder="힌트에 대한 답을 입력하세요">
 						</div>
 					</div>
 				<br/>
@@ -176,10 +176,10 @@ margin-bottom: 10px;
 				<br/>
 					<div class="button">
 						<div class="tempwd-button">
-							<button class="tempwd-button" id="tempwdButton" onclick="location.href='find-pwd-success.html'">임시 비밀번호 발급</button>
+							<button class="tempwd-button" id="tempwdButton">임시 비밀번호 발급</button>
 						</div>
 						<div class="main-button">
-							<button class="main-button" id="mainButton" onclick="location.href='../../index.html'">메인 페이지</button>
+							<button class="main-button" id="mainButton">메인 페이지</button>
 						</div>
 					</div>
 				</form>

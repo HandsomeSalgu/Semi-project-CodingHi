@@ -49,4 +49,16 @@
 	        hint_answer = COALESCE(#{hintAnswer}, hint_answer)
 	    WHERE user_id = #{userId}
 	</update>
+
+	<select id="findMyPw" parameterType="map">
+	    select *
+	    from users
+	    where user_id = #{userId} and hint = #{hint} and hint_answer = #{hintAnswer}
+	</select>
+	
+	<update id="updatePw" parameterType="map">
+	    UPDATE users
+	    SET user_pw = #{encodedPassword}
+	    WHERE user_id = #{userId}
+	</update>
 </mapper>

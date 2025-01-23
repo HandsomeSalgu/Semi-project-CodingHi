@@ -1,171 +1,169 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title></title>
-<style>
-body {
-	margin: 0 auto;
-	font-family: Arial, sans-serif;
-	display: flex;
-	justify-content: center;
-	background-color: #f4f4f4;
-}
 
-.main-container {
-	display: flex;
-	justify-content: center;
-	width: 1400px;
-	margin-top: 50px;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            background-color: #f4f4f4;
+        }
+        .main-container {
+            display: flex;
+            justify-content: center;
+            width: 1400px;
+            margin-top: 50px;
+        }
+        .side-bar {
+            width: 200px;
+            height: 1000px;
+            position: sticky;
+            top: 100px;
+            margin: 50px;
+        }
+        .banner-container {
+            display: flex;
+            flex-direction: column;
+            width: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
 
-.side-bar {
-	width: 200px;
-	height: 1000px;
-	position: sticky;
-	top: 100px;
-	margin: 50px;
-}
+        .top-banner{
+            width: 800px; height: 515px; 
+            flex-shrink: 0; 
+            border: 1px solid #bcbcbc; 
+            border-radius: 30px; 
+            top: 30px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            background-color: white;
+            margin-bottom: 20px;
+        }
+        .banner-img{
+            width: 770px;
+            height: 240px;
+            margin: 15px;
+            border-radius: 15px;
 
-.banner-container {
-	display: flex;
-	flex-direction: column;
-	width: auto;
-	padding: 20px;
-	box-sizing: border-box;
-	margin: 0 auto;
-}
+        }
+        .banner-left{
+            margin: 20px;
+            float: left;
+            width: 370px;
+            height: 180px;
+        }
+        .banner-left td{
+            width: 185px;
+            height: 45px;
+            padding-left: 20px;
+            font-size: 15px;
+            
+        }
+        .banner-left td span{
+            font-weight: bold;
+            line-height: 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .banner-left td div{
+            background-color: lightgray;
+            width: 70px;
+            text-align: center;
+            border-radius: 30px;
+        }
+        .banner-right{
+            display:flex;
+            flex-direction: column;
+            margin: 20px;
+            width: 370px;
+            height: 180px;
+            
+        }
+        .banner-right span{
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .bottom-banner{
+            width: 800px; height: 1600px; 
+            flex-shrink: 0; 
+            border: 1px solid #bcbcbc; 
+            border-radius: 30px; 
+            top: 600px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            background-color: #fff;
+            
+        }
 
-.top-banner {
-	width: 800px;
-	height: 515px;
-	flex-shrink: 0;
-	border: 1px solid #bcbcbc;
-	border-radius: 30px;
-	top: 30px;
-	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-	background-color: white;
-	margin-bottom: 20px;
-}
-
-.banner-img {
-	width: 770px;
-	height: 240px;
-	margin: 15px;
-	border-radius: 15px;
-}
-
-.banner-left {
-	margin: 20px;
-	float: left;
-	width: 370px;
-	height: 180px;
-}
-
-.banner-left td {
-	width: 185px;
-	height: 45px;
-	padding-left: 20px;
-	font-size: 15px;
-}
-
-.banner-left td span {
-	font-weight: bold;
-	line-height: 20px;
-	display: inline-block;
-	vertical-align: middle;
-}
-
-.banner-left td div {
-	background-color: lightgray;
-	width: 70px;
-	text-align: center;
-	border-radius: 30px;
-}
-
-.banner-right {
-	display: flex;
-	flex-direction: column;
-	margin: 20px;
-	width: 370px;
-	height: 180px;
-}
-
-.banner-right span {
-	font-size: 14px;
-	font-weight: bold;
-	color: #555;
-}
-
-.bottom-banner {
-	width: 800px;
-	height: 1600px;
-	flex-shrink: 0;
-	border: 1px solid #bcbcbc;
-	border-radius: 30px;
-	top: 600px;
-	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-	background-color: #fff;
-}
-
-.qna-container {
-	display: flex;
-	margin-top: 30px;
-	width: 260px;
-	height: 1000px;
-	border-radius: 30px;
-	border-right: 1px solid #E6E4F0;
-	background: #FFF;
-	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
-</style>
+        .qna-container {
+            display: flex;
+            margin-top: 30px;
+            width: 260px;
+            height: 1000px;
+            border-radius: 30px;
+            border-right: 1px solid #E6E4F0;
+            background: #FFF;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            
+        }
+        
+    </style>
 </head>
 <body>
-	<div class="main-container">
-		<div class="side-bar">
-			<div th:replace="~{views/menu-bar.html}"></div>
-		</div>
-		<div class="banner-container">
-			<div class="top-banner">
-				<div>
-					<img class="banner-img" src="banner.png">
-				</div>
-				<table class="banner-left">
-					<tr>
-						<td>???</td>
-						<td>???</td>
-					</tr>
-					<tr>
-						<td><img src="Folder.png"><span>강좌수</span></td>
-						<td><div
-								style="background-color: rgb(255, 146, 146); color: rgb(153, 32, 32)">
-								<b>21개!</b>
-							</div></td>
-					</tr>
-					<tr>
-						<td><img src="Graph.png"><span>수강생 수</span></td>
-						<td><div>31명</div></td>
-					</tr>
-					<tr>
-						<td><img src="calander.png"><span>평균 평점</span></td>
-						<td><div>4.7★</div></td>
-					</tr>
-				</table>
-				<div class="banner-right">
-					<p>
-						<b>Describtion</b>
-					</p>
-					<span>코딩 학습을 시작하고 싶지만, 비용이나 시작 방법 때문에 고민 중이신가요? 이제 더 이상 망설이지
-						마세요! 무료 코딩 수강 플랫폼을 통해 누구나 손쉽게 프로그래밍의 세계로 발을 들여놓을 수 있습니다. </span>
-				</div>
+    <div class ="main-container">
+        <div class="side-bar">
+            <div th:replace="~{views/menu-bar.html}"></div>
+        </div>
+        <div class="banner-container">
+            <div class = "top-banner">
+                <div >
+                    <img class = "banner-img" src="banner.png">
+                </div>
+                <table class="banner-left">
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                    </tr>
+                    <tr>
+                        <td><img src="Folder.png"><span>강좌수</span></td>
+                        <td><div style="background-color: rgb(255, 146, 146); color: rgb(153, 32, 32)"><b>21개!</b></div></td>
+                    </tr>
+                    <tr>
+                        <td><img src="Graph.png"><span>수강생 수</span></td>
+                        <td><div>31명</div></td>
+                    </tr>
+                    <tr>
+                        <td><img src="calander.png"><span>평균 평점</span></td>
+                        <td><div>4.7★</div></td>
+                    </tr>
+                </table>
+                <div class="banner-right">
+                    <p><b>Describtion</b></p>
+                    <span>코딩 학습을 시작하고 싶지만, 비용이나 시작 방법 때문에 고민 중이신가요?
+                        이제 더 이상 망설이지 마세요! 무료 코딩 수강 플랫폼을 통해 누구나
+                        손쉽게 프로그래밍의 세계로 발을 들여놓을 수 있습니다.
+                </span>
+                </div>
 
-			</div>
+            </div>
 
-			<div class="bottom-banner"></div>
-		</div>
+            <div class = "bottom-banner">
 
-		<div class="qna-container"></div>
-	</div>
+            </div>
+        </div>
+
+        <div class = "qna-container">
+
+
+        </div>
+    </div>
+
 </body>
 </html>

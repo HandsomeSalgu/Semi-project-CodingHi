@@ -1,7 +1,9 @@
 package com.sinuedu.user.member.model.service;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.ibatis.binding.MapperRegistry;
 import org.springframework.stereotype.Service;
 
 import com.sinuedu.user.member.model.mapper.MemberMapper;
@@ -36,6 +38,17 @@ public class MemberService {
 
 	public int updateMember(Member m) {
 		return mapper.updateMember(m);
+	}
+
+	public int updatePw(String userId, String encodedPassword) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("userId", userId);
+	    params.put("encodedPassword", encodedPassword);
+	    return mapper.updatePw(params);
+	}
+
+	public Member findMyPw(Map<String, Object> params) {
+		return mapper.findMyPw(params);
 	}
 
 }

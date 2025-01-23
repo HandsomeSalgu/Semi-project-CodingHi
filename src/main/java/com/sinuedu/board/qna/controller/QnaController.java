@@ -172,11 +172,19 @@ public class QnaController {
 	@GetMapping("notice")
 	public int noticeBoard(@ModelAttribute Qna q) {
 		return bService.noticeBoard(q);
-	}// notice 확인해야함
-	
-	@GetMapping("search")
-	public String searchTitle(@RequestParam("search") String search, Model model) {
-
-		return search;
 	}
+	
+	/*
+	 * @PostMapping("/search") public String handleSearch(@ModelAttribute Qna q,
+	 * Model model) { // 선택된 조건값 유지 model.addAttribute("conditions", new
+	 * String[]{"-", "writer", "title", "content"}); model.addAttribute("condition",
+	 * condition);
+	 * 
+	 * // 검색 결과 처리 로직 (여기서는 단순히 입력값을 출력) model.addAttribute("search", search);
+	 * 
+	 * // 예시로 검색 결과를 출력 (실제 로직에서는 DB 조회 등 처리) model.addAttribute("result", "검색 조건: "
+	 * + condition + ", 검색어: " + search);
+	 * 
+	 * return "search"; // 템플릿 파일 이름 (search.html) } }
+	 */
 }

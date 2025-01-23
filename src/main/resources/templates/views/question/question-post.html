@@ -19,7 +19,6 @@ body {
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
-	text-align: center;
 	max-width: 1420px;
 	width: 80%;
 	margin: 0 auto;
@@ -50,6 +49,7 @@ body {
 	padding: 15px;
 	/* height: auto; */
 	overflow: hidden;
+	text-align: center;
 }
 
 .userInfo input {
@@ -91,6 +91,7 @@ body {
 	flex: 1;
 	padding: 10px;
 	background: #E3EEFF;
+	text-align: center;
 }
 
 .category {
@@ -114,13 +115,22 @@ body {
 }
 
 .editPost {
+	border: 0 solid #fff;
+    background: transparent;
 	float: right;
-	background-color: white;
 	width: 4%;
 	padding: 8px;
-	border: 1px solid #e3f7ff;
 	border-radius: 5px;
 	display: inline-block;
+}
+
+/* 이거 설정이 안됨 */
+.button#updateForm{
+	border: 0 solid #fff;
+    background: transparent;
+    top: 0;
+    right: 4px;
+    padding: 6px;
 }
 
 .zero {
@@ -136,7 +146,6 @@ body {
 }
 
 .questionDetail {
-	width: 100%;
 	border-collapse: collapse;
 	margin: 30px;
 	min-height: 30vh;
@@ -232,11 +241,7 @@ table th {
 				</div>
 
 				<div class="question-container">
-					<div class="questionDetail">
-						<p>
-							[[${q.qnaDetail}]]
-						</p>
-					</div>
+					<div class="questionDetail" th:utext="${q.qnaDetail}"></div>
 					<div class="commentList">
 						<table>
 							<thead>
@@ -261,17 +266,5 @@ table th {
 			</form>
 		</div>
 	</div>
-	 	<!-- <script th:inline="javascript">
-		    window.onload = () => {
-		       const upd = document.getElementById('updateForm');
-		       const form = document.getElementById('detailForm');
-		       if(upd != null){
-		          upd.addEventListener('click', () => {
-		             form.action = '/board/updForm';
-		             form.submit();
-		          });
-		       }
-		    }
-	</script> -->
 </body>
 </html>
