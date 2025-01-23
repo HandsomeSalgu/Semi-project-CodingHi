@@ -4,7 +4,8 @@ import com.sinuedu.board.qna.model.vo.PageInfo;
 
 public class Pagination {
 	public static PageInfo getPageInfo(int currentPage, int listCount, int boardLimit) {
-		int pageLimit = 10;
+		
+		int pageLimit = 5;
 		
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		

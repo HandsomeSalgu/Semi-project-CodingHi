@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -174,17 +175,18 @@ public class QnaController {
 		return bService.noticeBoard(q);
 	}
 	
-	/*
-	 * @PostMapping("/search") public String handleSearch(@ModelAttribute Qna q,
-	 * Model model) { // 선택된 조건값 유지 model.addAttribute("conditions", new
-	 * String[]{"-", "writer", "title", "content"}); model.addAttribute("condition",
-	 * condition);
-	 * 
-	 * // 검색 결과 처리 로직 (여기서는 단순히 입력값을 출력) model.addAttribute("search", search);
-	 * 
-	 * // 예시로 검색 결과를 출력 (실제 로직에서는 DB 조회 등 처리) model.addAttribute("result", "검색 조건: "
-	 * + condition + ", 검색어: " + search);
-	 * 
-	 * return "search"; // 템플릿 파일 이름 (search.html) } }
-	 */
+	@GetMapping("search")
+	@ResponseBody
+	public ArrayList<Qna> search(@RequestParam("searchValue") String searchValue){
+		ArrayList<Qna> searchList = new ArrayList<Qna>();
+		
+		if(!searchValue.trim().equals("")) {
+			searchList = bService.searchList(searchValue);
+			System.out.println(searchList);
+		}else {
+			searchList = bService.selectResult();
+		}
+		return searchList;
+		
+	}
 }

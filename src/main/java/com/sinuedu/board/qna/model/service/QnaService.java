@@ -63,6 +63,14 @@ public class QnaService {
 	public int noticeBoard(Qna q) {
 		return mapper.noticeBoard(q);
 	}
+
+	public ArrayList<Qna> searchList(String searchValue) {
+		return mapper.searchList(searchValue);
+	}
+
+	public ArrayList<Qna> selectResult() {
+		return null;
+	}
 	
 
 
