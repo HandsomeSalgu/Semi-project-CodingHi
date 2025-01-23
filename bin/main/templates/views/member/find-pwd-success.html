@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>findpwdsuccess</title>
+<title>find-pwd-success</title>
 <style>
 body {
 background-color:  #f9fbff;
@@ -133,18 +133,16 @@ margin-bottom: 10px;
 				<br/>
 				<br/>
 				<br/>
-				<h3>귀하의 임시 비밀번호는</h3>
-				<h3>______________</h3>
-				<h3>입니다.</h3>
-				<h3>로그인 후 마이페이지에서</h3>
-				<h3>비밀번호를 변경 해주세요.</h3>
+				<h1>임시 비밀번호가 발급되었습니다.</h1>
+        		<p>임시 비밀번호: <strong th:text="${tempPassword}"></strong></p>
+        		<p>임시 비밀번호를 사용해 로그인 후 반드시 비밀번호를 변경해주세요.</p>
 				<br/>
 				<br/>
 				<br/>
 				<br/>
 				<br/>
 				<div class="main-button">
-					<button class="main-button" id="mainButton" onclick="location.href='../../index.html'">메인 페이지</button>
+					<button class="main-button" id="mainButton" onclick="location.href='/'">메인 페이지</button>
 				</div>
 			</div>
 		</div>

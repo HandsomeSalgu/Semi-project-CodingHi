@@ -1,6 +1,7 @@
 package com.sinuedu.user.member.model.mapper;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,5 +21,12 @@ public interface MemberMapper {
 	String findMyId(Member m);
 
 	int updateMember(Member m);
+
+	int updatePw(String userId, String encodedPassword);
+
+	int updatePw(Map<String, Object> params);
+
+	Member findMyPw(Map<String, Object> params);
+
 
 }
