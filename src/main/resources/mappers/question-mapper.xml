@@ -81,5 +81,9 @@
 		</if>
 	</select>
 	
+	<delete id="deletePost">
+        delete from qna
+        where QNA_NO =#{qnaNo}
+	</delete>
 	
 </mapper>

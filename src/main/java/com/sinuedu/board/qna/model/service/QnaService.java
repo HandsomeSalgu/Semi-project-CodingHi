@@ -60,6 +60,10 @@ public class QnaService {
 		return mapper.updateBoard(q);
 	}
 
+	public int deletePost(int qNo) {
+		return mapper.deletePost(qNo);
+	}	
+	
 	public int noticeBoard(Qna q) {
 		return mapper.noticeBoard(q);
 	}
@@ -69,8 +73,9 @@ public class QnaService {
 	}
 
 	public ArrayList<Qna> selectResult() {
-		return null;
+		return mapper.selectResult();
 	}
+
 	
 
 

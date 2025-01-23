@@ -34,6 +34,10 @@ public interface QnaMapper {
 
 	ArrayList<Qna> searchList(String searchValue);
 
+	ArrayList<Qna> selectResult();
+
+	int deletePost(int qNo);
+
 
 
 

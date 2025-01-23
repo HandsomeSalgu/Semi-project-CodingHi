@@ -170,6 +170,12 @@ public class QnaController {
 		}
 	}
 
+	@PostMapping("deletePost")
+    public String deletePost(@RequestParam("qnaNo") int qNo) {
+        bService.deletePost(qNo);
+        return "redirect:/qna/list";
+	}
+	
 	@GetMapping("notice")
 	public int noticeBoard(@ModelAttribute Qna q) {
 		return bService.noticeBoard(q);
@@ -187,6 +193,5 @@ public class QnaController {
 			searchList = bService.selectResult();
 		}
 		return searchList;
-		
 	}
 }
