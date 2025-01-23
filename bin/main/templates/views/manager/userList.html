@@ -18,6 +18,13 @@ body {
 	min-height: 100vh;
 }
 
+.main-container {
+	display: flex;
+	justify-content: center;
+	width: 1400px;
+	margin-top: 50px;
+}
+
 .container {
 	display: flex;
 	width: 100%;
@@ -33,6 +40,7 @@ body {
 	border-radius: 20px;
 	padding: 20px;
 	margin: 0 auto;
+	margin-left: 250px;
 	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -82,43 +90,49 @@ td:hover {
 </style>
 </head>
 <body>
-<!-- 	<div th:replace="~{views/menu-bar.html}"></div> -->
-	<div class="container">
-		<div class="content-container">
-			<div class="content-header">
-				<h2>유저 목록</h2>
+	<div class="main-container">
+		<div class="side-bar">
+			<div th:replace="~{views/menu-bar.html}"></div>
+		</div>
+		<div class="container">
+			<div class="content-container">
+				<div class="content-header">
+					<h2>유저 목록</h2>
+				</div>
+				<table class="user-table">
+					<thead>
+						<tr>
+							<th>아이디</th>
+							<th>이름</th>
+							<th>닉네임</th>
+							<th>전화번호</th>
+							<th>생년월일</th>
+							<th>힌트 질문</th>
+							<th>힌트 답</th>
+							<th>관리자<br>여부
+							</th>
+							<th>회원<br>상태
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user : ${list}">
+							<td th:text="${user.userId}"></td>
+							<td th:text="${user.userName}"></td>
+							<td th:text="${user.userNick}"></td>
+							<td th:text="${user.phone}"></td>
+							<td th:text="${#dates.format(user.birthDate, 'yyyy-MM-dd')}"></td>
+							<td th:text="${user.hint}"></td>
+							<td th:text="${user.hintAnswer}"></td>
+							<td th:text="${user.admin}"></td>
+							<td th:text="${user.status}"></td>
+						</tr>
+						<tr th:if="${list.empty}">
+							<td colspan="10">No users found</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<table class="user-table">
-				<thead>
-					<tr>
-						<th>아이디</th>
-						<th>이름</th>
-						<th>닉네임</th>
-						<th>전화번호</th>
-						<th>생년월일</th>
-						<th>힌트 질문</th>
-						<th>힌트 답</th>
-						<th>관리자<br>여부</th>
-						<th>회원<br>상태</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="user : ${list}">
-						<td th:text="${user.userId}"></td>
-						<td th:text="${user.userName}"></td>
-						<td th:text="${user.userNick}"></td>
-						<td th:text="${user.phone}"></td>
-						<td th:text="${#dates.format(user.birthDate, 'yyyy-MM-dd')}"></td>
-						<td th:text="${user.hint}"></td>
-						<td th:text="${user.hintAnswer}"></td>
-						<td th:text="${user.admin}"></td>
-						<td th:text="${user.status}"></td>
-					</tr>
-					<tr th:if="${list.empty}">
-						<td colspan="10">No users found</td>
-					</tr>
-				</tbody>
-			</table>
 		</div>
 	</div>
 </body>

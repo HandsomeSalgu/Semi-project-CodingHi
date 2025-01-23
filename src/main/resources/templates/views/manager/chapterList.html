@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>챕터 목록</title>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
 <style>
 body {
 	margin: 0;
@@ -13,6 +16,13 @@ body {
 	background-color: #f4f4f4;
 	align-items: center;
 	min-height: 100vh;
+}
+
+.main-container {
+	display: flex;
+	justify-content: center;
+	width: 1400px;
+	margin-top: 50px;
 }
 
 .container {
@@ -30,6 +40,7 @@ body {
 	border-radius: 20px;
 	padding: 20px;
 	margin: 0 auto;
+	margin-left: 250px;
 	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -246,8 +257,9 @@ body {
 	transition: all 0.3s ease;
 }
 
-#deleteModal h3 {
-	white-space: pre-line;
+.modal-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .lecture-btn {
@@ -255,124 +267,185 @@ body {
 	color: white;
 }
 
+.lecture-btn:hover {
+	background-color: #6088e0;
+}
+
 .chapter-btn {
 	background-color: #ff9b9b;
 	color: white;
 }
 
-.modal-btn:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.lecture-btn:hover {
-	background-color: #6088e0;
-}
-
 .chapter-btn:hover {
 	background-color: #e88282;
+}
+
+#deleteModal h3 {
+	white-space: pre-line;
 }
 </style>
 </head>
 <body>
-	<!-- 	<div th:replace="~{views/menu-bar.html}"></div> -->
-	<div class="container">
-		<div class="content-container">
-			<div class="content-header">
-				<h2>챕터 목록</h2>
-				<button class="add-btn">
-					<span>+</span>
-				</button>
-			</div>
-			<table class="chapter-table">
-				<thead>
-					<tr>
-						<th><select id="categoryFilter">
-								<option value="">카테고리 선택</option>
-								<option th:each="category : ${categories}"
-									th:value="${category}" th:text="${category}"></option>
-						</select></th>
-						<th><select id="lectureFilter" disabled>
-								<option value="">강의 선택</option>
-						</select></th>
-						<th>챕터</th>
-						<th>마지막 수정 날짜</th>
-						<th>수정 / 삭제</th>
-					</tr>
-				</thead>
-
-				<tbody>
-					<tr th:each="chapter : ${list}">
-						<td th:text="${chapter.cgName}"></td>
-						<td th:text="${chapter.lecTitle}"></td>
-						<td th:text="${chapter.chapTitle}"></td>
-						<td th:text="${#dates.format(chapter.updateDate, 'yyyy-MM-dd')}"></td>
-						<td class="action-buttons">
-							<button class="edit-btn">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-									fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16"> <path
-										d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" /></svg>
-							</button>
-							<button class="delete-btn">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-									fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"> <path
-										d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" /></svg>
-							</button>
-						</td>
-
-					</tr>
-					<tr th:if="${list.empty}">
-						<td colspan="5">No chapters found</td>
-					</tr>
-				</tbody>
-
-			</table>
+	<div class="main-container">
+		<div class="side-bar">
+			<div th:replace="~{views/menu-bar.html}"></div>
 		</div>
-	</div>
-	<div id="addModal" class="modal">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h3>추가하기</h3>
-				<span class="close">&times;</span>
-			</div>
-			<div class="modal-body">
-				<button class="modal-btn lecture-btn">강의 추가</button>
-				<button class="modal-btn chapter-btn">챕터 추가</button>
+		<div class="container">
+			<div class="content-container">
+				<div class="content-header">
+					<h2>챕터 목록</h2>
+					<button class="add-btn">
+						<span>+</span>
+					</button>
+				</div>
+				<table class="chapter-table">
+					<thead>
+						<tr>
+							<th><select id="categoryFilter">
+									<option value="">카테고리 선택</option>
+									<option th:each="category : ${categories}"
+										th:value="${category}" th:text="${category}"></option>
+							</select></th>
+							<th><select id="lectureFilter" disabled>
+									<option value="">강의 선택</option>
+							</select></th>
+							<th>챕터</th>
+							<th>마지막 수정 날짜</th>
+							<th>수정 / 삭제</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="chapter : ${list}">
+							<td th:text="${chapter.cgName}"></td>
+							<td th:text="${chapter.lecTitle}"></td>
+							<td th:text="${chapter.chapTitle}"></td>
+							<td th:text="${#dates.format(chapter.updateDate, 'yyyy-MM-dd')}"></td>
+							<td class="action-buttons">
+								<button class="edit-btn">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+										fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16"> <path
+											d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" /></svg>
+								</button>
+								<button class="delete-btn">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+										fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"> <path
+											d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" /></svg>
+								</button>
+							</td>
+						</tr>
+						<tr th:if="${list.empty}">
+							<td colspan="5">No chapters found</td>
+						</tr>
+					</tbody>
+
+				</table>
 			</div>
 		</div>
-	</div>
-	<div id="deleteModal" class="modal">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h3></h3>
+
+		<div id="addModal" class="modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>추가하기</h3>
+					<span class="close">&times;</span>
+				</div>
+				<div class="modal-body">
+					<button class="modal-btn lecture-btn">강의 추가</button>
+					<button class="modal-btn chapter-btn">챕터 추가</button>
+				</div>
 			</div>
-			<div class="modal-body">
-				<button class="modal-btn lecture-btn">확인</button>
-				<button class="modal-btn chapter-btn">취소</button>
+		</div>
+
+		<div id="deleteModal" class="modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3></h3>
+				</div>
+				<div class="modal-body">
+					<button class="modal-btn lecture-btn check-btn">확인</button>
+					<button class="modal-btn chapter-btn cancel-btn">취소</button>
+				</div>
 			</div>
 		</div>
 	</div>
 	<script>
-		window.onload = function() {
-			// 필터 관련 코드
-		    const categoryFilter = document.getElementById('categoryFilter');
-		    const lectureFilter = document.getElementById('lectureFilter');
-		
-		    categoryFilter.addEventListener('change', function() {
+		window.onload = () => {
+		    document.getElementById('categoryFilter').addEventListener('change', () => {
 		        updateLectureFilter();
 		        filterTable();
 		    });
-		
-		    lectureFilter.addEventListener('change', filterTable);
-		
+	
+		    document.getElementById('lectureFilter').addEventListener('change', filterTable);
+	
+		    document.querySelector('.add-btn').onclick = () => {
+		        document.getElementById('addModal').style.display = "block";
+		    }
+	
+		    document.querySelector('.close').onclick = () => {
+		        document.getElementById('addModal').style.display = "none";
+		    }
+	
+		    document.querySelector('.lecture-btn').onclick = () => {
+		        window.location.href = '/manager/lectureAdd';
+		    }
+	
+		    document.querySelector('.chapter-btn').onclick = () => {
+		        window.location.href = '/manager/chapterAdd';
+		    }
+	
+		    const deleteModal = document.getElementById('deleteModal');
+	
+		    document.querySelectorAll('.delete-btn').forEach(button => {
+		        button.onclick = function() {
+		            const chapterTitle = this.closest('tr').querySelector('td:nth-child(3)').textContent;
+		            deleteModal.querySelector('h3').textContent = `"${chapterTitle}"를 \n 정말 삭제하시겠습니까?`;
+		            deleteModal.style.display = "block";
+		        }
+		    });
+			
+		    deleteModal.querySelector('.check-btn').onclick = function() {
+		        const chapterTitle = deleteModal.querySelector('h3').textContent.split('"')[1];
+		        $.ajax({
+		            url: '/manager/deleteChapter',
+		            method: 'POST',
+		            data: { chapTitle: chapterTitle },
+		            success: function(result) {
+		                if(result > 0) {
+		                    alert('챕터가 성공적으로 삭제되었습니다.');
+		                    location.reload();
+		                } else {
+		                    alert('챕터 삭제에 실패했습니다.');
+		                }
+		            },
+		            error: function(xhr, status, error) {
+		                console.error('Error:', error);
+		                alert('삭제 중 오류가 발생했습니다.');
+		            }
+		        });
+		    };
+
+		    deleteModal.querySelector('.cancel-btn').onclick = () => {
+		        deleteModal.style.display = "none";
+		    }
+	
+		    window.onclick = function(event) {
+		        if (event.target == document.getElementById('addModal')) {
+		            document.getElementById('addModal').style.display = "none";
+		        }
+		        if (event.target == deleteModal) {
+		            deleteModal.style.display = "none";
+		        }
+		    }
+	
 		    function updateLectureFilter() {
-		        const selectedCategory = categoryFilter.value;
+		        const selectedCategory = document.getElementById('categoryFilter').value;
+		        const lectureFilter = document.getElementById('lectureFilter');
 		        const rows = document.querySelectorAll('.chapter-table tbody tr');
 		        const lectures = new Set();
-		
+	
 		        lectureFilter.innerHTML = '<option value="">강의 선택</option>';
 		        lectureFilter.disabled = !selectedCategory;
-		
+	
 		        if (selectedCategory) {
 		            rows.forEach(row => {
 		                const category = row.querySelector('td:nth-child(1)').textContent;
@@ -381,7 +454,7 @@ body {
 		                    lectures.add(lecture);
 		                }
 		            });
-		
+	
 		            lectures.forEach(lecture => {
 		                const option = document.createElement('option');
 		                option.value = lecture;
@@ -390,74 +463,21 @@ body {
 		            });
 		        }
 		    }
-		
+	
 		    function filterTable() {
-		        const selectedCategory = categoryFilter.value;
-		        const selectedLecture = lectureFilter.value;
+		        const selectedCategory = document.getElementById('categoryFilter').value;
+		        const selectedLecture = document.getElementById('lectureFilter').value;
 		        const rows = document.querySelectorAll('.chapter-table tbody tr');
-		
+	
 		        rows.forEach(row => {
 		            const category = row.querySelector('td:nth-child(1)').textContent;
 		            const lecture = row.querySelector('td:nth-child(2)').textContent;
 		            
 		            const categoryMatch = !selectedCategory || category === selectedCategory;
 		            const lectureMatch = !selectedLecture || lecture === selectedLecture;
-		
+	
 		            row.style.display = categoryMatch && lectureMatch ? '' : 'none';
 		        });
-		    }
-		    
-		    // add 모달
-		    const modal = document.getElementById('addModal');
-		    const addBtn = document.querySelector('.add-btn');
-		    const closeBtn = document.querySelector('.close');
-		
-		    addBtn.onclick = function() {
-		        modal.style.display = "block";
-		    }
-		
-		    closeBtn.onclick = function() {
-		        modal.style.display = "none";
-		    }
-		
-		    window.onclick = function(event) {
-		        if (event.target == modal) {
-		            modal.style.display = "none";
-		        }
-		    }
-		
-		    document.querySelector('.lecture-btn').onclick = function() {
-		        window.location.href = '/manager/lectureAdd';
-		    }
-		    document.querySelector('.chapter-btn').onclick = function() {
-		        window.location.href = '/manager/chapterAdd';
-		    }
-		    
-		 	// delete 모달 
-		    const deleteModal = document.getElementById('deleteModal');
-		    const deleteButtons = document.querySelectorAll('.delete-btn');
-		    const closeDeleteBtn = deleteModal.querySelector('.chapter-btn');
-
-		    deleteButtons.forEach(button => {
-		        button.onclick = function() {
-		            const chapterTitle = this.closest('tr').querySelector('td:nth-child(3)').textContent;
-		            deleteModal.querySelector('h3').textContent = `"${chapterTitle}"를 \n 정말 삭제하시겠습니까?`;
-		            deleteModal.style.display = "block";
-		        }
-		    });
-
-		    closeDeleteBtn.onclick = function() {
-		        deleteModal.style.display = "none";
-		    }
-
-		    // 모달 외부 클릭 시 닫기
-		    window.onclick = function(event) {
-		        if (event.target == addModal) {
-		            addModal.style.display = "none";
-		        }
-		        if (event.target == deleteModal) {
-		            deleteModal.style.display = "none";
-		        }
 		    }
 		}
 	</script>

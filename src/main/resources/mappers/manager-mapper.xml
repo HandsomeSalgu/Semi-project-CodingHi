@@ -15,4 +15,8 @@
 		order by ch.update_date desc
 	</select>
 
+	<delete id="deleteChapter">
+		delete from chapter
+		where chap_title = #{chapTitle}
+	</delete>
 </mapper>
