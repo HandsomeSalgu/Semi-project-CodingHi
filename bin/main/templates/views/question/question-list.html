@@ -136,7 +136,7 @@ table th {
 	display: inline-block;
 }
 
- 	.pagination a {
+.pagination a {
     margin: 0 5px;
     padding: 5px 10px;
     text-decoration: none; 
@@ -151,16 +151,44 @@ table th {
 }
 
 .search {
-    margin: 10px 0;
+	display: flex;
+    position: relative;
+    margin: 10px auto;
+    margin-top: 20px;
     text-align: center;
+    width: 400px;
+    border: 2px solid #E3EEFF;
+    border-radius: 33px;
+    background-color: #f9fbff;
+    justify-content: space-between;
+    padding: 0 5px 0 10px;
+    
+}
+
+.search select{
+    margin-right:5px;
+    border: 0;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+input[type="search"] {
+    width: 75%;
 }
 
 .search input {
     padding: 8px;
-    border: 1px solid #ccc;
+   	position: relative;
+    border: 0;
     border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0); 
 }
 
+button#searchForm {
+    border: 0 solid #fff;
+    background: transparent;
+    padding: 6px;
+}
 .write-button {
     text-align: right;
     margin: 10px 0;
@@ -236,10 +264,20 @@ table th {
 	            </li>
 	           	</ul>
             
-            <div class="search">
-                <input type="search" name="search" placeholder="Search" size="20">
-                <button>검색</button>
-            </div>
+	            <div class="search">
+				    <select>
+				        <option value="-" th:selected="${ condition == '-' }">----------</option>
+				        <option value="userNick" th:selected="${ userNick == 'userNick' }">작성자</option>
+				        <option value="qnaTitle" th:selected="${ qnaTitle == 'qnaTitle' }">제목</option>
+				        <option value="qnaDetailc" th:selected="${ qnaDetail == 'qnaDetail' }">내용</option>
+				    </select>
+				    <input type="search" name="search" placeholder="Search" size="25px"
+				           th:value="${ value }">
+				    <button type="button" th:onclick="#" id="searchForm">
+				    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 24 24">
+					<path fill="#306263" d="M21.562,18.733l-2.767-2.767c-0.569-0.569-0.779-1.431-0.465-2.172	c0.588-1.386,0.822-2.957,0.57-4.609c-0.548-3.591-3.422-6.507-7.01-7.075c-5.779-0.915-10.695,4-9.779,9.779	c0.568,3.588,3.484,6.461,7.075,7.01c1.652,0.252,3.223,0.019,4.609-0.57c0.741-0.315,1.603-0.104,2.172,0.465l2.767,2.767	c0.586,0.586,1.536,0.586,2.121,0l0.707-0.707C22.148,20.269,22.148,19.319,21.562,18.733z M4,10.5C4,6.916,6.916,4,10.5,4	S17,6.916,17,10.5S14.084,17,10.5,17S4,14.084,4,10.5z"></path>
+					</svg></button>
+				</div>
         </div>
     </div>
     <script th:inline="javascript">
