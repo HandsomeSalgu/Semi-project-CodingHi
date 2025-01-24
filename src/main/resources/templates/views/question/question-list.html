@@ -247,14 +247,13 @@ button#searchForm {
                 <button th:if="${session.loginUser != null}" th:onclick="location.href='/qna/write'">글쓰기</button>
 				<!-- 조건식은 넣어도 되고 안넣어도 상관없다?  th:if="${session.loginUser != null}" -->
             </div>
-            <ul class="pagination">
+            <ul class="pagination" id="pagination">
             	<!-- 이전 버튼 -->
 	            <li class="page-item" th:classappend="${pi.currentPage == 1} ? 'disabled'">
 	               <a class="page-link" th:href="${pi.currentPage > 1} ? @{${loc}(page=${pi.currentPage-1})} : '#'" aria-label="Previous">
 	                  <span aria-hidden="true">&laquo;</span>
 	               </a>
 	            </li>
-               
                <!-- 페이지 번호 -->
 	            <li class="page-item" th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}" 
 	            					  th:classappend="${p == pi.currentPage} ? 'active'">
@@ -306,9 +305,10 @@ button#searchForm {
 
 			const select = document.querySelector('select').value; // 조건
 			const search = document.getElementById('search').value.trim();
+			const pagination = document.getElementById('pagination');
 			
-			console.log('Condition:', select);
-		    console.log('Search:', search);
+			console.log(pagination)
+
 				
 				$.ajax({
 			         url: '/qna/search',
@@ -316,57 +316,62 @@ button#searchForm {
 			         dataType: 'json',
 			         success: data => {
 			            const tbody = document.querySelector('tbody');
-			            tbody.innerHTML = '';
-			            console.log(data)
+			            const list = data.list
+			            const pi = data.pi
+			            console.log(pi);
 			            
-			            if(data.length > 0){
-			               for(const obj of data){
-			            	   console.log(obj.qnaNo);
-			            	   const tr = document.createElement('tr');
-			            	   
-			            	   
-			            	   const qNoTd = document.createElement('td');
-			            	   qNoTd.style.width="100px";
-			            	   const qNoVal = document.createTextNode(obj.qnaNo);
-			            	   qNoTd.append(qNoVal);
-			            	   
-			            	   const cgNameTd = document.createElement('td');
-			            	   cgNameTd.style.width="150px";
-			            	   const cgNameVal = document.createTextNode(obj.cgName);
-			            	   cgNameTd.append(cgNameVal);
-			            	   
-			            	   const qnaTitleTd = document.createElement('td');
-			            	   qnaTitleTd.style.width="430px";
-			            	   
-			            	   const qnaTitleVal = document.createTextNode(obj.qnaTitle.length > 20 ? obj.qnaTitle.substring(0, 20) + '...' : obj.qnaTitle);
-			            	   qnaTitleTd.append(qnaTitleVal);
-			            	   
-			            	   const userNickTd = document.createElement('td');
-			            	   userNickTd.style.width="150px";
-			            	   const userNickVal = document.createTextNode(obj.userNick);
-			            	   userNickTd.append(userNickVal);
-			            	   
-			            	   const createDateTd = document.createElement('td');
-			            	   userNickTd.style.width="150px";
-			            	   const createDateVal = document.createTextNode(obj.createDate);
-			            	   createDateTd.append(createDateVal);
-			            	   
-			            	   const viewsTd = document.createElement('td');
-			            	   userNickTd.style.width="150px";
-			            	   const viewsVal = document.createTextNode(obj.views);
-			            	   viewsTd.append(viewsVal);
-			            	   
-			            	   tr.append(qNoTd);
-			            	   tr.append(cgNameTd);
-			            	   tr.append(qnaTitleTd);
-			            	   tr.append(userNickTd);
-			            	   tr.append(createDateTd);
-			            	   tr.append(viewsTd);
-			            	   
-			            	   tbody.append(tr);
-			               }
-			            }
-			         }
+			            tbody.innerHTML = '';
+			            pagination.innerHTML = '';
+
+					   for(var i = 0; i<list.length ; i++ ){
+						   const tr = document.createElement('tr');
+						   
+						   const qNoTd = document.createElement('td');
+						   qNoTd.style.width="80px";
+						   const qNoVal = document.createTextNode(list[i].qnaNo);
+						   qNoTd.append(qNoVal);
+						   
+						   const cgNameTd = document.createElement('td');
+						   cgNameTd.style.width="150px";
+						   const cgNameVal = document.createTextNode(list[i].cgName);
+						   cgNameTd.append(cgNameVal);
+						   
+						   const qnaTitleTd = document.createElement('td');
+						   qnaTitleTd.style.width="430px";
+						   
+						   const qnaTitleVal = document.createTextNode(list[i].qnaTitle.length > 20 ? list[i].qnaTitle.substring(0, 20) + '...' : list[i].qnaTitle);
+						   qnaTitleTd.append(qnaTitleVal);
+						   
+						   const userNickTd = document.createElement('td');
+						   userNickTd.style.width="150px";
+						   const userNickVal = document.createTextNode(list[i].userNick);
+						   userNickTd.append(userNickVal);
+						   
+						   const createDateTd = document.createElement('td');
+						   userNickTd.style.width="150px";
+						   const createDateVal = document.createTextNode(list[i].createDate);
+						   createDateTd.append(createDateVal);
+						   
+						   const viewsTd = document.createElement('td');
+						   userNickTd.style.width="150px";
+						   const viewsVal = document.createTextNode(list[i].views);
+						   viewsTd.append(viewsVal);
+						   
+						   tr.append(qNoTd);
+						   tr.append(cgNameTd);
+						   tr.append(qnaTitleTd);
+						   tr.append(userNickTd);
+						   tr.append(createDateTd);
+						   tr.append(viewsTd);
+						   
+						   tbody.append(tr);
+						}
+			            
+// 					   const li = document.createElement('li');
+// 					   for()
+					   
+			            
+			          }
 				})
 			})
     	}

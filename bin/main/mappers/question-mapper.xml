@@ -6,6 +6,11 @@
 	<select id = "getListCount">
 		select count(*)
 		from qna
+			 join users on(WRITER = USER_NO)
+			 join category using(CG_NO)
+		<if test="condition != null">
+		WHERE ${condition} LIKE '%${search}%'
+		</if>
 	</select>
 
 	<select id="selectBoardList">
@@ -13,6 +18,9 @@
 		from qna
 			 join users on(WRITER = USER_NO)
 			 join category using(CG_NO)
+		<if test="condition != null">
+		WHERE ${condition} LIKE '%${search}%'
+		</if>
 		order by QNA_NO desc
 	</select>
 	

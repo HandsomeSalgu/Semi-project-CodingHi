@@ -1,6 +1,7 @@
 package com.sinuedu.board.qna.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -20,14 +21,14 @@ public class QnaService {
 
 	private final QnaMapper mapper;
 	
-	public int getListCount() {
-		return mapper.getListCount();
+	public int getListCount(HashMap<String,String> map) {
+		return mapper.getListCount(map);
 	}
 
-	public ArrayList<Qna> selectBoardList(PageInfo pi) {
+	public ArrayList<Qna> selectBoardList(HashMap<String,String> map, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return mapper.selectBoardList(rowBounds);
+		return mapper.selectBoardList(map, rowBounds);
 	}
 
 	public ArrayList<reply> selectReply(int rNo) {
@@ -69,9 +70,9 @@ public class QnaService {
 		return mapper.noticeBoard(q);
 	}
 
-	public ArrayList<Qna> searchDetail(String search, String condition) {
-		return mapper.searchDetail(search, condition);
-				}
+//	public ArrayList<Qna> searchDetail(HashMap<String,String> map, PageInfo pi) {
+//		return mapper.searchDetail(map, pi);
+//				}
 
 	public ArrayList<Qna> selectResult(List<Qna> result) {
 		return mapper.selectResult(result);

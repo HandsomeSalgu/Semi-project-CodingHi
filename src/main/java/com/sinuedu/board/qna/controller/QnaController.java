@@ -1,7 +1,7 @@
 package com.sinuedu.board.qna.controller;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,10 +39,10 @@ public class QnaController {
 	@GetMapping("list")
 	public String selectList(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model m,
 			HttpServletRequest request) {
-		int listCount = bService.getListCount();
+		int listCount = bService.getListCount(null);
 
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
-		ArrayList<Qna> list = bService.selectBoardList(pi);
+		ArrayList<Qna> list = bService.selectBoardList(null, pi);
 
 		m.addAttribute("list", list).addAttribute("pi", pi);
 		m.addAttribute("loc", request.getRequestURI());
@@ -184,7 +184,8 @@ public class QnaController {
 	
 	@GetMapping("search")
 	@ResponseBody
-	public ArrayList<Qna> search(@RequestParam(value="condition", required = false) String condition, 
+	public HashMap<String, Object> search(@RequestParam(value = "page", defaultValue = "1") int currentPage,
+								 @RequestParam(value="condition", required = false) String condition, 
 								 @RequestParam(value = "search", required = false) String search){
 		// 검색 조건 및 검색어 유효성 검사
 		System.out.println(condition);
@@ -197,9 +198,22 @@ public class QnaController {
 			throw new QnaException("검색어를 입력해주세요.");
 		}
 		
+		// 조건에 따른 리스트 카운트 추가
+		HashMap<String, String> map = new HashMap<>();
+		map.put("search", search);
+		map.put("condition", condition);
+		
+		int listCount = bService.getListCount(map);
+		System.out.println("리스트 카운트 : " + listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
 		
 		// 조건에 따른 검색 처리
-		ArrayList<Qna> result = bService.searchDetail(search, condition);
+		ArrayList<Qna> list = bService.selectBoardList(map, pi);
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("list", list);
+		result.put("pi", pi);
 		
 		System.out.println(result);
 		
