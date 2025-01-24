@@ -124,8 +124,8 @@ td:hover {
 							<td th:text="${#dates.format(user.birthDate, 'yyyy-MM-dd')}"></td>
 							<td th:text="${user.hint}"></td>
 							<td th:text="${user.hintAnswer}"></td>
-							<td th:text="${user.admin}"></td>
-							<td th:text="${user.status}"></td>
+							<td th:text="${user.admin == 'N' ? '회원' : '관리자'}"></td>
+							<td th:text="${user.status == 'Y' ? '사용' : '탈퇴'}"></td>
 						</tr>
 						<tr th:if="${list.empty}">
 							<td colspan="10">No users found</td>
