@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.sinuedu.board.lecture.model.vo.Chapter;
+import com.sinuedu.board.lecture.model.vo.Lecture;
 import com.sinuedu.user.manager.model.service.ManagerService;
 import com.sinuedu.user.member.model.vo.Member;
 
@@ -44,13 +45,21 @@ public class ManagerController {
 	}
 
 	@GetMapping("/lectureAdd")
-	public String lectureAddPage() {
+	public String lectureAddPage(Model model) {
+		List<Chapter> chapters = mService.chapterList();
+		Set<String> categories = chapters.stream().map(Chapter::getCgName).collect(Collectors.toSet());
+		model.addAttribute("categories", categories);
 		return "lectureAdd";
 	}
 
 	@GetMapping("/chapterAdd")
-	public String chapterAddPage() {
-		return "chapterAdd";
+	public String chapterAdd(Model model) {
+	    List<Chapter> chapters = mService.chapterList();
+	    List<Lecture> lectures = mService.lectureList();
+	    Set<String> categories = chapters.stream().map(Chapter::getCgName).collect(Collectors.toSet());
+	    model.addAttribute("categories", categories);
+	    model.addAttribute("lectures", lectures);
+	    return "chapterAdd";
 	}
 
 	@PostMapping("/deleteChapter")

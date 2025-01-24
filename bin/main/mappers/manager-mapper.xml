@@ -15,6 +15,13 @@
 		order by ch.update_date desc
 	</select>
 
+	<select id="lectureList" resultType="com.sinuedu.board.lecture.model.vo.Lecture">
+	    select l.*, c.cg_name
+	    from lecture l
+	    inner join category c on l.cg_no = c.cg_no
+	    order by l.lec_no
+	</select>
+
 	<delete id="deleteChapter">
 		delete from chapter
 		where chap_title = #{chapTitle}
