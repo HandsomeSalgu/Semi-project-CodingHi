@@ -1,6 +1,7 @@
 package com.sinuedu.board.qna.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -183,15 +184,25 @@ public class QnaController {
 	
 	@GetMapping("search")
 	@ResponseBody
-	public ArrayList<Qna> search(@RequestParam("searchValue") String searchValue){
-		ArrayList<Qna> searchList = new ArrayList<Qna>();
+	public ArrayList<Qna> search(@RequestParam(value="condition", required = false) String condition, 
+								 @RequestParam(value = "search", required = false) String search){
+		// 검색 조건 및 검색어 유효성 검사
+		System.out.println(condition);
+		System.out.println(search);
 		
-		if(!searchValue.trim().equals("")) {
-			searchList = bService.searchList(searchValue);
-			System.out.println(searchList);
-		}else {
-			searchList = bService.selectResult();
+		if(condition == null || condition.equals("-")) {
+			throw new QnaException("검색 조건을 선택해 주세요.");
 		}
-		return searchList;
+		if(search == null || search.trim().isEmpty()) {
+			throw new QnaException("검색어를 입력해주세요.");
+		}
+		
+		
+		// 조건에 따른 검색 처리
+		ArrayList<Qna> result = bService.searchDetail(search, condition);
+		
+		System.out.println(result);
+		
+		return result;
 	}
 }

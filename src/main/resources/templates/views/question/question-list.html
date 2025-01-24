@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>질문 게시판</title>
@@ -181,13 +182,14 @@ input[type="search"] {
    	position: relative;
     border: 0;
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0); 
+    /* background-color: rgba(0, 0, 0, 0); */ 
 }
 
 button#searchForm {
     border: 0 solid #fff;
     background: transparent;
     padding: 6px;
+    cursor: pointer;
 }
 .write-button {
     text-align: right;
@@ -204,6 +206,7 @@ button#searchForm {
 }
 	
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -229,12 +232,12 @@ button#searchForm {
                     </thead>
                     <tbody>                 
                        <tr th:each="q : ${list}">
-                       		<td th:style="'width:80px;'">[[${q.qnaNo}]]</td>
-                       		<td th:style="'width:150px;'">[[${q.cgName}]]</td>
-                       		<td th:style="'width:430px;'" 
+                       		<td width="80px">[[${q.qnaNo}]]</td>
+                       		<td width="150px">[[${q.cgName}]]</td>
+                       		<td width="430px" 
    								th:text="${q.qnaTitle.length() > 20 ? q.qnaTitle.substring(0, 20) + '...' : q.qnaTitle}"></td>
-                       		<td th:style="'width:150px;'">[[${q.userNick}]]</td>
-                       		<td th:style="'width:150px;'">[[${q.createDate}]]</td>
+                       		<td width="150px">[[${q.userNick}]]</td>
+                       		<td width="150px">[[${q.createDate}]]</td>
                        		<td>[[${q.views}]]</td>
                        </tr>
                     </tbody>
@@ -264,15 +267,15 @@ button#searchForm {
 	                   <span aria-hidden="true">&raquo;</span></a>
 	            </li>
 	           	</ul>
-            	<form th:action="search">
+
 	            <div class="search">
-				    <select>
+				    <select name="condition" id="condition">
 				        <option value="-" th:selected="${ condition == '-' }">----------</option>
-				        <option value="userNick" th:selected="${ condition == 'userNick' }">작성자</option>
-				        <option value="qnaTitle" th:selected="${ condition == 'qnaTitle' }">제목</option>
-				        <option value="qnaDetail" th:selected="${ condition == 'qnaDetail' }">내용</option>
+				        <option value="user_Nick" th:selected="${ condition == 'userNick' }">작성자</option>
+				        <option value="qna_Title" th:selected="${ condition == 'qnaTitle' }">제목</option>
+				        <option value="qna_Detail" th:selected="${ condition == 'qnaDetail' }">내용</option>
 				    </select>
-				    <input type="search" name="search" placeholder="검색어를 입력해 주세요." size="25px"
+				    <input type="search" name="search" id="search" placeholder="검색어를 입력해 주세요." size="25px"
 				           th:value="${ value }">
 				    <button id="searchForm">
 				    	<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 24 24">
@@ -280,7 +283,7 @@ button#searchForm {
 						</svg>
 					</button>
 				</div>
-				</form>
+
         </div>
     </div>
     <script th:inline="javascript">
@@ -295,41 +298,78 @@ button#searchForm {
     			});
     		}
     	
-   		 /* document.getElementById('search').querySelector('button').addEventListener('click', function(){
-	         const value = this.previousElementSibling.value;
-	         const condition = this.previousElementSibling.previousElementSibling.value;
-	         
-	         location.href= 'search?value=' + value + '&condition=' + condition;
-	      }); 
-	} 
-	
-	 function search(){
-		const searchValue = document.querySelector('.search').value;
-		$.ajax({
-			url: '/qna/search',
-			data: { searchValue : searchValue },
-			dataType: 'json',
-			success: data => {
-				const searchList = document.querySelector('search');
-				searchList.innerHTML = '';
+
+			
+			const form = document.querySelector('form');
+			
+			document.getElementById('searchForm').addEventListener('click', (event)=>{
+
+			const select = document.querySelector('select').value; // 조건
+			const search = document.getElementById('search').value.trim();
+			
+			console.log('Condition:', select);
+		    console.log('Search:', search);
 				
-				if(data && data.length > 0){
-					for(const obj of data){
-						const searchTitle = document.createElement('div');
-						searchTitle.classList.add('searchTitle');
-						
-						
-					}
-					
-				}
-				
-				
-			}
-		});
-	}  */
-	
-	
-	}
+				$.ajax({
+			         url: '/qna/search',
+			         data: { condition : select, search : search},
+			         dataType: 'json',
+			         success: data => {
+			            const tbody = document.querySelector('tbody');
+			            tbody.innerHTML = '';
+			            console.log(data)
+			            
+			            if(data.length > 0){
+			               for(const obj of data){
+			            	   console.log(obj.qnaNo);
+			            	   const tr = document.createElement('tr');
+			            	   
+			            	   
+			            	   const qNoTd = document.createElement('td');
+			            	   qNoTd.style.width="100px";
+			            	   const qNoVal = document.createTextNode(obj.qnaNo);
+			            	   qNoTd.append(qNoVal);
+			            	   
+			            	   const cgNameTd = document.createElement('td');
+			            	   cgNameTd.style.width="150px";
+			            	   const cgNameVal = document.createTextNode(obj.cgName);
+			            	   cgNameTd.append(cgNameVal);
+			            	   
+			            	   const qnaTitleTd = document.createElement('td');
+			            	   qnaTitleTd.style.width="430px";
+			            	   
+			            	   const qnaTitleVal = document.createTextNode(obj.qnaTitle.length > 20 ? obj.qnaTitle.substring(0, 20) + '...' : obj.qnaTitle);
+			            	   qnaTitleTd.append(qnaTitleVal);
+			            	   
+			            	   const userNickTd = document.createElement('td');
+			            	   userNickTd.style.width="150px";
+			            	   const userNickVal = document.createTextNode(obj.userNick);
+			            	   userNickTd.append(userNickVal);
+			            	   
+			            	   const createDateTd = document.createElement('td');
+			            	   userNickTd.style.width="150px";
+			            	   const createDateVal = document.createTextNode(obj.createDate);
+			            	   createDateTd.append(createDateVal);
+			            	   
+			            	   const viewsTd = document.createElement('td');
+			            	   userNickTd.style.width="150px";
+			            	   const viewsVal = document.createTextNode(obj.views);
+			            	   viewsTd.append(viewsVal);
+			            	   
+			            	   tr.append(qNoTd);
+			            	   tr.append(cgNameTd);
+			            	   tr.append(qnaTitleTd);
+			            	   tr.append(userNickTd);
+			            	   tr.append(createDateTd);
+			            	   tr.append(viewsTd);
+			            	   
+			            	   tbody.append(tr);
+			               }
+			            }
+			         }
+				})
+			})
+    	}
 	
 	
     </script>

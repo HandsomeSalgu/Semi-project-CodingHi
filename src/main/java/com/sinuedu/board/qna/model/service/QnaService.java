@@ -1,6 +1,7 @@
 package com.sinuedu.board.qna.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
@@ -68,13 +69,13 @@ public class QnaService {
 		return mapper.noticeBoard(q);
 	}
 
-	public ArrayList<Qna> searchList(String searchValue) {
-		return mapper.searchList(searchValue);
-	}
+	public ArrayList<Qna> searchDetail(String search, String condition) {
+		return mapper.searchDetail(search, condition);
+				}
 
-	public ArrayList<Qna> selectResult() {
-		return mapper.selectResult();
-	}
+	public ArrayList<Qna> selectResult(List<Qna> result) {
+		return mapper.selectResult(result);
+		}
 
 	
 

@@ -1,8 +1,10 @@
 package com.sinuedu.board.qna.model.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import com.sinuedu.board.lecture.model.vo.Category;
@@ -32,11 +34,15 @@ public interface QnaMapper {
 
 	int noticeBoard(Qna q);
 
-	ArrayList<Qna> searchList(String searchValue);
+	ArrayList<Qna> searchList(String value);
 
 	ArrayList<Qna> selectResult();
 
 	int deletePost(int qNo);
+
+	ArrayList<Qna> searchDetail(@Param("search") String search, @Param("condition") String condition);
+
+	ArrayList<Qna> selectResult(List<Qna> result);
 
 
 
