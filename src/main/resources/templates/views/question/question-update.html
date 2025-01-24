@@ -205,71 +205,86 @@
 </head>
 <body>
 <div class="container">
-	<form class="needs" action="/qna/updatePost" method="POST">
+   <form class="needs" method="POST" id="updateForm">
     <!-- 제목 및 카테고리 입력 -->
     <input type="hidden" name="qnaNo" th:value="${q.qnaNo}" id="qnaNo">
-	<input type="hidden" name="page" th:value="${page}">
+   <input type="hidden" name="page" th:value="${page}">
     <div class="content">
         <div class="notice">
-				<span class="noticeImage">
-					<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
-						<g fill="#605f5f" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M23.27734,4.01758c-8.08348,0.38074 -14.27734,7.32581 -14.27734,15.36328v7.26758l-2.65039,5.33203c-0.00466,0.00972 -0.00922,0.01948 -0.01367,0.0293c-1.06626,2.2675 0.65977,4.99023 3.16602,4.99023h8.49805c0,3.29586 2.70414,6 6,6c3.29586,0 6,-2.70414 6,-6h8.49609c2.50624,0 4.23449,-2.72217 3.16797,-4.99023c-0.00445,-0.00981 -0.00901,-0.01958 -0.01367,-0.0293l-2.65039,-5.33203v-7.64844c0,-8.5062 -7.13671,-15.38664 -15.72266,-14.98242zM23.41797,7.01367c6.92006,-0.32579 12.58203,5.14853 12.58203,11.98633v8c-0.00021,0.23174 0.05327,0.46037 0.15625,0.66797l2.79297,5.62109c0.17961,0.38495 -0.0282,0.71094 -0.45312,0.71094h-28.99414c-0.42493,0 -0.63105,-0.32543 -0.45117,-0.71094v-0.00195l2.79297,-5.61914c0.10298,-0.2076 0.15646,-0.43623 0.15625,-0.66797v-7.61914c0,-6.50053 4.97945,-12.06393 11.41797,-12.36719zM21,37h6c0,1.67413 -1.32587,3 -3,3c-1.67413,0 -3,-1.32587 -3,-3z"></path></g></g>
-					</svg>
-				</span>
+            <span class="noticeImage">
+               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
+                  <g fill="#605f5f" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M23.27734,4.01758c-8.08348,0.38074 -14.27734,7.32581 -14.27734,15.36328v7.26758l-2.65039,5.33203c-0.00466,0.00972 -0.00922,0.01948 -0.01367,0.0293c-1.06626,2.2675 0.65977,4.99023 3.16602,4.99023h8.49805c0,3.29586 2.70414,6 6,6c3.29586,0 6,-2.70414 6,-6h8.49609c2.50624,0 4.23449,-2.72217 3.16797,-4.99023c-0.00445,-0.00981 -0.00901,-0.01958 -0.01367,-0.0293l-2.65039,-5.33203v-7.64844c0,-8.5062 -7.13671,-15.38664 -15.72266,-14.98242zM23.41797,7.01367c6.92006,-0.32579 12.58203,5.14853 12.58203,11.98633v8c-0.00021,0.23174 0.05327,0.46037 0.15625,0.66797l2.79297,5.62109c0.17961,0.38495 -0.0282,0.71094 -0.45312,0.71094h-28.99414c-0.42493,0 -0.63105,-0.32543 -0.45117,-0.71094v-0.00195l2.79297,-5.61914c0.10298,-0.2076 0.15646,-0.43623 0.15625,-0.66797v-7.61914c0,-6.50053 4.97945,-12.06393 11.41797,-12.36719zM21,37h6c0,1.67413 -1.32587,3 -3,3c-1.67413,0 -3,-1.32587 -3,-3z"></path></g></g>
+               </svg>
+            </span>
             <span class="noticeBoxDiv">
-				<input type="checkbox" id="noticeBox" name="noticeBox" value="notice"/>
-				<label for="noticeBox"></label>
-			</span></div>
+            <input type="checkbox" id="noticeBox" name="noticeBox" value="notice"/>
+            <label for="noticeBox"></label>
+         </span></div>
         <div class="header">
-			<span class="category"> 
-				<select name="cgNo" id="category" required>
-					<th:block th:each="c: ${categories}">
-						<option th:value="${c.cgNo}">[[${c.cgName}]]</option>
-					</th:block>
-				</select>
-			</span> 
-			
-			<span class="title">
-				<input type="text" name="qnaTitle" placeholder="제목" th:value="${q.qnaTitle}">
-			</span>
-			
-			<span class="deletePost">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"><path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-			</span>
+         <span class="category"> 
+            <select name="cgNo" id="category" required>
+               <th:block th:each="c: ${categories}">
+                  <option th:value="${c.cgNo}">[[${c.cgName}]]</option>
+               </th:block>
+            </select>
+         </span> 
+         
+         <span class="title">
+            <input type="text" name="qnaTitle" placeholder="제목" th:value="${q.qnaTitle}">
+         </span>
+         
+         <button type="button" class="deletePost" id="deletePost">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"><path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+         </button>
         </div>
-			
-			<!-- 본문 입력 -->
-			<textarea id="summernote" name="qnaDetail" th:utext="${q.qnaDetail}"></textarea>
-			
-			<br>
-			
-			<!-- 저장 버튼 -->
-			<div class="save-button">
-            <button>저장</button>
+         
+         <!-- 본문 입력 -->
+         <textarea id="summernote" name="qnaDetail" th:utext="${q.qnaDetail}"></textarea>
+         
+         <br>
+         
+         <!-- 저장 버튼 -->
+         <div class="save-button">
+            <button type="button" id="save-button">저장</button>
         </div>
     </div>
     </form>
 </div>
-	
-	<!-- summernote script 추가 -->
-	<script src="/js/summernote/summernote-lite.js"></script>
-	<script src="/js/summernote/lang/summernote-ko-KR.js"></script>
-	
-	<script th:inline="javascript">
-	
-	document.addEventListener('DOMContentLoaded', function () {
-	    const noticeCheckbox = document.getElementById('noticeCheckbox');
-	    const noticeValue = document.getElementById('noticeValue');
+   
+   <!-- summernote script 추가 -->
+   <script src="/js/summernote/summernote-lite.js"></script>
+   <script src="/js/summernote/lang/summernote-ko-KR.js"></script>
+   
+   <script th:inline="javascript">
+   window.onload=()=>{
+      document.addEventListener('DOMContentLoaded', function () {
+          const noticeCheckbox = document.getElementById('noticeCheckbox');
+          const noticeValue = document.getElementById('noticeValue');
 
-	    // 체크박스 상태 변경 감지
-	    noticeCheckbox.addEventListener('change', function () {
-	        if (this.checked) {
-	            noticeValue.textContent = 'Y'; // 체크된 경우 'Y'로 변경
-	        } else {
-	            noticeValue.textContent = 'N'; // 체크 해제된 경우 'N'으로 변경
-	        }
-	    });
-	});
+          // 체크박스 상태 변경 감지
+          noticeCheckbox.addEventListener('change', function () {
+              if (this.checked) {
+                  noticeValue.textContent = 'Y'; // 체크된 경우 'Y'로 변경
+              } else {
+                  noticeValue.textContent = 'N'; // 체크 해제된 경우 'N'으로 변경
+              }
+          });
+      });
+      
+      
+      const form = document.getElementById('updateForm');
+      
+      document.getElementById('save-button').addEventListener('click', ()=>{
+         form.action = '/qna/updatePost';
+         form.submit();
+      })
+      
+      document.getElementById('deletePost').addEventListener('click', ()=>{
+         if(confirm('정말 삭제하시겠습니까?') == true){   //확인
+            form.action = '/qna/deletePost';
+            form.submit();
+         };
+      });
 	
 	
 	//summernote jquery
@@ -295,45 +310,12 @@
 			maxHeight: 500,             // 최대 높이
 			focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 			lang: "ko-KR",					// 한글 설정
-			placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
-			callbacks: {	//이미지를 첨부하는 부분
-				onInit: function() {
-			          // 에디터 초기화 시 배경색을 하얀색으로 설정
-			          $('.note-editable').css('background-color', '#ffffff');
-			    }
-// 				,onImageUpload : function(files){
-// 					uploadSummernoteImageFile(files[0], this);
-// 				},
-// 				onPaste: function(e){
-// 					var clipboardData = e.originalEvent.clipboardData;
-// 					if(clipboardData && clipboardData.items && clipboardData.items.length){
-// 						var item = clipboardData.items[0];
-// 						if(item.kind === 'file' && item.type.indexOf('image/') !== -1){
-// 							e.preventDefault();
-// 						}
-// 					}
-// 				}
-			}
+			placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
 		});
-		
-		//이미지 파일 업로드
-		
-// 		function uploadSummernoteImageFile(file, editor){
-// 			data = new FormData();
-// 			data.append("file", file);
-// 			$.ajax({
-// 				data : {data, qnaNo : document.getElementById("qnaNo").value},
-// 				type: "POST",
-// 				url : "/uploadSummernoteImageFile",
-// 				contentType : false,
-// 				processData : false,
-// 				success : function(data) {
-// 			//항상 업로드 된 파일의 url이 있어야 한다.
-// 					$(editor).summernote('insertImage', data.url);
-// 				}
-// 			});
-// 		}
 	});
+	
+	
+	}
 	</script>
 
 </body>
