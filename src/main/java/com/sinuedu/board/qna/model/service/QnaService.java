@@ -60,9 +60,22 @@ public class QnaService {
 		return mapper.updateBoard(q);
 	}
 
+	public int deletePost(int qNo) {
+		return mapper.deletePost(qNo);
+	}	
+	
 	public int noticeBoard(Qna q) {
 		return mapper.noticeBoard(q);
 	}
+
+	public ArrayList<Qna> searchList(String searchValue) {
+		return mapper.searchList(searchValue);
+	}
+
+	public ArrayList<Qna> selectResult() {
+		return mapper.selectResult();
+	}
+
 	
 
 

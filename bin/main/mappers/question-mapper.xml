@@ -67,5 +67,23 @@
 		where QNA_NO = #{qnaNo}
 	</update>
 	
+	<select id="searchList">
+		select *
+		from qna
+			 join users on(WRITER = USER_NO)
+			 join category using(CG_NO)
+		where
+		<if test="condition == 'userNick'">
+			USER_NICK = #{userNick}
+		</if>
+		<if test="condition == 'qnaTitle' or condition == 'qnaDetail'">
+			and ${condition} like '%${value}%'
+		</if>
+	</select>
+	
+	<delete id="deletePost">
+        delete from qna
+        where QNA_NO =#{qnaNo}
+	</delete>
 	
 </mapper>

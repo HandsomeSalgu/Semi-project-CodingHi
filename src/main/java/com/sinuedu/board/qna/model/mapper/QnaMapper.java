@@ -32,6 +32,12 @@ public interface QnaMapper {
 
 	int noticeBoard(Qna q);
 
+	ArrayList<Qna> searchList(String searchValue);
+
+	ArrayList<Qna> selectResult();
+
+	int deletePost(int qNo);
+
 
 
 

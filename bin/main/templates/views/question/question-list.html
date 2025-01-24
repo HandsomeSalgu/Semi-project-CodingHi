@@ -159,7 +159,7 @@ table th {
     width: 400px;
     border: 2px solid #E3EEFF;
     border-radius: 33px;
-    background-color: #f9fbff;
+    background-color: white;
     justify-content: space-between;
     padding: 0 5px 0 10px;
     
@@ -229,11 +229,12 @@ button#searchForm {
                     </thead>
                     <tbody>                 
                        <tr th:each="q : ${list}">
-                       		<td>[[${q.qnaNo}]]</td>
-                       		<td th:text="${q.cgName}"></td>
-                       		<td>[[${q.qnaTitle}]]</td>
-                       		<td>[[${q.userNick}]]</td>
-                       		<td th:text="${q.createDate}"></td>
+                       		<td th:style="'width:80px;'">[[${q.qnaNo}]]</td>
+                       		<td th:style="'width:150px;'">[[${q.cgName}]]</td>
+                       		<td th:style="'width:430px;'" 
+   								th:text="${q.qnaTitle.length() > 20 ? q.qnaTitle.substring(0, 20) + '...' : q.qnaTitle}"></td>
+                       		<td th:style="'width:150px;'">[[${q.userNick}]]</td>
+                       		<td th:style="'width:150px;'">[[${q.createDate}]]</td>
                        		<td>[[${q.views}]]</td>
                        </tr>
                     </tbody>
@@ -263,21 +264,23 @@ button#searchForm {
 	                   <span aria-hidden="true">&raquo;</span></a>
 	            </li>
 	           	</ul>
-            
+            	<form th:action="search">
 	            <div class="search">
 				    <select>
 				        <option value="-" th:selected="${ condition == '-' }">----------</option>
-				        <option value="userNick" th:selected="${ userNick == 'userNick' }">작성자</option>
-				        <option value="qnaTitle" th:selected="${ qnaTitle == 'qnaTitle' }">제목</option>
-				        <option value="qnaDetailc" th:selected="${ qnaDetail == 'qnaDetail' }">내용</option>
+				        <option value="userNick" th:selected="${ condition == 'userNick' }">작성자</option>
+				        <option value="qnaTitle" th:selected="${ condition == 'qnaTitle' }">제목</option>
+				        <option value="qnaDetail" th:selected="${ condition == 'qnaDetail' }">내용</option>
 				    </select>
-				    <input type="search" name="search" placeholder="Search" size="25px"
+				    <input type="search" name="search" placeholder="검색어를 입력해 주세요." size="25px"
 				           th:value="${ value }">
-				    <button type="button" th:onclick="#" id="searchForm">
-				    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 24 24">
-					<path fill="#306263" d="M21.562,18.733l-2.767-2.767c-0.569-0.569-0.779-1.431-0.465-2.172	c0.588-1.386,0.822-2.957,0.57-4.609c-0.548-3.591-3.422-6.507-7.01-7.075c-5.779-0.915-10.695,4-9.779,9.779	c0.568,3.588,3.484,6.461,7.075,7.01c1.652,0.252,3.223,0.019,4.609-0.57c0.741-0.315,1.603-0.104,2.172,0.465l2.767,2.767	c0.586,0.586,1.536,0.586,2.121,0l0.707-0.707C22.148,20.269,22.148,19.319,21.562,18.733z M4,10.5C4,6.916,6.916,4,10.5,4	S17,6.916,17,10.5S14.084,17,10.5,17S4,14.084,4,10.5z"></path>
-					</svg></button>
+				    <button id="searchForm">
+				    	<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 24 24">
+						<path fill="#306263" d="M21.562,18.733l-2.767-2.767c-0.569-0.569-0.779-1.431-0.465-2.172	c0.588-1.386,0.822-2.957,0.57-4.609c-0.548-3.591-3.422-6.507-7.01-7.075c-5.779-0.915-10.695,4-9.779,9.779	c0.568,3.588,3.484,6.461,7.075,7.01c1.652,0.252,3.223,0.019,4.609-0.57c0.741-0.315,1.603-0.104,2.172,0.465l2.767,2.767	c0.586,0.586,1.536,0.586,2.121,0l0.707-0.707C22.148,20.269,22.148,19.319,21.562,18.733z M4,10.5C4,6.916,6.916,4,10.5,4	S17,6.916,17,10.5S14.084,17,10.5,17S4,14.084,4,10.5z"></path>
+						</svg>
+					</button>
 				</div>
+				</form>
         </div>
     </div>
     <script th:inline="javascript">
@@ -291,17 +294,44 @@ button#searchForm {
     				location.href="/qna/" + qnaNo + "/" + /*<![CDATA[*//*[[${pi.currentPage}]]*/1/*]]>*/;
     			});
     		}
-    		const activeBtns = document.getElementsByClassName('active');
-    		for(const btn of activeBtns){
-    			btn.addEventListener('click', function(){
-    				if(nextHiiden.value == ''){
-    					this.style.borderColor = 'black';
-
-    				}
-    	    });
-    	    }
-    	}
+    	
+   		 /* document.getElementById('search').querySelector('button').addEventListener('click', function(){
+	         const value = this.previousElementSibling.value;
+	         const condition = this.previousElementSibling.previousElementSibling.value;
+	         
+	         location.href= 'search?value=' + value + '&condition=' + condition;
+	      }); 
+	} 
+	
+	 function search(){
+		const searchValue = document.querySelector('.search').value;
+		$.ajax({
+			url: '/qna/search',
+			data: { searchValue : searchValue },
+			dataType: 'json',
+			success: data => {
+				const searchList = document.querySelector('search');
+				searchList.innerHTML = '';
+				
+				if(data && data.length > 0){
+					for(const obj of data){
+						const searchTitle = document.createElement('div');
+						searchTitle.classList.add('searchTitle');
+						
+						
+					}
+					
+				}
+				
+				
+			}
+		});
+	}  */
+	
+	
+	}
+	
+	
     </script>
-
 </body>
 </html>
