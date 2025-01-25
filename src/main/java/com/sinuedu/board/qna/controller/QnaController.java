@@ -219,4 +219,40 @@ public class QnaController {
 		
 		return result;
 	}
+	
+	
+	@GetMapping("filter")
+	public HashMap<String, Object> filter(@RequestParam(value = "page", defaultValue = "1") int currentPage,
+			 @RequestParam(value = "categoryfilter", required = false) String categoryfilter){
+		
+		
+		// 카테고리 필터 조건 추가
+		HashMap<String, String> map = new HashMap<>();
+		map.put("categoryfilter", categoryfilter);
+		
+		// 카테고리에 따른 리스트 카운트 조회
+		int listCount = bService.getListCount(map);
+		System.out.println("리스트 카운트 : " + listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
+		
+		// 조건에 따른 리스트 조회
+		ArrayList<Qna> list = bService.selectBoardList(map, pi);
+		
+		HashMap<String, Object> result = new HashMap<>();
+		result.put("list", list);
+		result.put("pi", pi);
+		
+		System.out.println(result);
+		
+		return result;
+		
+		
+		
+		
+	}
+	
+	
+	
+	
 }

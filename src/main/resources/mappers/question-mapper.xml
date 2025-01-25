@@ -87,9 +87,9 @@
     <select id="searchAll">
         SELECT *
         FROM qna
-        WHERE user_nick LIKE CONCAT('%', #{keyword}, '%')
-           OR qna_title LIKE CONCAT('%', #{keyword}, '%')
-           OR qna_detail LIKE CONCAT('%', #{keyword}, '%')
+        WHERE user_nick LIKE '%${search}%'
+           OR qna_title LIKE '%${search}%'
+           OR qna_detail LIKE '%${search}%'
     </select>
 	
 	<delete id="deletePost">

@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>질문 게시판</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>질문 게시판</title>
 <style>
 	* {
     margin: 0;
@@ -214,9 +213,9 @@ button#searchForm {
         <div class="content">
             <div class="contenthead"><h2>질문 게시판</h2></div>
             <div class="tabs">
-                <button class="active" onclick="filterContent('ALL')">ALL</button>
-                <button class="active" onclick="filterContent('NOTICE')">NOTICE</button>
-                <button class="active" onclick="filterContent('Q&A')">Q&A</button>
+                <button class="categoryfilter" data-category="ALL">ALL</button>
+                <button class="categoryfilter" data-category="NOTICE">NOTICE</button>
+                <button class="categoryfilter" data-category="Q&A">Q&A</button>
             </div>
             <div class="table-container">
                 <table>
@@ -373,9 +372,62 @@ button#searchForm {
 			            
 			          }
 				})
-			})
-    	}
-	
+			});
+			 
+			
+			$(document).ready(function () {
+			    $('.categoryfilter').on('click', function () {
+			        const category = $(this).data('category'); // 버튼의 data-category 값
+			        const pagination = $('#pagination');
+			        const tbody = $('tbody');
+
+			        $.ajax({
+			            url: '/qna/filter', // 컨트롤러 매핑 URL
+			            method: 'GET',
+			            data: { categoryfilter: category }, // 서버로 전달할 데이터
+			            dataType: 'json',
+			            success: function (response) {
+			                const list = response.list;
+			                const pi = response.pi;
+
+			                // 테이블 내용 초기화
+			                tbody.empty();
+
+			                // 새로운 데이터로 테이블 채우기
+			                list.forEach(item => {
+			                    const row = `
+			                        <tr>
+			                            <td width="80px">${item.qnaNo}</td>
+			                            <td width="150px">${item.cgName}</td>
+			                            <td width="430px">${item.qnaTitle.length > 20 ? item.qnaTitle.substring(0, 20) + '...' : item.qnaTitle}</td>
+			                            <td width="150px">${item.userNick}</td>
+			                            <td width="150px">${item.createDate}</td>
+			                            <td>${item.views}</td>
+			                        </tr>`;
+			                    tbody.append(row);
+			                });
+
+			                // 페이징 처리 (기존 내용 초기화 후 추가)
+			                pagination.empty();
+			                for (let i = pi.startPage; i <= pi.endPage; i++) {
+			                    const activeClass = i === pi.currentPage ? 'active' : '';
+			                    const pageItem = `<li class="page-item ${activeClass}">
+			                        <a class="page-link" href="javascript:void(0);" onclick="changePage(${i}, '${category}')">${i}</a>
+			                    </li>`;
+			                    pagination.append(pageItem);
+			                }
+			            },
+			            error: function () {
+			                alert('데이터 로드에 실패했습니다.');
+			            },
+			        });
+			    });
+			});
+			
+			
+
+		}
+			  
 	
     </script>
 </body>
