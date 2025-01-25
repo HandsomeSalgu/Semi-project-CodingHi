@@ -41,8 +41,6 @@ public interface QnaMapper {
 
 	int deletePost(int qNo);
 
-	ArrayList<Qna> searchDetail(HashMap<String,String> map);
-
 	ArrayList<Qna> selectResult(List<Qna> result);
 
 

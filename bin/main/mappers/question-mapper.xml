@@ -11,6 +11,9 @@
 		<if test="condition != null">
 		WHERE ${condition} LIKE '%${search}%'
 		</if>
+		<if test="categoryfilter != null">
+		WHERE NOTICE = #{categoryfilter}
+		</if>
 	</select>
 
 	<select id="selectBoardList">
@@ -20,6 +23,9 @@
 			 join category using(CG_NO)
 		<if test="condition != null">
 		WHERE ${condition} LIKE '%${search}%'
+		</if>
+		<if test="categoryfilter != null">
+		WHERE NOTICE = #{categoryfilter}
 		</if>
 		order by QNA_NO desc
 	</select>
@@ -61,7 +67,7 @@
 		from qna
 			 join users on(WRITER = USER_NO)
 			 join category using(CG_NO)
-		where QNA_NO =#{qnaNo}
+		where QNA_NO = #{qnaNo}
 	</select>
 	
 	<select id="selectCategory">
@@ -75,14 +81,6 @@
 		where QNA_NO = #{qnaNo}
 	</update>
 	
-	<!-- 검색 -->
-    <select id="searchDetail">
-        SELECT *
-        FROM qna join users on(WRITER = USER_NO)
-        WHERE 
-        ${condition} LIKE '%${search}%'
-    </select>
-
     <!-- 전체 검색 (작성자, 제목, 내용) -->
     <select id="searchAll">
         SELECT *

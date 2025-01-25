@@ -222,11 +222,19 @@ public class QnaController {
 	
 	
 	@GetMapping("filter")
+	@ResponseBody
 	public HashMap<String, Object> filter(@RequestParam(value = "page", defaultValue = "1") int currentPage,
 			 @RequestParam(value = "categoryfilter", required = false) String categoryfilter){
 		
-		
+		System.out.println(categoryfilter);	//Q&A NOTICE
 		// 카테고리 필터 조건 추가
+		
+		switch(categoryfilter) {
+		case "NOTICE": categoryfilter = "Y"; break;
+		case "Q&A" : categoryfilter = "N";	break;
+		default : categoryfilter = null; break;
+		}
+		
 		HashMap<String, String> map = new HashMap<>();
 		map.put("categoryfilter", categoryfilter);
 		

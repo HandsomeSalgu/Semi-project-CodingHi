@@ -70,13 +70,9 @@ public class QnaService {
 		return mapper.noticeBoard(q);
 	}
 
-//	public ArrayList<Qna> searchDetail(HashMap<String,String> map, PageInfo pi) {
-//		return mapper.searchDetail(map, pi);
-//				}
-
 	public ArrayList<Qna> selectResult(List<Qna> result) {
 		return mapper.selectResult(result);
-		}
+	}
 
 	
 
