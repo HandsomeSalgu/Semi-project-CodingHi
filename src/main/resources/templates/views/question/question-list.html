@@ -296,7 +296,17 @@ button#searchForm {
     			});
     		}
     	
-
+    		// 기존 tbody 내부의 모든 td에 클릭 이벤트 추가
+		    tbody.addEventListener('click', function (event) {
+		        const target = event.target;
+		        if (target.tagName === 'TD') {
+		            const tr = target.parentElement;
+		            const qnaNo = tr.querySelector('td:first-child').innerText; // 첫 번째 열의 값 가져오기
+		            location.href = "/qna/" + qnaNo + "/" + 1; // 현재 페이지 정보는 하드코딩된 값 (1)
+		        }
+		    });
+    		
+    		
 			
 			const form = document.querySelector('form');
 			
@@ -375,12 +385,16 @@ button#searchForm {
 			});
 			 
 			
+		    
+			
+			
 			$(document).ready(function () {
 			    $('.categoryfilter').on('click', function () {
 			        const category = $(this).data('category'); // 버튼의 data-category 값
 			        const pagination = $('#pagination');
 			        const tbody = $('tbody');
 			        
+			     	
 
 			        $.ajax({
 			            url: '/qna/filter', // 컨트롤러 매핑 URL
@@ -390,10 +404,12 @@ button#searchForm {
 			            success: function (response) {
 			                const list = response.list;
 			                const pi = response.pi;
-
+							
+			                		                
+			                
 			                // 테이블 내용 초기화
 			                tbody.empty();
-
+							
 			                // 새로운 데이터로 테이블 채우기
 			                list.forEach(item => {
 			                    const row = `
