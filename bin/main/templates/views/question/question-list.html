@@ -99,7 +99,6 @@ ul, li {
 }
 
 
-
 .table-container {
     background: #fff;
     overflow: hidden;
@@ -213,9 +212,9 @@ button#searchForm {
         <div class="content">
             <div class="contenthead"><h2>질문 게시판</h2></div>
             <div class="tabs">
-                <button class="categoryfilter" data-category="ALL">ALL</button>
-                <button class="categoryfilter" data-category="NOTICE">NOTICE</button>
-                <button class="categoryfilter" data-category="Q&A">Q&A</button>
+                <button class="categoryfilter" data-category="ALL" th:style="${category == null ? 'font-weight:bold; border-bottom: 2px solid #605F5F; color: #000000' : ''}">ALL</button>
+                <button class="categoryfilter" data-category="NOTICE" th:style="${category == 'NOTICE' ? 'font-weight:bold; border-bottom: 2px solid #605F5F; color: #000000' : ''}">NOTICE</button>
+                <button class="categoryfilter" data-category="Q&A" th:style="${category == 'Q&A' ? 'font-weight:bold; border-bottom: 2px solid #605F5F; color: #000000' : ''}">Q&A</button>
             </div>
             <div class="table-container">
                 <table>
@@ -247,6 +246,9 @@ button#searchForm {
 				<!-- 조건식은 넣어도 되고 안넣어도 상관없다?  th:if="${session.loginUser != null}" -->
             </div>
             <ul class="pagination" id="pagination">
+            	
+            	<!-- 검색 조건 없는 페이징 처리 -->
+            	<th:block th:if="${search == null && condition ==null}">
             	<!-- 이전 버튼 -->
 	            <li class="page-item" th:classappend="${pi.currentPage == 1} ? 'disabled'">
 	               <a class="page-link" th:href="${pi.currentPage > 1} ? @{${loc}(page=${pi.currentPage-1})} : '#'" aria-label="Previous">
@@ -264,8 +266,32 @@ button#searchForm {
 	               <a class="page-link" th:href="${pi.currentPage < pi.maxPage} ? @{${loc}(page=${pi.currentPage+1})} : '#'" aria-label="Next">
 	                   <span aria-hidden="true">&raquo;</span></a>
 	            </li>
-	           	</ul>
+	            </th:block>
+	            
+	            <!-- 검색조건시 페이징 처리 -->
+	            <th:block th:if="${search != null && condition !=null}">
+	            <!-- 이전 버튼 -->
+	            <li class="page-item" th:classappend="${pi.currentPage == 1} ? 'disabled'">
+	               <a class="page-link" th:href="${pi.currentPage > 1} ? @{${loc}(condition=${condition},search=${search},page=${pi.currentPage-1})} : '#'" aria-label="Previous">
+	                  <span aria-hidden="true">&laquo;</span>
+	               </a>
+	            </li>
+               <!-- 페이지 번호 -->
+	            <li class="page-item" th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}" 
+	            					  th:classappend="${p == pi.currentPage} ? 'active'">
+	               <a class="page-link" th:href="@{${loc}(condition=${condition},search=${search},page=${p})}">[[${p}]]</a>
+	            </li>
 
+               <!-- 다음 버튼 -->
+	            <li class="page-item" th:classappend="${pi.currentPage == pi.maxPage} ? 'disabled'">
+	               <a class="page-link" th:href="${pi.currentPage < pi.maxPage} ? @{${loc}(condition=${condition},search=${search},page=${pi.currentPage+1})} : '#'" aria-label="Next">
+	                   <span aria-hidden="true">&raquo;</span></a>
+	            </li>	            
+	            </th:block>
+	            
+	            
+	           	</ul>
+				<form onsubmit="return validateForm()">
 	            <div class="search">
 				    <select name="condition" id="condition">
 				        <option value="-" th:selected="${ condition == '-' }">----------</option>
@@ -281,13 +307,18 @@ button#searchForm {
 						</svg>
 					</button>
 				</div>
+				</form>
 
         </div>
     </div>
     <script th:inline="javascript">
     	window.onload = () => {
+    		const form = document.querySelector('form');
     		const tbody = document.querySelector('tbody');
 			const tds = tbody.querySelectorAll('td');
+
+			
+			//글 이동
     		for(const td of tds){
     			td.addEventListener('click', function(){
     				const trTds = this.parentElement.querySelectorAll('td');
@@ -306,143 +337,31 @@ button#searchForm {
 		        }
 		    });
     		
-    		
-			
-			const form = document.querySelector('form');
-			
-			document.getElementById('searchForm').addEventListener('click', (event)=>{
-
-			const select = document.querySelector('select').value; // 조건
-			const search = document.getElementById('search').value.trim();
-			const pagination = document.getElementById('pagination');
-			
-			console.log(pagination)
-
-				
-				$.ajax({
-			         url: '/qna/search',
-			         data: { condition : select, search : search},
-			         dataType: 'json',
-			         success: data => {
-			            const tbody = document.querySelector('tbody');
-			            const list = data.list
-			            const pi = data.pi
-			            console.log(pi);
-			            
-			            tbody.innerHTML = '';
-			            pagination.innerHTML = '';
-
-					   for(var i = 0; i<list.length ; i++ ){
-						   const tr = document.createElement('tr');
-						   
-						   const qNoTd = document.createElement('td');
-						   qNoTd.style.width="80px";
-						   const qNoVal = document.createTextNode(list[i].qnaNo);
-						   qNoTd.append(qNoVal);
-						   
-						   const cgNameTd = document.createElement('td');
-						   cgNameTd.style.width="150px";
-						   const cgNameVal = document.createTextNode(list[i].cgName);
-						   cgNameTd.append(cgNameVal);
-						   
-						   const qnaTitleTd = document.createElement('td');
-						   qnaTitleTd.style.width="430px";
-						   
-						   const qnaTitleVal = document.createTextNode(list[i].qnaTitle.length > 20 ? list[i].qnaTitle.substring(0, 20) + '...' : list[i].qnaTitle);
-						   qnaTitleTd.append(qnaTitleVal);
-						   
-						   const userNickTd = document.createElement('td');
-						   userNickTd.style.width="150px";
-						   const userNickVal = document.createTextNode(list[i].userNick);
-						   userNickTd.append(userNickVal);
-						   
-						   const createDateTd = document.createElement('td');
-						   userNickTd.style.width="150px";
-						   const createDateVal = document.createTextNode(list[i].createDate);
-						   createDateTd.append(createDateVal);
-						   
-						   const viewsTd = document.createElement('td');
-						   userNickTd.style.width="150px";
-						   const viewsVal = document.createTextNode(list[i].views);
-						   viewsTd.append(viewsVal);
-						   
-						   tr.append(qNoTd);
-						   tr.append(cgNameTd);
-						   tr.append(qnaTitleTd);
-						   tr.append(userNickTd);
-						   tr.append(createDateTd);
-						   tr.append(viewsTd);
-						   
-						   tbody.append(tr);
-						}
-			            
-// 					   const li = document.createElement('li');
-// 					   for()
-					   
-			            
-			          }
-				})
-			});
-			 
-			
-		    
-			
-			
-			$(document).ready(function () {
+    		//카테고리 클릭
+		    $(document).ready(function () {
 			    $('.categoryfilter').on('click', function () {
-			        const category = $(this).data('category'); // 버튼의 data-category 값
-			        const pagination = $('#pagination');
-			        const tbody = $('tbody');
-			        
-			     	
-
-			        $.ajax({
-			            url: '/qna/filter', // 컨트롤러 매핑 URL
-			            method: 'GET',
-			            data: { categoryfilter: category }, // 서버로 전달할 데이터
-			            dataType: 'json',
-			            success: function (response) {
-			                const list = response.list;
-			                const pi = response.pi;
-							
-			                		                
-			                
-			                // 테이블 내용 초기화
-			                tbody.empty();
-							
-			                // 새로운 데이터로 테이블 채우기
-			                list.forEach(item => {
-			                    const row = `
-			                        <tr>
-			                            <td width="80px">${item.qnaNo}</td>
-			                            <td width="150px">${item.cgName}</td>
-			                            <td width="430px">${item.qnaTitle.length > 20 ? item.qnaTitle.substring(0, 20) + '...' : item.qnaTitle}</td>
-			                            <td width="150px">${item.userNick}</td>
-			                            <td width="150px">${item.createDate}</td>
-			                            <td>${item.views}</td>
-			                        </tr>`;
-			                    tbody.append(row);
-			                });
-
-			                // 페이징 처리 (기존 내용 초기화 후 추가)
-			                pagination.empty();
-			                for (let i = pi.startPage; i <= pi.endPage; i++) {
-			                    const activeClass = i === pi.currentPage ? 'active' : '';
-			                    const pageItem = `<li class="page-item ${activeClass}">
-			                        <a class="page-link" href="javascript:void(0);" onclick="changePage(${i}, '${category}')">${i}</a>
-			                    </li>`;
-			                    pagination.append(pageItem);
-			                }
-			            },
-			            error: function () {
-			                alert('데이터 로드에 실패했습니다.');
-			            },
-			        });
+			        const category = $(this).data('category'); // 버튼의 data-category 
+			        if(category == 'ALL'){
+			        	location.href="/qna/list";
+			        }else{
+			        	location.href="/qna/list/" + category;
+			        }
 			    });
 			});
-			
-			
-
+		}
+    	function validateForm() {
+			console.log(1);
+			const condition = document.getElementById('condition').value;
+			const search = document.getElementById('search').value;
+			if(condition === '-' || condition === ''){
+				alert('검색 조건을 입력하세요');
+				return false; // 폼 제출을 막는다
+			}else if(search == ''){
+				alert('검색어를 입력하세요');
+				return false;
+			}else{
+				return true;
+			}
 		}
 			  
 	

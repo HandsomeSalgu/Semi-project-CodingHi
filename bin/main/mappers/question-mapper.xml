@@ -8,11 +8,14 @@
 		from qna
 			 join users on(WRITER = USER_NO)
 			 join category using(CG_NO)
-		<if test="condition != null">
-		WHERE ${condition} LIKE '%${search}%'
+		<if test="category != null and condition != null">
+		WHERE NOTICE = #{category} and ${condition} LIKE '%${search}%'
 		</if>
-		<if test="categoryfilter != null">
-		WHERE NOTICE = #{categoryfilter}
+		<if test="category != null and condition == null">
+		WHERE NOTICE = #{category}
+		</if>
+		<if test="category == null and condition != null">
+		WHERE ${condition} LIKE '%${search}%'
 		</if>
 	</select>
 
@@ -21,11 +24,14 @@
 		from qna
 			 join users on(WRITER = USER_NO)
 			 join category using(CG_NO)
-		<if test="condition != null">
-		WHERE ${condition} LIKE '%${search}%'
+		<if test="category != null and condition != null">
+		WHERE NOTICE = #{category} and ${condition} LIKE '%${search}%'
 		</if>
-		<if test="categoryfilter != null">
-		WHERE NOTICE = #{categoryfilter}
+		<if test="category != null and condition == null">
+		WHERE NOTICE = #{category}
+		</if>
+		<if test="category == null and condition != null">
+		WHERE ${condition} LIKE '%${search}%'
 		</if>
 		order by QNA_NO desc
 	</select>
