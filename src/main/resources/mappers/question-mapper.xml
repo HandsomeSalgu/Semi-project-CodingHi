@@ -19,6 +19,20 @@
 		</if>
 	</select>
 
+	<select id="selectNoticeBoardList">
+    <![CDATA[
+    select *
+    from (
+        select *
+        from qna
+        join users on (WRITER = USER_NO)
+        join category using(CG_NO)
+        order by CREATE_DATE desc
+    )
+    where rownum <= 3 and NOTICE = 'Y'
+    ]]>
+	</select>
+
 	<select id="selectBoardList">
 		select *
 		from qna

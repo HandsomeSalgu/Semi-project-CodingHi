@@ -20,35 +20,44 @@ import lombok.RequiredArgsConstructor;
 public class QnaService {
 
 	private final QnaMapper mapper;
-	
-	public int getListCount(HashMap<String,String> map) {
+
+	public int getListCount(HashMap<String, String> map) {
 		return mapper.getListCount(map);
 	}
 
-	public ArrayList<Qna> selectBoardList(HashMap<String,String> map, PageInfo pi) {
+	public ArrayList<Qna> selectBoardList(HashMap<String, String> map, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return mapper.selectBoardList(map, rowBounds);
+
+		// 공지글 3개 가져오기
+		ArrayList<Qna> noticePosts = mapper.selectNoticeBoardList(map);
+		// 나머지 글 가져오기
+		ArrayList<Qna> nonNoticePosts = mapper.selectBoardList(map, rowBounds);
+
+		noticePosts.addAll(nonNoticePosts);
+		return noticePosts;
+
+//		return mapper.selectBoardList(map, rowBounds); 
+
 	}
 
 	public ArrayList<reply> selectReply(int rNo) {
 		return mapper.selectReply(rNo);
 	}
-	
+
 	public int insertBoard(Qna q) {
 		return mapper.insertBoard(q);
 	}
 
-	
-	 public Qna selectBoard(int qNo, String id) { 
-		 Qna q = mapper.selectBoard(qNo);
-		 if(q != null && id != null && !q.getUserNick().equals(id)) { 
-			 int result = mapper.updateCount(qNo);
-			 q.setViews(q.getViews());
-			 }else {
-		 }
+	public Qna selectBoard(int qNo, String id) {
+		Qna q = mapper.selectBoard(qNo);
+		if (q != null && id != null && !q.getUserNick().equals(id)) {
+			int result = mapper.updateCount(qNo);
+			q.setViews(q.getViews());
+		} else {
+		}
 		return q;
-	 }
+	}
 
 	public int insertReply(reply r) {
 		return mapper.insertReply(r);
@@ -64,8 +73,8 @@ public class QnaService {
 
 	public int deletePost(int qNo) {
 		return mapper.deletePost(qNo);
-	}	
-	
+	}
+
 	public int noticeBoard(Qna q) {
 		return mapper.noticeBoard(q);
 	}
@@ -73,8 +82,5 @@ public class QnaService {
 	public ArrayList<Qna> selectResult(List<Qna> result) {
 		return mapper.selectResult(result);
 	}
-
-	
-
 
 }
