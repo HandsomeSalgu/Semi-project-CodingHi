@@ -32,4 +32,23 @@
 		delete from chapter
 		where chap_title = #{chapTitle}
 	</delete>
+	
+	<insert id="insertChapter" parameterType="com.sinuedu.board.lecture.model.vo.Chapter">
+	    insert into chapter (chap_no, chap_title, chap_detail, create_date, update_date, views, lec_no, chap_rate)
+	    values (chapter_seq.nextval, #{chapTitle}, #{chapDetail}, sysdate, sysdate, 0, #{lecNo}, #{chapRate})
+	</insert>
+
+	<select id="getChapterByTitle" resultType="com.sinuedu.board.lecture.model.vo.Chapter">
+	    select ch.*, l.lec_title as lectitle, c.cg_name as cgname
+	    from chapter ch
+		    inner join lecture l on ch.lec_no = l.lec_no
+		    inner join category c on l.cg_no = c.cg_no
+	    where ch.chap_title = #{chapTitle}
+	</select>
+
+	<update id="updateChapter">
+	    update chapter 
+	    set chap_title = #{chapTitle}, chap_detail = #{chapDetail}, update_date = sysdate, lec_no = #{lecNo}
+	    where chap_no = #{chapNo}
+	</update>
 </mapper>

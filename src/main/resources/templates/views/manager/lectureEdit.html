@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>강의 수정</title>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
+<title>강의 추가</title>
 <style>
 body {
 	margin: 0;
@@ -57,6 +60,8 @@ body {
 
 .form-group {
 	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
 }
 
 select, input, textarea {
@@ -70,7 +75,7 @@ select, input, textarea {
 
 #categoryFilter {
 	width: 200px;
-	height: 30px;
+	height: 35px;
 	padding: 8px;
 	border: 1px solid #ddd;
 	border-radius: 6px;
@@ -86,12 +91,6 @@ select, input, textarea {
 	background-position: right 8px center;
 	background-size: 16px;
 	padding-right: 30px;
-	background-repeat: no-repeat;
-	background-position: right 8px center;
-	background-size: 16px;
-	background-position: right 8px center;
-	background-size: 16px;
-	background-size: 16px;
 }
 
 #categoryFilter:hover {
@@ -101,6 +100,39 @@ select, input, textarea {
 #categoryFilter:focus {
 	border-color: #4285f4;
 	box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.1);
+}
+
+.file-input-wrapper {
+	position: relative;
+	width: 200px;
+	margin-left: 20px;
+}
+
+.file-input {
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+}
+
+.file-label {
+	display: inline-block;
+	padding: 8px 20px;
+	background-color: #fff;
+	color: black;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	width: 150px;
+	height: 20px;
+	text-align: center;
+	font-size: 14px;
+}
+
+.file-name-display {
+	display: none;
 }
 
 textarea {
@@ -122,8 +154,6 @@ textarea {
 	border-radius: 15px;
 	font-size: 16px;
 	cursor: pointer;
-	background-color: #4c6ef5;
-	color: white;
 	transition: background-color 0.3s ease;
 }
 
@@ -155,24 +185,24 @@ textarea {
 	<div class="container">
 		<div class="content-container">
 			<div class="content-header">
-				<h2>강의 수정</h2>
+				<h2>강의 추가</h2>
 			</div>
-			<form>
+			<form id="lectureForm" action="/lecture/insert" method="POST"
+				enctype="multipart/form-data">
 				<div class="form-section">
 					<div class="form-group">
-						<select id="categoryFilter"
-							style="padding: 5px; border-radius: 4px; border: 1px solid #ddd;">
-							<option value="all">카테고리</option>
-							<option value="JAVA">JAVA</option>
-							<option value="JDBC">JDBC</option>
-							<option value="HTML/CSS">HTML/CSS</option>
-							<option value="JavaScript">JavaScript</option>
-							<option value="Spring">Spring</option>
-							<option value="MySQL">MySQL</option>
-							<option value="React">React</option>
-							<option value="Node.js">Node.js</option>
-							<option value="Git">Git</option>
+						<select id="categoryFilter" name="category">
+							<option value="">카테고리 선택</option>
+							<option th:each="category : ${categories}"
+								th:value="${category.cgNo}" th:text="${category.cgName}"></option>
 						</select>
+						<div class="file-input-wrapper">
+							<input type="file" class="file-input" name="file" id="fileInput"
+								accept="image/*"> <label for="fileInput"
+								class="file-label"> <span class="file-icon">📁</span> <span
+								class="file-text">썸네일 추가</span>
+							</label>
+						</div>
 					</div>
 					<div class="form-group">
 						<input type="text" id="title" name="title" placeholder="제목">
@@ -181,13 +211,44 @@ textarea {
 						<textarea id="description" name="description"
 							placeholder="강의 소개를 입력하세요 (200자 이내)"></textarea>
 					</div>
-				<div class="button-group">
-					<button type="submit" class="add-btn">수정</button>
-					<button type="button" class="cancel-btn">취소</button>
-				</div>
+					<div class="button-group">
+						<button type="button" id="submitLecture" class="add-btn">추가</button>
+						<button type="button" class="cancel-btn"
+							onclick="javascript:history.back();">취소</button>
+					</div>
 				</div>
 			</form>
 		</div>
 	</div>
+	<script>
+        window.onload = () => {
+        	 document.getElementById('categoryFilter').addEventListener('change', () => {
+ 		        updateLectureFilter();
+ 		        filterTable();
+ 		    });
+        	 
+            const form = document.getElementById('lectureForm');
+            const fileInput = document.getElementById('fileInput');
+            const fileLabel = document.querySelector('.file-label .file-text');
+            const cancelButton = document.querySelector('.cancel-btn');
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    const selectedFileName = e.target.files[0].name;
+                    fileLabel.textContent = selectedFileName;
+                } else {
+                    fileLabel.textContent = '썸네일 추가';
+                }
+            });
+
+            document.getElementById('submitLecture').addEventListener('click', () => {
+                if (fileInput.value === '') {
+                    alert('썸네일을 추가해주세요.');
+                } else {
+                    form.submit();
+                }
+            });
+        }
+    </script>
 </body>
 </html>

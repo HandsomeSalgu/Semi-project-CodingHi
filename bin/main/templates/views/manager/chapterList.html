@@ -387,6 +387,7 @@ body {
 			</div>
 		</div>
 	</div>
+
 	<script>
 		window.onload = () => {
 		    document.getElementById('categoryFilter').addEventListener('change', () => {
@@ -412,12 +413,20 @@ body {
 		        window.location.href = '/manager/chapterAdd';
 		    }
 	
+		    document.querySelectorAll('.edit-btn').forEach(button => {
+		        button.onclick = function() {
+		            const row = this.closest('tr');
+		            const chapTitle = row.querySelector('td:nth-child(3)').textContent;
+		            window.location.href = `/manager/chapterEdit?chapTitle=${encodeURIComponent(chapTitle)}`;
+		        }
+		    });
+
 		    const deleteModal = document.getElementById('deleteModal');
 	
 		    document.querySelectorAll('.delete-btn').forEach(button => {
 		        button.onclick = function() {
 		            const chapterTitle = this.closest('tr').querySelector('td:nth-child(3)').textContent;
-		            deleteModal.querySelector('h3').textContent = `"${chapterTitle}"를 \n 정말 삭제하시겠습니까?`;
+		            deleteModal.querySelector('h3').textContent = `'${chapterTitle}'를 \n 정말 삭제하시겠습니까?`;
 		            deleteModal.style.display = "block";
 		        }
 		    });

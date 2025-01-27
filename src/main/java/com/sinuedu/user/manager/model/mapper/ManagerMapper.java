@@ -23,4 +23,10 @@ public interface ManagerMapper {
 	List<Chapter> chapterList();
 
 	int deleteChapter(String chapTitle);
+
+	int insertChapter(Chapter chapter);
+
+	Chapter getChapterByTitle(String chapTitle);
+
+	int updateChapter(Chapter chapter);
 }

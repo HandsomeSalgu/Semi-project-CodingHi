@@ -122,10 +122,8 @@ td:hover {
 								<th>생년월일</th>
 								<th>힌트 질문</th>
 								<th>힌트 답</th>
-								<th>관리자 여부
-								</th>
-								<th>회원 상태
-								</th>
+								<th>관리자 여부</th>
+								<th>회원 상태</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -149,5 +147,39 @@ td:hover {
 			</div>
 		</div>
 	</div>
+	<script>
+		$(document).ready(function() {
+			$('.user-table tbody').on('click', 'td', function() {
+				var row = $(this).closest('tr');
+				var userId = row.find('td:eq(0)').text();
+				var currentRole = row.find('td:eq(7)').text();
+				var currentStatus = row.find('td:eq(8)').text();
+
+				var newRole = currentRole === '회원' ? '관리자' : '회원';
+				var newStatus = currentStatus === '사용' ? '탈퇴' : '사용';
+
+				$.ajax({
+					url : '/manager/updateUser',
+					method : 'POST',
+					data : {
+						userId : userId,
+						newRole : newRole,
+						newStatus : newStatus
+					},
+					success : function(response) {
+						if (response.success) {
+							row.find('td:eq(7)').text(newRole);
+							row.find('td:eq(8)').text(newStatus);
+						} else {
+							alert(response.message);
+						}
+					},
+					error : function() {
+						alert('Error updating user.');
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>

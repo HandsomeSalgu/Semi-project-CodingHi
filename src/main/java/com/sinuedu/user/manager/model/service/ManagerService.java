@@ -23,7 +23,7 @@ public class ManagerService {
 	}
 
 	public List<Category> categoryList() {
-	    return mapper.categoryList();
+		return mapper.categoryList();
 	}
 
 	public List<Lecture> lectureList() {
@@ -36,5 +36,17 @@ public class ManagerService {
 
 	public int deleteChapter(String chapTitle) {
 		return mapper.deleteChapter(chapTitle);
+	}
+
+	public int insertChapter(Chapter chapter) {
+		return mapper.insertChapter(chapter);
+	}
+
+	public Chapter getChapterByTitle(String chapTitle) {
+		return mapper.getChapterByTitle(chapTitle);
+	}
+
+	public int updateChapter(Chapter chapter) {
+		return mapper.updateChapter(chapter);
 	}
 }
