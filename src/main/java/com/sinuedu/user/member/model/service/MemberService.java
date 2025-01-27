@@ -1,6 +1,7 @@
 package com.sinuedu.user.member.model.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.binding.MapperRegistry;
@@ -32,7 +33,7 @@ public class MemberService {
 	public int checkUserNick(String userNick) {
 		return mapper.checkUserNick(userNick);
 	}
-	public String findMyId(Member m) {
+	public List<String> findMyId(Member m) {
 		return mapper.findMyId(m);
 	}
 
