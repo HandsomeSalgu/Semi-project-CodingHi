@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.sinuedu.board.lecture.model.vo.Category;
 import com.sinuedu.board.lecture.model.vo.Chapter;
 import com.sinuedu.board.lecture.model.vo.Lecture;
 import com.sinuedu.user.manager.model.service.ManagerService;
@@ -46,10 +47,9 @@ public class ManagerController {
 
 	@GetMapping("/lectureAdd")
 	public String lectureAddPage(Model model) {
-		List<Chapter> chapters = mService.chapterList();
-		Set<String> categories = chapters.stream().map(Chapter::getCgName).collect(Collectors.toSet());
-		model.addAttribute("categories", categories);
-		return "lectureAdd";
+	    List<Category> categories = mService.categoryList();
+	    model.addAttribute("categories", categories);
+	    return "lectureAdd";
 	}
 
 	@GetMapping("/chapterAdd")

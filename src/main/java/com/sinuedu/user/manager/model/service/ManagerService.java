@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.sinuedu.user.manager.model.mapper.ManagerMapper;
+import com.sinuedu.board.lecture.model.vo.Category;
 import com.sinuedu.board.lecture.model.vo.Chapter;
 import com.sinuedu.board.lecture.model.vo.Lecture;
+import com.sinuedu.user.manager.model.mapper.ManagerMapper;
 import com.sinuedu.user.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,10 @@ public class ManagerService {
 
 	public List<Member> userList() {
 		return mapper.userList();
+	}
+
+	public List<Category> categoryList() {
+	    return mapper.categoryList();
 	}
 
 	public List<Lecture> lectureList() {

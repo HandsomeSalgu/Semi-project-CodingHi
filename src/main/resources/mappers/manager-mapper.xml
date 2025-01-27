@@ -7,12 +7,10 @@
 		from users
 	</select>
 
-	<select id="chapterList" resultType="com.sinuedu.board.lecture.model.vo.Chapter">
-		select c.cg_name as cgname, l.lec_title as lectitle, ch.chap_title as chaptitle, ch.update_date as updatedate
-		from chapter ch
-		inner join lecture l on ch.lec_no = l.lec_no
-		inner join category c on l.cg_no = c.cg_no
-		order by ch.update_date desc
+	<select id="categoryList" resultType="com.sinuedu.board.lecture.model.vo.Category">
+	    select cg_no, cg_name
+	    from category
+	    order by cg_no
 	</select>
 
 	<select id="lectureList" resultType="com.sinuedu.board.lecture.model.vo.Lecture">
@@ -20,6 +18,14 @@
 	    from lecture l
 	    inner join category c on l.cg_no = c.cg_no
 	    order by l.lec_no
+	</select>
+	
+	<select id="chapterList" resultType="com.sinuedu.board.lecture.model.vo.Chapter">
+		select c.cg_name as cgname, l.lec_title as lectitle, ch.chap_title as chaptitle, ch.update_date as updatedate
+		from chapter ch
+		inner join lecture l on ch.lec_no = l.lec_no
+		inner join category c on l.cg_no = c.cg_no
+		order by ch.update_date desc
 	</select>
 
 	<delete id="deleteChapter">

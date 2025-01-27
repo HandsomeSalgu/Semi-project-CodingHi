@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.sinuedu.board.lecture.model.vo.Category;
 import com.sinuedu.board.lecture.model.vo.Chapter;
 import com.sinuedu.board.lecture.model.vo.Lecture;
 import com.sinuedu.user.member.model.vo.Member;
@@ -14,6 +15,8 @@ import com.sinuedu.user.member.model.vo.Member;
 public interface ManagerMapper {
 
 	List<Member> userList();
+
+	List<Category> categoryList();
 
 	List<Lecture> lectureList();
 	
