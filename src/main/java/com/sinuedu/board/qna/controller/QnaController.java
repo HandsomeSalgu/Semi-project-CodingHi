@@ -50,7 +50,7 @@ public class QnaController {
 		
 		int listCount = bService.getListCount(map);
 
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		ArrayList<Qna> list = bService.selectBoardList(map, pi);
 		
 		m.addAttribute("search", search).addAttribute("condition", condition);
@@ -220,7 +220,7 @@ public class QnaController {
 		int listCount = bService.getListCount(map);
 		System.out.println("리스트 카운트 : " + listCount);
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		
 		// 조건에 따른 리스트 조회
 		ArrayList<Qna> list = bService.selectBoardList(map, pi);
