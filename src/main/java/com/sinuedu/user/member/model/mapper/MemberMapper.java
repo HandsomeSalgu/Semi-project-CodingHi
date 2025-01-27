@@ -1,6 +1,7 @@
 package com.sinuedu.user.member.model.mapper;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -18,7 +19,7 @@ public interface MemberMapper {
 	
 	int checkUserNick(String userNick);
 
-	String findMyId(Member m);
+	List<String> findMyId(Member m);
 
 	int updateMember(Member m);
 

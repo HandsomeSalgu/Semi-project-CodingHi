@@ -5,9 +5,11 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.client.RestTemplate;
 
 import com.sinuedu.user.member.exception.MemberException;
 import com.sinuedu.user.member.model.service.MemberService;
 import com.sinuedu.user.member.model.vo.Member;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +41,7 @@ public class MemberController {
 	
 	private final BCryptPasswordEncoder bcrypt;    // 복호화 불가능하게 만드는 역할
 	
+	// 로그인
 	@PostMapping("login")
 	public String login(Member m, HttpSession session) {
 		System.out.println(bcrypt.encode("admin"));
@@ -49,75 +55,82 @@ public class MemberController {
 		}
 	}
 	
+	// 로그아웃
 	@GetMapping("logout")
 	public String login(SessionStatus session) {
 		session.setComplete();
 		return "redirect:/";
 	}
 	
+	// 메뉴바 -> 회원가입
 	@GetMapping("join")
 	public String join1() {
-		
 		return "join1";
 	}
 	
+	// 회원가입 1페이지
 	@PostMapping("join2")
-	public String join2(@ModelAttribute Member m,Model model) {
-		System.out.println("userId : " + m.getUserId());
+	public String join2(@ModelAttribute Member m, Model model) {
 		model.addAttribute("member", m);
 		return "join2";
 	}
 	
-	@PostMapping("join3")
-	public String join3(@ModelAttribute Member m, 
-						@RequestParam("phone1") String phone1, 
-						@RequestParam("phone2") String phone2, 
-						@RequestParam("phone3") String phone3, 
-						@RequestParam("birth1") String birth1,
-						@RequestParam("birth2") String birth2, 
-						@RequestParam("birth3") String birth3) throws ParseException {
-		m.setPhone(phone1 + "-" + phone2 + "-" + phone3);
-		
-		String Birth = birth1 + "-" + birth2+ "-" +birth3;
-		
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date utilDate = formatter.parse(Birth);
-        
-        Date date = new Date(utilDate.getTime());
-        m.setBirthDate(date);
-        m.setUserPw(bcrypt.encode(m.getUserPw()));
-		int result = mService.insertMember(m);
-		
-		
-		
-		if(result > 0) {
-			return "join3";
-		} else {
-			throw new MemberException("회원가입을 실패하였습니다");
+	// 아이디 중복체크
+		@GetMapping("checkId")
+		public void checkId(@RequestParam("userId") String userId, PrintWriter out) {
+			int count = mService.checkId(userId);
+			out.print(count);
 		}
-	}
 	
-	@GetMapping("checkId")
-	public void checkId(@RequestParam("userId") String userId, PrintWriter out) {
-		int count = mService.checkId(userId);
-		out.print(count);
-	}
+	// 회원가입 2페이지
+		@PostMapping("join3")
+		public String join3(
+		        @ModelAttribute Member m,
+		        @RequestParam("phone1") String phone1,
+		        @RequestParam("phone2") String phone2,
+		        @RequestParam("phone3") String phone3,
+		        @RequestParam("birth1") String birth1,
+		        @RequestParam("birth2") String birth2,
+		        @RequestParam("birth3") String birth3) throws ParseException {
+
+		    // 1. 사용자 정보 처리
+		    m.setPhone(phone1 + "-" + phone2 + "-" + phone3);
+
+		    String Birth = birth1 + "-" + birth2 + "-" + birth3;
+		    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		    java.util.Date utilDate = formatter.parse(Birth);
+
+		    Date date = new Date(utilDate.getTime());
+		    m.setBirthDate(date);
+		    m.setUserPw(bcrypt.encode(m.getUserPw()));
+
+		    // 2. 회원가입 처리
+		    int result = mService.insertMember(m);
+
+		    // 3. 처리 결과 반환
+		    if (result > 0) {
+		        return "join3"; // 성공 페이지로 이동
+		    } else {
+		        throw new MemberException("회원가입을 실패하였습니다");
+		    }
+		}
 	
+	// 닉네임 중복체크
 	@GetMapping("checkUserNick")
 	public void checkUserNick(@RequestParam("userNick") String userNick, PrintWriter out) {
 		int count = mService.checkUserNick(userNick);
 		out.print(count);
 	}
 	
-	// 아이디 찾기
+	// 메뉴바 -> 아이디 찾기
 	@GetMapping("find-id")
 	public String findId() {
 		return "find-id";
 	}
 	
+	// 아이디 찾기 페이지
 	@PostMapping("find-id")
 	public String findMyId(@ModelAttribute Member m,
-						   @RequestParam("userName") String userName,
 						   @RequestParam("phone1") String phone1, 
 						   @RequestParam("phone2") String phone2, 
 						   @RequestParam("phone3") String phone3, 
@@ -125,35 +138,33 @@ public class MemberController {
 						   @RequestParam("birth2") String birth2, 
 						   @RequestParam("birth3") String birth3,
 						   Model model) throws ParseException {
-			
-		
-		m.setUserName(userName);
-		m.setPhone(phone1 + "-" + phone2 + "-" + phone3);
 	    
-		String Birth = birth1 + "-" + birth2+ "-" +birth3;
+		String phone = phone1 + "-" + phone2 + "-" + phone3;
+		String birth = birth1 + "-" + birth2+ "-" +birth3;
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date utilDate = formatter.parse(Birth);
-        
+        java.util.Date utilDate = formatter.parse(birth);
         Date date = new Date(utilDate.getTime());
-        m.setBirthDate(date);
         
-	    String userId = mService.findMyId(m);
+        m.setBirthDate(date);
+        m.setPhone(phone);
+        
+        List<String> userIds = mService.findMyId(m);
 			
-		if(userId != null) {
-			model.addAttribute("userId", userId);
-			return "find-id-success";
-		} else {
+		if(userIds.isEmpty()) {
 			return "find-id-error";
+		} else {
+			model.addAttribute("userIds", userIds);
+			return "find-id-success";
 		}
 	}
 	
-	// 비밀번호 찾기
+	// 메뉴바 -> 비밀번호 찾기
 	@GetMapping("find-pwd")
 	public String findPwd() {
-		
 		return "find-pwd";
 	}
 	
+	// 비밀번호 찾기 페이지
 	@PostMapping("find-pwd")
 	public String findPassword(
 	        @RequestParam("userId") String userId,
@@ -201,14 +212,14 @@ public class MemberController {
 	}
 
 	
-	// 마이페이지
+	// 메뉴바 -> 마이페이지
 	@GetMapping("my-page")
 	public String edit(HttpSession session) {
 		System.out.println((Member)session.getAttribute("loginUser"));
 		return "my-page";
 	}
 	
-	// 내 정보 수정
+	// 마이페이지
 	@PostMapping("my-page")
 	public String editMyInfo(@ModelAttribute Member m,
 							 @RequestParam("newUserPw") String newPw, 
@@ -252,7 +263,6 @@ public class MemberController {
 		
 		if(result > 0) {
 			model.addAttribute("loginUser", updatedUser);
-//	        System.out.println((Member)session.getAttribute("loginUser"));
 			return "redirect:/";
 		} else {
 			throw new MemberException("회원정보 수정을 실패하였습니다");
@@ -261,3 +271,5 @@ public class MemberController {
 	
 	
 }
+
+

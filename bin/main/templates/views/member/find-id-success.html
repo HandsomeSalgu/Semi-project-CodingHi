@@ -137,8 +137,8 @@ margin-bottom: 10px;
 				<br/>
 				<br/>
 				<br/>
-				<h3>귀하의 아이디는</h3>
-				<p>" <strong th:text="${userId}"></strong> "</p>
+				<h3>해당 정보로 조회되는 아이디는</h3>
+				<p th:each="userId : ${userIds}" th:text="${userId}"></p>
 				<h3>입니다.</h3>
 				<br/>
 				<br/>
