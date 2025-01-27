@@ -6,6 +6,17 @@
 	<select id = "getListCount">
 		select count(*)
 		from qna
+			 join users on(WRITER = USER_NO)
+			 join category using(CG_NO)
+		<if test="category != null and condition != null">
+		WHERE NOTICE = #{category} and ${condition} LIKE '%${search}%'
+		</if>
+		<if test="category != null and condition == null">
+		WHERE NOTICE = #{category}
+		</if>
+		<if test="category == null and condition != null">
+		WHERE ${condition} LIKE '%${search}%'
+		</if>
 	</select>
 
 	<select id="selectBoardList">
@@ -13,6 +24,15 @@
 		from qna
 			 join users on(WRITER = USER_NO)
 			 join category using(CG_NO)
+		<if test="category != null and condition != null">
+		WHERE NOTICE = #{category} and ${condition} LIKE '%${search}%'
+		</if>
+		<if test="category != null and condition == null">
+		WHERE NOTICE = #{category}
+		</if>
+		<if test="category == null and condition != null">
+		WHERE ${condition} LIKE '%${search}%'
+		</if>
 		order by QNA_NO desc
 	</select>
 	
@@ -53,7 +73,7 @@
 		from qna
 			 join users on(WRITER = USER_NO)
 			 join category using(CG_NO)
-		where QNA_NO =#{qnaNo}
+		where QNA_NO = #{qnaNo}
 	</select>
 	
 	<select id="selectCategory">
@@ -67,19 +87,14 @@
 		where QNA_NO = #{qnaNo}
 	</update>
 	
-	<select id="searchList">
-		select *
-		from qna
-			 join users on(WRITER = USER_NO)
-			 join category using(CG_NO)
-		where
-		<if test="condition == 'userNick'">
-			USER_NICK = #{userNick}
-		</if>
-		<if test="condition == 'qnaTitle' or condition == 'qnaDetail'">
-			and ${condition} like '%${value}%'
-		</if>
-	</select>
+    <!-- 전체 검색 (작성자, 제목, 내용) -->
+    <select id="searchAll">
+        SELECT *
+        FROM qna
+        WHERE user_nick LIKE '%${search}%'
+           OR qna_title LIKE '%${search}%'
+           OR qna_detail LIKE '%${search}%'
+    </select>
 	
 	<delete id="deletePost">
         delete from qna

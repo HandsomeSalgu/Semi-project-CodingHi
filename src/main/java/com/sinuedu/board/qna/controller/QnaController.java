@@ -1,6 +1,7 @@
 package com.sinuedu.board.qna.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,15 +37,26 @@ public class QnaController {
 	private final QnaService bService;
 
 	@GetMapping("list")
-	public String selectList(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model m,
-			HttpServletRequest request) {
-		int listCount = bService.getListCount();
+	public String selectList(@PathVariable(value="category", required = false) String category, 
+							 @RequestParam(value = "page", defaultValue = "1") int currentPage,
+							 @RequestParam(value="condition", required = false) String condition,
+							 @RequestParam(value = "search", required = false) String search,
+							 HttpServletRequest request,  Model m) {
+
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("search", search);
+		map.put("condition", condition);
+		
+		int listCount = bService.getListCount(map);
 
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
-		ArrayList<Qna> list = bService.selectBoardList(pi);
-
+		ArrayList<Qna> list = bService.selectBoardList(map, pi);
+		
+		m.addAttribute("search", search).addAttribute("condition", condition);
 		m.addAttribute("list", list).addAttribute("pi", pi);
 		m.addAttribute("loc", request.getRequestURI());
+		m.addAttribute("category", category);
 
 		/*
 		 * for(Qna q : list) { System.out.println(q); }
@@ -181,17 +193,52 @@ public class QnaController {
 		return bService.noticeBoard(q);
 	}
 	
-	@GetMapping("search")
-	@ResponseBody
-	public ArrayList<Qna> search(@RequestParam("searchValue") String searchValue){
-		ArrayList<Qna> searchList = new ArrayList<Qna>();
-		
-		if(!searchValue.trim().equals("")) {
-			searchList = bService.searchList(searchValue);
-			System.out.println(searchList);
-		}else {
-			searchList = bService.selectResult();
+	@GetMapping("list/{category}")
+	public ModelAndView filter(@PathVariable("category") String category, 
+							   @RequestParam(value = "page", defaultValue = "1") int currentPage,
+							   @RequestParam(value="condition", required = false) String condition,
+							   @RequestParam(value = "search", required = false) String search,
+							   ModelAndView mv, HttpServletRequest request) {
+		if(condition == null || condition == "-") {
+			condition = null;
 		}
-		return searchList;
+		
+		switch(category) {
+		case "NOTICE": category = "Y"; break;
+		case "Q&A" : category = "N";	break;
+		default : category = null; break;
+		}
+		System.out.println(condition);
+		System.out.println(search);
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("category", category);
+		map.put("search", search);
+		map.put("condition", condition);
+		
+		// 카테고리에 따른 리스트 카운트 조회
+		int listCount = bService.getListCount(map);
+		System.out.println("리스트 카운트 : " + listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
+		
+		// 조건에 따른 리스트 조회
+		ArrayList<Qna> list = bService.selectBoardList(map, pi);
+		
+		System.out.println(list);
+		System.out.println(request.getRequestURI());
+		
+		mv.addObject("search", search).addObject("condition", condition);
+		mv.addObject("loc", request.getRequestURI());
+		mv.addObject("list", list).addObject("pi", pi).setViewName("views/question/question-list");
+		
+		
+		return mv;
 	}
+	
+
+	
+	
+	
+	
 }

@@ -1,8 +1,11 @@
 package com.sinuedu.board.qna.model.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import com.sinuedu.board.lecture.model.vo.Category;
@@ -12,9 +15,9 @@ import com.sinuedu.board.qna.model.vo.reply;
 @Mapper
 public interface QnaMapper {
 
-	int getListCount();
+	int getListCount(HashMap<String,String> map);
 
-	ArrayList<Qna> selectBoardList(RowBounds rowBounds);
+	ArrayList<Qna> selectBoardList(HashMap<String,String> map, RowBounds rowBounds);
 
 	ArrayList<reply> selectReply(int rNo);
 	
@@ -32,11 +35,13 @@ public interface QnaMapper {
 
 	int noticeBoard(Qna q);
 
-	ArrayList<Qna> searchList(String searchValue);
+	ArrayList<Qna> searchList(String value);
 
 	ArrayList<Qna> selectResult();
 
 	int deletePost(int qNo);
+
+	ArrayList<Qna> selectResult(List<Qna> result);
 
 
 
