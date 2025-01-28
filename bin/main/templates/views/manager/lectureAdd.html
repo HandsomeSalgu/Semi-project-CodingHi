@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>강의 추가</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js"
 	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
 	crossorigin="anonymous"></script>
+<title>강의 추가</title>
 <style>
 body {
 	margin: 0;
@@ -193,8 +193,8 @@ textarea {
 					<div class="form-group">
 						<select id="categoryFilter" name="category">
 							<option value="">카테고리 선택</option>
-							<option th:each="category : ${categories}" th:value="${category}"
-								th:text="${category}"></option>
+							<option th:each="category : ${categories}"
+								th:value="${category.cgNo}" th:text="${category.cgName}"></option>
 						</select>
 						<div class="file-input-wrapper">
 							<input type="file" class="file-input" name="file" id="fileInput"

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>챕터 추가</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js"
 	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/css/summernote/summernote-lite.css">
+<title>챕터 추가</title>
 <style>
 body {
 	margin: 0;
@@ -166,7 +166,7 @@ select, input, textarea {
 			<div class="content-header">
 				<h2>챕터 추가</h2>
 			</div>
-			<form id="chapterForm" action="/chapter/insert" method="POST"
+			<form id="chapterForm" action="/manager/insertChapter" method="POST"
 				enctype="multipart/form-data">
 				<div class="form-section">
 					<div class="form-group">
@@ -174,7 +174,7 @@ select, input, textarea {
 							<option value="">카테고리 선택</option>
 							<option th:each="category : ${categories}" th:value="${category}"
 								th:text="${category}"></option>
-						</select> <select id="lectureFilter" name="lecture">
+						</select> <select id="lectureFilter" name="lecNo">
 							<option value="">강의 선택</option>
 							<option th:each="lecture : ${lectures}"
 								th:value="${lecture.lecNo}" th:text="${lecture.lecTitle}"
@@ -182,9 +182,9 @@ select, input, textarea {
 						</select>
 					</div>
 					<div class="form-group">
-						<input type="text" id="title" name="title" placeholder="제목">
+						<input type="text" id="title" name="chapTitle" placeholder="제목">
 					</div>
-					<textarea id="summernote" name="qnaDetail"></textarea>
+					<textarea id="summernote" name="chapDetail"></textarea>
 					<div class="button-group">
 						<button type="button" id="submitChapter" class="add-btn">추가</button>
 						<button type="button" class="cancel-btn"
@@ -267,6 +267,43 @@ select, input, textarea {
 	        lectureFilter.disabled = true;
 	    }
 	}
+
+	document.getElementById('submitChapter').addEventListener('click', function(e) {
+	    e.preventDefault();
+	    
+	    var category = document.getElementById('categoryFilter').value;
+	    var lecture = document.getElementById('lectureFilter').value;
+	    var title = document.getElementById('title').value;
+	    var content = $('#summernote').summernote('code');
+
+	    if (!category || !lecture || !title || !content) {
+	        alert('모든 필드를 채워주세요.');
+	        return;
+	    }
+
+	    var formData = new FormData();
+	    formData.append('lecNo', lecture);
+	    formData.append('chapTitle', title);
+	    formData.append('chapDetail', content);
+
+	    fetch('/manager/insertChapter', {
+	        method: 'POST',
+	        body: formData
+	    })
+	    .then(response => response.json())
+	    .then(data => {
+	        if (data.success) {
+	            alert('챕터가 성공적으로 추가되었습니다.');
+	            window.location.href = '/manager/chapterList';
+	        } else {
+	            alert('챕터 추가에 실패했습니다.');
+	        }
+	    })
+	    .catch(error => {
+	        console.error('Error:', error);
+	        alert('오류가 발생했습니다. 다시 시도해주세요.');
+	    });
+	});
 	</script>
 </body>
 </html>
