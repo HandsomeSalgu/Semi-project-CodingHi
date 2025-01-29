@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/classes/post.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
 <body>
     <section>
@@ -55,10 +56,14 @@
         </div>
     </section>
     
-    <script>
+    <script th:inline="javascript">
     
     const ratingStars = [...document.getElementsByClassName("rating__star")];
     const ratingResult = document.querySelector(".rating__result");
+    const lecNo = /*[[${lecNo}]]*/1;
+    console.log(lecNo);
+	const chapNo = /*[[${chapter.chapNo}]]*/2;
+// 	console.log(chapNo);
     
 
     printRatingResult(ratingResult);
@@ -83,15 +88,20 @@
                 for (i; i < starsLength; ++i) stars[i].className = starClassUnactive; // 클릭한 별 이후 모두 비활성화
              }
              
-             console.log(ratingResult);
              const rating = ratingResult.innerHTML.substr(0,1);
+             console.log(rating);
              
-             if(confirm(rating + "점을 주시겠습니까?")){
-            	console.log(ratingResult); 
-             }else{
-           		
-             }
-             
+             $.ajax({
+            	 url: "/lecture/rating",
+            	 data: {
+            		 rating: rating,
+            		 chapNo: chapNo
+            	 },
+            	 success: data=>{
+            		 console.log(data);
+            	 },
+            	 error: data=> console.log(data)
+             })
           };
        });
     }
@@ -103,19 +113,5 @@
     executeRating(ratingStars, ratingResult);
     
     </script>
-    
-    
-    
-    <!--
-    <script th:inline="javascript">
-    	window.onload= ()=>{
-        	const yellow = "invert(50%) sepia(10%) saturate(3000%) hue-rotate(1deg) brightness(111%) contrast(833%)";
-        	const totalGrade = document.getElementsByClassName("grade-list");
-        	console.log(totalGrade)
-    	}
 
-    	
-    	
-    </script>
-      -->
 </html>

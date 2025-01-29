@@ -69,15 +69,25 @@
              </div>  
         </div>
     </section>
-    <script>
+    <script th:inline="javascript">
     	window.onload= () =>{
     		const lecturies = document.getElementsByClassName("lecture-item");
     		const lecNo = document.getElementById("lecNo").value;
+    		/*<![CDATA[*/
+    		const loginUser = /*[[${session.loginUser}]]*/1;
+    		/*]]>*/
+    		console.log(loginUser);
+    		
     		
     		for(const lec of lecturies){
     			const chapNo = lec.children[0].value
     			lec.addEventListener('click', ()=>{
-    				location.href = lecNo+"/"+chapNo;
+    				if(loginUser != null){
+    					location.href = lecNo+"/"+chapNo;
+    				}else{
+    					alert("로그인 후 이용 바랍니다");
+    				}
+    				
     			})
     		}
     		

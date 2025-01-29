@@ -1,11 +1,14 @@
 package com.sinuedu.board.lecture.controller;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,6 +48,9 @@ public class LectureController {
 		ArrayList<Chapter> cList = cService.selectLecture(lecNo);
 		int capCount = cService.chapterCount(lecNo);
 		ArrayList<Lecture> lList = cService.selectLectureList(lecNo);
+		for(Chapter le : cList) {
+			System.out.println(le);
+		}
 		Lecture lec = lList.get(0);
 		
 		for(int i =1 ; i<=cList.size() ; i++) {
@@ -61,9 +67,15 @@ public class LectureController {
 		
 		Chapter chapter = cService.selectChapter(chapNo);
 		System.out.println(chapter);
-		mv.addObject("chapter", chapter).addObject("chapNo",chapNo).setViewName("post");
+		mv.addObject("chapter", chapter).addObject("chapNo",chapNo).addObject("lecNo",lecNo).setViewName("post");
 		
 		return mv;
+	}
+	
+	@GetMapping("rating")
+	@ResponseBody
+	public void rating(@RequestParam("rating") int rating, @RequestParam("lecNo") int lecNo) {
+		
 	}
 	
 	
