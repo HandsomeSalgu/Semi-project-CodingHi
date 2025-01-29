@@ -17,9 +17,9 @@ public interface QnaMapper {
 
 	int getListCount(HashMap<String,String> map);
 
-	ArrayList<Qna> selectNoticeBoardList(HashMap<String, String> map);
-
-	ArrayList<Qna> selectBoardList(HashMap<String,String> map, RowBounds rowBounds);
+	ArrayList<Qna> selectNoticeBoardList(HashMap<String, String> map, RowBounds rowBounds);
+	
+	ArrayList<Qna> selectQnaBoardList(HashMap<String, String> map, RowBounds rowBounds);
 	
 	ArrayList<reply> selectReply(int rNo);
 	
@@ -44,6 +44,8 @@ public interface QnaMapper {
 	int deletePost(int qNo);
 
 	ArrayList<Qna> selectResult(List<Qna> result);
+
+	
 
 
 

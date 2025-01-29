@@ -51,9 +51,10 @@ public class QnaController {
 		// 전체 글 개수 조회
 		int listCount = bService.getListCount(map);
 		// 페이징 정보 설정
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 7);
-		// 공지글 3개와 나머지 글들을 가져옴
-		ArrayList<Qna> list = bService.selectBoardList(map, pi);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+
+		
+		ArrayList<Qna> list = bService.selectAllBoardList(map,pi);
 		
 		m.addAttribute("search", search).addAttribute("condition", condition);
 		m.addAttribute("list", list).addAttribute("pi", pi);
@@ -222,10 +223,13 @@ public class QnaController {
 		int listCount = bService.getListCount(map);
 		System.out.println("리스트 카운트 : " + listCount);
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 7);
+		PageInfo pi = new PageInfo();
+		pi = Pagination.getPageInfo(currentPage, listCount, 10);
+
+		
 		
 		// 조건에 따른 리스트 조회
-		ArrayList<Qna> list = bService.selectBoardList(map, pi);
+		ArrayList<Qna> list = bService.selectAllBoardList(map, pi);
 		
 		System.out.println(list);
 		System.out.println(request.getRequestURI());

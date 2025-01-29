@@ -70,7 +70,7 @@ ul, li {
 
 .contentTable {
     width: 1100px; /* 원하는 고정 크기 */
-    height: 580px; /* 원하는 고정 높이 */
+    min-height: 580px;
     margin: 0 auto; /* 가운데 정렬 */
     background: #fff; /* 배경색 */
     border-radius: 20px; /* 모서리 둥글게 */
@@ -186,7 +186,6 @@ table th {
     background-color: white;
     justify-content: space-between;
     padding: 0 5px 0 10px;
-    
 }
 
 .search select{
@@ -256,13 +255,14 @@ button#searchForm {
 	                    </thead>
 	                    <tbody>                 
 	                       <tr th:each="q : ${list}">
-	                       		<td width="80px">[[${q.qnaNo}]]</td>
-	                       		<td width="150px">[[${q.cgName}]]</td>
+	                       		<td width="80px" th:style="${q.notice == 'Y' ? 'background-color:#F2F2F2; color:#F78181; font-weight:bold;' : ''}">[[${q.qnaNo}]]</td>
+	                       		<td width="150px" th:style="${q.notice == 'Y' ? 'background-color:#F2F2F2; color:#F78181; font-weight:bold;' : ''}">[[${q.cgName}]]</td>
 	                       		<td width="430px" 
-	   								th:text="${q.qnaTitle.length() > 20 ? q.qnaTitle.substring(0, 20) + '...' : q.qnaTitle}"></td>
-	                       		<td width="150px">[[${q.userNick}]]</td>
-	                       		<td width="150px">[[${q.createDate}]]</td>
-	                       		<td>[[${q.views}]]</td>
+	   								th:text="${q.qnaTitle.length() > 20 ? q.qnaTitle.substring(0, 20) + '...' : q.qnaTitle}"
+	   								th:style="${q.notice == 'Y' ? 'background-color:#F2F2F2; color:#F78181; font-weight:bold;' : ''}"></td>
+	                       		<td width="150px" th:style="${q.notice == 'Y' ? 'background-color:#F2F2F2; color:#F78181; font-weight:bold;' : ''}">[[${q.userNick}]]</td>
+	                       		<td width="150px" th:style="${q.notice == 'Y' ? 'background-color:#F2F2F2; color:#F78181; font-weight:bold;' : ''}">[[${q.createDate}]]</td>
+	                       		<td th:style="${q.notice == 'Y' ? 'background-color:#F2F2F2; color:#F78181; font-weight:bold;' : ''}">[[${q.views}]]</td>
 	                       </tr>
 	                    </tbody>
 	                </table>

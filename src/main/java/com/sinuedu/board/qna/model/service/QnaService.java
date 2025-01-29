@@ -24,22 +24,34 @@ public class QnaService {
 	public int getListCount(HashMap<String, String> map) {
 		return mapper.getListCount(map);
 	}
-
-	public ArrayList<Qna> selectBoardList(HashMap<String, String> map, PageInfo pi) {
+	
+	//All 불러오기
+	public ArrayList<Qna> selectAllBoardList(HashMap<String, String> map, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-
-		// 공지글 3개 가져오기
-		ArrayList<Qna> noticePosts = mapper.selectNoticeBoardList(map);
+		
+		// 공지글 5개 가져오기
+		ArrayList<Qna> noticePosts = mapper.selectNoticeBoardList(map, rowBounds);
+		
 		// 나머지 글 가져오기
-		ArrayList<Qna> nonNoticePosts = mapper.selectBoardList(map, rowBounds);
-
-		noticePosts.addAll(nonNoticePosts);
-		return noticePosts;
-
-//		return mapper.selectBoardList(map, rowBounds); 
-
+		ArrayList<Qna> nonNoticePosts = mapper.selectQnaBoardList(map, rowBounds);
+		
+		//최종 글 리턴
+		ArrayList<Qna> resultPosts = new ArrayList<>();
+		
+		if(map.get("category") == "Y"){
+			return noticePosts;
+		}else if(map.get("category") == "N"){
+			return nonNoticePosts;
+		}else {
+			
+			resultPosts.addAll(noticePosts);
+			resultPosts.addAll(nonNoticePosts);
+			
+			return resultPosts;
+		}
 	}
+	
 
 	public ArrayList<reply> selectReply(int rNo) {
 		return mapper.selectReply(rNo);
@@ -82,5 +94,7 @@ public class QnaService {
 	public ArrayList<Qna> selectResult(List<Qna> result) {
 		return mapper.selectResult(result);
 	}
+
+	
 
 }
