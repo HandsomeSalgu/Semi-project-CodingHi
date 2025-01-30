@@ -57,7 +57,7 @@ public class HomeController {
 			
 			//유저별 강의 진도율 표시
 			lec.setProgressRate(cController.progressRate(capCount, userNo, lecNo));
-			System.out.println(lec);
+//			System.out.println(lec);
         }
         
         

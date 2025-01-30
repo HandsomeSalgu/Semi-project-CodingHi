@@ -12,6 +12,14 @@
 		order by LEC_NO
 	</select>
 	
+	<select id="selectCategory">
+		select *
+		from LECTURE
+			 join category using(cg_no)
+		where CG_NAME= #{cgName}
+		order by LEC_NO
+	</select>
+	
 	<select id="chapterCount">
 		select count(*)
 		from chapter
@@ -85,6 +93,29 @@
 	                 from chapter
 	                 where lec_no = #{lecNo})
 	</select>
-
+	
+	<select id="countBookmark">
+	select count(*)
+	from BOOKMARK_LECTURE
+	where USER_NO = #{userNo}  and LEC_NO = #{lecNo}
+	</select>
+	
+	<insert id="insertBookmark">
+	insert into BOOKMARK_LECTURE
+	values(#{userNo}, #{lecNo})
+	</insert>
+	
+	<delete id="deleteBookmark">
+	delete BOOKMARK_LECTURE
+	where USER_NO = #{userNo}  and LEC_NO = #{lecNo}
+	</delete>
+	
+	<select id="bookmarkCategory">
+	select *
+	from LECTURE
+		join BOOKMARK_LECTURE using(LEC_NO)
+	where LEC_NO= #{lecNo} and user_no = #{userNo}
+	order by LEC_NO
+	</select>
 </mapper>
 

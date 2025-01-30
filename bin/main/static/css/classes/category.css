@@ -63,6 +63,11 @@ section{
 	background-color: #f8f8f8;
 }
 
+.image-bookmark:hover{
+	content: url("/photo/classes/Bookmark-icon2.png")
+	
+}
+
 .element-title {
 	float: left;
 	margin-left: 20px;

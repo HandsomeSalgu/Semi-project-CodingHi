@@ -187,6 +187,8 @@
 
     .category-list a:hover {
         background-color: #e8edff;
+        cursor: pointer;
+        
     }
 </style>
 </head>
@@ -224,15 +226,16 @@
 
     <div class="bar-menu">
         <a href="/home" class="active"><img src="/photo/menuBar/homeicon.png" alt="Home"><span>HOME</span></a>
-        <a href="/"><img src="calander.png"><span>SINU EDU 소개</span></a>
+        <a href="/"><img src="/photo/menuBar/calander.png"><span>SINU EDU 소개</span></a>
         <a href="/qna/list"><img src="/photo/menuBar/act.png" ><span>질문 게시판</span></a>
         <a href="/lecture/list"><img src="/photo/menuBar/Folder.png"><span>강의 목록</span></a>
     </div>
     <div class="category-list" id="category-list">
-        <a href="#"><img src="/photo/menuBar/cgred.png"><span>JAVA</span></a>
-        <a href="#"><img src="/photo/menuBar/cgblue.png"><span>ORCLE</span></a>
-        <a href="#"><img src="/photo/menuBar/cgpurple.png" ><span>JDBC</span></a>
-        <a href="#"><img src="/photo/menuBar/cggreen.png"><span>HTML / CSS</span></a>
+    	<a><img src="/photo/menuBar/cggreen2.png"><span>BOOKMARK</span></a>
+        <a><img src="/photo/menuBar/cgred.png"><span>JAVA</span></a>
+        <a><img src="/photo/menuBar/cgblue.png"><span>ORACLE</span></a>
+        <a><img src="/photo/menuBar/cgpurple.png" ><span>JDBC</span></a>
+        <a><img src="/photo/menuBar/cggreen.png"><span>HTML-CSS</span></a>
     </div>
     <div class="admin bar-menu" th:style="'display:' + (${session.loginUser?.admin == 'Y'} ? 'block' : 'none')">
         <hr>
@@ -244,25 +247,51 @@
     </div>
 </div>
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const currentPath = window.location.pathname; // 현재 URL 경로
+    window.addEventListener("DOMContentLoaded", () => {
+    	const currentPath = window.location.pathname; // 현재 URL 경로
         const menuLinks = document.querySelectorAll("a"); // 모든 <a> 태그 선택
         menuLinks.forEach(link => {
-            if (link.getAttribute("href") === currentPath) {
-                link.classList.add("active"); // 경로가 일치하면 active 클래스 추가
-            } else {
-                link.classList.remove("active"); // 경로가 다르면 active 클래스 제거
-            }
+        	var lh = link.getAttribute("href")
+        	
+        	//lh가 null이 아니라면
+        	if(lh != null){
+        		//lh의 2번째 주소를 가져온다
+        		var lh2 = lh.split('/')[1];
+        		
+        		if (currentPath.includes(lh2) && lh2 != '') {
+//                 	console.log("작동함 : "+currentPath);
+//                 	console.log("작동함 : "+ lh);
+//                 	console.log("작동함 : "+lh2);
+                    link.classList.add("active"); // 경로가 일치하면 active 클래스 추가
+                } else {
+//                 	console.log("작동안함 : " + currentPath);
+//                 	console.log("작동안함 : "+ lh);
+//                 	console.log("작동안함 : " +lh2);
+                    link.classList.remove("active"); // 경로가 다르면 active 클래스 제거
+                }
+        	}
         });
         const categoryDiv = document.getElementById("category-list");
-        if (currentPath === "/lecture/list") {
+        if (currentPath.includes("lecture/list") || currentPath.includes("lecture/category")) {
             categoryDiv.style.display = "block";
-            console.log(currentPath);
+//             console.log(currentPath);
         } else {
             categoryDiv.style.display = "none";
-            console.log(currentPath);
+//             console.log(currentPath);
+        }
+        
+        const categoryA = categoryDiv.children;
+        for(const a of categoryA){
+        	a.addEventListener('click', ()=>{
+        		const spanVal = a.children[1].innerHTML;
+        		console.log(spanVal);
+        		
+				location.href = "/lecture/category/" + spanVal;
+        	})
         }
     });
+
+    
 </script>
 </body>
 </html>

@@ -56,4 +56,24 @@ public class LectureService {
 		return cMapper.userProgressRate(map);
 	}
 
+	public ArrayList<Lecture> selectCategory(String cgName) {
+		return cMapper.selectCategory(cgName);
+	}
+
+	public int countBookmark(HashMap<String, Integer> map) {
+		return cMapper.countBookmark(map);
+	}
+
+	public int insertBookmark(HashMap<String, Integer> map) {
+		return cMapper.insertBookmark(map);
+	}
+
+	public int deleteBookmark(HashMap<String, Integer> map) {
+		return cMapper.deleteBookmark(map);
+	}
+
+	public Lecture bookmarkCategory(HashMap<String, Integer> map) {
+		return cMapper.bookmarkCategory(map);
+	}
+
 }
