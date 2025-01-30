@@ -31,5 +31,14 @@
 			 join CATEGORY using(CG_NO)
 		where CHAP_NO = #{chapNo}
 	</select>
+	
+	<insert>
+		insert into VIEW_CHAPTER
+		values(#{chapNo}, #{userNo}, null)
+	</insert>
+	
+	<update id="rating">
+		update set VIEW_CHAPTER
+	</update>
 </mapper>
 

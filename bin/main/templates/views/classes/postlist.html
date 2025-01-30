@@ -77,27 +77,15 @@
     		const loginUser = /*[[${session.loginUser}]]*/1;
     		/*]]>*/
     		console.log(loginUser);
-    		
-    		
-//     		for(const lec of lecturies){
-//     			const chapNo = lec.children[1].value
-//     			const lecChapNum = lec.children[0].value
-//     			lec.addEventListener('click', ()=>{
-//     				if(loginUser != null){
-//     					location.href = lecNo+"/"+chapNo;
-//     				}else{
-//     					alert("로그인 후 이용 바랍니다");
-//     				}
-//     				location.href = lecNo+"/"+lecChapNum;
-//     			})
-//     		}
+
 
 			for(const lec of lecturies){
 				const chapNo = lec.children[1].value
     			const lecChapNum = lec.children[0].value
     			lec.addEventListener('click', ()=>{
 //     				if(loginUser != null){
-//     					form.action = lecNo+"/"+lecChapNum;
+//     					lec.action = lecNo+"/"+lecChapNum;
+//         				lec.submit();
 //     				}else{
 //     					alert("로그인 후 이용 바랍니다");
 //     				}

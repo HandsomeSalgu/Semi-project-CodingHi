@@ -1,6 +1,7 @@
 package com.sinuedu.board.lecture.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,18 @@ public class LectureService {
 
 	public Chapter selectChapter(int chapNo) {
 		return cMapper.selectChapter(chapNo);
+	}
+
+	public int rating(HashMap<String, Integer> map) {
+		return cMapper.rating(map);
+	}
+
+	public int viewChapter(HashMap<String, Integer> map) {
+		return cMapper.viewChapter(map);
+	}
+
+	public int dupViewChapter(HashMap<String, Integer> map) {
+		return cMapper.dupViewChapter(map);
 	}
 
 }

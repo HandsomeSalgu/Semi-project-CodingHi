@@ -1,6 +1,7 @@
 package com.sinuedu.board.lecture.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sinuedu.board.lecture.model.exception.LectureException;
 import com.sinuedu.board.lecture.model.service.LectureService;
 import com.sinuedu.board.lecture.model.vo.Chapter;
 import com.sinuedu.board.lecture.model.vo.Lecture;
+import com.sinuedu.user.member.model.vo.Member;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -63,11 +67,27 @@ public class LectureController {
 	
 	@PostMapping("/{lNo}/{cNo}")
 	public ModelAndView selectChapter(@PathVariable("lNo") int lecNo, @PathVariable("cNo") int lecChapNum, 
-									  @RequestParam("chapNo") int chapNo,ModelAndView mv) {
-		System.out.println(chapNo);
+									  @RequestParam("chapNo") int chapNo,ModelAndView mv,
+									  HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		if(loginUser != null) {
+			int userNo = loginUser.getUserNo();
+			
+			HashMap<String, Integer> map = new HashMap<>();
+			map.put("chapNo", chapNo);
+			map.put("userNo", userNo);
+			int result1 = cService.dupViewChapter(map);
+			if(result1 == 0) {
+				int result2 = cService.viewChapter(map);
+			}
+		}else {
+			throw new LectureException("로그인이 되어있지 않습니다");
+		}
+		
+		
 		Chapter chapter = cService.selectChapter(chapNo);
 		chapter.setLecChapNum(lecChapNum);
-		System.out.println(chapter);
+		
 		mv.addObject("chapNo", chapNo);
 		mv.addObject("chapter", chapter).addObject("lecChapNum",lecChapNum).addObject("lecNo",lecNo).setViewName("post");
 		
@@ -76,8 +96,20 @@ public class LectureController {
 	
 	@GetMapping("rating")
 	@ResponseBody
-	public void rating(@RequestParam("rating") int rating, @RequestParam("lecNo") int lecNo) {
+	public void rating(@RequestParam("rating") int rating, @RequestParam("chapNo") int chapNo,
+					   HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int userNo = loginUser.getUserNo();
+		System.out.println(loginUser);
+		System.out.println("chapNo : " + chapNo);
+		System.out.println("rating : " + rating);
 		
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("chapNo", chapNo);
+		map.put("rate", rating);
+		map.put("userNo", userNo);
+		
+		int result = cService.rating(map);
 	}
 	
 	
