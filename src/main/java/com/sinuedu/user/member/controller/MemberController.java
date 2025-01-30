@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @SessionAttributes("loginUser")
-@RequestMapping("/member/")
+@RequestMapping("views/member/loginPage")
 public class MemberController {
 	
 	private final MemberService mService;
@@ -49,7 +49,7 @@ public class MemberController {
 		if(loginUser != null && bcrypt.matches(m.getUserPw(), loginUser.getUserPw())) {
 			session.setAttribute("loginUser", loginUser);
 			System.out.println(loginUser);
-			return "redirect:/";
+			return "redirect:/home";
 		} else {
 			throw new MemberException("로그인을 실패하였습니다");
 		}

@@ -45,11 +45,12 @@ public interface QnaMapper {
 
 	ArrayList<Qna> selectResult(List<Qna> result);
 
-	
+	// 아래로 추가한거
 
+	ArrayList<Qna> PopularQna();
 
+	ArrayList<Qna> getRecentQnaByUser(int userNo);
 
-
-
+	ArrayList<reply> getRecentCommentsByUser(int userNo);
 
 }

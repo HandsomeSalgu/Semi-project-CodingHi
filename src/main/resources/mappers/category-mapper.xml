@@ -31,5 +31,20 @@
 			 join CATEGORY using(CG_NO)
 		where CHAP_NO = #{chapNo}
 	</select>
+
+
+<!--	추가한거-->
+	<select id="PopularLectures">
+		SELECT l.*, c.total_views
+		FROM lecture l
+		INNER JOIN (
+		SELECT lec_no, SUM(views) AS total_views
+		FROM chapter
+		GROUP BY lec_no
+		) c ON l.lec_no = c.lec_no
+		ORDER BY c.total_views DESC
+		FETCH FIRST 10 ROWS ONLY
+
+	</select>
 </mapper>
 
