@@ -49,4 +49,8 @@ public class LectureService {
 		return cMapper.chapRateAvg(map);
 	}
 
+	public int userProgressRate(HashMap<String, Integer> map) {
+		return cMapper.userProgressRate(map);
+	}
+
 }

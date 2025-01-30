@@ -30,4 +30,6 @@ public interface LectureMapper {
 	// 아래로 추가한거
 	ArrayList<Lecture> PopularLectures();
 
+	int userProgressRate(HashMap<String, Integer> map);
+
 }

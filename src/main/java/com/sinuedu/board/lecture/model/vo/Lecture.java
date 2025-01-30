@@ -19,4 +19,6 @@ public class Lecture {
 	private String cgName;
 	private String lecImg;
 	private int totalChap;
+	private double svgRate;
+	private int progressRate;
 }

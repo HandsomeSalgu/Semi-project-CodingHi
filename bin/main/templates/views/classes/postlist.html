@@ -7,7 +7,9 @@
 <link rel="stylesheet" href="/css/classes/postlist.css"/>
 </head>
 <body>
-<!-- 	<section th:insert="~{views/menu-bar.html}"></section> -->
+	<div class="side-bar">
+		<div th:replace="~{views/menu-bar.html}"></div>
+	</div>
 	
     <section class="post-list">
         <div class="top-box">
@@ -42,7 +44,7 @@
                     <img src="/photo/classes/Forward.png" class="image-bookmark"/>
                     <br>
                     <a>Percent</a>
-                    <p>32%</p>
+                    <p>[[${progressRate == 0 ? "X" : progressRate + "%"}]]</p>
                 </div>
                 <div>
                     <img src="/photo/classes/Emote_Smile.png" class="image-bookmark"/>

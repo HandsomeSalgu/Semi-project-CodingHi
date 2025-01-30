@@ -31,14 +31,25 @@ public class LectureController {
 	private final LectureService cService;
 	
 	@GetMapping("list")
-	public ModelAndView selectLectureList(ModelAndView mv) {
+	public ModelAndView selectLectureList(ModelAndView mv, HttpSession session) {
 		
+		int userNo = 0;
+		if(session.getAttribute("loginUser") != null){
+			userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		}
 		ArrayList<Lecture> list = cService.selectLectureList(null);
 		
 		for(Lecture lec : list) {
 			int lecNo = lec.getLecNo();
 			int capCount = cService.chapterCount(lecNo);
 			lec.setTotalChap(capCount);
+			
+			ArrayList<Chapter> cList = cService.selectLecture(lecNo);
+			
+			lec.setSvgRate(svgRate(cList)); 
+			
+			//유저별 강의 진도율 표시
+			lec.setProgressRate(progressRate(capCount, userNo, lecNo));
 		}
 		
 		mv.addObject("list", list).setViewName("category");
@@ -47,21 +58,40 @@ public class LectureController {
 	}
 	
 	@GetMapping("/{id}")
-	public ModelAndView selectLecture(@PathVariable("id") int lecNo, ModelAndView mv) {
+	public ModelAndView selectLecture(@PathVariable("id") int lecNo, ModelAndView mv,
+									  HttpSession session) {
 		
 		ArrayList<Chapter> cList = cService.selectLecture(lecNo);
 		int capCount = cService.chapterCount(lecNo);
 		ArrayList<Lecture> lList = cService.selectLectureList(lecNo);
 		Lecture lec = lList.get(0);
 		
+		int userNo = 0;
+		if(session.getAttribute("loginUser") != null){
+			userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		}
+		
 		for(int i =1 ; i<=cList.size() ; i++) {
 			cList.get(i-1).setLecChapNum(i);
 		}
 		
+		
+		double svgRate = svgRate(cList);
+		int progressRate = progressRate(capCount, userNo, lecNo);
+		
+		mv.addObject("lecNo",lecNo).addObject("svgRate", svgRate).addObject("progressRate", progressRate);
+		mv.addObject("lec", lec).addObject("cList", cList).addObject("capCount", capCount).setViewName("postlist");
+		return mv;
+	}
+	
+	//Lecture 평균 구하는 메소드
+	public double svgRate(ArrayList<Chapter> list) {
+		
 		int sumRate = 0;
 		double svgRate = 0;
+		
 		ArrayList<Chapter> rateNotNull = new ArrayList<>();
-		for(Chapter c : cList) {
+		for(Chapter c : list) {
 			sumRate += c.getChapRate();
 			
 			//평점을 준사람은 무조건 1점부터
@@ -69,20 +99,29 @@ public class LectureController {
 				rateNotNull.add(c);
 			}
 		}
-		
-		System.out.println(rateNotNull.size());
-		System.out.println(sumRate);
 	
+		
 		svgRate = (double)sumRate/rateNotNull.size();
 		svgRate = Double.parseDouble(String.format("%.1f", svgRate));
 		if(Double.isNaN(svgRate)) {
 			svgRate = 0;
 		}
+		return svgRate;
+	}
+	
+	//유저별 강의 진도율 표시
+	public int progressRate(int capCount, int userNo, int lecNo) {
+		int result = 0;
 		
-		
-		mv.addObject("lecNo",lecNo).addObject("svgRate", svgRate);
-		mv.addObject("lec", lec).addObject("cList", cList).addObject("capCount", capCount).setViewName("postlist");
-		return mv;
+		if(capCount > 0 && userNo >0) {
+			HashMap<String, Integer> map = new HashMap<>();
+			map.put("userNo", userNo);
+			map.put("lecNo", lecNo);
+			
+			int userProgressRate = cService.userProgressRate(map);
+			result = (int) ((userProgressRate / (double) capCount) * 100);
+		}
+		return result;
 	}
 	
 	@PostMapping("/{lNo}/{cNo}")
