@@ -5,233 +5,198 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title></title>
 <style>
-body {
-	margin: 0;
-	font-family: Arial, sans-serif;
-	background-color: #f4f4f4;
-}
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+
+    }
 
 
-        .bar-container {
-            position: fixed;
-            transition: ease-out;
-            width: 200px;
-            height: auto;
-            border-radius: 30px;
-            border-right: 1px solid #E6E4F0;
-            background: #FFF;
-            box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
-            padding-bottom: 20px;
-        }
+    .bar-container {
+        position: fixed;
+        transition: ease-out;
+        width: 200px;
+        height: auto;
+        border-radius: 30px;
+        border-right: 1px solid #E6E4F0;
+        background: #FFF;
+        box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+        padding-bottom: 20px;
+    }
 
-        .bar-header {
-            padding: 15px;
-        }
-
-
-.bar-header img {
-	width: 130px;
-	height: 65px;
-	flex-shrink: 0;
-	margin-top: 8px;
-	margin-left: 23px;
-}
+    .bar-header {
+        padding: 15px;
+    }
 
 
-        .bar-header img {
-            width: 130px;
-            height: 65px;
-            flex-shrink: 0;
-            margin-top: 8px;
-            margin-left: 23px;
-        }
+    .bar-header img {
+        width: 130px;
+        height: 65px;
+        flex-shrink: 0;
+        margin-top: 8px;
+        margin-left: 23px;
+    }
 
-        .bar-header img:hover{
-            cursor: pointer;
-        }
-        .login-user {
-            margin: 4px;
-            padding: 15px;
-            width: 160px;
-            height: 150px;
-            border-radius: 20px;
-            border: 1px solid #dfdfdf;
-        }
-        .login-form {
-            margin: 4px;
-            padding: 15px;
-            width: 160px;
-            height: 210px;
-            border-radius: 20px;
-            border: 1px solid #dfdfdf;
-        }
+    .bar-header img:hover{
+        cursor: pointer;
+    }
+    .login-user {
+        margin: 4px;
+        padding: 15px;
+        width: 160px;
+        height: 150px;
+        border-radius: 20px;
+        border: 1px solid #dfdfdf;
+    }
+    .login-form {
+        margin: 4px;
+        padding: 15px;
+        width: 160px;
+        height: 210px;
+        border-radius: 20px;
+        border: 1px solid #dfdfdf;
+    }
 
-        .login-form input {
-            width: 150px;
-            height: 30px;
-            padding: 4px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 11px;
-        }
+    .login-form input {
+        width: 150px;
+        height: 30px;
+        padding: 4px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 11px;
+    }
 
-        .login-form button, .login-user button{
-            width: 100%;
-            padding: 9px;
-            border: none;
-            border-radius: 5px;
-            background-color: #57f;
-            color: #ffffff;
-            font-size: 12px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            margin-top: 8px;
-        }
+    .login-form button, .login-user button{
+        width: 100%;
+        padding: 9px;
+        border: none;
+        border-radius: 5px;
+        background-color: #57f;
+        color: #ffffff;
+        font-size: 12px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        margin-top: 8px;
+    }
 
-        .login-form button:hover, .login-user button:hover {
-            background-color: #1e5491;
-        }
+    .login-form button:hover, .login-user button:hover {
+        background-color: #1e5491;
+    }
 
-        .login-form button:active, .login-user button:active {
-            background-color: #6a8eff;
-            color: white;
-        }
-
-
-.links {
-	margin-top: 8px;
-	font-size: 10px;
-	color: #888;
-	text-align: center;
-}
-
-.links a {
-	color: #6a8eff;
-	text-decoration: none;
-}
-
-.links a:hover {
-	text-decoration: underline;
-}
+    .login-form button:active, .login-user button:active {
+        background-color: #6a8eff;
+        color: white;
+    }
 
 
-        .bar-menu {
-            background-color: #ffffff;
-            padding: 12px;
-            border-top: 1px solid #e5e5e5;
-            margin-top: 15px;
-        }
+    .links {
+        margin-top: 8px;
+        font-size: 10px;
+        color: #888;
+        text-align: center;
+    }
 
-        .bar-menu a {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            margin-bottom: 4px;
-            color: #555;
-            text-decoration: none;
-            border-radius: 15px;
-            background-color: #ffffff;
-        }
+    .links a {
+        color: #6a8eff;
+        text-decoration: none;
+    }
 
-        .bar-menu a img {
-            width: 15px;
-            height: 15px;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-
-        .bar-menu a span {
-            line-height: 15px;
-            display: inline-block;
-            vertical-align: middle;
-        }
+    .links a:hover {
+        text-decoration: underline;
+    }
 
 
-.bar-menu a.active {
-	background-color: #6a8eff;
-	color: white;
-}
+    .bar-menu {
+        background-color: #ffffff;
+        padding: 12px;
+        border-top: 1px solid #e5e5e5;
+        margin-top: 15px;
+    }
+
+    .bar-menu a {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        margin-bottom: 4px;
+        color: #555;
+        text-decoration: none;
+        border-radius: 15px;
+        background-color: #ffffff;
+    }
+
+    .bar-menu a img {
+        width: 15px;
+        height: 15px;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+
+    .bar-menu a span {
+        line-height: 15px;
+        display: inline-block;
+        vertical-align: middle;
+    }
 
 
-        .bar-menu a.active {
-            background-color: #6a8eff;
-            color: white;
-        }
-
-        .bar-menu a:hover {
-            background-color: #e8edff;
-        }
-        .category-list {
-            background-color: #ffffff;
-            padding: 15px;
-            border-top: 1px solid #e5e5e5;
-            display: none;
-        }
-
-        .category-list a {
-            display: flex;
-            align-items: center;
-            padding: 6px;
-            margin-bottom: 4px;
-            color: #555;
-            text-decoration: none;
-            border-radius: 15px;
-            background-color: #ffffff;
-            margin-left: 15px;
-        }
-
-        .category-list a img {
-            width: 15px;
-            height: 15px;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-
-        .category-list a span {
-            line-height: 15px;
-            display: inline-block;
-            vertical-align: middle;
-        }
+    .bar-menu a.active {
+        background-color: #6a8eff;
+        color: white;
+    }
 
 
-.category-list a.active {
-	background-color: #6a8eff;
-	color: white;
-}
+    .bar-menu a:hover {
+        background-color: #e8edff;
+    }
+    .category-list {
+        background-color: #ffffff;
+        padding: 15px;
+        border-top: 1px solid #e5e5e5;
+        display: none;
+    }
+
+    .category-list a {
+        display: flex;
+        align-items: center;
+        padding: 6px;
+        margin-bottom: 4px;
+        color: #555;
+        text-decoration: none;
+        border-radius: 15px;
+        background-color: #ffffff;
+        margin-left: 15px;
+    }
+
+    .category-list a img {
+        width: 15px;
+        height: 15px;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+
+    .category-list a span {
+        line-height: 15px;
+        display: inline-block;
+        vertical-align: middle;
+    }
 
 
-        .category-list a.active {
-            background-color: #6a8eff;
-            color: white;
-        }
+    .category-list a.active {
+        background-color: #6a8eff;
+        color: white;
+    }
 
-        .category-list a:hover {
-            background-color: #e8edff;
-        }
-    </style>
+    .category-list a:hover {
+        background-color: #e8edff;
+    }
+</style>
 </head>
 <body>
 <div class="bar-container">
     <div class="bar-header">
-        <a href="/">
+        <a href="/home">
             <img src="/photo/menuBar/logo2.png" alt="Profile">
         </a>
-
     </div>
-
-    <form action="/member/login" th:if="${session.loginUser == null}" method="post">
-        <div class="login-form">
-            <a>ID</a>
-            <input type="text" placeholder="아이디를 입력해주세요." name="userId">
-            <p></p>
-            <a>Password</a>
-            <input type="password" placeholder="비밀번호를 입력해주세요." name="userPw">
-            <button>Sign In</button>
-            <div class="links">
-                <a href="/member/join">회원가입</a> / <a href="/member/find-id">아이디</a> /<a href="/member/find-pwd"> 패스워드 찾기</a>
-            </div>
-        </div>
-    </form>
 
     <form action="/member/logout" th:if="${session.loginUser != null}">
         <div class="login-user">
@@ -246,9 +211,8 @@ body {
     </form>
 
     <div class="bar-menu">
-        <a href="/" class="active"><img src="/photo/menuBar/homeicon.png" alt="Home"><span>HOME</span></a>
-        <a href="/home/info"><img src="/photo/menuBar/calander.png"><span>SINU EDU 소개</span></a>
-        <a href="/home/mentor"><img src="/photo/menuBar/Graph.png"><span>강사 소개</span></a>
+        <a href="/home" class="active"><img src="/photo/menuBar/homeicon.png" alt="Home"><span>HOME</span></a>
+        <a href="/"><img src="calander.png"><span>SINU EDU 소개</span></a>
         <a href="/qna/list"><img src="/photo/menuBar/act.png" ><span>질문 게시판</span></a>
         <a href="/lecture/list"><img src="/photo/menuBar/Folder.png"><span>강의 목록</span></a>
     </div>
