@@ -6,6 +6,7 @@ import com.sinuedu.user.member.model.vo.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,10 +28,6 @@ public class HomeController {
         Member loginUser = (Member) session.getAttribute("loginUser");
 
 
-        if (loginUser == null) {
-            mav.setViewName("redirect:/");
-            return mav;
-        }
         Integer userNo = (Integer) loginUser.getUserNo();
         Map<String, Object> homeData = homeService.getHomeData(userNo);
 
@@ -40,5 +37,12 @@ public class HomeController {
         mav.setViewName("views/home");
 
         return mav;
+    }
+
+    @GetMapping("/")
+    public String index(HttpSession session, Model model) {
+        Object loginUser = session.getAttribute("loginUser"); // 세션에서 가져오기
+        model.addAttribute("loginUser", loginUser);
+        return "index";
     }
 }

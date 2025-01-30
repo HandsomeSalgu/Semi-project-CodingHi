@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8" />
@@ -29,8 +29,9 @@
                 <div class="header-utils">
                     <ul>
                         <li class="button">
-                            <a href="member/loginPage" class="btnset btnset-lg btnset-line-secondary" type="button">SIGN IN</a>
-                            <a href="member/join" class="btnset btnset-lg btnset-dark" type="button">SIGN UP</a>
+                            <a href="/home" class="btnset btnset-lg btnset-line-primary" type="button">HOME</a>
+                            <a th:if="${loginUser == null}" href="member/loginPage" class="btnset btnset-lg btnset-line-secondary" type="button">SIGN IN</a>
+                            <a th:if="${loginUser == null}" href="member/join" class="btnset btnset-lg btnset-dark" type="button">SIGN UP</a>
                         </li>
                     </ul>
                 </div>
