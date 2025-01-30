@@ -1,11 +1,11 @@
 package com.sinuedu.board.lecture.controller;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -61,13 +61,15 @@ public class LectureController {
 		return mv;
 	}
 	
-	@GetMapping("/{lNo}/{cNo}")
-	public ModelAndView selectChapter(@PathVariable("lNo") int lecNo, @PathVariable("cNo") int chapNo, 
-								ModelAndView mv) {
-		
+	@PostMapping("/{lNo}/{cNo}")
+	public ModelAndView selectChapter(@PathVariable("lNo") int lecNo, @PathVariable("cNo") int lecChapNum, 
+									  @RequestParam("chapNo") int chapNo,ModelAndView mv) {
+		System.out.println(chapNo);
 		Chapter chapter = cService.selectChapter(chapNo);
+		chapter.setLecChapNum(lecChapNum);
 		System.out.println(chapter);
-		mv.addObject("chapter", chapter).addObject("chapNo",chapNo).addObject("lecNo",lecNo).setViewName("post");
+		mv.addObject("chapNo", chapNo);
+		mv.addObject("chapter", chapter).addObject("lecChapNum",lecChapNum).addObject("lecNo",lecNo).setViewName("post");
 		
 		return mv;
 	}
