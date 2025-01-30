@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/classes/post.css"/>
+</head>
+<body>
+    <section>
+        <div class="top-box">
+            <div class="top-text">
+                <p>[[${chapter.cgName}]] CHAPTER[[${chapter.chapNo}]]</p>
+                <p>[[${chapter.chapTitle}]]</p>
+            </div>
+        </div>
+
+        <div class="middle-box">
+            <span class="middle-text-right">
+                <p>조회수 [[${chapter.views}]]</p>
+            </span>
+            <span class="middle-text-left">
+                <p>[[${chapter.updateDate}]]</p>
+            </span>
+            
+        </div>
+
+        <div class="bottom-box">
+            <div class="bottom-content">
+                <p>[[${chapter.chapDetail}]]</p>
+            </div>
+            <hr>
+            <div class="bottom-option">
+                <div class="bottom-option-grade">
+                    <p>강의가 마음에 드셨나요?</p>
+                    <div class="rating">
+				        <label class="rating__label rating__label--half" for="starhalf">
+				            <input type="radio" id="starhalf" class="rating__input" name="rating" value="">
+				            <span class="star-icon"></span>
+				        </label>
+				        <label class="rating__label rating__label--full" for="star1">
+				            <input type="radio" id="star1" class="rating__input" name="rating" value="">
+				            <span class="star-icon"></span>
+				        </label>
+				        <label class="rating__label rating__label--half" for="star1half">
+				            <input type="radio" id="star1half" class="rating__input" name="rating" value="">
+				            <span class="star-icon"></span>
+				        </label>
+				        <label class="rating__label rating__label--full" for="star2">
+				            <input type="radio" id="star2" class="rating__input" name="rating" value="">
+				            <span class="star-icon"></span>
+				        </label>
+				        <label class="rating__label rating__label--half" for="star2half">
+				            <input type="radio" id="star2half" class="rating__input" name="rating" value="">
+				            <span class="star-icon"></span>
+				        </label>
+				        <label class="rating__label rating__label--full" for="star3">
+				            <input type="radio" id="star3" class="rating__input" name="rating" value="">
+				            <span class="star-icon"></span>
+				        </label>
+				        <label class="rating__label rating__label--half" for="star3half">
+				            <input type="radio" id="star3half" class="rating__input" name="rating" checked>
+				            <span class="star-icon"></span>
+				        </label>
+				        <label class="rating__label rating__label--full" for="star4">
+				            <input type="radio" id="star4" class="rating__input" name="rating" value="">
+				            <span class="star-icon"></span>
+				        </label>
+				        <label class="rating__label rating__label--half" for="star4half">
+				            <input type="radio" id="star4half" class="rating__input" name="rating" value="">
+				            <span class="star-icon"></span>
+				        </label>
+				        <label class="rating__label rating__label--full" for="star5">
+				            <input type="radio" id="star5" class="rating__input" name="rating" value="">
+				            <span class="star-icon"></span>
+				        </label>
+			    	</div>
+<!--                     <div class="grade-list"> -->
+<!--                     	<img src="/photo/classes/star.png" class="grade 1"> -->
+<!-- 	                    <img src="/photo/classes/star.png" class="grade 2"> -->
+<!-- 	                    <img src="/photo/classes/star.png" class="grade 3"> -->
+<!-- 	                    <img src="/photo/classes/star.png" class="grade 4"> -->
+<!-- 	                    <img src="/photo/classes/star.png" class="grade 5"> -->
+<!--                     </div> -->
+                </div>
+                <div class="bottom-option-menu">
+                    <button class="class-list" id="classList" onclick="javascript:history.back();">목록</button>
+                </div>
+                <div class="bottom-option-update">
+                	<th:block th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
+                    <img src="/photo/classes/update.png" class="image-bookmark"/>
+                    <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                    </th:block>
+                </div>
+            </div>     
+        </div>
+    </section>
+    
+    <script>
+    
+    </script>
+    
+    
+    <!--
+    <script th:inline="javascript">
+    	window.onload= ()=>{
+        	const yellow = "invert(50%) sepia(10%) saturate(3000%) hue-rotate(1deg) brightness(111%) contrast(833%)";
+        	const totalGrade = document.getElementsByClassName("grade-list");
+        	console.log(totalGrade)
+    	}
+
+    	
+    	
+    </script>
+      -->
+</html>

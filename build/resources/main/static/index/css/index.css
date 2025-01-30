@@ -10,7 +10,7 @@
     left: 0;
     z-index: 999;
     padding-top: 20px;
-
+    padding-bottom: NaNpx
 }
 
 .basic-N2 .header-container {
@@ -1240,6 +1240,7 @@
 /* basic-N4 */
 .basic-N4 {
     position: relative;
+    background: url(../etc/);
     padding-top: 2.4rem;
     padding-bottom: 2.4rem;
     overflow: hidden

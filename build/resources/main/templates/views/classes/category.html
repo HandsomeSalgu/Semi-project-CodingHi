@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/classes/category.css"/>
+<title>Insert title here</title>
+</head>
+<body>
+
+<!-- 	<div th:replace="~{views/menu-bar}"></div> -->
+	
+    <section>
+        <div class="write" th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
+            <img src="/photo/classes/write.png"/>
+        </div>
+        <div class="class-list">
+            <div class="class-elements">
+                <div class="class-element" th:each="lec : ${list}">
+                	<input type="hidden" name="lectureNo" th:value="${lec.lecNo}">
+                    <div class="image-box">
+                        <img src="/photo/classes/example.png" class="image-thumbnail">
+                    </div>
+                    <div class="element-title">
+                        <p>[[${lec.lecTitle}]]</p>
+                        <p>[[${lec.cgName}]]</p>
+                    </div>
+                    <div>
+                        <img src="/photo/classes/bookmark-icon.png" class="image-bookmark"/>
+                    </div>
+                    <br><br>
+                    <div class="option-list">
+                        <div class="options">
+                            <p>[[${lec.totalChap}]]</p>
+                            <p>Chpater</p>
+                        </div>
+                        <div class="options">
+                            <p>32%</p>
+                            <p>Percent</p>
+                        </div>
+                        <div class="options">
+                            <p>4.5</p>
+                            <p>Rating(5)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+    	window.onload= () =>{
+    		const elements = document.getElementsByClassName("class-element");
+    		
+    		for(const element of elements){
+    			const lecNo = element.children[0].value
+    			element.addEventListener('click', ()=>{
+    				location.href= lecNo;
+    			});
+    		}
+    	}
+    </script>
+    
+</body>
+</html>

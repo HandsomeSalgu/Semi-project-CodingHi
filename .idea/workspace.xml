@@ -5,59 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e94906d-1ce2-4caa-948a-6e4f64f28faa" name="변경" comment="핵폭탄">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/home/controller/HomeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/home/service/HomeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/css/animation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/css/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/css/pc-mobile.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/css/swiper.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_btnset_arrow_right_black.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_btnset_arrow_white_sm.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_close_white.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_downarrow_black.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_facebook_lightgrey.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_instagram_lightgrey.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_kakao_lightgrey.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_pause_white.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_play_white.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_youtube_lightgrey.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N40_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N40_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N41_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N42_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N42_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N42_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N42_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N43_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N43_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N44_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N44_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N44_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_mobile_N41_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_logo_white.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_mainvisual_03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_mainvisual_mobile_03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/logo2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/js/animation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/js/jquery-v3.6.3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/js/pc-mobile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/js/templatehouse.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/views/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/views/member/loginPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.11.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.11.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.11.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.11.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/lecture/model/mapper/LectureMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/lecture/model/mapper/LectureMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/qna/model/mapper/QnaMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/qna/model/mapper/QnaMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/qna/model/vo/Qna.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/qna/model/vo/Qna.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/qna/model/vo/reply.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/qna/model/vo/reply.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sinuedu/common/config/TemplateResolverConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/common/config/TemplateResolverConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sinuedu/user/member/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/user/member/controller/MemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/category-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/category-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/question-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/question-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/views/menu-bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/views/menu-bar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/index/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/index/css/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,8 +145,17 @@
       <updated>1737357107456</updated>
       <workItem from="1737357109507" duration="164000" />
       <workItem from="1737357284077" duration="57000" />
-      <workItem from="1738122434210" duration="42921000" />
+      <workItem from="1738122434210" duration="43037000" />
     </task>
+    <task id="LOCAL-00001" summary="핵폭탄">
+      <option name="closed" value="true" />
+      <created>1738208448487</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1738208448487</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

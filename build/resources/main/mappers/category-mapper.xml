@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sinuedu.board.lecture.model.mapper.LectureMapper">
+	<select id="selectLectureList">
+		select *
+		from LECTURE
+			join category using(cg_no)
+		<if test="lecNo != null">
+		where LEC_NO= #{lecNo}
+		</if>
+		order by LEC_NO
+	</select>
+	
+	<select id="chapterCount">
+		select count(*)
+		from chapter
+		where LEC_NO = #{lecNo}
+	</select>
+	
+	<select id="selectLecture">
+		select *
+		from chapter
+		where LEC_NO = #{lecNo}
+	</select>
+	
+	<select id="selectChapter">
+		select *
+		from chapter
+			 join LECTURE using(LEC_NO)
+			 join CATEGORY using(CG_NO)
+		where CHAP_NO = #{chapNo}
+	</select>
+
+	<select id="PopularLectures">
+		SELECT l.*, c.total_views
+		FROM lecture l
+		INNER JOIN (
+		SELECT lec_no, SUM(views) AS total_views
+		FROM chapter
+		GROUP BY lec_no
+		) c ON l.lec_no = c.lec_no
+		ORDER BY c.total_views DESC
+		FETCH FIRST 10 ROWS ONLY
+
+	</select>
+</mapper>
+

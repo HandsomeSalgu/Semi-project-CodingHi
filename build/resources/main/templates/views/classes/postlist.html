@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/css/classes/postlist.css"/>
+</head>
+<body>
+<!-- 	<section th:insert="~{views/menu-bar.html}"></section> -->
+	
+    <section class="post-list">
+        <div class="top-box">
+            <div class="image-box">
+                <img src="/photo/classes/example.png" class="image-thumbnail">
+            </div>
+            <div class="manager-function">
+            	<th:block th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
+                <img src="/photo/classes/update.png" class="image-bookmark"/>
+                <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                </th:block>
+                <img src="/photo/classes/bookmark-icon.png" class="image-bookmark"/>
+            </div>
+            <div class="text-box-top">
+                <a>[[${lec.lecTitle}]]</a>
+                <br>
+                <a>[[${lec.lecSubtitle}]]</a><br>       
+            </div>
+            <div class="text-box-bottom">
+                <p>
+                	[[${lec.lecDesc}]]
+                </p>
+            </div>
+            <div class="function-option">
+                <div>
+                    <img src="/photo/classes/Inbox.png" class="image-bookmark"/>
+                    <br>
+                    <a>Chapter</a>
+                    <p>[[${capCount}]]</p>
+                </div>
+                <div>
+                    <img src="/photo/classes/Forward.png" class="image-bookmark"/>
+                    <br>
+                    <a>Percent</a>
+                    <p>32%</p>
+                </div>
+                <div>
+                    <img src="/photo/classes/Emote_Smile.png" class="image-bookmark"/>
+                    <br>
+                    <a>Rating(5)</a>
+                    <p>4.5</p>
+                </div> 
+            </div>
+        </div>
+        <div class="bottom-box">
+             <div class="lecture-list">
+             	<input type="hidden" id="lecNo" name="lecNo" th:value="${lecNo}">
+                 <div class="lecture-item" th:each="Chap : ${cList}">
+                 	<input type="hidden" name="lecChapNum" th:value="${Chap.lecChapNum}">
+                     <div>
+                         <a>Chpater [[${Chap.lecChapNum}]]</a><br>
+                         <a>[[${Chap.chapTitle}]]</a>
+                     </div>
+                     <span th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
+                         <img src="/photo/classes/update.png" class="image-bookmark"/>
+                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     </span>
+                 </div>
+             </div>  
+        </div>
+    </section>
+    <script>
+    	window.onload= () =>{
+    		const lecturies = document.getElementsByClassName("lecture-item");
+    		const lecNo = document.getElementById("lecNo").value;
+    		
+    		for(const lec of lecturies){
+    			const chapNo = lec.children[0].value
+    			lec.addEventListener('click', ()=>{
+    				location.href = lecNo+"/"+chapNo;
+    			})
+    		}
+    		
+    	}
+    </script>
+</body>
+</html>
