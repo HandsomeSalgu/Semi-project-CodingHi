@@ -52,15 +52,35 @@ public class LectureController {
 		ArrayList<Chapter> cList = cService.selectLecture(lecNo);
 		int capCount = cService.chapterCount(lecNo);
 		ArrayList<Lecture> lList = cService.selectLectureList(lecNo);
-		for(Chapter le : cList) {
-			System.out.println(le);
-		}
 		Lecture lec = lList.get(0);
 		
 		for(int i =1 ; i<=cList.size() ; i++) {
 			cList.get(i-1).setLecChapNum(i);
 		}
-		mv.addObject("lecNo",lecNo);
+		
+		int sumRate = 0;
+		double svgRate = 0;
+		ArrayList<Chapter> rateNotNull = new ArrayList<>();
+		for(Chapter c : cList) {
+			sumRate += c.getChapRate();
+			
+			//평점을 준사람은 무조건 1점부터
+			if(c.getChapRate() != 0) {
+				rateNotNull.add(c);
+			}
+		}
+		
+		System.out.println(rateNotNull.size());
+		System.out.println(sumRate);
+	
+		svgRate = (double)sumRate/rateNotNull.size();
+		svgRate = Double.parseDouble(String.format("%.1f", svgRate));
+		if(Double.isNaN(svgRate)) {
+			svgRate = 0;
+		}
+		
+		
+		mv.addObject("lecNo",lecNo).addObject("svgRate", svgRate);
 		mv.addObject("lec", lec).addObject("cList", cList).addObject("capCount", capCount).setViewName("postlist");
 		return mv;
 	}
@@ -78,7 +98,7 @@ public class LectureController {
 			map.put("userNo", userNo);
 			int result1 = cService.dupViewChapter(map);
 			if(result1 == 0) {
-				int result2 = cService.viewChapter(map);
+				cService.viewChapter(map);
 			}
 		}else {
 			throw new LectureException("로그인이 되어있지 않습니다");
@@ -96,7 +116,7 @@ public class LectureController {
 	
 	@GetMapping("rating")
 	@ResponseBody
-	public void rating(@RequestParam("rating") int rating, @RequestParam("chapNo") int chapNo,
+	public int rating(@RequestParam("rating") int rating, @RequestParam("chapNo") int chapNo,
 					   HttpSession session) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
@@ -106,10 +126,17 @@ public class LectureController {
 		
 		HashMap<String, Integer> map = new HashMap<>();
 		map.put("chapNo", chapNo);
-		map.put("rate", rating);
+		map.put("rating", rating);
 		map.put("userNo", userNo);
 		
 		int result = cService.rating(map);
+		if(result >0) {
+			cService.chapRateAvg(map);
+			return result;
+		}else {
+			throw new LectureException("별점이 추가되지 않았습니다");
+		}
+		
 	}
 	
 	

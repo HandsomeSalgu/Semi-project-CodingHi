@@ -45,4 +45,8 @@ public class LectureService {
 		return cMapper.dupViewChapter(map);
 	}
 
+	public int chapRateAvg(HashMap<String, Integer> map) {
+		return cMapper.chapRateAvg(map);
+	}
+
 }

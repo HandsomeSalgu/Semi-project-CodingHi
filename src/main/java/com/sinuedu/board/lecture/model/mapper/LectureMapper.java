@@ -24,4 +24,6 @@ public interface LectureMapper {
 	int viewChapter(HashMap<String, Integer> map);
 
 	int dupViewChapter(HashMap<String, Integer> map);
+
+	int chapRateAvg(HashMap<String, Integer> map);
 }

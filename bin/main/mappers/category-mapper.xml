@@ -32,13 +32,44 @@
 		where CHAP_NO = #{chapNo}
 	</select>
 	
-	<insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="dupViewChapter">
+		select count(*)
+		from VIEW_CHAPTER
+		where USER_NO = #{userNo} and CHAP_NO = #{chapNo}
+	</select>
+	
+	<insert id="viewChapter">
 		insert into VIEW_CHAPTER
-		values(#{chapNo}, #{userNo}, null)
+		values(#{userNo}, #{chapNo}, null)
 	</insert>
 	
 	<update id="rating">
-		update set VIEW_CHAPTER
+		update VIEW_CHAPTER
+		set USER_NO = #{userNo}, CHAP_NO = #{chapNo}, RATE = #{rating}
+		where USER_NO = #{userNo} and CHAP_NO = #{chapNo}
+	</update>
+	
+	<update id="chapRateAvg">
+		update chapter
+    	set CHAP_RATE = (select round(avg(rate),1)
+                     from VIEW_CHAPTER
+                     where chap_no = #{chapNo})
+    	where CHAP_NO = #{chapNo}
 	</update>
 </mapper>
 
