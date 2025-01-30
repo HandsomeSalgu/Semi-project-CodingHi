@@ -40,7 +40,12 @@ public class MemberController {
 	private final MemberService mService;
 	
 	private final BCryptPasswordEncoder bcrypt;    // 복호화 불가능하게 만드는 역할
-	
+
+	@GetMapping("loginPage")
+	public String loginPage() {
+		return "views/member/loginPage";
+	}
+
 	// 로그인
 	@PostMapping("login")
 	public String login(Member m, HttpSession session) {
@@ -49,7 +54,7 @@ public class MemberController {
 		if(loginUser != null && bcrypt.matches(m.getUserPw(), loginUser.getUserPw())) {
 			session.setAttribute("loginUser", loginUser);
 			System.out.println(loginUser);
-			return "redirect:/";
+			return "redirect:/home";
 		} else {
 			throw new MemberException("로그인을 실패하였습니다");
 		}

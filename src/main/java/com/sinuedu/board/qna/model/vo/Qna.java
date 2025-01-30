@@ -25,4 +25,5 @@ public class Qna {
 	   private int views;
 	   private int cgNo;
 	   private String notice;
+	   private int replyCount;
 }

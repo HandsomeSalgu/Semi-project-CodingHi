@@ -17,4 +17,6 @@ public interface LectureMapper {
 	ArrayList<Chapter> selectLecture(int lecNo);
 
 	Chapter selectChapter(int chapNo);
+
+	ArrayList<Lecture> PopularLectures();
 }

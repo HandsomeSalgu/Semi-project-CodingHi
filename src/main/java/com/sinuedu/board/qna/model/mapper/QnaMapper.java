@@ -44,7 +44,9 @@ public interface QnaMapper {
 	ArrayList<Qna> selectResult(List<Qna> result);
 
 
+	ArrayList<Qna> PopularQna();
 
+	ArrayList<Qna> getRecentQnaByUser(int userNo);
 
-
+	ArrayList<reply> getRecentCommentsByUser(int userNo);
 }

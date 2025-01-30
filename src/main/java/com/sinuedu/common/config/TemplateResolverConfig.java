@@ -55,4 +55,5 @@ public class TemplateResolverConfig {
 		mResolver.setCheckExistence(true);
 		return mResolver;
 	}
+
 }

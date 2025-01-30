@@ -100,5 +100,32 @@
         delete from qna
         where QNA_NO =#{qnaNo}
 	</delete>
-	
+
+	<select id="PopularQna">
+		SELECT q.qna_no, q.qna_title, q.qna_detail, q.views,
+		(SELECT COUNT(*) FROM reply r WHERE r.qna_no = q.qna_no) AS replyCount
+		FROM qna q
+		ORDER BY q.views DESC
+		FETCH FIRST 3 ROWS ONLY
+	</select>
+
+	<select id="getRecentQnaByUser">
+		SELECT q.qna_no, q.qna_title, q.writer, q.create_date, q.views, c.cg_name
+		FROM qna q
+		JOIN category c ON q.cg_no = c.cg_no
+		WHERE q.writer = #{userNo}
+		ORDER BY q.create_date DESC
+		FETCH FIRST 5 ROWS ONLY
+	</select>
+
+	<select id="getRecentCommentsByUser" resultType="com.sinuedu.board.qna.model.vo.reply">
+		SELECT r.rep_no, r.qna_no, r.user_no, r.rep_comment,
+		q.qna_title, c.cg_name
+		FROM reply r
+		JOIN qna q ON r.qna_no = q.qna_no
+		JOIN category c ON q.cg_no = c.cg_no
+		WHERE r.user_no = #{userNo}
+		ORDER BY r.rep_no DESC
+		FETCH FIRST 5 ROWS ONLY
+	</select>
 </mapper>
