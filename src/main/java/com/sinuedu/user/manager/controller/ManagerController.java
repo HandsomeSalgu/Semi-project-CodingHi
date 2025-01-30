@@ -117,4 +117,31 @@ public class ManagerController {
 		}
 		return response;
 	}
+	
+	@PostMapping("/toggleAdmin")
+	@ResponseBody
+	public Map<String, Object> toggleAdmin(@RequestParam("userId") String userId, @RequestParam("adminStatus") String adminStatus) {
+	    Map<String, Object> response = new HashMap<>();
+	    try {
+	        int result = mService.updateAdminStatus(userId, adminStatus);
+	        response.put("success", result > 0);
+	    } catch (Exception e) {
+	        response.put("success", false);
+	    }
+	    return response;
+	}
+
+	@PostMapping("/toggleStatus")
+	@ResponseBody
+	public Map<String, Object> toggleStatus(@RequestParam("userId") String userId, @RequestParam("status") String status) {
+	    Map<String, Object> response = new HashMap<>();
+	    try {
+	        int result = mService.updateUserStatus(userId, status);
+	        response.put("success", result > 0);
+	    } catch (Exception e) {
+	        response.put("success", false);
+	    }
+	    return response;
+	}
+
 }
