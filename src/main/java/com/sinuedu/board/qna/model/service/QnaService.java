@@ -20,35 +20,56 @@ import lombok.RequiredArgsConstructor;
 public class QnaService {
 
 	private final QnaMapper mapper;
-	
-	public int getListCount(HashMap<String,String> map) {
+
+	public int getListCount(HashMap<String, String> map) {
 		return mapper.getListCount(map);
 	}
-
-	public ArrayList<Qna> selectBoardList(HashMap<String,String> map, PageInfo pi) {
+	
+	//All 불러오기
+	public ArrayList<Qna> selectAllBoardList(HashMap<String, String> map, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return mapper.selectBoardList(map, rowBounds);
+		
+		// 공지글 5개 가져오기
+		ArrayList<Qna> noticePosts = mapper.selectNoticeBoardList(map, rowBounds);
+		
+		// 나머지 글 가져오기
+		ArrayList<Qna> nonNoticePosts = mapper.selectQnaBoardList(map, rowBounds);
+		
+		//최종 글 리턴
+		ArrayList<Qna> resultPosts = new ArrayList<>();
+		
+		if(map.get("category") == "Y"){
+			return noticePosts;
+		}else if(map.get("category") == "N"){
+			return nonNoticePosts;
+		}else {
+			
+			resultPosts.addAll(noticePosts);
+			resultPosts.addAll(nonNoticePosts);
+			
+			return resultPosts;
+		}
 	}
+	
 
 	public ArrayList<reply> selectReply(int rNo) {
 		return mapper.selectReply(rNo);
 	}
-	
+
 	public int insertBoard(Qna q) {
 		return mapper.insertBoard(q);
 	}
 
-	
-	 public Qna selectBoard(int qNo, String id) { 
-		 Qna q = mapper.selectBoard(qNo);
-		 if(q != null && id != null && !q.getUserNick().equals(id)) { 
-			 int result = mapper.updateCount(qNo);
-			 q.setViews(q.getViews());
-			 }else {
-		 }
+	public Qna selectBoard(int qNo, String id) {
+		Qna q = mapper.selectBoard(qNo);
+		if (q != null && id != null && !q.getUserNick().equals(id)) {
+			int result = mapper.updateCount(qNo);
+			q.setViews(q.getViews());
+		} else {
+		}
 		return q;
-	 }
+	}
 
 	public int insertReply(reply r) {
 		return mapper.insertReply(r);
@@ -64,8 +85,8 @@ public class QnaService {
 
 	public int deletePost(int qNo) {
 		return mapper.deletePost(qNo);
-	}	
-	
+	}
+
 	public int noticeBoard(Qna q) {
 		return mapper.noticeBoard(q);
 	}
@@ -75,6 +96,5 @@ public class QnaService {
 	}
 
 	
-
 
 }

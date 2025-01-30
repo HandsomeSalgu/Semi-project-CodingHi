@@ -17,24 +17,40 @@
 		<if test="category == null and condition != null">
 		WHERE ${condition} LIKE '%${search}%'
 		</if>
+		
 	</select>
 
-	<select id="selectBoardList">
-		select *
+	<select id="selectNoticeBoardList">
+    select *
+    from (
+        select *
+        from qna
+        join users on (WRITER = USER_NO)
+        join category using(CG_NO)
+        order by CREATE_DATE desc
+    )
+    where NOTICE = 'Y'
+    <if test="category == null">
+    and rownum <![CDATA[<]]>= 5
+    </if>
+    <if test="category != null and condition != null">
+    and ${condition} LIKE '%${search}%'
+    </if>
+    order by QNA_NO desc
+	</select>
+	
+	<select id="selectQnaBoardList">
+	select *
 		from qna
 			 join users on(WRITER = USER_NO)
 			 join category using(CG_NO)
-		<if test="category != null and condition != null">
-		WHERE NOTICE = #{category} and ${condition} LIKE '%${search}%'
-		</if>
-		<if test="category != null and condition == null">
-		WHERE NOTICE = #{category}
-		</if>
-		<if test="category == null and condition != null">
-		WHERE ${condition} LIKE '%${search}%'
+		where notice = 'N'
+		<if test="condition != null">
+		and ${condition} LIKE '%${search}%'
 		</if>
 		order by QNA_NO desc
 	</select>
+	
 	
 	<select id="selectReply">
 		select *
