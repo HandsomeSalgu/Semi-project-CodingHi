@@ -17,21 +17,44 @@ body {
     background-color: #F9FBFF;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    max-width: 1420px;
-    width: 80%;
-    margin: 0 auto;
+    
+}
+
+.main-container {
+	 display: flex;
+	 justify-content: center;
+	 width: auto;
+	 margin-top: 50px;
 }
 
 ul, li {
 	list-style: none;
 }
 
+.side-bar {
+      width: 200px;
+      height: 1000px;
+      position: sticky;
+      top: 100px;
+      margin: 50px;
+    }
 .container {
-    width: 100%;
+    /* width: 100%;
     margin: 0 auto;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    max-width: 1420px;
+    width: 80%;
+    margin: 0 auto; */
+    
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .menu {
@@ -231,8 +254,11 @@ button#searchForm {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<div class="main-container">
+	<div class="side-bar">
+    <div th:replace="~{views/menu-bar.html}"></div>
+ 	</div>
     <div class="container">
-	<!-- <div th:replace="~{views/menu-bar.html}"></div> -->
         <div class="content">
         	<div class="contentTable">
 	            <div class="contenthead"><h2>질문 게시판</h2></div>
@@ -338,6 +364,7 @@ button#searchForm {
 				
 			</div>
     </div>
+</div>
     <script th:inline="javascript">
     	window.onload = () => {
     		const form = document.querySelector('form');
