@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<!-- 	<div th:replace="~{views/menu-bar}"></div> -->
+	<div class="side-bar">
+		<div th:replace="~{views/menu-bar.html}"></div>
+	</div>
 	
     <section>
         <div class="write" th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
@@ -35,11 +36,11 @@
                             <p>Chpater</p>
                         </div>
                         <div class="options">
-                            <p>32%</p>
+                            <p>[[${lec.progressRate == 0 ? "X" : lec.progressRate + "%"}]]</p>
                             <p>Percent</p>
                         </div>
                         <div class="options">
-                            <p>4.5</p>
+                            <p>[[${lec.svgRate == 0 ? "X" : lec.svgRate}]]</p>
                             <p>Rating(5)</p>
                         </div>
                     </div>

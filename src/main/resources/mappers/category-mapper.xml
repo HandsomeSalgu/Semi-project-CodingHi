@@ -31,6 +31,12 @@
 			 join CATEGORY using(CG_NO)
 		where CHAP_NO = #{chapNo}
 	</select>
+	
+	<update id="updateCount">
+		update CHAPTER
+		set VIEWS = VIEWS+1
+		where CHAP_NO = #{chapNo}
+	</update>
 
 	<select id="dupViewChapter">
 		select count(*)
@@ -68,6 +74,16 @@
 		) c ON l.lec_no = c.lec_no
 		ORDER BY c.total_views DESC
 		FETCH FIRST 10 ROWS ONLY
+	</select>
+	
+	<select id="userProgressRate">
+	select count(*)
+	from chapter
+	     join view_chapter using(chap_no)
+	where user_no = #{userNo} and
+	      chap_no in(select chap_no
+	                 from chapter
+	                 where lec_no = #{lecNo})
 	</select>
 
 </mapper>

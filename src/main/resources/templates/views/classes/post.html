@@ -8,6 +8,10 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
 <body>
+	<div class="side-bar">
+		<div th:replace="~{views/menu-bar.html}"></div>
+	</div>
+	
     <section>
         <div class="top-box">
             <div class="top-text">
@@ -27,7 +31,7 @@
 
         <div class="bottom-box">
             <div class="bottom-content">
-                <p>[[${chapter.chapDetail}]]</p>
+                <p th:utext="${chapter.chapDetail}"></p>
             </div>
             <hr>
             <div class="bottom-option">
