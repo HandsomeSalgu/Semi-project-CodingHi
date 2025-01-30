@@ -34,4 +34,14 @@ public interface LectureMapper {
 
 	int updateCount(int chapNo);
 
+	ArrayList<Lecture> selectCategory(String cgName);
+
+	int countBookmark(HashMap<String, Integer> map);
+
+	int insertBookmark(HashMap<String, Integer> map);
+
+	int deleteBookmark(HashMap<String, Integer> map);
+
+	Lecture bookmarkCategory(HashMap<String, Integer> map);
+
 }

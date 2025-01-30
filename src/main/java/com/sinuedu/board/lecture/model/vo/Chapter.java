@@ -14,7 +14,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Chapter {
-	
 	private int chapNo;
 	private int lecChapNum;
 	private String lecTitle;

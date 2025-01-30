@@ -21,4 +21,5 @@ public class Lecture {
 	private int totalChap;
 	private double svgRate;
 	private int progressRate;
+	private String bookmarkCheck;
 }

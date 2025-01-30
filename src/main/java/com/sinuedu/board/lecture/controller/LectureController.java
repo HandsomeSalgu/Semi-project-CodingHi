@@ -33,6 +33,8 @@ public class LectureController {
 	@GetMapping("list")
 	public ModelAndView selectLectureList(ModelAndView mv, HttpSession session) {
 		
+		HashMap<String, Integer> map = new HashMap<>();
+		
 		int userNo = 0;
 		if(session.getAttribute("loginUser") != null){
 			userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
@@ -50,6 +52,16 @@ public class LectureController {
 			
 			//유저별 강의 진도율 표시
 			lec.setProgressRate(progressRate(capCount, userNo, lecNo));
+			
+			map.put("userNo", userNo);
+			map.put("lecNo", lecNo);
+			
+			int bookmarkCheck = cService.countBookmark(map);
+			if(bookmarkCheck == 1) {
+				lec.setBookmarkCheck("Y");
+			}else {
+				lec.setBookmarkCheck("N");
+			}
 		}
 		
 		mv.addObject("list", list).setViewName("category");
@@ -176,6 +188,102 @@ public class LectureController {
 			throw new LectureException("별점이 추가되지 않았습니다");
 		}
 		
+	}
+	
+	@GetMapping("/category/{spanVal}")
+	public ModelAndView selectCategory(@PathVariable("spanVal") String cgName,
+										ModelAndView mv, HttpSession session) {
+		System.out.println(cgName);
+		HashMap<String, Integer> map = new HashMap<>();
+		ArrayList<Lecture> list = new ArrayList<Lecture>();
+		ArrayList<Lecture> bookmarkList = new ArrayList<Lecture>();
+		
+		int userNo = 0;
+		if(session.getAttribute("loginUser") != null){
+			userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		}
+		
+		if(cgName.equals("BOOKMARK")) {
+			list = cService.selectLectureList(null);
+		}else {
+			list = cService.selectCategory(cgName);
+		}
+		
+		System.out.println(userNo);
+		
+		for(Lecture lec : list) {
+			int lecNo = lec.getLecNo();
+			map.put("userNo", userNo);
+			map.put("lecNo", lecNo);
+			
+			if(cgName.equals("BOOKMARK")) {
+				Lecture l = cService.bookmarkCategory(map);
+				System.out.println(l);
+				bookmarkList.add(l);
+			}
+			
+			
+			int capCount = cService.chapterCount(lecNo);
+			lec.setTotalChap(capCount);
+			
+			ArrayList<Chapter> cList = cService.selectLecture(lecNo);
+			
+			lec.setSvgRate(svgRate(cList)); 
+			
+			//유저별 강의 진도율 표시
+			lec.setProgressRate(progressRate(capCount, userNo, lecNo));
+			
+			
+			
+			int bookmarkCheck = cService.countBookmark(map);
+			if(bookmarkCheck == 1) {
+				lec.setBookmarkCheck("Y");
+			}else {
+				lec.setBookmarkCheck("N");
+			}
+		}
+		System.out.println("bookmarkList : " + bookmarkList);
+		
+		
+		
+		mv.addObject("list", list).setViewName("category");
+		
+//		System.out.println(mv2);
+		return mv;
+	}
+	
+	@GetMapping("insertBookmark")
+	@ResponseBody
+	public int insertBookmark(@RequestParam("lecNo") int lecNo, HttpSession session) {
+		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("lecNo", lecNo);
+		map.put("userNo", userNo);
+		int result = 0;
+		int bookmarkCheck = cService.countBookmark(map);
+		if(bookmarkCheck == 0) {
+			result = cService.insertBookmark(map);
+		}
+		
+		return result;
+	}
+	
+	@GetMapping("deleteBookmark")
+	@ResponseBody
+	public int deleteBookmark(@RequestParam("lecNo") int lecNo, HttpSession session) {
+		
+		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("lecNo", lecNo);
+		map.put("userNo", userNo);
+		int result = 0;
+		int bookmarkCheck = cService.countBookmark(map);
+		if(bookmarkCheck == 1) {
+			result = cService.deleteBookmark(map);
+		}
+		
+		return result;
 	}
 	
 	
