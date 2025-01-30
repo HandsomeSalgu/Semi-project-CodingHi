@@ -1,17 +1,25 @@
 package com.sinuedu.home.controller;
 
 
-import com.sinuedu.home.service.HomeService;
-import com.sinuedu.user.member.model.vo.Member;
-import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Map;
+import com.sinuedu.board.lecture.controller.LectureController;
+import com.sinuedu.board.lecture.model.service.LectureService;
+import com.sinuedu.board.lecture.model.vo.Chapter;
+import com.sinuedu.board.lecture.model.vo.Lecture;
+import com.sinuedu.home.service.HomeService;
+import com.sinuedu.user.member.model.vo.Member;
+
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,10 +27,12 @@ import java.util.Map;
 public class HomeController {
 
     private final HomeService homeService;
+    private final LectureService cService;
+    private final LectureController cController;
 
 
-
-    @GetMapping("/home")
+    @SuppressWarnings("unchecked")
+	@GetMapping("/home")
     public ModelAndView homePage(ModelAndView mav, HttpSession session) {
 
         Member loginUser = (Member) session.getAttribute("loginUser");
@@ -32,7 +42,25 @@ public class HomeController {
         }
         
         Map<String, Object> homeData = homeService.getHomeData(userNo);
-
+        
+        //popularLectures 키에 담겨져있는 Lecture 을 불러오는 것
+        ArrayList<Lecture> list = new ArrayList<>();
+        list.addAll((Collection<? extends Lecture>) homeData.get("popularLectures"));
+        for(Lecture lec : list) {
+        	int lecNo = lec.getLecNo();
+			int capCount = cService.chapterCount(lecNo);
+			lec.setTotalChap(capCount);
+			
+			ArrayList<Chapter> cList = cService.selectLecture(lecNo);
+			
+			lec.setSvgRate(cController.svgRate(cList)); 
+			
+			//유저별 강의 진도율 표시
+			lec.setProgressRate(cController.progressRate(capCount, userNo, lecNo));
+			System.out.println(lec);
+        }
+        
+        
         mav.addAllObjects(homeData);
 
 
