@@ -51,4 +51,17 @@
 	    set chap_title = #{chapTitle}, chap_detail = #{chapDetail}, update_date = sysdate, lec_no = #{lecNo}
 	    where chap_no = #{chapNo}
 	</update>
+	
+	<update id="updateAdminStatus">
+		update users 
+		set admin = #{adminStatus}
+		where user_id = #{userId}
+	</update>
+	
+	<update id="updateUserStatus">
+		update users 
+		set status = #{status}
+		where user_id = #{userId}
+	</update>
+
 </mapper>

@@ -135,8 +135,11 @@ td:hover {
 								<td th:text="${#dates.format(user.birthDate, 'yyyy-MM-dd')}"></td>
 								<td th:text="${user.hint}"></td>
 								<td th:text="${user.hintAnswer}"></td>
-								<td th:text="${user.admin == 'N' ? '회원' : '관리자'}"></td>
-								<td th:text="${user.status == 'Y' ? '사용' : '탈퇴'}"></td>
+								<td th:text="${user.admin == 'N' ? '회원' : '관리자'}"
+									th:data-userid="${user.userId}" class="admin-toggle"></td>
+								<td th:text="${user.status == 'Y' ? '사용' : '탈퇴'}"
+									th:data-userid="${user.userId}" class="status-toggle"></td>
+
 							</tr>
 							<tr th:if="${list.empty}">
 								<td colspan="10">No users found</td>
@@ -147,39 +150,49 @@ td:hover {
 			</div>
 		</div>
 	</div>
-	<script>
+<script>
 		$(document).ready(function() {
-			$('.user-table tbody').on('click', 'td', function() {
-				var row = $(this).closest('tr');
-				var userId = row.find('td:eq(0)').text();
-				var currentRole = row.find('td:eq(7)').text();
-				var currentStatus = row.find('td:eq(8)').text();
-
-				var newRole = currentRole === '회원' ? '관리자' : '회원';
-				var newStatus = currentStatus === '사용' ? '탈퇴' : '사용';
-
-				$.ajax({
-					url : '/manager/updateUser',
-					method : 'POST',
-					data : {
-						userId : userId,
-						newRole : newRole,
-						newStatus : newStatus
-					},
-					success : function(response) {
-						if (response.success) {
-							row.find('td:eq(7)').text(newRole);
-							row.find('td:eq(8)').text(newStatus);
-						} else {
-							alert(response.message);
-						}
-					},
-					error : function() {
-						alert('Error updating user.');
-					}
-				});
-			});
+		    // 관리자 권한 토글
+		    $('.admin-toggle').click(function() {
+		        const userId = $(this).data('userid');
+		        const currentStatus = $(this).text();
+		        const newStatus = currentStatus === '회원' ? 'Y' : 'N';
+		        
+		        toggleStatus(userId, newStatus, 'admin');
+		    });
+	
+		    // 회원 상태 토글
+		    $('.status-toggle').click(function() {
+		        const userId = $(this).data('userid');
+		        const currentStatus = $(this).text();
+		        const newStatus = currentStatus === '사용' ? 'N' : 'Y';
+		        
+		        toggleStatus(userId, newStatus, 'status');
+		    });
+	
+		    function toggleStatus(userId, newStatus, type) {
+		        const url = type === 'admin' ? '/manager/toggleAdmin' : '/manager/toggleStatus';
+		        const data = type === 'admin' ? 
+		            { userId: userId, adminStatus: newStatus } : 
+		            { userId: userId, status: newStatus };
+	
+		        $.ajax({
+		            url: url,
+		            type: 'POST',
+		            data: data,
+		            success: function(response) {
+		                if (response.success) {
+		                    location.reload();
+		                } else {
+		                    alert(type === 'admin' ? '권한 변경에 실패했습니다.' : '상태 변경에 실패했습니다.');
+		                }
+		            },
+		            error: function() {
+		                alert('서버 오류가 발생했습니다.');
+		            }
+		        });
+		    }
 		});
-	</script>
+</script>
 </body>
 </html>

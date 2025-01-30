@@ -388,126 +388,139 @@ body {
 		</div>
 	</div>
 
-	<script>
-		window.onload = () => {
-		    document.getElementById('categoryFilter').addEventListener('change', () => {
-		        updateLectureFilter();
-		        filterTable();
-		    });
+<script>
+	window.onload = () => {
+	    // 카테고리 필터 변경
+	    document.getElementById('categoryFilter').addEventListener('change', () => {
+	        updateLectureFilter();
+	        filterTable();
+	    });
 	
-		    document.getElementById('lectureFilter').addEventListener('change', filterTable);
+	    // 강의 필터 변경
+	    document.getElementById('lectureFilter').addEventListener('change', filterTable);
 	
-		    document.querySelector('.add-btn').onclick = () => {
-		        document.getElementById('addModal').style.display = "block";
-		    }
+	    // 추가 버튼
+	    document.querySelector('.add-btn').onclick = () => {
+	        document.getElementById('addModal').style.display = "block";
+	    }
 	
-		    document.querySelector('.close').onclick = () => {
-		        document.getElementById('addModal').style.display = "none";
-		    }
+	    // 모달 닫기 버튼
+	    document.querySelector('.close').onclick = () => {
+	        document.getElementById('addModal').style.display = "none";
+	    }
 	
-		    document.querySelector('.lecture-btn').onclick = () => {
-		        window.location.href = '/manager/lectureAdd';
-		    }
+	    // 강의 추가 버튼
+	    document.querySelector('.lecture-btn').onclick = () => {
+	        window.location.href = '/manager/lectureAdd';
+	    }
 	
-		    document.querySelector('.chapter-btn').onclick = () => {
-		        window.location.href = '/manager/chapterAdd';
-		    }
+	    // 챕터 추가 버튼
+	    document.querySelector('.chapter-btn').onclick = () => {
+	        window.location.href = '/manager/chapterAdd';
+	    }
 	
-		    document.querySelectorAll('.edit-btn').forEach(button => {
-		        button.onclick = function() {
-		            const row = this.closest('tr');
-		            const chapTitle = row.querySelector('td:nth-child(3)').textContent;
-		            window.location.href = `/manager/chapterEdit?chapTitle=${encodeURIComponent(chapTitle)}`;
-		        }
-		    });
-
-		    const deleteModal = document.getElementById('deleteModal');
+	    // 수정 버튼
+	    document.querySelectorAll('.edit-btn').forEach(button => {
+	        button.onclick = function() {
+	            const row = this.closest('tr');
+	            const chapTitle = row.querySelector('td:nth-child(3)').textContent;
+	            window.location.href = `/manager/chapterEdit?chapTitle=${encodeURIComponent(chapTitle)}`;
+	        }
+	    });
 	
-		    document.querySelectorAll('.delete-btn').forEach(button => {
-		        button.onclick = function() {
-		            const chapterTitle = this.closest('tr').querySelector('td:nth-child(3)').textContent;
-		            deleteModal.querySelector('h3').textContent = `'${chapterTitle}'를 \n 정말 삭제하시겠습니까?`;
-		            deleteModal.style.display = "block";
-		        }
-		    });
-			
-		    deleteModal.querySelector('.check-btn').onclick = function() {
-		        const chapterTitle = deleteModal.querySelector('h3').textContent.split('"')[1];
-		        $.ajax({
-		            url: '/manager/deleteChapter',
-		            method: 'POST',
-		            data: { chapTitle: chapterTitle },
-		            success: function(result) {
-		                if(result > 0) {
-		                    alert('챕터가 성공적으로 삭제되었습니다.');
-		                    location.reload();
-		                } else {
-		                    alert('챕터 삭제에 실패했습니다.');
-		                }
-		            },
-		            error: function(xhr, status, error) {
-		                console.error('Error:', error);
-		                alert('삭제 중 오류가 발생했습니다.');
-		            }
-		        });
-		    };
-
-		    deleteModal.querySelector('.cancel-btn').onclick = () => {
-		        deleteModal.style.display = "none";
-		    }
+	    const deleteModal = document.getElementById('deleteModal');
 	
-		    window.onclick = function(event) {
-		        if (event.target == document.getElementById('addModal')) {
-		            document.getElementById('addModal').style.display = "none";
-		        }
-		        if (event.target == deleteModal) {
-		            deleteModal.style.display = "none";
-		        }
-		    }
+	    // 삭제 버튼
+	    document.querySelectorAll('.delete-btn').forEach(button => {
+	        button.onclick = function() {
+	            const chapterTitle = this.closest('tr').querySelector('td:nth-child(3)').textContent;
+	            deleteModal.querySelector('h3').textContent = `'${chapterTitle}'를 \n 정말 삭제하시겠습니까?`;
+	            deleteModal.style.display = "block";
+	        }
+	    });
+	    
+	    // 삭제 확인 버튼
+	    deleteModal.querySelector('.check-btn').onclick = function() {
+	        const chapterTitle = deleteModal.querySelector('h3').textContent.split('"')[1];
+	        $.ajax({
+	            url: '/manager/deleteChapter',
+	            method: 'POST',
+	            data: { chapTitle: chapterTitle },
+	            success: function(result) {
+	                if(result > 0) {
+	                    alert('챕터가 성공적으로 삭제되었습니다.');
+	                    location.reload();
+	                } else {
+	                    alert('챕터 삭제에 실패했습니다.');
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                console.error('Error:', error);
+	                alert('삭제 중 오류가 발생했습니다.');
+	            }
+	        });
+	    };
 	
-		    function updateLectureFilter() {
-		        const selectedCategory = document.getElementById('categoryFilter').value;
-		        const lectureFilter = document.getElementById('lectureFilter');
-		        const rows = document.querySelectorAll('.chapter-table tbody tr');
-		        const lectures = new Set();
+	    // 삭제 취소 버튼
+	    deleteModal.querySelector('.cancel-btn').onclick = () => {
+	        deleteModal.style.display = "none";
+	    }
 	
-		        lectureFilter.innerHTML = '<option value="">강의 선택</option>';
-		        lectureFilter.disabled = !selectedCategory;
+	    // 모달 외부 클릭 시 닫기
+	    window.onclick = function(event) {
+	        if (event.target == document.getElementById('addModal')) {
+	            document.getElementById('addModal').style.display = "none";
+	        }
+	        if (event.target == deleteModal) {
+	            deleteModal.style.display = "none";
+	        }
+	    }
 	
-		        if (selectedCategory) {
-		            rows.forEach(row => {
-		                const category = row.querySelector('td:nth-child(1)').textContent;
-		                const lecture = row.querySelector('td:nth-child(2)').textContent;
-		                if (category === selectedCategory) {
-		                    lectures.add(lecture);
-		                }
-		            });
+	    // 강의 필터 업데이트 함수
+	    function updateLectureFilter() {
+	        const selectedCategory = document.getElementById('categoryFilter').value;
+	        const lectureFilter = document.getElementById('lectureFilter');
+	        const rows = document.querySelectorAll('.chapter-table tbody tr');
+	        const lectures = new Set();
 	
-		            lectures.forEach(lecture => {
-		                const option = document.createElement('option');
-		                option.value = lecture;
-		                option.textContent = lecture;
-		                lectureFilter.appendChild(option);
-		            });
-		        }
-		    }
+	        lectureFilter.innerHTML = '<option value="">강의 선택</option>';
+	        lectureFilter.disabled = !selectedCategory;
 	
-		    function filterTable() {
-		        const selectedCategory = document.getElementById('categoryFilter').value;
-		        const selectedLecture = document.getElementById('lectureFilter').value;
-		        const rows = document.querySelectorAll('.chapter-table tbody tr');
+	        if (selectedCategory) {
+	            rows.forEach(row => {
+	                const category = row.querySelector('td:nth-child(1)').textContent;
+	                const lecture = row.querySelector('td:nth-child(2)').textContent;
+	                if (category === selectedCategory) {
+	                    lectures.add(lecture);
+	                }
+	            });
 	
-		        rows.forEach(row => {
-		            const category = row.querySelector('td:nth-child(1)').textContent;
-		            const lecture = row.querySelector('td:nth-child(2)').textContent;
-		            
-		            const categoryMatch = !selectedCategory || category === selectedCategory;
-		            const lectureMatch = !selectedLecture || lecture === selectedLecture;
+	            lectures.forEach(lecture => {
+	                const option = document.createElement('option');
+	                option.value = lecture;
+	                option.textContent = lecture;
+	                lectureFilter.appendChild(option);
+	            });
+	        }
+	    }
 	
-		            row.style.display = categoryMatch && lectureMatch ? '' : 'none';
-		        });
-		    }
-		}
-	</script>
+	    // 테이블 필터링 함수
+	    function filterTable() {
+	        const selectedCategory = document.getElementById('categoryFilter').value;
+	        const selectedLecture = document.getElementById('lectureFilter').value;
+	        const rows = document.querySelectorAll('.chapter-table tbody tr');
+	
+	        rows.forEach(row => {
+	            const category = row.querySelector('td:nth-child(1)').textContent;
+	            const lecture = row.querySelector('td:nth-child(2)').textContent;
+	            
+	            const categoryMatch = !selectedCategory || category === selectedCategory;
+	            const lectureMatch = !selectedLecture || lecture === selectedLecture;
+	
+	            row.style.display = categoryMatch && lectureMatch ? '' : 'none';
+	        });
+	    }
+	}
+</script>
 </body>
 </html>

@@ -49,4 +49,12 @@ public class ManagerService {
 	public int updateChapter(Chapter chapter) {
 		return mapper.updateChapter(chapter);
 	}
+
+	public int updateAdminStatus(String userId, String adminStatus) {
+	    return mapper.updateAdminStatus(userId, adminStatus);
+	}
+
+	public int updateUserStatus(String userId, String status) {
+	    return mapper.updateUserStatus(userId, status);
+	}
 }
