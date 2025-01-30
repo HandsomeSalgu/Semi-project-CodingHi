@@ -9,7 +9,6 @@
 * {
 	margin: 0;
 	padding: 0;
-	box-sizing: border-box;
 }
 
 body {
@@ -17,16 +16,41 @@ body {
 	background-color: #F9FBFF;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	/* align-items: center;
 	min-height: 100vh;
 	max-width: 1420px;
 	width: 80%;
-	margin: 0 auto;
+	margin: 0 auto; */
 }
 
+.main-container {
+	 display: flex;
+	 justify-content: center;
+	 width: auto;
+	 margin-top: 50px;
+}
+.side-bar {
+     width: 200px;
+     height: 1000px;
+     position: sticky;
+     top: 100px;
+     margin: 50px;
+     margin-top: 8%;
+    }	
+
 .qContainer {
-	width: 100%;
-	/* 	margin: 0 auto; */
+	/* width: 100%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center; */
+	
+	display: flex;
+    flex-direction: column;
+    width: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+	
 }
 
 .content {
@@ -215,10 +239,11 @@ table th {
 </style>
 </head>
 <body>
+<div class="main-container">
+	<div class="side-bar">
+    <div th:replace="~{views/menu-bar.html}"></div>
+ 	</div>
 	<div class="qContainer">
-	
-		<!-- <div th:insert="~{views/menu-bar.html}"></div> -->
-		
 		<div class="content">
 			<form class="need" method="POST" id="detailForm" action="/qna/insertReply">
 			<input type="hidden" name="qnaNo" th:value="${q.qnaNo}">
@@ -266,5 +291,6 @@ table th {
 			</form>
 		</div>
 	</div>
+</div>
 </body>
 </html>
