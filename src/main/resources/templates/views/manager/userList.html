@@ -35,7 +35,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	width: 1100px;
-	min-height: 750px;
+	height: 750px;
 	background: #fff;
 	border-radius: 20px;
 	padding: 20px;
@@ -59,9 +59,21 @@ body {
 	color: #333;
 }
 
+.user-table-container {
+	overflow-y: auto;
+	max-height: calc(100% - 100px);
+}
+
 .user-table {
 	width: 100%;
 	border-collapse: collapse;
+}
+
+.user-table thead {
+	position: sticky;
+	top: 0;
+	background-color: #f8f8f8;
+	z-index: 1;
 }
 
 .user-table th, .user-table td {
@@ -99,41 +111,75 @@ td:hover {
 				<div class="content-header">
 					<h2>유저 목록</h2>
 				</div>
-				<table class="user-table">
-					<thead>
-						<tr>
-							<th>아이디</th>
-							<th>이름</th>
-							<th>닉네임</th>
-							<th>전화번호</th>
-							<th>생년월일</th>
-							<th>힌트 질문</th>
-							<th>힌트 답</th>
-							<th>관리자<br>여부
-							</th>
-							<th>회원<br>상태
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="user : ${list}">
-							<td th:text="${user.userId}"></td>
-							<td th:text="${user.userName}"></td>
-							<td th:text="${user.userNick}"></td>
-							<td th:text="${user.phone}"></td>
-							<td th:text="${#dates.format(user.birthDate, 'yyyy-MM-dd')}"></td>
-							<td th:text="${user.hint}"></td>
-							<td th:text="${user.hintAnswer}"></td>
-							<td th:text="${user.admin == 'N' ? '회원' : '관리자'}"></td>
-							<td th:text="${user.status == 'Y' ? '사용' : '탈퇴'}"></td>
-						</tr>
-						<tr th:if="${list.empty}">
-							<td colspan="10">No users found</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="user-table-container">
+					<table class="user-table">
+						<thead>
+							<tr>
+								<th>아이디</th>
+								<th>이름</th>
+								<th>닉네임</th>
+								<th>전화번호</th>
+								<th>생년월일</th>
+								<th>힌트 질문</th>
+								<th>힌트 답</th>
+								<th>관리자 여부</th>
+								<th>회원 상태</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="user : ${list}">
+								<td th:text="${user.userId}"></td>
+								<td th:text="${user.userName}"></td>
+								<td th:text="${user.userNick}"></td>
+								<td th:text="${user.phone}"></td>
+								<td th:text="${#dates.format(user.birthDate, 'yyyy-MM-dd')}"></td>
+								<td th:text="${user.hint}"></td>
+								<td th:text="${user.hintAnswer}"></td>
+								<td th:text="${user.admin == 'N' ? '회원' : '관리자'}"></td>
+								<td th:text="${user.status == 'Y' ? '사용' : '탈퇴'}"></td>
+							</tr>
+							<tr th:if="${list.empty}">
+								<td colspan="10">No users found</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+		$(document).ready(function() {
+			$('.user-table tbody').on('click', 'td', function() {
+				var row = $(this).closest('tr');
+				var userId = row.find('td:eq(0)').text();
+				var currentRole = row.find('td:eq(7)').text();
+				var currentStatus = row.find('td:eq(8)').text();
+
+				var newRole = currentRole === '회원' ? '관리자' : '회원';
+				var newStatus = currentStatus === '사용' ? '탈퇴' : '사용';
+
+				$.ajax({
+					url : '/manager/updateUser',
+					method : 'POST',
+					data : {
+						userId : userId,
+						newRole : newRole,
+						newStatus : newStatus
+					},
+					success : function(response) {
+						if (response.success) {
+							row.find('td:eq(7)').text(newRole);
+							row.find('td:eq(8)').text(newStatus);
+						} else {
+							alert(response.message);
+						}
+					},
+					error : function() {
+						alert('Error updating user.');
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>
