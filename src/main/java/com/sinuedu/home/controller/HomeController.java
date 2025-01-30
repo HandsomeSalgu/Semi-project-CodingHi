@@ -26,9 +26,11 @@ public class HomeController {
     public ModelAndView homePage(ModelAndView mav, HttpSession session) {
 
         Member loginUser = (Member) session.getAttribute("loginUser");
-
-
-        Integer userNo = (Integer) loginUser.getUserNo();
+        int userNo = 0;
+        if(loginUser != null) {
+        	userNo = loginUser.getUserNo();
+        }
+        
         Map<String, Object> homeData = homeService.getHomeData(userNo);
 
         mav.addAllObjects(homeData);
