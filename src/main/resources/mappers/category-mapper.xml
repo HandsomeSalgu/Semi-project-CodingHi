@@ -31,6 +31,12 @@
 			 join CATEGORY using(CG_NO)
 		where CHAP_NO = #{chapNo}
 	</select>
+	
+	<update id="updateCount">
+		update CHAPTER
+		set VIEWS = VIEWS+1
+		where CHAP_NO = #{chapNo}
+	</update>
 
 	<select id="dupViewChapter">
 		select count(*)

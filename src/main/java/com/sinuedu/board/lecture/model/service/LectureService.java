@@ -29,7 +29,10 @@ public class LectureService {
 		return cMapper.selectLecture(lecNo);
 	}
 
-	public Chapter selectChapter(int chapNo) {
+	public Chapter selectChapter(int chapNo, int userNo) {
+		if(userNo != 0) {
+			int result = cMapper.updateCount(chapNo);
+		}
 		return cMapper.selectChapter(chapNo);
 	}
 

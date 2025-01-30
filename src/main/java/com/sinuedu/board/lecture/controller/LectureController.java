@@ -75,7 +75,6 @@ public class LectureController {
 			cList.get(i-1).setLecChapNum(i);
 		}
 		
-		
 		double svgRate = svgRate(cList);
 		int progressRate = progressRate(capCount, userNo, lecNo);
 		
@@ -129,8 +128,9 @@ public class LectureController {
 									  @RequestParam("chapNo") int chapNo,ModelAndView mv,
 									  HttpSession session) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		int userNo = 0;
 		if(loginUser != null) {
-			int userNo = loginUser.getUserNo();
+			userNo = loginUser.getUserNo();
 			
 			HashMap<String, Integer> map = new HashMap<>();
 			map.put("chapNo", chapNo);
@@ -144,7 +144,7 @@ public class LectureController {
 		}
 		
 		
-		Chapter chapter = cService.selectChapter(chapNo);
+		Chapter chapter = cService.selectChapter(chapNo, userNo);
 		chapter.setLecChapNum(lecChapNum);
 		
 		mv.addObject("chapNo", chapNo);

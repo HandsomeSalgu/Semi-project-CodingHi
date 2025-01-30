@@ -32,4 +32,6 @@ public interface LectureMapper {
 
 	int userProgressRate(HashMap<String, Integer> map);
 
+	int updateCount(int chapNo);
+
 }
