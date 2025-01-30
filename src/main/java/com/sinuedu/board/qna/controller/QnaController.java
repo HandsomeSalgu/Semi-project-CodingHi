@@ -43,15 +43,18 @@ public class QnaController {
 							 @RequestParam(value = "search", required = false) String search,
 							 HttpServletRequest request,  Model m) {
 
-		
+		// 파라미터 맵 설정
 		HashMap<String, String> map = new HashMap<>();
 		map.put("search", search);
 		map.put("condition", condition);
 		
+		// 전체 글 개수 조회
 		int listCount = bService.getListCount(map);
+		// 페이징 정보 설정
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
-		ArrayList<Qna> list = bService.selectBoardList(map, pi);
+		
+		ArrayList<Qna> list = bService.selectAllBoardList(map,pi);
 		
 		m.addAttribute("search", search).addAttribute("condition", condition);
 		m.addAttribute("list", list).addAttribute("pi", pi);
@@ -220,10 +223,13 @@ public class QnaController {
 		int listCount = bService.getListCount(map);
 		System.out.println("리스트 카운트 : " + listCount);
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
+		PageInfo pi = new PageInfo();
+		pi = Pagination.getPageInfo(currentPage, listCount, 10);
+
+		
 		
 		// 조건에 따른 리스트 조회
-		ArrayList<Qna> list = bService.selectBoardList(map, pi);
+		ArrayList<Qna> list = bService.selectAllBoardList(map, pi);
 		
 		System.out.println(list);
 		System.out.println(request.getRequestURI());

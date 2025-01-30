@@ -149,7 +149,7 @@ margin-left: 0px;
 		            <br/>
 		            <br/>
 		            <div class="next-button">
-		                <button class="next-button" id="nextButton" onclick="location.href='/'">메인 페이지</button>
+		                <button class="next-button" id="nextButton" type="button">메인 페이지</button>
 		            </div>
 		        </div>
 			</form>
@@ -158,6 +158,10 @@ margin-left: 0px;
 
     <script>
 	    document.getElementById('clickImg').addEventListener('click', function () {
+	        window.location.href = '/';
+	    });
+	    
+	    document.getElementById('nextButton').addEventListener('click', function () {
 	        window.location.href = '/';
 	    });
 

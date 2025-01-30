@@ -40,7 +40,12 @@ public class MemberController {
 	private final MemberService mService;
 	
 	private final BCryptPasswordEncoder bcrypt;    // 복호화 불가능하게 만드는 역할
-	
+
+
+	@GetMapping("loginPage")
+	public String loginPage() {
+		return "views/member/loginPage";
+	}
 	// 로그인
 	@PostMapping("login")
 	public String login(Member m, HttpSession session) {
@@ -49,7 +54,7 @@ public class MemberController {
 		if(loginUser != null && bcrypt.matches(m.getUserPw(), loginUser.getUserPw())) {
 			session.setAttribute("loginUser", loginUser);
 			System.out.println(loginUser);
-			return "redirect:/";
+			return "redirect:/home";
 		} else {
 			throw new MemberException("로그인을 실패하였습니다");
 		}
@@ -92,6 +97,15 @@ public class MemberController {
 		        @RequestParam("birth1") String birth1,
 		        @RequestParam("birth2") String birth2,
 		        @RequestParam("birth3") String birth3) throws ParseException {
+			
+			if (phone1 == null || phone1.isEmpty() ||
+		        phone2 == null || phone2.isEmpty() ||
+		        phone3 == null || phone3.isEmpty() ||
+		        birth1 == null || birth1.isEmpty() ||
+		        birth2 == null || birth2.isEmpty() ||
+		        birth3 == null || birth3.isEmpty()) {
+		        throw new MemberException("회원가입을 실패하였습니다");
+		    }
 
 		    // 1. 사용자 정보 처리
 		    m.setPhone(phone1 + "-" + phone2 + "-" + phone3);
@@ -138,6 +152,15 @@ public class MemberController {
 						   @RequestParam("birth2") String birth2, 
 						   @RequestParam("birth3") String birth3,
 						   Model model) throws ParseException {
+		
+		if (phone1 == null || phone1.isEmpty() ||
+	        phone2 == null || phone2.isEmpty() ||
+	        phone3 == null || phone3.isEmpty() ||
+	        birth1 == null || birth1.isEmpty() ||
+	        birth2 == null || birth2.isEmpty() ||
+	        birth3 == null || birth3.isEmpty()) {
+	        return "find-id-error"; // 입력값 중 하나라도 비어 있으면 에러 페이지로 이동
+	    }
 	    
 		String phone = phone1 + "-" + phone2 + "-" + phone3;
 		String birth = birth1 + "-" + birth2+ "-" +birth3;

@@ -17,24 +17,40 @@
 		<if test="category == null and condition != null">
 		WHERE ${condition} LIKE '%${search}%'
 		</if>
+		
 	</select>
 
-	<select id="selectBoardList">
-		select *
+	<select id="selectNoticeBoardList">
+    select *
+    from (
+        select *
+        from qna
+        join users on (WRITER = USER_NO)
+        join category using(CG_NO)
+        order by CREATE_DATE desc
+    )
+    where NOTICE = 'Y'
+    <if test="category == null">
+    and rownum <![CDATA[<]]>= 5
+    </if>
+    <if test="category != null and condition != null">
+    and ${condition} LIKE '%${search}%'
+    </if>
+    order by QNA_NO desc
+	</select>
+	
+	<select id="selectQnaBoardList">
+	select *
 		from qna
 			 join users on(WRITER = USER_NO)
 			 join category using(CG_NO)
-		<if test="category != null and condition != null">
-		WHERE NOTICE = #{category} and ${condition} LIKE '%${search}%'
-		</if>
-		<if test="category != null and condition == null">
-		WHERE NOTICE = #{category}
-		</if>
-		<if test="category == null and condition != null">
-		WHERE ${condition} LIKE '%${search}%'
+		where notice = 'N'
+		<if test="condition != null">
+		and ${condition} LIKE '%${search}%'
 		</if>
 		order by QNA_NO desc
 	</select>
+	
 	
 	<select id="selectReply">
 		select *
@@ -100,5 +116,33 @@
         delete from qna
         where QNA_NO =#{qnaNo}
 	</delete>
-	
+
+	<!--madisson-->
+	<select id="PopularQna">
+		SELECT q.qna_no, q.qna_title, q.qna_detail, q.views,
+		(SELECT COUNT(*) FROM reply r WHERE r.qna_no = q.qna_no) AS replyCount
+		FROM qna q
+		ORDER BY q.views DESC
+		FETCH FIRST 3 ROWS ONLY
+	</select>
+
+	<select id="getRecentQnaByUser">
+		SELECT q.qna_no, q.qna_title, q.writer, q.create_date, q.views, c.cg_name
+		FROM qna q
+		JOIN category c ON q.cg_no = c.cg_no
+		WHERE q.writer = #{userNo}
+		ORDER BY q.create_date DESC
+		FETCH FIRST 5 ROWS ONLY
+	</select>
+
+	<select id="getRecentCommentsByUser" resultType="com.sinuedu.board.qna.model.vo.reply">
+		SELECT r.rep_no, r.qna_no, r.user_no, r.rep_comment,
+		q.qna_title, c.cg_name
+		FROM reply r
+		JOIN qna q ON r.qna_no = q.qna_no
+		JOIN category c ON q.cg_no = c.cg_no
+		WHERE r.user_no = #{userNo}
+		ORDER BY r.rep_no DESC
+		FETCH FIRST 5 ROWS ONLY
+	</select>
 </mapper>

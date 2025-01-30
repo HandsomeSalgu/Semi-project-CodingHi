@@ -26,4 +26,8 @@ public interface LectureMapper {
 	int dupViewChapter(HashMap<String, Integer> map);
 
 	int chapRateAvg(HashMap<String, Integer> map);
+
+	// 아래로 추가한거
+	ArrayList<Lecture> PopularLectures();
+
 }
