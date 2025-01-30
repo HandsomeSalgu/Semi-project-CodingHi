@@ -130,38 +130,34 @@ hr {
 	margin-bottom: 10px;
 }
 
-.rating__input {
-	display: none; /* 라디오버튼 hide */
+.rating {
+   position: relative;
+   width: 180px;
+   background: transparent;
+   display: flex;
+   gap: .3em;
+   padding-top: 5px;
+   overflow: hidden;
 }
 
-.rating__label .star-icon {
-	width: 24px;
-	height: 24px;
-	display: block;
-	background-image: url("/photo/classes/star.png");
-	background-repeat: no-repeat;
+.rating__result {
+   position: absolute;
+   top: 0;
+   left: 0;
+   transform: translateY(-10px) translateX(-5px);
+   z-index: -9;
+   font: 3em Arial, Helvetica, sans-serif;
+   color: #ebebeb8e;
+   pointer-events: none;
 }
 
-.rating__label {
-	width: 12px; /* 원본 사이즈/2 */
-	overflow: hidden;
-	cursor: pointer;
+.rating__star {
+   font-size: 1.3em;
+   cursor: pointer;
+   color: #dabd18b2;
+   transition: filter linear .3s;
 }
 
-.rating__label .star-icon {
-	width: 12px; /* 원본 사이즈/2 */
-	height: 24px;
-	display: block;
-	position: relative;
-	left: 0;
-	background-image: url("/photo/classes/star.png");
-	background-repeat: no-repeat;
-}
-
-.rating__label--full .star-icon {
-	background-position: right;
-}
-
-.rating__label--half .star-icon {
-	background-position: left;
+.rating__star:hover {
+   filter: drop-shadow(1px 1px 4px gold);
 }

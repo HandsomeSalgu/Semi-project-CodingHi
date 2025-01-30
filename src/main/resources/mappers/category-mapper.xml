@@ -32,6 +32,30 @@
 		where CHAP_NO = #{chapNo}
 	</select>
 
+	<select id="dupViewChapter">
+		select count(*)
+		from VIEW_CHAPTER
+		where USER_NO = #{userNo} and CHAP_NO = #{chapNo}
+	</select>
+	
+	<insert id="viewChapter">
+		insert into VIEW_CHAPTER
+		values(#{userNo}, #{chapNo}, null)
+	</insert>
+	
+	<update id="rating">
+		update VIEW_CHAPTER
+		set USER_NO = #{userNo}, CHAP_NO = #{chapNo}, RATE = #{rating}
+		where USER_NO = #{userNo} and CHAP_NO = #{chapNo}
+	</update>
+	
+	<update id="chapRateAvg">
+		update chapter
+    	set CHAP_RATE = (select round(avg(rate),1)
+                     from VIEW_CHAPTER
+                     where chap_no = #{chapNo})
+    	where CHAP_NO = #{chapNo}
+	</update>
 
 <!--	추가한거-->
 	<select id="PopularLectures">
@@ -44,7 +68,7 @@
 		) c ON l.lec_no = c.lec_no
 		ORDER BY c.total_views DESC
 		FETCH FIRST 10 ROWS ONLY
-
 	</select>
+
 </mapper>
 

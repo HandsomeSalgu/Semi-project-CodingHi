@@ -1,6 +1,7 @@
 package com.sinuedu.board.lecture.model.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,7 +19,15 @@ public interface LectureMapper {
 
 	Chapter selectChapter(int chapNo);
 
-	// 아래로 추가한거
+	int rating(HashMap<String, Integer> map);
 
+	int viewChapter(HashMap<String, Integer> map);
+
+	int dupViewChapter(HashMap<String, Integer> map);
+
+	int chapRateAvg(HashMap<String, Integer> map);
+
+	// 아래로 추가한거
 	ArrayList<Lecture> PopularLectures();
+
 }

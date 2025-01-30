@@ -48,38 +48,51 @@
                     <img src="/photo/classes/Emote_Smile.png" class="image-bookmark"/>
                     <br>
                     <a>Rating(5)</a>
-                    <p>4.5</p>
+                    <p>[[${svgRate == 0 ? "X" : svgRate}]]</p>
                 </div> 
             </div>
         </div>
         <div class="bottom-box">
              <div class="lecture-list">
-             	<input type="hidden" id="lecNo" name="lecNo" th:value="${lecNo}">
-                 <div class="lecture-item" th:each="Chap : ${cList}">
-                 	<input type="hidden" name="lecChapNum" th:value="${Chap.lecChapNum}">
+                 <form class="lecture-item" th:each="c : ${cList}" method="post">
+                 	<input type="hidden" name="lecChapNum" th:value="${c.lecChapNum}">
+                 	<input type="hidden" name="chapNo" th:value="${c.chapNo}">
                      <div>
-                         <a>Chpater [[${Chap.lecChapNum}]]</a><br>
-                         <a>[[${Chap.chapTitle}]]</a>
+                         <a>Chpater [[${c.lecChapNum}]]</a><br>
+                         <a>[[${c.chapTitle}]]</a>
                      </div>
                      <span th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
                          <img src="/photo/classes/update.png" class="image-bookmark"/>
                          <img src="/photo/classes/delete.png" class="image-bookmark"/>
                      </span>
-                 </div>
+                 </form>
              </div>  
         </div>
     </section>
-    <script>
+    <script th:inline="javascript">
     	window.onload= () =>{
     		const lecturies = document.getElementsByClassName("lecture-item");
-    		const lecNo = document.getElementById("lecNo").value;
-    		
-    		for(const lec of lecturies){
-    			const chapNo = lec.children[0].value
+    		/*<![CDATA[*/
+    		const lecNo = /*[[${lecNo}]]*/1;
+    		const loginUser = /*[[${session.loginUser}]]*/1;
+    		/*]]>*/
+    		console.log(loginUser);
+
+
+			for(const lec of lecturies){
+				const chapNo = lec.children[1].value
+    			const lecChapNum = lec.children[0].value
     			lec.addEventListener('click', ()=>{
-    				location.href = lecNo+"/"+chapNo;
+//     				if(loginUser != null){
+//     					lec.action = lecNo+"/"+lecChapNum;
+//         				lec.submit();
+//     				}else{
+//     					alert("로그인 후 이용 바랍니다");
+//     				}
+    				lec.action = lecNo+"/"+lecChapNum;
+    				lec.submit();
     			})
-    		}
+			}
     		
     	}
     </script>
