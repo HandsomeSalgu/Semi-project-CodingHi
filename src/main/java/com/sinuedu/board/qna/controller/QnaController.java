@@ -1,5 +1,6 @@
 package com.sinuedu.board.qna.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sinuedu.board.lecture.model.vo.Category;
 import com.sinuedu.board.qna.exception.QnaException;
 import com.sinuedu.board.qna.model.service.QnaService;
@@ -124,21 +127,6 @@ public class QnaController {
 
 	}
 
-	@PostMapping("insertReply")
-	public String insertReply(@ModelAttribute Qna q, @ModelAttribute reply r, @RequestParam("page") int page,
-			HttpSession session) {
-		r.setUserNo(((Member) session.getAttribute("loginUser")).getUserNo());
-		r.setQnaNo(q.getQnaNo());
-
-		System.out.println(page);
-		int result = bService.insertReply(r);
-		if (result > 0) {
-			return String.format("redirect:/qna/%d/%d", q.getQnaNo(), page);
-		} else {
-			throw new QnaException("댓글 등록을 실패하셨습니다.");
-		}
-
-	}
 
 	
 	@GetMapping("/{qnaNo}/{page}/updatePost")  
@@ -237,7 +225,57 @@ public class QnaController {
 		return mv;
 	}
 	
-
+	@PostMapping("insertReply")
+	public String insertReply(@ModelAttribute Qna q, @ModelAttribute reply r, @RequestParam("page") int page,
+			HttpSession session) {
+		r.setUserNo(((Member) session.getAttribute("loginUser")).getUserNo());
+		r.setQnaNo(q.getQnaNo());
+		
+		System.out.println(page);
+		int result = bService.insertReply(r);
+		if (result > 0) {
+			return String.format("redirect:/qna/%d/%d", q.getQnaNo(), page);
+		} else {
+			throw new QnaException("댓글 등록을 실패하셨습니다.");
+		}
+	}
+	
+	// jackson 버전
+//	   @GetMapping(value="rinsert", produces="application/json; charset=UTF-8")
+//	   @ResponseBody
+//	   public String insertReply(@ModelAttribute reply r) {
+//		   // 저장
+//		   int result = bService.insertReply(r);
+//		   // 가져오기
+//		   ArrayList<reply> list = bService.selectReplyList(r.getRepNo());
+//		
+//		   ObjectMapper om = new ObjectMapper();
+//		   
+//		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		   om.setDateFormat(sdf);
+//		   
+//		   String strJson = null;
+//		   try {
+//			strJson = om.writeValueAsString(list);
+//		} catch (JsonProcessingException e) {
+//			e.printStackTrace();
+//		}
+//		   return strJson;
+//	   }
+	   
+	   
+//	   @GetMapping("rdelete")
+//	   @ResponseBody
+//	   public int deleteReply(@RequestParam("rId") int rId) {
+//		   return  bService.deleteReply(rId);
+//		
+//	   }
+//	   
+//	   @GetMapping("rupdate")
+//	   @ResponseBody
+//	   public int updateReply(@ModelAttribute reply r) {
+//		   return bService.updateReply(r);
+//	   }
 	
 	
 	

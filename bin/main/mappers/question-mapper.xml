@@ -72,16 +72,7 @@
 		sysdate, sysdate, #{views}, #{cgNo}, #{notice})
 	</insert>
 	
-	<insert id="insertReply">
-	 <selectKey order="BEFORE" resultType="_int" keyProperty="repNo">
-      <!-- 수행되기 전에 내가 먼저 수행이 되겠다 -->
-         select REPLY_SEQ.nextval from dual
-      </selectKey>
-		insert into reply
-		values (#{repNo}, #{repComment}, #{userNo}, #{qnaNo})
-	</insert>
-	
-	<!-- 인서트리플리,,,다시 고쳐야함.....하... -->
+
 	
 	
 	<select id="selectBoard">
@@ -145,4 +136,34 @@
 		ORDER BY r.rep_no DESC
 		FETCH FIRST 5 ROWS ONLY
 	</select>
+	
+	<!-- <select id="selectReplyList" resultType="reply">
+		select *
+		from Reply
+			join member using(user_no)
+		where QNA_NO = #{qNo}
+		order by REP_NO desc
+	</select> -->
+	
+	<!-- 인서트는 안고쳐도됨 -->
+	
+	<insert id="insertReply">
+	 <selectKey order="BEFORE" resultType="_int" keyProperty="repNo">
+      <!-- 수행되기 전에 내가 먼저 수행이 되겠다 -->
+         select REPLY_SEQ.nextval from dual
+      </selectKey>
+		insert into reply
+		values (#{repNo}, #{repComment}, #{userNo}, #{qnaNo})
+	</insert>
+	
+	<!-- <delete id="deleteReply">
+		delete from reply
+		where REP_NO = #{repNo}
+	</delete>
+	
+	<update id="updateReply">
+		update reply
+		set REP_COMMENT =#{repComment},
+		where REP_NO = #{repNo}
+	</update> -->
 </mapper>
