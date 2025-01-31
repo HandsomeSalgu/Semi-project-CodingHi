@@ -19,8 +19,8 @@
             </div>
             <div class="manager-function">
             	<th:block th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
-                <img src="/photo/classes/update.png" class="image-update"/>
-                <img src="/photo/classes/delete.png" class="image-delete"/>
+                <img src="/photo/classes/update.png" class="lecture-update"/>
+                <img src="/photo/classes/delete.png" class="lecture-delete"/>
                 </th:block>
                 <span id="bookmark" th:if="${lec.bookmarkCheck == 'Y'}">
                		<input type="hidden" name="lectureNo" th:value="${lec.lecNo}">
@@ -73,9 +73,10 @@
                          <a>Chpater [[${c.lecChapNum}]]</a><br>
                          <a>[[${c.chapTitle}]]</a>
                      </div>
-                     <span th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
-                         <img src="/photo/classes/update.png" class="image-bookmark"/>
-                         <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                     <span class="chapter-edit" th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
+                     	 <input type="hidden" name="chapNo" th:value="${c.chapNo}">
+                         <img src="/photo/classes/update.png" class="chapter-update"/>
+                         <img src="/photo/classes/delete.png" class="chapter-delete"/>
                      </span>
                  </form>
              </div>  
@@ -86,12 +87,16 @@
     		const lecturies = document.getElementsByClassName("lecture-item");
     		const bookmark = document.getElementById("bookmark");
     		const bookmarkCheck = bookmark.children[1].value
-    		console.log(bookmark);
+//     		console.log(bookmark);
     		/*<![CDATA[*/
     		const lecNo = /*[[${lecNo}]]*/1;
     		const loginUser = /*[[${session.loginUser}]]*/1;
     		/*]]>*/
-    		console.log(loginUser);
+//     		console.log(loginUser);
+    		
+    		const chapterEdits = document.getElementsByClassName("chapter-edit");
+    		
+    		
 
 
 			for(const lec of lecturies){
@@ -142,6 +147,44 @@
 				}
 				
 			})
+			
+			for(const chapterEdit of chapterEdits){
+				const chapNo = chapterEdit.children[0].value;
+				const chapterUpdate = chapterEdit.children[1];
+				const chapterDelete = chapterEdit.children[2];
+				
+				chapterUpdate.addEventListener("click", (event)=>{
+					location.href = `/manager/chapterEdit?chapNo=${encodeURIComponent(chapNo)}`;
+					event.stopPropagation();
+				})
+				
+				chapterDelete.addEventListener("click", (event)=>{
+					if(confirm("정말 삭제하시겠습니까?")){
+						$.ajax({
+				            url: '/manager/deleteChapter',
+				            method: 'POST',
+				            data: { chapNo: chapNo },
+				            success: function(result) {
+				                if(result > 0) {
+				                    alert('챕터가 성공적으로 삭제되었습니다.');
+				                    location.reload();
+				                } else {
+				                    alert('챕터 삭제에 실패했습니다.');
+				                }
+				            },
+				            error: function(xhr, status, error) {
+				                console.error('Error:', error);
+				                alert('삭제 중 오류가 발생했습니다.');
+				            }
+				        });
+						event.stopPropagation();
+					}else{
+						event.stopPropagation();
+					}
+					
+				})
+			}
+			
     	}
     </script>
 </body>
