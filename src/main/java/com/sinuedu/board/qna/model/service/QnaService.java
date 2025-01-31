@@ -95,6 +95,18 @@ public class QnaService {
 		return mapper.selectResult(result);
 	}
 
+//	public ArrayList<reply> selectReplyList(int repNo) {
+//		return mapper.selectReplyList(repNo);
+//	}
+//
+//	public int deleteReply(int rId) {
+//		return mapper.deleteReply(rId);
+//	}
+//
+//	public int updateReply(reply r) {
+//		return mapper.updateReply(r);
+//	}
+
 	
 
 }
