@@ -65,7 +65,7 @@ public class QnaService {
 		Qna q = mapper.selectBoard(qNo);
 		if (q != null && id != null && !q.getUserNick().equals(id)) {
 			int result = mapper.updateCount(qNo);
-			q.setViews(q.getViews());
+			q.setViews(q.getViews() + 1);
 		} else {
 		}
 		return q;

@@ -108,18 +108,13 @@ public class QnaController {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		String id = null;
 		if (loginUser != null) {
-			id = loginUser.getUserId();
+			id = loginUser.getUserNick();
 		}
 
 		Qna q = bService.selectBoard(qNo, id);
 
 		ArrayList<reply> r = bService.selectReply(qNo);
-		/*
-		 * for(reply rp : r) { System.out.println(rp); }
-		 */
-
-		// ArrayList<Qna> list = bService.selectBoardList(qNo, id);
-
+		
 		if (q != null) {
 			mv.addObject("q", q).addObject("page", page).addObject("r", r).setViewName("views/question/question-post");
 			return mv;
