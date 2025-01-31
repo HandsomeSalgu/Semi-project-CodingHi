@@ -72,7 +72,7 @@ public class LectureController {
 	@GetMapping("/{id}")
 	public ModelAndView selectLecture(@PathVariable("id") int lecNo, ModelAndView mv,
 									  HttpSession session) {
-		
+		HashMap<String, Integer> map = new HashMap<>();
 		ArrayList<Chapter> cList = cService.selectLecture(lecNo);
 		int capCount = cService.chapterCount(lecNo);
 		ArrayList<Lecture> lList = cService.selectLectureList(lecNo);
@@ -89,6 +89,16 @@ public class LectureController {
 		
 		double svgRate = svgRate(cList);
 		int progressRate = progressRate(capCount, userNo, lecNo);
+		
+		map.put("userNo", userNo);
+		map.put("lecNo", lecNo);
+		
+		int bookmarkCheck = cService.countBookmark(map);
+		if(bookmarkCheck == 1) {
+			lec.setBookmarkCheck("Y");
+		}else {
+			lec.setBookmarkCheck("N");
+		}
 		
 		mv.addObject("lecNo",lecNo).addObject("svgRate", svgRate).addObject("progressRate", progressRate);
 		mv.addObject("lec", lec).addObject("cList", cList).addObject("capCount", capCount).setViewName("postlist");
@@ -195,6 +205,7 @@ public class LectureController {
 										ModelAndView mv, HttpSession session) {
 		System.out.println(cgName);
 		HashMap<String, Integer> map = new HashMap<>();
+		
 		ArrayList<Lecture> list = new ArrayList<Lecture>();
 		ArrayList<Lecture> bookmarkList = new ArrayList<Lecture>();
 		
@@ -216,37 +227,68 @@ public class LectureController {
 			map.put("userNo", userNo);
 			map.put("lecNo", lecNo);
 			
+			System.out.println(lecNo);
 			if(cgName.equals("BOOKMARK")) {
 				Lecture l = cService.bookmarkCategory(map);
-				System.out.println(l);
-				bookmarkList.add(l);
-			}
-			
-			
-			int capCount = cService.chapterCount(lecNo);
-			lec.setTotalChap(capCount);
-			
-			ArrayList<Chapter> cList = cService.selectLecture(lecNo);
-			
-			lec.setSvgRate(svgRate(cList)); 
-			
-			//유저별 강의 진도율 표시
-			lec.setProgressRate(progressRate(capCount, userNo, lecNo));
-			
-			
-			
-			int bookmarkCheck = cService.countBookmark(map);
-			if(bookmarkCheck == 1) {
-				lec.setBookmarkCheck("Y");
+				if(l != null) {
+					bookmarkList.add(l);
+				}
 			}else {
-				lec.setBookmarkCheck("N");
+				int capCount = cService.chapterCount(lecNo);
+				lec.setTotalChap(capCount);
+				
+				ArrayList<Chapter> cList = cService.selectLecture(lecNo);
+				
+				lec.setSvgRate(svgRate(cList)); 
+				
+				//유저별 강의 진도율 표시
+				lec.setProgressRate(progressRate(capCount, userNo, lecNo));
+				
+				
+				
+				int bookmarkCheck = cService.countBookmark(map);
+				if(bookmarkCheck == 1) {
+					lec.setBookmarkCheck("Y");
+				}else {
+					lec.setBookmarkCheck("N");
+				}	
 			}
 		}
+		
+		
 		System.out.println("bookmarkList : " + bookmarkList);
 		
+		if(cgName.equals("BOOKMARK")) {
+			for(Lecture lec : bookmarkList) {
+				int lecNo = lec.getLecNo();
+				map.put("userNo", userNo);
+				map.put("lecNo", lecNo);
+				
+				int capCount = cService.chapterCount(lecNo);
+				lec.setTotalChap(capCount);
+				
+				ArrayList<Chapter> cList = cService.selectLecture(lecNo);
+				
+				lec.setSvgRate(svgRate(cList)); 
+				
+				//유저별 강의 진도율 표시
+				lec.setProgressRate(progressRate(capCount, userNo, lecNo));
+				
+				
+				
+				int bookmarkCheck = cService.countBookmark(map);
+				if(bookmarkCheck == 1) {
+					lec.setBookmarkCheck("Y");
+				}else {
+					lec.setBookmarkCheck("N");
+				}	
+			}
+			mv.addObject("list", bookmarkList);
+		}else {
+			mv.addObject("list", list);
+		}
 		
-		
-		mv.addObject("list", list).setViewName("category");
+		mv.setViewName("category");
 		
 //		System.out.println(mv2);
 		return mv;

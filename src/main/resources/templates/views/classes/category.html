@@ -28,12 +28,12 @@
                     </div>
                     <div class="bookmark" th:if="${lec.bookmarkCheck == 'Y'}">
                    		<input type="hidden" name="lectureNo" th:value="${lec.lecNo}">
-                   		<input type="hidden" name="lectureNo" th:value="${lec.bookmarkCheck}">
+                   		<input type="hidden" name="lecturebookmarkCheck" th:value="${lec.bookmarkCheck}">
                         <img src="/photo/classes/Bookmark-icon2.png" class="image-bookmark"/>
                     </div>
                     <div class="bookmark" th:if="${lec.bookmarkCheck == 'N'}">
                    		<input type="hidden" name="lectureNo" th:value="${lec.lecNo}">
-                   		<input type="hidden" name="lectureNo" th:value="${lec.bookmarkCheck}">
+                   		<input type="hidden" name="lecturebookmarkCheck" th:value="${lec.bookmarkCheck}">
                         <img src="/photo/classes/bookmark-icon.png" class="image-bookmark"/>
                     </div>
                     <br><br>
@@ -67,7 +67,7 @@
     		for(const element of elements){
     			const lecNo = element.children[0].value
     			element.addEventListener('click', ()=>{
-    				location.href= lecNo;
+    				location.href= "/lecture/" + lecNo;
     				
     			});
     		}

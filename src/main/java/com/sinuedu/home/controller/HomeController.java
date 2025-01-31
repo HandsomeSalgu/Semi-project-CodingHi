@@ -3,6 +3,7 @@ package com.sinuedu.home.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,9 @@ public class HomeController {
     @SuppressWarnings("unchecked")
 	@GetMapping("/home")
     public ModelAndView homePage(ModelAndView mav, HttpSession session) {
-
+    	
+    	HashMap<String, Integer> map = new HashMap<>();
+    	
         Member loginUser = (Member) session.getAttribute("loginUser");
         int userNo = 0;
         if(loginUser != null) {
@@ -58,6 +61,16 @@ public class HomeController {
 			//유저별 강의 진도율 표시
 			lec.setProgressRate(cController.progressRate(capCount, userNo, lecNo));
 //			System.out.println(lec);
+			
+			map.put("userNo", userNo);
+			map.put("lecNo", lecNo);
+			
+			int bookmarkCheck = cService.countBookmark(map);
+			if(bookmarkCheck == 1) {
+				lec.setBookmarkCheck("Y");
+			}else {
+				lec.setBookmarkCheck("N");
+			}
         }
         
         
