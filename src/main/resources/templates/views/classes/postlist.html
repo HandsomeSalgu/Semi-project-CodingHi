@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="/css/classes/postlist.css"/>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="side-bar">
@@ -18,10 +19,19 @@
             </div>
             <div class="manager-function">
             	<th:block th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
-                <img src="/photo/classes/update.png" class="image-bookmark"/>
-                <img src="/photo/classes/delete.png" class="image-bookmark"/>
+                <img src="/photo/classes/update.png" class="image-update"/>
+                <img src="/photo/classes/delete.png" class="image-delete"/>
                 </th:block>
-                <img src="/photo/classes/bookmark-icon.png" class="image-bookmark"/>
+                <span id="bookmark" th:if="${lec.bookmarkCheck == 'Y'}">
+               		<input type="hidden" name="lectureNo" th:value="${lec.lecNo}">
+               		<input type="hidden" name="lecturebookmarkCheck" th:value="${lec.bookmarkCheck}">
+                    <img src="/photo/classes/Bookmark-icon2.png" class="image-bookmark"/>
+                </span>
+                <span id="bookmark" th:if="${lec.bookmarkCheck == 'N'}">
+               		<input type="hidden" name="lectureNo" th:value="${lec.lecNo}">
+               		<input type="hidden" name="lecturebookmarkCheck" th:value="${lec.bookmarkCheck}">
+                    <img src="/photo/classes/bookmark-icon.png" class="image-bookmark"/>
+                </span>
             </div>
             <div class="text-box-top">
                 <a>[[${lec.lecTitle}]]</a>
@@ -74,6 +84,9 @@
     <script th:inline="javascript">
     	window.onload= () =>{
     		const lecturies = document.getElementsByClassName("lecture-item");
+    		const bookmark = document.getElementById("bookmark");
+    		const bookmarkCheck = bookmark.children[1].value
+    		console.log(bookmark);
     		/*<![CDATA[*/
     		const lecNo = /*[[${lecNo}]]*/1;
     		const loginUser = /*[[${session.loginUser}]]*/1;
@@ -95,7 +108,40 @@
     				lec.submit();
     			})
 			}
-    		
+			
+			bookmark.addEventListener('click', (event)=>{
+				if(loginUser){
+					const lecNo = bookmark.children[0].value
+					if(bookmarkCheck == "N"){
+						$.ajax({
+        					url: "/lecture/insertBookmark",
+       						data: {lecNo:lecNo},
+       		            	 success: data=>{
+       		            		 if(data = 1){
+       		            			 alert("현재 강의를 북마크에 등록하였습니다");
+       		            			 location.reload(true);
+       		            		 }
+       		            	 },
+       		            	 error: data=> console.log(data)
+       		             }) 
+					}else if(bookmarkCheck == "Y"){
+						$.ajax({
+        					url: "/lecture/deleteBookmark",
+       						data: {lecNo:lecNo},
+       		            	 success: data=>{
+       		            		 if(data = 1){
+       		            			 alert("현재 강의를 북마크에 해제하였습니다");
+       		            			 location.reload(true);
+       		            		 }
+       		            	 },
+       		            	 error: data=> console.log(data)
+       		             }) 
+					}
+				}else{
+					alert("로그인을 해야 북마크가 가능합니다");
+				}
+				
+			})
     	}
     </script>
 </body>

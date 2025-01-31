@@ -64,6 +64,11 @@ section{
 	color: #757575;
 }
 
+.image-bookmark:hover{
+	content: url("/photo/classes/Bookmark-icon2.png");
+	cursor: pointer;
+}
+
 .manager-function {
 	float: right;
 }
@@ -110,6 +115,14 @@ section{
 }
 
 .image-bookmark {
+	height: 35px;
+}
+
+.image-update {
+	height: 35px;
+}
+
+.image-delete {
 	height: 35px;
 }
 

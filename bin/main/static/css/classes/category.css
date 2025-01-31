@@ -64,7 +64,7 @@ section{
 }
 
 .image-bookmark:hover{
-	content: url("/photo/classes/Bookmark-icon2.png")
+	content: url("/photo/classes/Bookmark-icon2.png");
 	
 }
 

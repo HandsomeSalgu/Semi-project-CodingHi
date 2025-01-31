@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>홈</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
   <style>
     body {
       margin: 0 auto;
@@ -118,6 +119,11 @@
       margin: 0 auto;
       text-align: left;
     }
+    
+    .image-bookmark:hover{
+	content: url("/photo/classes/Bookmark-icon2.png");
+	}
+
 
     .element-title>p:nth-child(2) {
       margin: 0 auto;
@@ -320,8 +326,15 @@
             <p>[[${lec.lecTitle}]]</p>
             <p>[[${lec.cgName}]]</p>
           </div>
-          <div>
-            <img src="/photo/classes/bookmark-icon.png" class="image-bookmark"/>
+          <div class="bookmark" th:if="${lec.bookmarkCheck == 'Y'}">
+         		<input type="hidden" name="lectureNo" th:value="${lec.lecNo}">
+         		<input type="hidden" name="lecturebookmarkCheck" th:value="${lec.bookmarkCheck}">
+              <img src="/photo/classes/Bookmark-icon2.png" class="image-bookmark"/>
+          </div>
+          <div class="bookmark" th:if="${lec.bookmarkCheck == 'N'}">
+         		<input type="hidden" name="lectureNo" th:value="${lec.lecNo}">
+         		<input type="hidden" name="lecturebookmarkCheck" th:value="${lec.bookmarkCheck}">
+              <img src="/photo/classes/bookmark-icon.png" class="image-bookmark"/>
           </div>
           <br><br>
           <div class="option-list">
@@ -429,11 +442,13 @@
   </div>
 
 
-<script>
+<script th:inline="javascript">
   document.addEventListener("DOMContentLoaded", () => {
     const scrollContainer = document.querySelector(".scroll-container");
     const scrollLeft = document.querySelector(".scroll-left");
     const scrollRight = document.querySelector(".scroll-right");
+    const bookmarks = document.getElementsByClassName("bookmark");
+    const loginUser = /*[[${session.loginUser != null}]]*/1;
 
     // 카드 하나의 너비 (이동 거리 설정)
     const cardWidth = document.querySelector(".class-element").offsetWidth + 15;
@@ -516,6 +531,47 @@
         location.href = "qna/" + qnaNo + "/" + 1;
       });
     }
+    
+	for(const bookmark of bookmarks){
+		const bookmarkCheck = bookmark.children[1].value
+		bookmark.addEventListener('click', (event)=>{
+			if(loginUser){
+				const lecNo = bookmark.children[0].value
+				if(bookmarkCheck == "N"){
+					$.ajax({
+    					url: "/lecture/insertBookmark",
+   						data: {lecNo:lecNo},
+   		            	 success: data=>{
+   		            		 if(data = 1){
+   		            			 alert("현재 강의를 북마크에 등록하였습니다");
+   		            			 location.reload(true);
+   		            		 }
+   		            	 },
+   		            	 error: data=> console.log(data)
+   		             }) 
+				}else if(bookmarkCheck == "Y"){
+					$.ajax({
+    					url: "/lecture/deleteBookmark",
+   						data: {lecNo:lecNo},
+   		            	 success: data=>{
+   		            		 if(data = 1){
+   		            			 alert("현재 강의를 북마크에 해제하였습니다");
+   		            			 location.reload(true);
+   		            		 }
+   		            	 },
+   		            	 error: data=> console.log(data)
+   		             }) 
+				}
+			}else{
+				alert("로그인을 해야 북마크가 가능합니다");
+			}
+			
+
+			event.stopPropagation();
+		})
+	}
+    
+    
   });
 
 </script>
