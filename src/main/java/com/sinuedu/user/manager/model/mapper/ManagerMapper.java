@@ -23,16 +23,18 @@ public interface ManagerMapper {
 	
 	List<Chapter> chapterList();
 
-	int deleteChapter(String chapTitle);
+	int deleteChapter(int chapNo);
 
 	int insertChapter(Chapter chapter);
 
-	Chapter getChapterByTitle(String chapTitle);
+	Chapter getChapterByTitle(int chapNo);
 
 	int updateChapter(Chapter chapter);
 	
 	int updateAdminStatus(@Param("userId") String userId, @Param("adminStatus") String adminStatus);
 
 	int updateUserStatus(@Param("userId") String userId, @Param("status") String status);
+
+	int deleteViewChapter(int chapNo);
 
 }

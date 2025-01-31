@@ -34,16 +34,16 @@ public class ManagerService {
 		return mapper.chapterList();
 	}
 
-	public int deleteChapter(String chapTitle) {
-		return mapper.deleteChapter(chapTitle);
+	public int deleteChapter(int chapNo) {
+		return mapper.deleteChapter(chapNo);
 	}
 
 	public int insertChapter(Chapter chapter) {
 		return mapper.insertChapter(chapter);
 	}
 
-	public Chapter getChapterByTitle(String chapTitle) {
-		return mapper.getChapterByTitle(chapTitle);
+	public Chapter getChapterByTitle(int chapNo) {
+		return mapper.getChapterByTitle(chapNo);
 	}
 
 	public int updateChapter(Chapter chapter) {
@@ -56,5 +56,9 @@ public class ManagerService {
 
 	public int updateUserStatus(String userId, String status) {
 	    return mapper.updateUserStatus(userId, status);
+	}
+
+	public int deleteViewChapter(int chapNo) {
+		return mapper.deleteViewChapter(chapNo);
 	}
 }

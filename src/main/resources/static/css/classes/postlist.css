@@ -114,17 +114,20 @@ section{
 	padding: 20px;
 }
 
-.image-bookmark {
+.image-bookmark, .lecture-update, .lecture-delete, .chapter-update, .chapter-delete {
 	height: 35px;
 }
 
-.image-update {
-	height: 35px;
+.chapter-update:hover{
+	filter: invert(70%) sepia(46%) saturate(1629%) hue-rotate(304deg) brightness(102%) contrast(97%);
+	cursor: pointer;
 }
 
-.image-delete {
-	height: 35px;
+.chapter-delete:hover{
+	filter: invert(70%) sepia(46%) saturate(1629%) hue-rotate(304deg) brightness(102%) contrast(97%);
+	cursor: pointer;
 }
+
 
 .function-option {
 	width: 400px;

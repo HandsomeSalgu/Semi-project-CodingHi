@@ -21,16 +21,21 @@
 	</select>
 	
 	<select id="chapterList" resultType="com.sinuedu.board.lecture.model.vo.Chapter">
-		select c.cg_name as cgname, l.lec_title as lectitle, ch.chap_title as chaptitle, ch.update_date as updatedate
+		select ch.chap_no as chapNo,c.cg_name as cgname, l.lec_title as lectitle, ch.chap_title as chaptitle, ch.update_date as updatedate
 		from chapter ch
 		inner join lecture l on ch.lec_no = l.lec_no
 		inner join category c on l.cg_no = c.cg_no
 		order by ch.update_date desc
 	</select>
+	
+	<delete id="deleteViewChapter">
+		delete from VIEW_CHAPTER
+		where chap_no = #{chapNo}
+	</delete>
 
 	<delete id="deleteChapter">
 		delete from chapter
-		where chap_title = #{chapTitle}
+		where chap_no = #{chapNo}
 	</delete>
 	
 	<insert id="insertChapter" parameterType="com.sinuedu.board.lecture.model.vo.Chapter">
@@ -43,7 +48,7 @@
 	    from chapter ch
 		    inner join lecture l on ch.lec_no = l.lec_no
 		    inner join category c on l.cg_no = c.cg_no
-	    where ch.chap_title = #{chapTitle}
+	    where ch.chap_No = #{chapNo}
 	</select>
 
 	<update id="updateChapter">

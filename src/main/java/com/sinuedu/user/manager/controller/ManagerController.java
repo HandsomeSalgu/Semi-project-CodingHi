@@ -42,6 +42,7 @@ public class ManagerController {
 	@GetMapping("/chapterList")
 	public String chapterList(Model model) {
 		List<Chapter> list = mService.chapterList();
+		System.out.println(list);
 		Set<String> categories = list.stream().map(Chapter::getCgName).collect(Collectors.toSet());
 		model.addAttribute("list", list);
 		model.addAttribute("categories", categories);
@@ -67,8 +68,9 @@ public class ManagerController {
 
 	@PostMapping("/deleteChapter")
 	@ResponseBody
-	public int deleteChapter(@RequestParam("chapTitle") String chapTitle) {
-		return mService.deleteChapter(chapTitle);
+	public int deleteChapter(@RequestParam("chapNo") int chapNo) {
+		int result = mService.deleteViewChapter(chapNo);
+		return mService.deleteChapter(chapNo);
 	}
 
 	@PostMapping("/insertChapter")
@@ -91,8 +93,8 @@ public class ManagerController {
 	}
 
 	@GetMapping("/chapterEdit")
-	public String chapterEdit(@RequestParam("chapTitle") String chapTitle, Model model) {
-		Chapter chapter = mService.getChapterByTitle(chapTitle);
+	public String chapterEdit(@RequestParam("chapNo") int chapNo, Model model) {
+		Chapter chapter = mService.getChapterByTitle(chapNo);
 		List<Chapter> chapters = mService.chapterList();
 		List<Lecture> lectures = mService.lectureList();
 		Set<String> categories = chapters.stream().map(Chapter::getCgName).collect(Collectors.toSet());
