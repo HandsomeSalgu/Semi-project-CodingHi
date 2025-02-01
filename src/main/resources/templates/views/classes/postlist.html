@@ -103,14 +103,12 @@
 				const chapNo = lec.children[1].value
     			const lecChapNum = lec.children[0].value
     			lec.addEventListener('click', ()=>{
-//     				if(loginUser != null){
-//     					lec.action = lecNo+"/"+lecChapNum;
-//         				lec.submit();
-//     				}else{
-//     					alert("로그인 후 이용 바랍니다");
-//     				}
-    				lec.action = lecNo+"/"+lecChapNum;
-    				lec.submit();
+    				if(loginUser != null){
+    					lec.action = lecNo+"/"+lecChapNum;
+        				lec.submit();
+    				}else{
+    					alert("로그인 후 이용 바랍니다");
+    				}
     			})
 			}
 			
