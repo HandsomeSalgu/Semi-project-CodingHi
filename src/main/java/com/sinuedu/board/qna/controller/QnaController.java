@@ -46,27 +46,24 @@ public class QnaController {
 							 @RequestParam(value = "search", required = false) String search,
 							 HttpServletRequest request,  Model m) {
 
-		// 파라미터 맵 설정
+		// 검색 조건을 담은 HashMap 생성
 		HashMap<String, String> map = new HashMap<>();
 		map.put("search", search);
 		map.put("condition", condition);
 		
-		// 전체 글 개수 조회
+		// 검색 조건에 맞는 전체 게시글 개수 조회
 		int listCount = bService.getListCount(map);
 		// 페이징 정보 설정
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 
-		
+		// 조건에 맞는 글 목록 조회, 페이징 정보도 함께 전달해서 해당 페이지에 맞는 게시물만 조회
 		ArrayList<Qna> list = bService.selectAllBoardList(map,pi);
 		
+		// 사용할 데이터를 뷰에 전달
 		m.addAttribute("search", search).addAttribute("condition", condition);
 		m.addAttribute("list", list).addAttribute("pi", pi);
 		m.addAttribute("loc", request.getRequestURI());
 		m.addAttribute("category", category);
-
-		/*
-		 * for(Qna q : list) { System.out.println(q); }
-		 */
 
 		return "views/question/question-list";
 	}

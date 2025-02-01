@@ -39,9 +39,9 @@ public class QnaService {
 		//최종 글 리턴
 		ArrayList<Qna> resultPosts = new ArrayList<>();
 		
-		if(map.get("category") == "Y"){
+		if("Y".equals(map.get("category"))){
 			return noticePosts;
-		}else if(map.get("category") == "N"){
+		}else if ("N".equals(map.get("category"))){
 			return nonNoticePosts;
 		}else {
 			
