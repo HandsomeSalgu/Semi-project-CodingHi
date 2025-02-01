@@ -224,6 +224,7 @@ select:focus {
     <input type="hidden" name="qnaNo" th:value="${q.qnaNo}" id="qnaNo">
    <input type="hidden" name="page" th:value="${page}">
     <div class="content">
+    <th:block th:if="${session.loginUser.admin == 'Y'}">
         <div class="notice">
             <span class="noticeImage">
                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
@@ -234,6 +235,7 @@ select:focus {
             <input type="checkbox" id="noticeBox" name="noticeBox" value="notice"/>
             <label for="noticeBox"></label>
          </span></div>
+         </th:block>
         <div class="header">
          <span class="category"> 
             <select name="cgNo" id="category" required>

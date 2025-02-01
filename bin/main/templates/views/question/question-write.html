@@ -212,6 +212,7 @@ select:focus {
 		<form class="needs" action="/qna/insert" method="POST">
 	    <!-- 제목 및 카테고리 입력 -->
 	    <div class="content">
+	    <th:block th:if="${session.loginUser.admin == 'Y'}">
 	        <div class="notice">
 					<span class="noticeImage">
 						<img src="/photo/question/Bell%2002.png" alt="bell">
@@ -220,6 +221,7 @@ select:focus {
 					<input type="checkbox" id="noticeBox" name="noticeBox"/>
 					<label for="noticeBox"></label>
 				</span></div>
+			</th:block>
 	        <div class="header">
 	
 					<span class="category"> 
