@@ -141,6 +141,7 @@ public class QnaController {
 		
 		Qna q = bService.selectBoard(qNo, id);
 		
+		
 		System.out.println(page);
 		if (categories != null) {
 			mv.addObject("page", page).addObject("q", q);
@@ -181,10 +182,16 @@ public class QnaController {
 	        throw new QnaException("로그인이 필요합니다.");
 	    }
 	    q.setWriter(loginUser.getUserNo());
-
+	    
+	    System.out.println("수정 전 : " + noticeBox);
 	    // 공지 여부 설정 (체크되면 "Y", 아니면 "N")
-	    q.setNotice(("on".equalsIgnoreCase(noticeBox) || "true".equalsIgnoreCase(noticeBox)) ? "Y" : "N");
-
+	    
+	    if(noticeBox == null) {
+	    	noticeBox = "N";
+	    }
+	    
+	    q.setNotice(noticeBox);
+	       
 	    // 게시글 업데이트 실행
 	    int result = bService.updateBoard(q);
 	    if (result > 0) {

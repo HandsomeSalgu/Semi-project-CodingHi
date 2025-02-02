@@ -232,7 +232,7 @@ select:focus {
                </svg>
             </span>
             <span class="noticeBoxDiv">
-            <input type="checkbox" id="noticeBox" name="noticeBox" value="true">
+            <input type="checkbox" id="noticeBox" name="noticeBox" value="Y" th:checked="${q.notice == 'Y' ? 'true' : 'false'}">
             <label for="noticeBox"></label>
          </span></div>
          </th:block>
