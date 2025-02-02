@@ -282,47 +282,42 @@ select, input, textarea {
 	    }
 	}
 
-	// 챕터 제출 버튼 클릭
+	// 수정 버튼 클릭
 	document.getElementById('submitChapter').addEventListener('click', function(e) {
 	    e.preventDefault();
 	    
-	    // 폼 데이터 가져오기
 	    var chapNo = document.getElementById('chapNo').value;
 	    var category = document.getElementById('categoryFilter').value;
 	    var lecture = document.getElementById('lectureFilter').value;
 	    var title = document.getElementById('title').value;
 	    var content = $('#summernote').summernote('code');
 
-	    // 유효성 검사
 	    if (!category || !lecture || !title || !content) {
 	        alert('모든 필드를 채워주세요.');
 	        return;
 	    }
-
-	    // FormData 객체 생성 및 데이터 추가
-	    var formData = new FormData();
-	    formData.append('chapNo', chapNo);
-	    formData.append('lecNo', lecture);
-	    formData.append('chapTitle', title);
-	    formData.append('chapDetail', content);
-
-	    // 서버에 데이터 전송
-	    fetch('/manager/updateChapter', {
-	        method: 'POST',
-	        body: formData
-	    })
-	    .then(response => response.json())
-	    .then(data => {
-	        if (data.success) {
-	            alert('챕터가 성공적으로 수정되었습니다.');
-	            window.location.href = '/manager/chapterList';
-	        } else {
-	            alert('챕터 수정에 실패했습니다: ' + data.message);
+	    
+	    $.ajax({
+	        url: '/manager/updateChapter',
+	        type: 'POST',
+	        data: {
+	            chapNo: chapNo,
+	            lecNo: lecture,
+	            chapTitle: title,
+	            chapDetail: content
+	        },
+	        success: function(data) {
+	            if (data.success) {
+	                alert('챕터가 성공적으로 수정되었습니다.');
+	                window.location.href = '/manager/chapterList';
+	            } else {
+	                alert('챕터 수정에 실패했습니다: ' + data.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('Error:', error);
+	            alert('오류가 발생했습니다. 다시 시도해주세요.');
 	        }
-	    })
-	    .catch(error => {
-	        console.error('Error:', error);
-	        alert('오류가 발생했습니다. 다시 시도해주세요.');
 	    });
 	});
 </script>
