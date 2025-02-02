@@ -312,6 +312,7 @@ table th {
 </div>
 <script th:inline="javascript">
 	const tbody = document.querySelector('tbody');
+// 	console.log(tbody);
 	
 	 /*<![CDATA[*/
     document.getElementById('replySubmit').addEventListener('click', () => {
@@ -358,7 +359,7 @@ table th {
      /*]]>*/
     
         	tbody.addEventListener('mouseover', (e) =>{
-	       		//console.log(e.target.tagName);
+// 	       		console.log(e.target.tagName);
 	       		const eventTarget = e.target;
 	       		const targetTagName = eventTarget.tagName.toLowerCase();
 	       		switch(targetTagName){
@@ -373,6 +374,7 @@ table th {
 	         });
         	
         	 tbody.addEventListener('mouseout', e => {
+//         		 console.log(e.target.tagName);
 	        	 const eventTarget = e.target;
 	        	 const targetTagName = eventTarget.tagName.toLowerCase();
 	        	 switch(targetTagName){
@@ -386,6 +388,7 @@ table th {
 	        	 });
           
         	  tbody.addEventListener('click', e => {
+        		  	
 	         		const eventTarget = e.target;
 	         		const targetTagName = eventTarget.tagName.toLowerCase();
 	         		// console.log(targetTagName);
@@ -396,13 +399,13 @@ table th {
 	         		case 'path' : targetSVG = eventTarget.parentElement;
 	         		}
 	         		
-	         		console.log(targetSVG);
+// 	         		console.log(targetSVG);
 	         		
 	         		const myTd = targetSVG.parentElement.parentElement;
 	         		const contentTd = myTd.parentElement.children[1];	// 내용은 1번째 인덱스
 	         		const replyId = myTd.children[0].value;
-	         		// console.log(contentTd.children.value);
-	         		console.log(contentTd.children.length); 
+	         		
+// 	         		console.log(contentTd.children.length); 
 	         		
 	         		if(targetSVG != null){
 	         			// console.log(targetSVG.className.baseVal.includes);
@@ -424,7 +427,7 @@ table th {
 	         				myTd.children[1].innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022"/></svg>'; // 아이콘을 가지고 있는 td
 	         				myTd.children[2].innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>'
 	         				
-	         			
+	         					
 	         			}else if(targetSVG.className.baseVal.includes("trash")){ // 클릭한 targetSVG가 쓰레기통일 때
 	         				if(confirm('정말 삭제하시겠습니까?')){
 	         					console.log("삭제 진행")
@@ -445,10 +448,11 @@ table th {
 	         				}
 	         			}else if(targetSVG.className.baseVal.includes('check')){
 	         				// 수정 완료
+	         				console.log(contentTd.children[0].value);
 	         				$.ajax({
 	         					url: '/qna/rupdate',
-	         					data: { userNick : contentTd.children[1].value ,
-	         							repComment : contentTd.children[2].value},	
+	         					data: { repNo : replyId ,
+	         							repComment : contentTd.children[0].value},	
 	         					success: data => {
 	         						if(data == 1){
 	         							contentTd.innerHTML = contentTd.children[0].value;

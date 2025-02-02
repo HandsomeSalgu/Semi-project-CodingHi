@@ -163,7 +163,7 @@
 	
 	<update id="updateReply">
 		update reply
-		set REP_COMMENT =#{repComment},
+		set REP_COMMENT =#{repComment}
 		where REP_NO = #{repNo}
 	</update> 
 </mapper>
