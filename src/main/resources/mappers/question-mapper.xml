@@ -5,28 +5,29 @@
 
 	<select id = "getListCount">
 		select count(*)
-		from qna
+		from qna q
 			 join users on(WRITER = USER_NO)
 			 join category using(CG_NO)
+		where q.status='Y'
 		<if test="category != null and condition != null">
-		WHERE NOTICE = #{category} and ${condition} LIKE '%${search}%'
+		and NOTICE = #{category} and ${condition} LIKE '%${search}%'
 		</if>
 		<if test="category != null and condition == null">
-		WHERE NOTICE = #{category}
+		and NOTICE = #{category}
 		</if>
 		<if test="category == null and condition != null">
-		WHERE ${condition} LIKE '%${search}%'
+		and ${condition} LIKE '%${search}%'
 		</if>
-		
 	</select>
 
 	<select id="selectNoticeBoardList">
     select *
     from (
         select *
-        from qna
+        from qna q
         join users on (WRITER = USER_NO)
         join category using(CG_NO)
+        where q.status='Y'
         order by CREATE_DATE desc
     )
     where NOTICE = 'Y'
@@ -41,10 +42,10 @@
 	
 	<select id="selectQnaBoardList">
 	select *
-		from qna
+		from qna q
 			 join users on(WRITER = USER_NO)
 			 join category using(CG_NO)
-		where notice = 'N'
+		where notice = 'N' AND q.status='Y'
 		<if test="condition != null">
 		and ${condition} LIKE '%${search}%'
 		</if>
@@ -54,9 +55,9 @@
 	
 	<select id="selectReply">
 		select *
-		from reply
+		from reply r
 			 join users using(USER_NO)
-		where qna_no = #{qNo}
+		where qna_no = #{qNo} AND r.status='Y'
 		order by REP_NO desc
 	</select>
 	
@@ -69,7 +70,7 @@
 	<insert id="insertBoard">
 		insert into qna
 		values(QNA_SEQ.nextval, #{qnaTitle}, #{qnaDetail}, #{writer}, 
-		sysdate, sysdate, #{views}, #{cgNo}, #{notice})
+		sysdate, sysdate, #{views}, #{cgNo}, #{notice}, default)
 	</insert>
 	
 
@@ -77,10 +78,10 @@
 	
 	<select id="selectBoard">
 		select *
-		from qna
+		from qna q
 			 join users on(WRITER = USER_NO)
 			 join category using(CG_NO)
-		where QNA_NO = #{qnaNo}
+		where QNA_NO = #{qnaNo} AND q.status='Y'
 	</select>
 	
 	<select id="selectCategory">
@@ -90,7 +91,8 @@
 		
 	<update id="updateBoard">
 		update qna
-		set QNA_TITLE = #{qnaTitle}, QNA_DETAIL = #{qnaDetail}, UPDATE_DATE = sysdate, CG_NO = #{cgNo} 
+		set QNA_TITLE = #{qnaTitle}, QNA_DETAIL = #{qnaDetail}, UPDATE_DATE = sysdate, CG_NO = #{cgNo}
+		, notice = #{notice}
 		where QNA_NO = #{qnaNo}
 	</update>
 	
@@ -98,14 +100,17 @@
     <select id="searchAll">
         SELECT *
         FROM qna
-        WHERE user_nick LIKE '%${search}%'
+        WHERE (user_nick LIKE '%${search}%'
            OR qna_title LIKE '%${search}%'
-           OR qna_detail LIKE '%${search}%'
+           OR qna_detail LIKE '%${search}%')
+           AND status='Y'
+           
     </select>
 	
 	<delete id="deletePost">
-        delete from qna
-        where QNA_NO =#{qnaNo}
+        update qna
+		set status = 'N'
+		where QNA_NO = #{qnaNo}
 	</delete>
 
 	<!--madisson-->
@@ -113,6 +118,7 @@
 		SELECT q.qna_no, q.qna_title, q.qna_detail, q.views,
 		(SELECT COUNT(*) FROM reply r WHERE r.qna_no = q.qna_no) AS replyCount
 		FROM qna q
+		WHERE q.status='Y'
 		ORDER BY q.views DESC
 		FETCH FIRST 3 ROWS ONLY
 	</select>
@@ -121,7 +127,7 @@
 		SELECT q.qna_no, q.qna_title, q.writer, q.create_date, q.views, c.cg_name
 		FROM qna q
 		JOIN category c ON q.cg_no = c.cg_no
-		WHERE q.writer = #{userNo}
+		WHERE q.writer = #{userNo} AND q.status='Y'
 		ORDER BY q.create_date DESC
 		FETCH FIRST 5 ROWS ONLY
 	</select>
@@ -132,7 +138,7 @@
 		FROM reply r
 		JOIN qna q ON r.qna_no = q.qna_no
 		JOIN category c ON q.cg_no = c.cg_no
-		WHERE r.user_no = #{userNo}
+		WHERE r.user_no = #{userNo} and r.status='Y'
 		ORDER BY r.rep_no DESC
 		FETCH FIRST 5 ROWS ONLY
 	</select>
@@ -153,17 +159,18 @@
          select REPLY_SEQ.nextval from dual
       </selectKey>
 		insert into reply
-		values (#{repNo}, #{repComment}, #{userNo}, #{qnaNo})
+		values (#{repNo}, #{repComment}, #{userNo}, #{qnaNo}, default)
 	</insert>
 	
-	<!-- <delete id="deleteReply">
-		delete from reply
+	 <delete id="deleteReply">
+		update reply
+		set status = 'N'
 		where REP_NO = #{repNo}
 	</delete>
 	
 	<update id="updateReply">
 		update reply
-		set REP_COMMENT =#{repComment},
+		set REP_COMMENT =#{repComment}
 		where REP_NO = #{repNo}
-	</update> -->
+	</update> 
 </mapper>

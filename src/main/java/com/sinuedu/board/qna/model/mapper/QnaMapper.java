@@ -54,9 +54,9 @@ public interface QnaMapper {
 	ArrayList<reply> getRecentCommentsByUser(int userNo);
 
 //	ArrayList<reply> selectReplyList(int repNo);
-//
-//	int deleteReply(int rId);
-//
-//	int updateReply(reply r);
+	
+	int deleteReply(int rId);
+
+	int updateReply(reply r);
 
 }

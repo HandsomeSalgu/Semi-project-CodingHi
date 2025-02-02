@@ -141,6 +141,7 @@ public class QnaController {
 		
 		Qna q = bService.selectBoard(qNo, id);
 		
+		
 		System.out.println(page);
 		if (categories != null) {
 			mv.addObject("page", page).addObject("q", q);
@@ -151,19 +152,55 @@ public class QnaController {
 		}
 	}
 	
+//	@PostMapping("updatePost")
+//	public String updateBoard(@ModelAttribute Qna q, @ModelAttribute reply r, @RequestParam("page") int page, 
+//							  @RequestParam(value="noticeBox", required = false) boolean noticeBox, HttpSession session) {
+//		q.setWriter(((Member) session.getAttribute("loginUser")).getUserNo());
+//		
+//		System.out.println(q);
+//		
+//		String notice = noticeBox ? "Y" : "N";
+//		
+//		q.setNotice(notice);
+//		
+//		int result = bService.updateBoard(q);
+//		if (result > 0) {
+//			return String.format("redirect:/qna/%d/%d", q.getQnaNo(), page);
+//		} else {
+//			throw new QnaException("게시글 수정을 실패하였습니다.");
+//		}
+//	}
+	
 	@PostMapping("updatePost")
-	public String updateBoard(@ModelAttribute Qna q, @ModelAttribute reply r, @RequestParam("page") int page, HttpSession session) {
-		q.setWriter(((Member) session.getAttribute("loginUser")).getUserNo());
-
-		System.out.println(q);
-
-		int result = bService.updateBoard(q);
-		if (result > 0) {
-			return String.format("redirect:/qna/%d/%d", q.getQnaNo(), page);
-		} else {
-			throw new QnaException("게시글 수정을 실패하였습니다.");
-		}
+	public String updateBoard(@ModelAttribute Qna q,  @RequestParam("page") int page, 
+	                          @RequestParam(value = "noticeBox", required = false) String noticeBox, 
+	                          HttpSession session) {
+	    
+	    // 로그인 유저 확인
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser == null) {
+	        throw new QnaException("로그인이 필요합니다.");
+	    }
+	    q.setWriter(loginUser.getUserNo());
+	    
+	    System.out.println("수정 전 : " + noticeBox);
+	    // 공지 여부 설정 (체크되면 "Y", 아니면 "N")
+	    
+	    if(noticeBox == null) {
+	    	noticeBox = "N";
+	    }
+	    
+	    q.setNotice(noticeBox);
+	       
+	    // 게시글 업데이트 실행
+	    int result = bService.updateBoard(q);
+	    if (result > 0) {
+	        return String.format("redirect:/qna/%d/%d", q.getQnaNo(), page);
+	    } else {
+	        throw new QnaException("게시글 수정에 실패하였습니다.");
+	    }
 	}
+
 
 	@PostMapping("deletePost")
     public String deletePost(@RequestParam("qnaNo") int qNo) {
@@ -238,41 +275,42 @@ public class QnaController {
 	}
 	
 	// jackson 버전
-//	   @GetMapping(value="rinsert", produces="application/json; charset=UTF-8")
-//	   @ResponseBody
-//	   public String insertReply(@ModelAttribute reply r) {
-//		   // 저장
-//		   int result = bService.insertReply(r);
-//		   // 가져오기
-//		   ArrayList<reply> list = bService.selectReplyList(r.getRepNo());
-//		
-//		   ObjectMapper om = new ObjectMapper();
-//		   
-//		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//		   om.setDateFormat(sdf);
-//		   
-//		   String strJson = null;
-//		   try {
-//			strJson = om.writeValueAsString(list);
-//		} catch (JsonProcessingException e) {
-//			e.printStackTrace();
-//		}
-//		   return strJson;
-//	   }
+	   @GetMapping(value="rinsert", produces="application/json; charset=UTF-8")
+	   @ResponseBody
+	   public String insertReply(@ModelAttribute reply r) {
+		   // 저장
+		   int result = bService.insertReply(r);
+		   // 가져오기
+		   ArrayList<reply> list = bService.selectReply(r.getRepNo());
+		
+		   ObjectMapper om = new ObjectMapper();
+		   
+		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		   om.setDateFormat(sdf);
+		   
+		   String strJson = null;
+		   try {
+			strJson = om.writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		   return strJson;
+	   }
 	   
 	   
-//	   @GetMapping("rdelete")
-//	   @ResponseBody
-//	   public int deleteReply(@RequestParam("rId") int rId) {
-//		   return  bService.deleteReply(rId);
-//		
-//	   }
-//	   
-//	   @GetMapping("rupdate")
-//	   @ResponseBody
-//	   public int updateReply(@ModelAttribute reply r) {
-//		   return bService.updateReply(r);
-//	   }
+	   @GetMapping("rdelete")
+	   @ResponseBody
+	   public int deleteReply(@RequestParam("rId") int rId) {
+		   return  bService.deleteReply(rId);
+		
+	   }
+	   
+	   @GetMapping("rupdate")
+	   @ResponseBody
+	   public int updateReply(@ModelAttribute reply r) {
+		   System.out.println("수정 요청 받은 댓글: " + r);
+		   return bService.updateReply(r);
+	   }
 	
 	
 	
