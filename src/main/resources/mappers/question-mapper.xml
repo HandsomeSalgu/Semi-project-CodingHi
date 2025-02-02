@@ -156,7 +156,7 @@
 		values (#{repNo}, #{repComment}, #{userNo}, #{qnaNo})
 	</insert>
 	
-	<!-- <delete id="deleteReply">
+	 <delete id="deleteReply">
 		delete from reply
 		where REP_NO = #{repNo}
 	</delete>
@@ -165,5 +165,5 @@
 		update reply
 		set REP_COMMENT =#{repComment},
 		where REP_NO = #{repNo}
-	</update> -->
+	</update> 
 </mapper>
