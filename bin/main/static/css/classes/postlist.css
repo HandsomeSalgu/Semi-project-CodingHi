@@ -119,12 +119,14 @@ section{
 }
 
 .chapter-update:hover{
-	filter: invert(70%) sepia(46%) saturate(1629%) hue-rotate(304deg) brightness(102%) contrast(97%);
+	filter: invert(73%) sepia(45%) saturate(923%) hue-rotate(306deg)
+		brightness(105%) contrast(106%);
 	cursor: pointer;
 }
 
 .chapter-delete:hover{
-	filter: invert(70%) sepia(46%) saturate(1629%) hue-rotate(304deg) brightness(102%) contrast(97%);
+	filter: invert(73%) sepia(45%) saturate(923%) hue-rotate(306deg)
+		brightness(105%) contrast(106%);
 	cursor: pointer;
 }
 

@@ -103,19 +103,26 @@ section{
 	text-align: center;
 }
 
-.bottom-option-update {
+.chapter-edit {
 	flex: 0 0 auto;
 	margin-right: 20px;
 	margin-left: 100px;
 }
 
-.image-bookmark {
+.chapter-update, .chapter-delete {
 	width: 30px;
 }
 
-.image-bookmark:hover {
+.chapter-update:hover {
 	filter: invert(73%) sepia(45%) saturate(923%) hue-rotate(306deg)
 		brightness(105%) contrast(106%);
+	cursor: pointer;
+}
+
+.chapter-delete:hover {
+	filter: invert(73%) sepia(45%) saturate(923%) hue-rotate(306deg)
+		brightness(105%) contrast(106%);
+	cursor: pointer;
 }
 
 hr {

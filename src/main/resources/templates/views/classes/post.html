@@ -49,11 +49,9 @@
                 <div class="bottom-option-menu">
                     <button class="class-list" id="classList" onclick="javascript:history.back();">목록</button>
                 </div>
-                <div class="bottom-option-update">
-                	<th:block th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
-                    <img src="/photo/classes/update.png" class="image-bookmark"/>
-                    <img src="/photo/classes/delete.png" class="image-bookmark"/>
-                    </th:block>
+                <div class="chapter-edit" th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
+                    <img src="/photo/classes/update.png" class="chapter-update"/>
+                    <img src="/photo/classes/delete.png" class="chapter-delete"/>
                 </div>
             </div>     
         </div>
@@ -67,9 +65,10 @@
     console.log(lecNo);
 	const chapNo = /*[[${chapter.chapNo}]]*/2;
 // 	console.log(chapNo);
+
+	const chapterEdit = document.getElementsByClassName("chapter-edit")[0];
     
 
-    printRatingResult(ratingResult);
 
     function executeRating(stars, result) {
        const starClassActive = "rating__star fas fa-star";	 // 활성화된 별 클래스
@@ -109,11 +108,41 @@
        });
     }
 
-    function printRatingResult(result, num = 0) {
-       result.textContent = `${num}/5`;
-    }
-    
-    executeRating(ratingStars, ratingResult);
+   
+	const chapterUpdate = chapterEdit.children[0];
+	const chapterDelete = chapterEdit.children[1];
+	
+	chapterUpdate.addEventListener("click", (event)=>{
+		location.href = `/manager/chapterEdit?chapNo=${encodeURIComponent(chapNo)}`;
+		event.stopPropagation();
+	})
+	
+	chapterDelete.addEventListener("click", (event)=>{
+		if(confirm("정말 삭제하시겠습니까?")){
+			$.ajax({
+	            url: '/manager/deleteChapter',
+	            method: 'POST',
+	            data: { chapNo: chapNo },
+	            success: function(result) {
+	                if(result > 0) {
+	                    alert('챕터가 성공적으로 삭제되었습니다.');
+	                    location.reload();
+	                } else {
+	                    alert('챕터 삭제에 실패했습니다.');
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                console.error('Error:', error);
+	                alert('삭제 중 오류가 발생했습니다.');
+	            }
+	        });
+			event.stopPropagation();
+		}else{
+			event.stopPropagation();
+		}
+		
+	})
+	
     
     </script>
 
