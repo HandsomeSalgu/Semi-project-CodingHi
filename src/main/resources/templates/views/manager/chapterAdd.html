@@ -230,7 +230,6 @@ select, input, textarea {
 	});
 	
 	window.onload = () => {
-        // DOM 요소 선택
         const categoryFilter = document.getElementById('categoryFilter');
         const lectureFilter = document.getElementById('lectureFilter');
         
@@ -293,8 +292,8 @@ select, input, textarea {
         }
         
         $.ajax({
-            type: 'POST',
             url: '/manager/insertChapter',
+            type: 'POST',
             data: {
                 lecNo: lecture,
                 chapTitle: title,
