@@ -5,55 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e94906d-1ce2-4caa-948a-6e4f64f28faa" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/home/controller/HomeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/home/service/HomeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/css/animation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/css/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/css/pc-mobile.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/css/swiper.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_btnset_arrow_right_black.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_btnset_arrow_white_sm.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_close_white.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_downarrow_black.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_facebook_lightgrey.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_instagram_lightgrey.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_kakao_lightgrey.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_pause_white.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_play_white.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/icons/ico_youtube_lightgrey.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N40_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N40_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N41_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N42_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N42_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N42_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N42_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N43_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N43_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N44_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N44_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_N44_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_basic_mobile_N41_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_logo_white.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_mainvisual_03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/img_mainvisual_mobile_03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/images/logo2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/js/animation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/js/jquery-v3.6.3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/js/pc-mobile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index/js/templatehouse.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/views/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/views/member/loginPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.11.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.11.1/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.11.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.11.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.11.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.11.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/lecture/model/mapper/LectureMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/lecture/model/mapper/LectureMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/qna/model/mapper/QnaMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/qna/model/mapper/QnaMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/qna/model/vo/Qna.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/qna/model/vo/Qna.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/qna/model/vo/reply.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/board/qna/model/vo/reply.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sinuedu/user/member/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/user/member/controller/MemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/category-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/category-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/question-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/question-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/views/menu-bar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/views/menu-bar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sinuedu/home/service/HomeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sinuedu/home/service/HomeService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,16 +43,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "castleBell0921"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;castleBell0921&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/HandsomeSalgu/Semi-project-CodingHi.git",
-    "accountId": "d18d6443-cfeb-44ab-b9e4-f6d75d26b941"
+    "accountId": "b1f6846e-15b7-4068-93ea-56481f1d4c9e"
   }
 }]]></component>
   <component name="ProjectColorInfo">{
@@ -109,8 +67,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.Build madison01.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.SinueduApplication.executor": "Run",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -123,6 +87,7 @@
     "project.structure.last.edited": "프로젝트",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "File.Encoding",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -135,15 +100,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
     <configuration name="SinueduApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="Sinuedu.main" />
@@ -172,6 +128,7 @@
       <workItem from="1737357109507" duration="164000" />
       <workItem from="1737357284077" duration="57000" />
       <workItem from="1738213711989" duration="977000" />
+      <workItem from="1738541353875" duration="3709000" />
     </task>
     <servers />
   </component>
