@@ -1,5 +1,9 @@
 package com.sinuedu.user.manager.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sinuedu.board.lecture.model.vo.Category;
 import com.sinuedu.board.lecture.model.vo.Chapter;
+import com.sinuedu.board.lecture.model.vo.Image;
 import com.sinuedu.board.lecture.model.vo.Lecture;
+import com.sinuedu.user.manager.exception.ManagerException;
 import com.sinuedu.user.manager.model.service.ManagerService;
 import com.sinuedu.user.member.model.vo.Member;
 
@@ -55,6 +62,73 @@ public class ManagerController {
 		model.addAttribute("categories", categories);
 		return "lectureAdd";
 	}
+	
+	@PostMapping("lectureInsert")
+	public String lectureInsert(@ModelAttribute Lecture lec, @RequestParam("file") MultipartFile file) {
+		Image i = new Image();
+		
+		if(!file.getOriginalFilename().equals("")) {
+			String[] returnArr = saveFile(file);
+			
+			i.setImgName(file.getOriginalFilename());
+			i.setImgRename(returnArr[1]);
+			i.setImgPath(returnArr[0]);
+			i.setRefLecNo(lec.getLecNo());
+		}
+		
+		System.out.println(lec);
+		System.out.println(i);
+		
+		int result1 = 1;
+		int result2 = 1;
+		
+//		result1 = mService.insertLecture(lec);
+//		result2 = mService.insertImage(i);
+		
+		if(result1 + result2 == 2) {
+			return "redirect:/manager/chapterList";
+		}else {
+//			deleteFile(i.getImgRename());
+			throw new ManagerException("오류 발생");
+		}
+		
+	}
+
+	private void deleteFile(String imgRename) {
+		String SavePath = "d:\\dev\\uploadFiles";
+		
+		File f = new File(SavePath + "\\" + imgRename);
+		if(f.exists()) {
+			f.delete();
+		}
+	}
+
+	private String[] saveFile(MultipartFile file) {
+		String savePath = "d:\\dev\\uploadFile";
+		File folder = new File(savePath);
+		if(!folder.exists()) {
+			folder.mkdir();
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		
+		int ranNum = (int)(Math.random()*100000);
+		String originFileName = file.getOriginalFilename();
+		String renameFileName = sdf.format(new Date()) + ranNum + originFileName.substring(originFileName.lastIndexOf("."));
+		
+		String renamePath = folder + "\\" + renameFileName;
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		String[] returnArr = new String[2];
+		returnArr[0] = savePath;
+		returnArr[1] = renameFileName;
+		
+		return returnArr;
+	}
 
 	@GetMapping("/chapterAdd")
 	public String chapterAdd(Model model) {
@@ -69,7 +143,7 @@ public class ManagerController {
 	@PostMapping("/deleteChapter")
 	@ResponseBody
 	public int deleteChapter(@RequestParam("chapNo") int chapNo) {
-		int result = mService.deleteViewChapter(chapNo);
+		mService.deleteViewChapter(chapNo);
 		return mService.deleteChapter(chapNo);
 	}
 

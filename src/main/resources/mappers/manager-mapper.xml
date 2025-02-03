@@ -69,4 +69,11 @@
 		where user_id = #{userId}
 	</update>
 
+	<insert id="insertLecture">
+	
+	</insert>
+	
+	<insert id="insertImage">
+	
+	</insert>
 </mapper>

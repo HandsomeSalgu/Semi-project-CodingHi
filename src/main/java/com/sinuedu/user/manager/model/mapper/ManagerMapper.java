@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sinuedu.board.lecture.model.vo.Category;
 import com.sinuedu.board.lecture.model.vo.Chapter;
+import com.sinuedu.board.lecture.model.vo.Image;
 import com.sinuedu.board.lecture.model.vo.Lecture;
 import com.sinuedu.user.member.model.vo.Member;
 
@@ -36,5 +37,9 @@ public interface ManagerMapper {
 	int updateUserStatus(@Param("userId") String userId, @Param("status") String status);
 
 	int deleteViewChapter(int chapNo);
+
+	int insertLecture(Lecture lec);
+
+	int insertImage(Image i);
 
 }
