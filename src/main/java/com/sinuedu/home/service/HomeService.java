@@ -24,6 +24,7 @@ public class HomeService {
         this.qnaMapper = qnaMapper;
     }
 
+
     public Map<String, Object> getHomeData(int userNo) {
         Map<String, Object> homeData = new HashMap<>();
         homeData.put("popularLectures", lectureMapper.PopularLectures());
