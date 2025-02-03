@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,14 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.client.RestTemplate;
 
 import com.sinuedu.user.member.exception.MemberException;
 import com.sinuedu.user.member.model.service.MemberService;
 import com.sinuedu.user.member.model.vo.Member;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -48,7 +45,7 @@ public class MemberController {
 	}
 	// 로그인
 	@PostMapping("login")
-	public String login(Member m, HttpSession session) {
+	public String login(Member m, HttpSession session, HttpServletRequest requset) {
 		System.out.println(bcrypt.encode("admin"));
 		Member loginUser = mService.login(m);
 		if(loginUser != null && bcrypt.matches(m.getUserPw(), loginUser.getUserPw())) {
@@ -64,7 +61,7 @@ public class MemberController {
 	@GetMapping("logout")
 	public String login(SessionStatus session) {
 		session.setComplete();
-		return "redirect:/";
+		return "redirect:/home";
 	}
 	
 	// 메뉴바 -> 회원가입
