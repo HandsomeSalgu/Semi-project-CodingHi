@@ -196,10 +196,10 @@ textarea {
 				enctype="multipart/form-data">
 				<div class="form-section">
 					<div class="form-group">
-						<select id="categoryFilter" name="cgName">
+						<select id="categoryFilter" name="totalChap">
 							<option value="">카테고리 선택</option>
 							<option th:each="category : ${categories}"
-								th:value="${category.cgName}" th:text="${category.cgName}"></option>
+								th:value="${category.cgNo}" th:text="${category.cgName}"></option>
 						</select>
 						<div class="file-input-wrapper">
 							<input type="file" class="file-input" name="file" id="fileInput"

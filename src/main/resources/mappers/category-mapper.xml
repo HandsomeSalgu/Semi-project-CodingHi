@@ -9,7 +9,16 @@
 		<if test="lecNo != null">
 		where LEC_NO= #{lecNo}
 		</if>
-		order by LEC_NO
+		order by cg_no, LEC_NO
+	</select>
+	
+	<select id="selectImageList">
+		select *
+		from image
+		<if test="lecNo != null">
+		where ref_lec_no = #{lecNo}
+		</if>
+		order by img_no
 	</select>
 	
 	<select id="selectCategory">

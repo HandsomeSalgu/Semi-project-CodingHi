@@ -73,7 +73,6 @@ public class ManagerController {
 			i.setImgName(file.getOriginalFilename());
 			i.setImgRename(returnArr[1]);
 			i.setImgPath(returnArr[0]);
-			i.setRefLecNo(lec.getLecNo());
 		}
 		
 		System.out.println(lec);
@@ -82,13 +81,18 @@ public class ManagerController {
 		int result1 = 1;
 		int result2 = 1;
 		
-//		result1 = mService.insertLecture(lec);
-//		result2 = mService.insertImage(i);
+		result1 = mService.insertLecture(lec);
+		
+		System.out.println("insert 후 : "+lec);
+		
+		i.setRefLecNo(lec.getLecNo());
+		
+		result2 = mService.insertImage(i);
 		
 		if(result1 + result2 == 2) {
 			return "redirect:/manager/chapterList";
 		}else {
-//			deleteFile(i.getImgRename());
+			deleteFile(i.getImgRename());
 			throw new ManagerException("오류 발생");
 		}
 		
