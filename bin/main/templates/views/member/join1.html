@@ -317,17 +317,23 @@ body {
     		}); 
        }
        
-       document.addEventListener('DOMContentLoaded', function () {
-    	    const nextButton = document.getElementById('nextButton');
-    	    const terms = document.querySelectorAll('.term');
-    	    nextButton.addEventListener('click', function (event) {
-    	        const allChecked = Array.from(terms).every(term => term.checked);
-    	        if (!allChecked) {
-    	            alert('약관 동의는 필수입니다');
-    	            event.preventDefault();
-    	        }
-    	    });
-    	});
+		document.addEventListener('DOMContentLoaded', function () {
+		    const nextButton = document.getElementById('nextButton');
+		    const terms = document.querySelectorAll('.term');
+
+		    // 기존 이벤트 리스너 제거
+		    nextButton.replaceWith(nextButton.cloneNode(true));
+		    const newNextButton = document.getElementById('nextButton'); // 새 버튼 가져오기
+
+		    newNextButton.addEventListener('click', function (event) {
+		        const allChecked = Array.from(terms).every(term => term.checked);
+		        if (!allChecked) {
+		            alert('약관 동의는 필수입니다');
+		            event.preventDefault(); // 기본 이벤트(폼 제출 등) 방지
+		        }
+		    }, { once: true }); // 이벤트 리스너를 한 번만 실행
+		});
+
        
        document.addEventListener('click', function () {
     	    const nextButton = document.getElementById('nextButton');
