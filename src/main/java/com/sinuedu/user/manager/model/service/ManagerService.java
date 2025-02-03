@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.sinuedu.board.lecture.model.vo.Category;
 import com.sinuedu.board.lecture.model.vo.Chapter;
+import com.sinuedu.board.lecture.model.vo.Image;
 import com.sinuedu.board.lecture.model.vo.Lecture;
 import com.sinuedu.user.manager.model.mapper.ManagerMapper;
 import com.sinuedu.user.member.model.vo.Member;
@@ -60,5 +61,13 @@ public class ManagerService {
 
 	public int deleteViewChapter(int chapNo) {
 		return mapper.deleteViewChapter(chapNo);
+	}
+
+	public int insertLecture(Lecture lec) {
+		return mapper.insertLecture(lec);
+	}
+
+	public int insertImage(Image i) {
+		return mapper.insertImage(i);
 	}
 }

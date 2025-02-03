@@ -64,6 +64,11 @@ body {
 	align-items: center;
 }
 
+.title{
+	gap: 20px;
+	width: 800px;
+}
+
 select, input, textarea {
 	width: 100%;
 	padding: 12px;
@@ -187,11 +192,11 @@ textarea {
 			<div class="content-header">
 				<h2>강의 추가</h2>
 			</div>
-			<form id="lectureForm" action="/lecture/insert" method="POST"
+			<form id="lectureForm" action="/manager/lectureInsert" method="POST"
 				enctype="multipart/form-data">
 				<div class="form-section">
 					<div class="form-group">
-						<select id="categoryFilter" name="category">
+						<select id="categoryFilter" name="totalChap">
 							<option value="">카테고리 선택</option>
 							<option th:each="category : ${categories}"
 								th:value="${category.cgNo}" th:text="${category.cgName}"></option>
@@ -204,11 +209,14 @@ textarea {
 							</label>
 						</div>
 					</div>
-					<div class="form-group">
-						<input type="text" id="title" name="title" placeholder="제목">
+					<div class="form-group title">
+						<input type="text" id="title" name="lecTitle" placeholder="제목">
+						<input type="text" id="Subtitle" name="lecSubtitle" placeholder="부제목">
 					</div>
+						
+					
 					<div class="form-group">
-						<textarea id="description" name="description"
+						<textarea id="description" name="lecDesc"
 							placeholder="강의 소개를 입력하세요 (200자 이내)"></textarea>
 					</div>
 					<div class="button-group">

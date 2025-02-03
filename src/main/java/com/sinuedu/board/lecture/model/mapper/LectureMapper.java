@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.sinuedu.board.lecture.model.vo.Chapter;
+import com.sinuedu.board.lecture.model.vo.Image;
 import com.sinuedu.board.lecture.model.vo.Lecture;
 
 @Mapper
@@ -43,5 +44,7 @@ public interface LectureMapper {
 	int deleteBookmark(HashMap<String, Integer> map);
 
 	Lecture bookmarkCategory(HashMap<String, Integer> map);
+
+	ArrayList<Image> selectImageList(Integer lecNo);
 
 }

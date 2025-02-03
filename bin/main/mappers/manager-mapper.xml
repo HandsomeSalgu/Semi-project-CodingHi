@@ -69,4 +69,16 @@
 		where user_id = #{userId}
 	</update>
 
+	<insert id="insertLecture">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="lecNo">
+			select LECTURE_SEQ.nextval from dual
+		</selectKey>
+		insert into LECTURE
+		values(#{lecNo}, #{lecTitle}, #{lecSubtitle}, #{lecDesc}, #{totalChap}, default)
+	</insert>
+	
+	<insert id="insertImage">
+		insert into image
+		values(image_new, #{imgPath}, #{imgName}, #{imgRename}, #{refLecNo})
+	</insert>
 </mapper>

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sinuedu.board.lecture.model.exception.LectureException;
 import com.sinuedu.board.lecture.model.service.LectureService;
 import com.sinuedu.board.lecture.model.vo.Chapter;
+import com.sinuedu.board.lecture.model.vo.Image;
 import com.sinuedu.board.lecture.model.vo.Lecture;
 import com.sinuedu.user.member.model.vo.Member;
 
@@ -40,6 +41,7 @@ public class LectureController {
 			userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		}
 		ArrayList<Lecture> list = cService.selectLectureList(null);
+		ArrayList<Image> iList = cService.selectImageList(null);
 		
 		for(Lecture lec : list) {
 			int lecNo = lec.getLecNo();
@@ -64,7 +66,7 @@ public class LectureController {
 			}
 		}
 		
-		mv.addObject("list", list).setViewName("category");
+		mv.addObject("list", list).addObject("iList", iList).setViewName("category");
 		
 		return mv;
 	}
@@ -72,11 +74,18 @@ public class LectureController {
 	@GetMapping("/{id}")
 	public ModelAndView selectLecture(@PathVariable("id") int lecNo, ModelAndView mv,
 									  HttpSession session) {
+		System.out.println(lecNo);
 		HashMap<String, Integer> map = new HashMap<>();
 		ArrayList<Chapter> cList = cService.selectLecture(lecNo);
 		int capCount = cService.chapterCount(lecNo);
 		ArrayList<Lecture> lList = cService.selectLectureList(lecNo);
 		Lecture lec = lList.get(0);
+		Image img = new Image();
+		
+		ArrayList<Image> iList = cService.selectImageList(lecNo);
+		if(!iList.isEmpty()) {
+			img = iList.get(0);
+		}
 		
 		int userNo = 0;
 		if(session.getAttribute("loginUser") != null){
@@ -101,7 +110,7 @@ public class LectureController {
 		}
 		
 		mv.addObject("lecNo",lecNo).addObject("svgRate", svgRate).addObject("progressRate", progressRate);
-		mv.addObject("lec", lec).addObject("cList", cList).addObject("capCount", capCount).setViewName("postlist");
+		mv.addObject("lec", lec).addObject("img", img).addObject("cList", cList).addObject("capCount", capCount).setViewName("postlist");
 		return mv;
 	}
 	
@@ -179,6 +188,7 @@ public class LectureController {
 	@ResponseBody
 	public int rating(@RequestParam("rating") int rating, @RequestParam("chapNo") int chapNo,
 					   HttpSession session) {
+		System.out.println(1);
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		System.out.println(loginUser);

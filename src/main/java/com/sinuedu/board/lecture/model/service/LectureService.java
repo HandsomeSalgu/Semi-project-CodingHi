@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sinuedu.board.lecture.model.mapper.LectureMapper;
 import com.sinuedu.board.lecture.model.vo.Chapter;
+import com.sinuedu.board.lecture.model.vo.Image;
 import com.sinuedu.board.lecture.model.vo.Lecture;
 
 import lombok.RequiredArgsConstructor;
@@ -74,6 +75,10 @@ public class LectureService {
 
 	public Lecture bookmarkCategory(HashMap<String, Integer> map) {
 		return cMapper.bookmarkCategory(map);
+	}
+
+	public ArrayList<Image> selectImageList(Integer lecNo) {
+		return cMapper.selectImageList(lecNo);
 	}
 
 }

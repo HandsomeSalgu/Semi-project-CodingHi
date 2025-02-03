@@ -15,7 +15,8 @@
     <section class="post-list">
         <div class="top-box">
             <div class="image-box">
-                <img src="/photo/classes/example.png" class="image-thumbnail">
+                <img th:if="${#strings.containsIgnoreCase(img.imgRename, 'jpg') or #strings.containsIgnoreCase(img.imgRename, 'png')}" th:src="@{/}+${img.imgRename}" class="image-thumbnail">
+                <img th:unless="${#strings.containsIgnoreCase(img.imgRename, 'jpg') or #strings.containsIgnoreCase(img.imgRename, 'png')}" src="/photo/classes/example.png" class="image-thumbnail">
             </div>
             <div class="manager-function">
             	<th:block th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
@@ -45,19 +46,19 @@
             </div>
             <div class="function-option">
                 <div>
-                    <img src="/photo/classes/Inbox.png" class="image-bookmark"/>
+                    <img src="/photo/classes/Inbox.png" class="inbox"/>
                     <br>
                     <a>Chapter</a>
                     <p>[[${capCount}]]</p>
                 </div>
                 <div>
-                    <img src="/photo/classes/Forward.png" class="image-bookmark"/>
+                    <img src="/photo/classes/Forward.png" class="forward"/>
                     <br>
                     <a>Percent</a>
                     <p>[[${progressRate == 0 ? "X" : progressRate + "%"}]]</p>
                 </div>
                 <div>
-                    <img src="/photo/classes/Emote_Smile.png" class="image-bookmark"/>
+                    <img src="/photo/classes/Emote_Smile.png" class="smile"/>
                     <br>
                     <a>Rating(5)</a>
                     <p>[[${svgRate == 0 ? "X" : svgRate}]]</p>
@@ -182,6 +183,9 @@
 					
 				})
 			}
+			
+			const lectureUpdate = chapterEdit.children[1];
+			const lectureDelete = chapterEdit.children[2];
 			
     	}
     </script>

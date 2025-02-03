@@ -114,7 +114,7 @@ section{
 	padding: 20px;
 }
 
-.image-bookmark, .lecture-update, .lecture-delete, .chapter-update, .chapter-delete {
+.inbox, .forward, .smile ,.image-bookmark, .lecture-update, .lecture-delete, .chapter-update, .chapter-delete {
 	height: 35px;
 }
 
@@ -125,6 +125,18 @@ section{
 }
 
 .chapter-delete:hover{
+	filter: invert(73%) sepia(45%) saturate(923%) hue-rotate(306deg)
+		brightness(105%) contrast(106%);
+	cursor: pointer;
+}
+
+.lecture-update:hover{
+	filter: invert(73%) sepia(45%) saturate(923%) hue-rotate(306deg)
+		brightness(105%) contrast(106%);
+	cursor: pointer;
+}
+
+.lecture-delete:hover{
 	filter: invert(73%) sepia(45%) saturate(923%) hue-rotate(306deg)
 		brightness(105%) contrast(106%);
 	cursor: pointer;
