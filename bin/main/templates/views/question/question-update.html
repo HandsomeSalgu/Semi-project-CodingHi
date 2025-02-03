@@ -289,10 +289,25 @@ select:focus {
       
       
       const form = document.getElementById('updateForm');
+      const qnaTitle = document.getElementsByClassName("title")[0].children[0];
+  	  const qnaDetail = document.getElementById("summernote");
+  	  const saveButton = document.getElementsByClassName("save-button")[0].children[0]
+  	  console.log(qnaTitle)
+  	  console.log(qnaDetail)
       
       document.getElementById('save-button').addEventListener('click', ()=>{
-         form.action = '/qna/updatePost';
-         form.submit();
+    	  if(qnaTitle.value == ""){
+  			alert("제목을 입력하세요")
+  		}else if(qnaDetail.value == ""){
+  			alert("내용을 입력하세요")
+  		}else{
+ 				console.log(qnaTitle.value);
+ 				console.log(qnaDetail.value);
+  			form.action = '/qna/updatePost';
+  	        form.submit();
+  			
+  		}
+         
       })
       
       document.getElementById('deletePost').addEventListener('click', ()=>{
@@ -335,6 +350,9 @@ select:focus {
 		});
 	});
 	
+	
+
+		
 	
 	}
 	</script>

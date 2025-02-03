@@ -223,15 +223,14 @@ select:focus {
 				</span></div>
 			</th:block>
 	        <div class="header">
-	
 					<span class="category"> 
 					<select name="cgNo" id="category" required>
 						<th:block th:each="c: ${categories}">
 							<option th:value="${c.cgNo}">[[${c.cgName}]]</option>
 						</th:block>
 					</select>
-					</span> <span class="title"> <input type="text" name="qnaTitle" placeholder="제목" >
 					</span>
+					<span class="title"> <input type="text" name="qnaTitle" placeholder="제목"></span>
 	        </div>
 	        <!-- 본문 입력 -->
 	
@@ -241,7 +240,7 @@ select:focus {
 	
 	        <!-- 저장 버튼 -->
 	        <div class="save-button">
-	            <button>저장</button>
+	            <button type="button">저장</button>
 	        </div>
 	    </div>
 	    </form>
@@ -304,6 +303,29 @@ select:focus {
 					}
 			});
 		});
+		
+		const qnaTitle = document.getElementsByClassName("header")[0].children[1].children[0]
+		const qnaDetail = document.getElementById("summernote");
+		const saveButton = document.getElementsByClassName("save-button")[0].children[0]
+		const form = document.querySelectorAll("form")[1];
+		console.log(qnaTitle);
+		console.log(qnaDetail.value);
+		
+		saveButton.addEventListener("click", (e)=>{
+			if(qnaTitle.value == ""){
+				alert("제목을 입력하세요")
+			}else if(qnaDetail.value == ""){
+				alert("내용을 입력하세요")
+			}else{
+// 				console.log(qnaTitle.value);
+// 				console.log(qnaDetail.value);
+				
+				form.submit();
+				
+			}
+		})
+		
+		
 		</script>
 
 </body>
