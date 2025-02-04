@@ -3,6 +3,7 @@ package com.sinuedu.user.manager.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,13 +15,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.sinuedu.board.lecture.model.service.LectureService;
 import com.sinuedu.board.lecture.model.vo.Category;
 import com.sinuedu.board.lecture.model.vo.Chapter;
 import com.sinuedu.board.lecture.model.vo.Image;
@@ -38,6 +42,7 @@ import lombok.RequiredArgsConstructor;
 public class ManagerController {
 
 	private final ManagerService mService;
+	private final LectureService lService;
 
 	@GetMapping("/userList")
 	public String userList(Model model) {
@@ -66,7 +71,6 @@ public class ManagerController {
 	@PostMapping("lectureInsert")
 	public String lectureInsert(@ModelAttribute Lecture lec, @RequestParam("file") MultipartFile file) {
 		Image i = new Image();
-		
 		if(!file.getOriginalFilename().equals("")) {
 			String[] returnArr = saveFile(file);
 			
@@ -91,6 +95,37 @@ public class ManagerController {
 		
 		if(result1 + result2 == 2) {
 			return "redirect:/manager/chapterList";
+		}else {
+			deleteFile(i.getImgRename());
+			throw new ManagerException("오류 발생");
+		}
+		
+	}
+	
+	@PostMapping("lectureUpdate")
+	public String lectureUpdate(@ModelAttribute Lecture lec, @RequestParam("file") MultipartFile file) {
+		Image i = new Image();
+		
+		if(!file.getOriginalFilename().equals("")) {
+			String[] returnArr = saveFile(file);
+			
+			i.setImgName(file.getOriginalFilename());
+			i.setImgRename(returnArr[1]);
+			i.setImgPath(returnArr[0]);
+		}
+		
+		System.out.println(lec);
+		System.out.println(i);
+		
+		int result1 = 1;
+		int result2 = 1;
+		
+		result1 = mService.updateLecture(lec);
+		i.setRefLecNo(lec.getLecNo());
+		result2 = mService.updateImage(i);
+		
+		if(result1 + result2 == 2) {
+			return "redirect:/lecture/" + lec.getLecNo();
 		}else {
 			deleteFile(i.getImgRename());
 			throw new ManagerException("오류 발생");
@@ -223,5 +258,28 @@ public class ManagerController {
 	    }
 	    return response;
 	}
-
+	
+	@GetMapping("lectureDelete/{lNo}/{imgRename}")
+	public String lectureDelete(@PathVariable("lNo") int lecNo, @PathVariable("imgRename") String imgRename) {
+		mService.deleteAllChapter(lecNo);
+		System.out.println(imgRename);
+		deleteFile(imgRename);
+		int result = mService.deleteLecture(lecNo);
+		
+		if(result >0) {
+			return "redirect:/lecture/list";
+		}else {
+			throw new ManagerException("삭제 중 오류가 발생했습니다");
+		}
+	}
+	
+	@GetMapping("lectureUpdate/{lNo}")
+	public ModelAndView lectureUpdate(@PathVariable("lNo") int lecNo, ModelAndView mv) {
+		ArrayList<Lecture> lList = lService.selectLectureList(lecNo);
+		Lecture lecture = lList.get(0);
+		List<Category> categories = mService.categoryList();
+		System.out.println(lecture);
+		mv.addObject("categories", categories).addObject("lec", lecture).setViewName("lectureEdit");
+		return mv;
+	}
 }

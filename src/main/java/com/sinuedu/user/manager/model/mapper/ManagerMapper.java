@@ -42,4 +42,12 @@ public interface ManagerMapper {
 
 	int insertImage(Image i);
 
+	int deleteAllChapter(int lecNo);
+
+	int deleteLecture(int lecNo);
+
+	int updateLecture(Lecture lec);
+
+	int updateImage(Image i);
+
 }
