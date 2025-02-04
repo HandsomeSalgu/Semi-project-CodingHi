@@ -215,7 +215,7 @@ textarea {
 					</div>
 					<div class="form-group">
 						<textarea id="description" name="lecDesc" 
-							th:value="${lec.lecDesc}" placeholder="강의 소개를 입력하세요 (200자 이내)"></textarea>
+							th:text="${lec.lecDesc}" placeholder="강의 소개를 입력하세요 (200자 이내)"></textarea>
 					</div>
 					<div class="button-group">
 						<button type="button" id="submitLecture" class="add-btn">수정</button>
