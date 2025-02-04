@@ -81,4 +81,9 @@ public class LectureService {
 		return cMapper.selectImageList(lecNo);
 	}
 
+	public Image selectImage(int lecNo) {
+		return cMapper.selectImage(lecNo);
+	}
+
+	
 }

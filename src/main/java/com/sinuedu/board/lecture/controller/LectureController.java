@@ -218,6 +218,8 @@ public class LectureController {
 		
 		ArrayList<Lecture> list = new ArrayList<Lecture>();
 		ArrayList<Lecture> bookmarkList = new ArrayList<Lecture>();
+		ArrayList<Image> iList = new ArrayList<Image>();
+		
 		
 		int userNo = 0;
 		if(session.getAttribute("loginUser") != null){
@@ -236,6 +238,8 @@ public class LectureController {
 			int lecNo = lec.getLecNo();
 			map.put("userNo", userNo);
 			map.put("lecNo", lecNo);
+			
+			iList.add(cService.selectImage(lecNo));
 			
 			System.out.println(lecNo);
 			if(cgName.equals("BOOKMARK")) {
@@ -264,7 +268,7 @@ public class LectureController {
 				}	
 			}
 		}
-		
+		System.out.println(iList);
 		
 		System.out.println("bookmarkList : " + bookmarkList);
 		
@@ -293,9 +297,9 @@ public class LectureController {
 					lec.setBookmarkCheck("N");
 				}	
 			}
-			mv.addObject("list", bookmarkList);
+			mv.addObject("list", bookmarkList).addObject("iList", iList);
 		}else {
-			mv.addObject("list", list);
+			mv.addObject("list", list).addObject("iList", iList);
 		}
 		
 		mv.setViewName("category");

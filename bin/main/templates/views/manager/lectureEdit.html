@@ -63,6 +63,10 @@ body {
 	display: flex;
 	align-items: center;
 }
+.title{
+	gap: 20px;
+	width: 800px;
+}
 
 select, input, textarea {
 	width: 100%;
@@ -185,9 +189,9 @@ textarea {
 	<div class="container">
 		<div class="content-container">
 			<div class="content-header">
-				<h2>강의 추가</h2>
+				<h2>강의 수정</h2>
 			</div>
-			<form id="lectureForm" action="/lecture/insert" method="POST"
+			<form id="lectureForm" action="/manager/lectureUpdate" method="POST"
 				enctype="multipart/form-data">
 				<div class="form-section">
 					<div class="form-group">
@@ -204,15 +208,17 @@ textarea {
 							</label>
 						</div>
 					</div>
-					<div class="form-group">
-						<input type="text" id="title" name="title" placeholder="제목">
+					<div class="form-group title">
+						<input type="hidden" name="lecNo" th:value="${lec.lecNo}">
+						<input type="text" id="title" name="lecTitle" placeholder="제목" th:value="${lec.lecTitle}">
+						<input type="text" id="Subtitle" name="lecSubtitle" placeholder="부제목" th:value="${lec.lecSubtitle}">
 					</div>
 					<div class="form-group">
-						<textarea id="description" name="description"
-							placeholder="강의 소개를 입력하세요 (200자 이내)"></textarea>
+						<textarea id="description" name="lecDesc" 
+							th:value="${lec.lecDesc}" placeholder="강의 소개를 입력하세요 (200자 이내)"></textarea>
 					</div>
 					<div class="button-group">
-						<button type="button" id="submitLecture" class="add-btn">추가</button>
+						<button type="button" id="submitLecture" class="add-btn">수정</button>
 						<button type="button" class="cancel-btn"
 							onclick="javascript:history.back();">취소</button>
 					</div>

@@ -47,4 +47,8 @@ public interface LectureMapper {
 
 	ArrayList<Image> selectImageList(Integer lecNo);
 
+	Image selectImage(int lecNo);
+
+	
+
 }

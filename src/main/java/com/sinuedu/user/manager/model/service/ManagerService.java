@@ -70,4 +70,20 @@ public class ManagerService {
 	public int insertImage(Image i) {
 		return mapper.insertImage(i);
 	}
+
+	public int deleteAllChapter(int lecNo) {
+		return mapper.deleteAllChapter(lecNo);
+	}
+
+	public int deleteLecture(int lecNo) {
+		return mapper.deleteLecture(lecNo);
+	}
+
+	public int updateLecture(Lecture lec) {
+		return mapper.updateLecture(lec);
+	}
+
+	public int updateImage(Image i) {
+		return mapper.updateImage(i);
+	}
 }

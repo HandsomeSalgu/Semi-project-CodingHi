@@ -21,6 +21,13 @@
 		order by img_no
 	</select>
 	
+	<select id="selectImage">
+		select *
+		from image
+		where ref_lec_no = #{lecNo}
+		order by img_no
+	</select>
+	
 	<select id="selectCategory">
 		select *
 		from LECTURE
@@ -126,5 +133,6 @@
 	where LEC_NO= #{lecNo} and user_no = #{userNo}
 	order by LEC_NO
 	</select>
+	
 </mapper>
 

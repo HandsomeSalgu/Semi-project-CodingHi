@@ -17,11 +17,12 @@
             <div class="image-box">
                 <img th:if="${#strings.containsIgnoreCase(img.imgRename, 'jpg') or #strings.containsIgnoreCase(img.imgRename, 'png')}" th:src="@{/}+${img.imgRename}" class="image-thumbnail">
                 <img th:unless="${#strings.containsIgnoreCase(img.imgRename, 'jpg') or #strings.containsIgnoreCase(img.imgRename, 'png')}" src="/photo/classes/example.png" class="image-thumbnail">
+            	<input id="imgRename" type="hidden" name="imgRename" value="${img.imgRename}">
             </div>
             <div class="manager-function">
             	<th:block th:if="${session.loginUser != null && session.loginUser.admin == 'Y'}">
-                <img src="/photo/classes/update.png" class="lecture-update"/>
-                <img src="/photo/classes/delete.png" class="lecture-delete"/>
+                <img src="/photo/classes/update.png" class="lecture-update" id="lecture-update"/>
+                <img src="/photo/classes/delete.png" class="lecture-delete" id="lecture-delete"/>
                 </th:block>
                 <span id="bookmark" th:if="${lec.bookmarkCheck == 'Y'}">
                		<input type="hidden" name="lectureNo" th:value="${lec.lecNo}">
@@ -96,7 +97,7 @@
 //     		console.log(loginUser);
     		
     		const chapterEdits = document.getElementsByClassName("chapter-edit");
-    		
+    		const imgRename = document.getElementById("imgRename").value;
     		
 
 
@@ -184,9 +185,24 @@
 				})
 			}
 			
-			const lectureUpdate = chapterEdit.children[1];
-			const lectureDelete = chapterEdit.children[2];
+			const lectureUpdate = document.getElementById("lecture-update");
+			const lectureDelete = document.getElementById("lecture-delete");
+			console.log(lectureUpdate);
+			console.log(lectureDelete);
 			
+			lectureUpdate.addEventListener("click", ()=>{
+				
+			})
+			
+			lectureDelete.addEventListener("click", ()=>{
+				if(confirm("정말 강의를 삭제하시겠습니까?")){
+					location.href = "/manager/lectureDelete/" + lecNo + "/" +imgRename;
+				}
+			})
+			
+			lectureUpdate.addEventListener("click", ()=>{
+				location.href = "/manager/lectureUpdate/" + lecNo  ;
+			})
     	}
     </script>
 </body>

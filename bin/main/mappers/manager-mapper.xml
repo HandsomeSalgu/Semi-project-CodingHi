@@ -38,6 +38,16 @@
 		where chap_no = #{chapNo}
 	</delete>
 	
+	<delete id="deleteAllChapter">
+		delete from chapter
+		where lec_no = #{lecNo}
+	</delete>
+	
+	<delete id="deleteLecture">
+		delete from Lecture
+		where lec_no = #{lecNo}
+	</delete>
+	
 	<insert id="insertChapter" parameterType="com.sinuedu.board.lecture.model.vo.Chapter">
 	    insert into chapter (chap_no, chap_title, chap_detail, create_date, update_date, views, lec_no, chap_rate)
 	    values (chapter_seq.nextval, #{chapTitle}, #{chapDetail}, sysdate, sysdate, 0, #{lecNo}, #{chapRate})
@@ -81,4 +91,16 @@
 		insert into image
 		values(image_new, #{imgPath}, #{imgName}, #{imgRename}, #{refLecNo})
 	</insert>
+	
+	<update id="updateLecture">
+		update LECTURE
+		set LEC_TITLE = #{lecTitle}, LEC_SUBTITLE = #{lecSubtitle}, LEC_DESC = #{lecDesc}
+		where LEC_NO = #{lecNo}
+	</update>
+	
+	<update id="updateImage">
+		update image
+		set IMG_PATH = #{imgPath}, IMG_NAME = #{imgName}, IMG_RENAME = #{imgRename}
+		where REF_LEC_NO = #{refLecNo}
+	</update>
 </mapper>
