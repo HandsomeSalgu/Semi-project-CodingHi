@@ -1,8 +1,6 @@
 # Semi-Project
 SINU EDUCATION<br>
 팀원 : 권태혁, 이상윤, 문성종, 조민주, 이창
-<br><br>
-디스코드 서버 : https://discord.gg/4Ap3vV7z <br>
 
 요구사항 정의서(자세히) :  https://docs.google.com/spreadsheets/d/1cZ7AnA-uaONy6PmpEWr23GFB9wlkVajTbF9nvUxFcKs/edit?gid=0#gid=0
 <br><br>
