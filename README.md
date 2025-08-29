@@ -1,4 +1,6 @@
 # SINUEDU
+## 수행기간
+2024.12.08 ~ 2025.01.14<br>
 팀원 : 권태혁, 이상윤, 문성종, 조민주, 이창
 
 요구사항 정의서(자세히) :  https://docs.google.com/spreadsheets/d/1cZ7AnA-uaONy6PmpEWr23GFB9wlkVajTbF9nvUxFcKs/edit?gid=0#gid=0
