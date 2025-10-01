@@ -1,4 +1,4 @@
-# 영상 템플릿 판매 및 수주 VPLAY - 권태혁
+# 코딩 교육 사이트 SINUEDU - 권태혁
 <img width="500" height="500" alt="우리의사랑스러운신우쌤" src="https://github.com/user-attachments/assets/a63666ca-ce36-41c0-b998-6ac25ee498e4" />
 
 
