@@ -3,13 +3,13 @@
 
 
 ## 배포 :earth_asia:
-- 배포 링크 : <link>http://vplay.cloud</link>
-- TEST ID : HandsomeGwon
-- TEST PWD : HandsomeGwon
+- 배포 링크 : <link>http://52.78.203.158</link>
+- TEST ID : (추후 기제)
+- TEST PWD : (추후 기제)
 <br>
 
 ## 수행 기간 :calendar:
-- 2025.01.15~2025.03.26
+- 2024.12.08~2025.01.14
 <br>
 
 ## 팀 구성원 :family:
