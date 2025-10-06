@@ -15,8 +15,7 @@
     <section class="post-list">
         <div class="top-box">
             <div class="image-box">
-                <img th:if="${#strings.containsIgnoreCase(img.imgRename, 'jpg') or #strings.containsIgnoreCase(img.imgRename, 'png')}" th:src="@{/}+${img.imgRename}" class="image-thumbnail">
-                <img th:unless="${#strings.containsIgnoreCase(img.imgRename, 'jpg') or #strings.containsIgnoreCase(img.imgRename, 'png')}" src="/photo/classes/example.png" class="image-thumbnail">
+                <img src="/photo/classes/example.png" class="image-thumbnail">
             	<input id="imgRename" type="hidden" name="imgRename" value="${img.imgRename}">
             </div>
             <div class="manager-function">

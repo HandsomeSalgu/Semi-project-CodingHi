@@ -1,64 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sinuedu.user.member.model.mapper.MemberMapper">
-	<select id = "login" resultMap="resultLogin">
-		select *
-		from users
-		where user_id = #{userId} and status = 'Y'
-	</select>
-	
-	<resultMap type="com.sinuedu.user.member.model.vo.Member" id="resultLogin">
-		<result column="BIRTH_DATE" property="birthDate"/>
-	</resultMap>
-
-	<insert id="insertMember">
-		insert into users
-		values(users_seq.nextval, #{userId}, #{userPw}, #{userName}, #{userNick}, #{phone}, #{birthDate}, default, #{hint}, #{hintAnswer}, default, default)
-	</insert>
-	
-	<select id="checkId" resultType="_int">
-		select count(*)
-		from users
-		where user_id = #{userId}
-	</select>
-	
-	<select id="checkUserNick" resultType="_int">
-		select count(*)
-		from users
-		where user_nick = #{userNick}
-	</select>
-	
-	<select id="findMyId" resultType="String">
-		select user_id
-		from users
-		where user_name = #{userName} and phone = #{phone} and birth_date = #{birthDate}
-	</select>
-	
-	<resultMap type="com.sinuedu.user.member.model.vo.Member" id="findId">
-		<result column="BIRTH_DATE" property="birthDate"/>
-	</resultMap>
-	
-	<update id="updateMember">
-	    UPDATE users
-	    SET user_name = COALESCE(#{userName}, user_name),
-	        user_nick = COALESCE(#{userNick}, user_nick),
-	        user_pw = COALESCE(#{userPw}, user_pw),
-	        phone = COALESCE(#{phone}, phone),
-	        birth_date = COALESCE(#{birthDate}, birth_date),
-	        hint = COALESCE(#{hint}, hint),
-	        hint_answer = COALESCE(#{hintAnswer}, hint_answer)
-	    WHERE user_id = #{userId}
-	</update>
-
-	<select id="findMyPw" parameterType="map">
-	    select *
-	    from users
-	    where user_id = #{userId} and hint = #{hint} and hint_answer = #{hintAnswer}
-	</select>
-	
-	<update id="updatePw" parameterType="map">
-	    UPDATE users
-	    SET user_pw = #{encodedPassword}
-	    WHERE user_id = #{userId}
-	</update>
+<select id="login" resultMap="resultLogin"> SELECT * FROM USERS WHERE USER_ID = #{userId} AND STATUS = 'Y' </select>
+<resultMap type="com.sinuedu.user.member.model.vo.Member" id="resultLogin">
+<result column="BIRTH_DATE" property="birthDate"/>
+</resultMap>
+<!--  AUTO_INCREMENT 및 DEFAULT 반영: USER_NO/JOIN_DATE/ADMIN/STATUS 자동  -->
+<insert id="insertMember"> INSERT INTO USERS (USER_ID, USER_PW, USER_NAME, USER_NICK, PHONE, BIRTH_DATE, HINT, HINT_ANSWER) VALUES (#{userId}, #{userPw}, #{userName}, #{userNick}, #{phone}, #{birthDate}, #{hint}, #{hintAnswer}) </insert>
+<select id="checkId" resultType="_int"> SELECT COUNT(*) FROM USERS WHERE USER_ID = #{userId} </select>
+<select id="checkUserNick" resultType="_int"> SELECT COUNT(*) FROM USERS WHERE USER_NICK = #{userNick} </select>
+<select id="findMyId" resultType="String"> SELECT USER_ID FROM USERS WHERE USER_NAME = #{userName} AND PHONE = #{phone} AND BIRTH_DATE = #{birthDate} </select>
+<resultMap type="com.sinuedu.user.member.model.vo.Member" id="findId">
+<result column="BIRTH_DATE" property="birthDate"/>
+</resultMap>
+<update id="updateMember"> UPDATE USERS SET USER_NAME = COALESCE(#{userName}, USER_NAME), USER_NICK = COALESCE(#{userNick}, USER_NICK), USER_PW = COALESCE(#{userPw}, USER_PW), PHONE = COALESCE(#{phone}, PHONE), BIRTH_DATE = COALESCE(#{birthDate}, BIRTH_DATE), HINT = COALESCE(#{hint}, HINT), HINT_ANSWER= COALESCE(#{hintAnswer}, HINT_ANSWER) WHERE USER_ID = #{userId} </update>
+<select id="findMyPw" parameterType="map"> SELECT * FROM USERS WHERE USER_ID = #{userId} AND HINT = #{hint} AND HINT_ANSWER = #{hintAnswer} </select>
+<update id="updatePw" parameterType="map"> UPDATE USERS SET USER_PW = #{encodedPassword} WHERE USER_ID = #{userId} </update>
 </mapper>
