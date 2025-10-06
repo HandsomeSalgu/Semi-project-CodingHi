@@ -40,6 +40,7 @@ public class LectureController {
 		if(session.getAttribute("loginUser") != null){
 			userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		}
+		
 		ArrayList<Lecture> list = cService.selectLectureList(null);
 		ArrayList<Image> iList = cService.selectImageList(null);
 		
