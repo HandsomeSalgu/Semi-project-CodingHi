@@ -86,6 +86,8 @@ public class LectureController {
 		ArrayList<Image> iList = cService.selectImageList(lecNo);
 		if(!iList.isEmpty()) {
 			img = iList.get(0);
+		}else {
+			img =null;
 		}
 		
 		int userNo = 0;

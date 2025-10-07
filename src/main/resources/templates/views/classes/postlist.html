@@ -15,7 +15,7 @@
     <section class="post-list">
         <div class="top-box">
             <div class="image-box">
-                <img src="/photo/classes/example.png" class="image-thumbnail">
+                <img th:src="${img != null} ? ${img.imgPath} : '/photo/classes/example.png'" class="image-thumbnail">
             	<input id="imgRename" type="hidden" name="imgRename" value="${img.imgRename}">
             </div>
             <div class="manager-function">

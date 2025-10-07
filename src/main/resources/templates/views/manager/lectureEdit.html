@@ -196,16 +196,19 @@ textarea {
 				<div class="form-section">
 					<div class="form-group">
 						<select id="categoryFilter" name="category">
-							<option value="">카테고리 선택</option>
 							<option th:each="category : ${categories}"
-								th:value="${category.cgNo}" th:text="${category.cgName}"></option>
+									th:value="${category.cgNo}" 
+									th:text="${category.cgName}"
+									th:selected="${category.cgName == lec.cgName}">
+							</option>
 						</select>
 						<div class="file-input-wrapper">
-							<input type="file" class="file-input" name="file" id="fileInput"
-								accept="image/*"> <label for="fileInput"
-								class="file-label"> <span class="file-icon">📁</span> <span
-								class="file-text">썸네일 추가</span>
-							</label>
+							<input type="file" class="file-input" name="file" id="fileInput" accept=".jpg, .jpeg, .png"> 
+							<input type="hidden" class="imgName" name="imgName" th:value="${thumbnail != null ? thumbnail.imgName : null}">
+								<label for="fileInput" class="file-label">
+									<span class="file-icon">📁</span>
+									<span class="file-text" th:text="${thumbnail != null ? thumbnail.imgName : '썸네일 추가'}"></span>
+								</label>
 						</div>
 					</div>
 					<div class="form-group title">
@@ -215,11 +218,11 @@ textarea {
 					</div>
 					<div class="form-group">
 						<textarea id="description" name="lecDesc" 
-							th:value="${lec.lecDesc}" placeholder="강의 소개를 입력하세요 (200자 이내)"></textarea>
+							th:text="${lec.lecDesc}" placeholder="강의 소개를 입력하세요 (200자 이내)"></textarea>
 					</div>
 					<div class="button-group">
 						<button type="button" id="submitLecture" class="add-btn">수정</button>
-						<button type="button" class="cancel-btn"
+						<button type="button" class="cancel-btn"nextSibling
 							onclick="javascript:history.back();">취소</button>
 					</div>
 				</div>
@@ -237,6 +240,9 @@ textarea {
             const fileInput = document.getElementById('fileInput');
             const fileLabel = document.querySelector('.file-label .file-text');
             const cancelButton = document.querySelector('.cancel-btn');
+            const imgName = document.querySelector('.imgName');
+            
+            
 
             fileInput.addEventListener('change', (e) => {
                 if (e.target.files.length > 0) {
@@ -248,8 +254,11 @@ textarea {
             });
 
             document.getElementById('submitLecture').addEventListener('click', () => {
-                if (fileInput.value === '') {
-                    alert('썸네일을 추가해주세요.');
+                if (fileInput.value === '' && fileLabel.innerText == '썸네일 추가') {
+                	if(confirm('썸네일을 추가하지 않으면 기본 썸네일로 대체됩니다.')){
+                		imgName.value = '썸네일 추가';
+                		form.submit();
+                	}
                 } else {
                     form.submit();
                 }
