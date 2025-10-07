@@ -1,24 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sinuedu.user.manager.model.mapper.ManagerMapper">
-<select id="userList" resultType="com.sinuedu.user.member.model.vo.Member"> SELECT * FROM USERS </select>
-<select id="categoryList" resultType="com.sinuedu.board.lecture.model.vo.Category"> SELECT CG_NO, CG_NAME FROM CATEGORY ORDER BY CG_NO </select>
-<select id="lectureList" resultType="com.sinuedu.board.lecture.model.vo.Lecture"> SELECT L.*, C.CG_NAME FROM LECTURE L INNER JOIN CATEGORY C ON L.CG_NO = C.CG_NO ORDER BY L.LEC_NO </select>
-<select id="chapterList" resultType="com.sinuedu.board.lecture.model.vo.Chapter"> SELECT CH.CHAP_NO AS chapNo, C.CG_NAME AS cgname, L.LEC_TITLE AS lectitle, CH.CHAP_TITLE AS chaptitle, CH.UPDATE_DATE AS updatedate FROM CHAPTER CH INNER JOIN LECTURE L ON CH.LEC_NO = L.LEC_NO INNER JOIN CATEGORY C ON L.CG_NO = C.CG_NO ORDER BY CH.UPDATE_DATE DESC </select>
-<delete id="deleteViewChapter"> DELETE FROM VIEW_CHAPTER WHERE CHAP_NO = #{chapNo} </delete>
-<delete id="deleteChapter"> DELETE FROM CHAPTER WHERE CHAP_NO = #{chapNo} </delete>
-<delete id="deleteAllChapter"> DELETE FROM CHAPTER WHERE LEC_NO = #{lecNo} </delete>
-<delete id="deleteLecture"> DELETE FROM LECTURE WHERE LEC_NO = #{lecNo} </delete>
-<!--  AUTO_INCREMENT 및 DEFAULT 컬럼 반영 (CHAP_NO/CREATE_DATE/UPDATE_DATE/VIEWS 자동 처리)  -->
-<insert id="insertChapter" parameterType="com.sinuedu.board.lecture.model.vo.Chapter"> INSERT INTO CHAPTER (CHAP_TITLE, CHAP_DETAIL, LEC_NO, CHAP_RATE) VALUES (#{chapTitle}, #{chapDetail}, #{lecNo}, #{chapRate}) </insert>
-<select id="getChapterByTitle" resultType="com.sinuedu.board.lecture.model.vo.Chapter"> SELECT CH.*, L.LEC_TITLE AS lectitle, C.CG_NAME AS cgname FROM CHAPTER CH INNER JOIN LECTURE L ON CH.LEC_NO = L.LEC_NO INNER JOIN CATEGORY C ON L.CG_NO = C.CG_NO WHERE CH.CHAP_NO = #{chapNo} </select>
-<update id="updateChapter"> UPDATE CHAPTER SET CHAP_TITLE = #{chapTitle}, CHAP_DETAIL = #{chapDetail}, UPDATE_DATE = NOW(), LEC_NO = #{lecNo} WHERE CHAP_NO = #{chapNo} </update>
-<update id="updateAdminStatus"> UPDATE USERS SET ADMIN = #{adminStatus} WHERE USER_ID = #{userId} </update>
-<update id="updateUserStatus"> UPDATE USERS SET STATUS = #{status} WHERE USER_ID = #{userId} </update>
-<!--  LEC_NO AUTO_INCREMENT, LEC_IMG DEFAULT 반영  -->
-<insert id="insertLecture"> INSERT INTO LECTURE (LEC_TITLE, LEC_SUBTITLE, LEC_DESC, CG_NO) VALUES (#{lecTitle}, #{lecSubtitle}, #{lecDesc}, #{cgNo}) </insert>
-<!--  IMG_NO AUTO_INCREMENT, 함수/시퀀스 제거  -->
-<insert id="insertImage"> INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_RENAME, REF_LEC_NO) VALUES (#{imgPath}, #{imgName}, #{imgRename}, #{refLecNo}) </insert>
-<update id="updateLecture"> UPDATE LECTURE SET LEC_TITLE = #{lecTitle}, LEC_SUBTITLE = #{lecSubtitle}, LEC_DESC = #{lecDesc} WHERE LEC_NO = #{lecNo} </update>
-<update id="updateImage"> UPDATE IMAGE SET IMG_PATH = #{imgPath}, IMG_NAME = #{imgName}, IMG_RENAME = #{imgRename} WHERE REF_LEC_NO = #{refLecNo} </update>
+
+	<select id="userList" resultType="com.sinuedu.user.member.model.vo.Member"> SELECT * FROM USERS </select>
+	
+	<select id="categoryList" resultType="com.sinuedu.board.lecture.model.vo.Category"> 
+		SELECT CG_NO, CG_NAME 
+		FROM CATEGORY 
+		ORDER BY CG_NO 
+	</select>
+	
+	<select id="lectureThumbnail">
+		SELECT *
+		FROM IMAGE
+		WHERE REF_LEC_NO = #{lecNo}
+	</select>
+	
+	<select id="lectureThumbnailYN">
+		SELECT COUNT(*)
+		FROM IMAGE
+		WHERE REF_LEC_NO = #{lecNo}
+	</select>
+	
+	<select id="lectureList" resultType="com.sinuedu.board.lecture.model.vo.Lecture"> SELECT L.*, C.CG_NAME FROM LECTURE L INNER JOIN CATEGORY C ON L.CG_NO = C.CG_NO ORDER BY L.LEC_NO </select>
+	<select id="chapterList" resultType="com.sinuedu.board.lecture.model.vo.Chapter"> SELECT CH.CHAP_NO AS chapNo, C.CG_NAME AS cgname, L.LEC_TITLE AS lectitle, CH.CHAP_TITLE AS chaptitle, CH.UPDATE_DATE AS updatedate FROM CHAPTER CH INNER JOIN LECTURE L ON CH.LEC_NO = L.LEC_NO INNER JOIN CATEGORY C ON L.CG_NO = C.CG_NO ORDER BY CH.UPDATE_DATE DESC </select>
+	<delete id="deleteViewChapter"> DELETE FROM VIEW_CHAPTER WHERE CHAP_NO = #{chapNo} </delete>
+	<delete id="deleteChapter"> DELETE FROM CHAPTER WHERE CHAP_NO = #{chapNo} </delete>
+	<delete id="deleteAllChapter"> DELETE FROM CHAPTER WHERE LEC_NO = #{lecNo} </delete>
+	<delete id="deleteLecture"> DELETE FROM LECTURE WHERE LEC_NO = #{lecNo} </delete>
+	<!--  AUTO_INCREMENT 및 DEFAULT 컬럼 반영 (CHAP_NO/CREATE_DATE/UPDATE_DATE/VIEWS 자동 처리)  -->
+	<insert id="insertChapter" parameterType="com.sinuedu.board.lecture.model.vo.Chapter"> INSERT INTO CHAPTER (CHAP_TITLE, CHAP_DETAIL, LEC_NO, CHAP_RATE) VALUES (#{chapTitle}, #{chapDetail}, #{lecNo}, #{chapRate}) </insert>
+	<select id="getChapterByTitle" resultType="com.sinuedu.board.lecture.model.vo.Chapter"> SELECT CH.*, L.LEC_TITLE AS lectitle, C.CG_NAME AS cgname FROM CHAPTER CH INNER JOIN LECTURE L ON CH.LEC_NO = L.LEC_NO INNER JOIN CATEGORY C ON L.CG_NO = C.CG_NO WHERE CH.CHAP_NO = #{chapNo} </select>
+	<update id="updateChapter"> UPDATE CHAPTER SET CHAP_TITLE = #{chapTitle}, CHAP_DETAIL = #{chapDetail}, UPDATE_DATE = NOW(), LEC_NO = #{lecNo} WHERE CHAP_NO = #{chapNo} </update>
+	<update id="updateAdminStatus"> UPDATE USERS SET ADMIN = #{adminStatus} WHERE USER_ID = #{userId} </update>
+	<update id="updateUserStatus"> UPDATE USERS SET STATUS = #{status} WHERE USER_ID = #{userId} </update>
+	<!--  LEC_NO AUTO_INCREMENT, LEC_IMG DEFAULT 반영  -->
+	<insert id="insertLecture"> 
+		INSERT INTO LECTURE (LEC_TITLE, LEC_SUBTITLE, LEC_DESC, CG_NO) 
+		VALUES (#{lecTitle}, #{lecSubtitle}, #{lecDesc}, #{cgNo}) 
+	</insert>
+	<!--  IMG_NO AUTO_INCREMENT, 함수/시퀀스 제거  -->
+	<insert id="insertImage"> INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_RENAME, REF_LEC_NO) VALUES (#{imgPath}, #{imgName}, #{imgRename}, #{refLecNo}) </insert>
+	
+	<update id="updateLecture"> 
+		UPDATE LECTURE 
+		SET LEC_TITLE = #{lecTitle}, LEC_SUBTITLE = #{lecSubtitle}, LEC_DESC = #{lecDesc} 
+		WHERE LEC_NO = #{lecNo} 
+	</update>
+	
+	<insert id="insertFile">
+		INSERT INTO IMAGE(IMG_PATH, IMG_NAME, IMG_RENAME, REF_LEC_NO)
+		VALUES (#{imgPath}, #{imgName}, #{imgRename}, #{refLecNo})
+	</insert>
+	
+	<update id="updateFile">
+		UPDATE IMAGE
+		SET IMG_PATH = #{imgPath} , IMG_NAME = #{imgName} , IMG_RENAME = #{imgRename}
+		WHERE REF_LEC_NO = #{refLecNo}
+	</update>
+	
+	<delete id="deleteThumbnail">
+		DELETE FROM IMAGE
+		WHERE REF_LEC_NO = #{lecNo}
+	</delete>
+	
 </mapper>

@@ -83,7 +83,23 @@ public class ManagerService {
 		return mapper.updateLecture(lec);
 	}
 
-	public int updateImage(Image i) {
-		return mapper.updateImage(i);
+	public Image lectureThumbnail(int lecNo) {
+		return mapper.lectureThumbnail(lecNo);
+	}
+
+	public int updateFile(Image image) {
+		return mapper.updateFile(image);
+	}
+
+	public int insertFile(Image image) {
+		return mapper.insertFile(image);
+	}
+	
+	public int lectureThumbnailYN(int lecNo) {
+		return mapper.lectureThumbnailYN(lecNo);
+	}
+
+	public int deleteThumbnail(int lecNo) {
+		return mapper.deleteThumbnail(lecNo);
 	}
 }

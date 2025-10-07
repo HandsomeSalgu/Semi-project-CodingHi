@@ -48,6 +48,13 @@ public interface ManagerMapper {
 
 	int updateLecture(Lecture lec);
 
-	int updateImage(Image i);
+	Image lectureThumbnail(int lecNo);
 
+	int updateFile(Image image);
+	
+	int insertFile(Image image);
+
+	int lectureThumbnailYN(int lecNo);
+
+	int deleteThumbnail(int lecNo);
 }
