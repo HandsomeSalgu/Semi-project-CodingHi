@@ -139,11 +139,11 @@
             <div class="class-elements">
                 <div class="class-element" th:each="lec : ${list}">
                 	<input type="hidden" name="lectureNo" th:value="${lec.lecNo}">
-                	
+                	<th:block th:each="i : ${iList}" th:if="${lec != null}">
                     <div class="image-box">
-                        <img src="/photo/classes/example.png" class="image-thumbnail">
+                        <img th:src="${lec.lecNo eq i.refLecNo} ? ${i.imgPath} : '/photo/classes/example.png'" class="image-thumbnail">
                     </div>
-
+					</th:block>
                     <div class="element-title">
                         <p>[[${lec.lecTitle}]]</p>
                         <p>[[${lec.cgName}]]</p>

@@ -217,95 +217,67 @@ public class LectureController {
 	public ModelAndView selectCategory(@PathVariable("spanVal") String cgName,
 										ModelAndView mv, HttpSession session) {
 		System.out.println(cgName);
-		HashMap<String, Integer> map = new HashMap<>();
+		//
 		
+		
+		//리스트 만들어 놓기
 		ArrayList<Lecture> list = new ArrayList<Lecture>();
-		ArrayList<Lecture> bookmarkList = new ArrayList<Lecture>();
 		ArrayList<Image> iList = new ArrayList<Image>();
 		
-		
+		//로그인
 		int userNo = 0;
 		if(session.getAttribute("loginUser") != null){
 			userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		}
 		
+		//북마크이면 BOOKMARK, 아니면 CATEGORY 글 모집
+		HashMap<String, Object> mapImage = new HashMap<>();
+		
 		if(cgName.equals("BOOKMARK")) {
-			list = cService.selectLectureList(null);
+			list = cService.bookmarkCategory(userNo);
+			
+			mapImage.put("userNo", userNo);
 		}else {
 			list = cService.selectCategory(cgName);
+			
+			mapImage.put("cgName", cgName);
 		}
 		
-		System.out.println(userNo);
+		//이미지 리스트 불러오기
+		iList = cService.CBImageList(mapImage);
+		
+		//아무것도 안담기면 category.html의 th:block if문 자체가 발생이 안돼서 임의의 값 한 개를 넣어줌
+		if(iList.isEmpty()) {
+			iList.add(0, new Image());
+		}
+		
+		//유저별 강의 진도율 및 북마크 표시
+		HashMap<String, Integer> map = new HashMap<>();
 		
 		for(Lecture lec : list) {
 			int lecNo = lec.getLecNo();
 			map.put("userNo", userNo);
 			map.put("lecNo", lecNo);
 			
-			iList.add(cService.selectImage(lecNo));
+			int capCount = cService.chapterCount(lecNo);
+			lec.setTotalChap(capCount);
 			
-			System.out.println(lecNo);
-			if(cgName.equals("BOOKMARK")) {
-				Lecture l = cService.bookmarkCategory(map);
-				if(l != null) {
-					bookmarkList.add(l);
-				}
+			ArrayList<Chapter> cList = cService.selectLecture(lecNo);
+			
+			lec.setSvgRate(svgRate(cList)); 
+			
+			//유저별 강의 진도율 표시
+			lec.setProgressRate(progressRate(capCount, userNo, lecNo));
+
+			int bookmarkCheck = cService.countBookmark(map);
+			if(bookmarkCheck == 1) {
+				lec.setBookmarkCheck("Y");
 			}else {
-				int capCount = cService.chapterCount(lecNo);
-				lec.setTotalChap(capCount);
-				
-				ArrayList<Chapter> cList = cService.selectLecture(lecNo);
-				
-				lec.setSvgRate(svgRate(cList)); 
-				
-				//유저별 강의 진도율 표시
-				lec.setProgressRate(progressRate(capCount, userNo, lecNo));
-				
-				
-				
-				int bookmarkCheck = cService.countBookmark(map);
-				if(bookmarkCheck == 1) {
-					lec.setBookmarkCheck("Y");
-				}else {
-					lec.setBookmarkCheck("N");
-				}	
-			}
-		}
-		System.out.println(iList);
-		
-		System.out.println("bookmarkList : " + bookmarkList);
-		
-		if(cgName.equals("BOOKMARK")) {
-			for(Lecture lec : bookmarkList) {
-				int lecNo = lec.getLecNo();
-				map.put("userNo", userNo);
-				map.put("lecNo", lecNo);
-				
-				int capCount = cService.chapterCount(lecNo);
-				lec.setTotalChap(capCount);
-				
-				ArrayList<Chapter> cList = cService.selectLecture(lecNo);
-				
-				lec.setSvgRate(svgRate(cList)); 
-				
-				//유저별 강의 진도율 표시
-				lec.setProgressRate(progressRate(capCount, userNo, lecNo));
-				
-				
-				
-				int bookmarkCheck = cService.countBookmark(map);
-				if(bookmarkCheck == 1) {
-					lec.setBookmarkCheck("Y");
-				}else {
-					lec.setBookmarkCheck("N");
-				}	
-			}
-			mv.addObject("list", bookmarkList).addObject("iList", iList);
-		}else {
-			mv.addObject("list", list).addObject("iList", iList);
+				lec.setBookmarkCheck("N");
+			}	
 		}
 		
-		mv.setViewName("category");
+		mv.addObject("list", list).addObject("iList", iList).setViewName("category");
 		
 //		System.out.println(mv2);
 		return mv;

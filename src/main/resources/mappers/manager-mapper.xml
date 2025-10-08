@@ -44,7 +44,7 @@
 	
 	<update id="updateLecture"> 
 		UPDATE LECTURE 
-		SET LEC_TITLE = #{lecTitle}, LEC_SUBTITLE = #{lecSubtitle}, LEC_DESC = #{lecDesc} 
+		SET LEC_TITLE = #{lecTitle}, LEC_SUBTITLE = #{lecSubtitle}, LEC_DESC = #{lecDesc}
 		WHERE LEC_NO = #{lecNo} 
 	</update>
 	
