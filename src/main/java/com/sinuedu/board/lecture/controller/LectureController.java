@@ -44,6 +44,10 @@ public class LectureController {
 		ArrayList<Lecture> list = cService.selectLectureList(null);
 		ArrayList<Image> iList = cService.selectImageList(null);
 		
+		if(iList.isEmpty()) {
+			iList.add(new Image());
+		}
+		
 		for(Lecture lec : list) {
 			int lecNo = lec.getLecNo();
 			int capCount = cService.chapterCount(lecNo);
