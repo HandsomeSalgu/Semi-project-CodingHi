@@ -110,7 +110,7 @@ public class ManagerController {
 		int thumbnail = mService.lectureThumbnailYN(lecNo);
 		
 		//file이 아무것도 안들어왔을 때는 기본 썸네일로 대체
-		if(!file.isEmpty()) {
+		if(!file.isEmpty()&& result1 == 1) {
 			
 			String originalFileName = file.getOriginalFilename();
 			

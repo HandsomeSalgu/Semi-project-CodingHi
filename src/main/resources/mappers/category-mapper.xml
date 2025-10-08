@@ -8,6 +8,20 @@
 		<if test="lecNo != null"> WHERE LEC_NO = #{lecNo} </if>
 		ORDER BY CG_NO, LEC_NO
 	</select>
+	
+	<select id="selectCategory"> 
+		SELECT * 
+		FROM LECTURE JOIN CATEGORY USING(CG_NO)
+		WHERE CG_NAME = #{cgName}
+		ORDER BY LEC_NO
+	</select>
+	
+	<select id="bookmarkCategory">
+		SELECT * 
+		FROM LECTURE L JOIN BOOKMARK_LECTURE B USING(LEC_NO) 
+		WHERE B.USER_NO = #{userNo}
+		ORDER BY LEC_NO
+	</select>
 
 	<select id="selectImageList">
 		SELECT * 
@@ -23,11 +37,25 @@
 		ORDER BY IMG_NO 
 	</select>
 	
-	<select id="selectCategory"> 
-		SELECT * 
-		FROM LECTURE JOIN CATEGORY USING(CG_NO)
-		WHERE CG_NAME = #{cgName}
-		ORDER BY LEC_NO
+	<select id="CBImageList">
+		SELECT *
+		FROM IMAGE I 
+			 JOIN LECTURE L ON(I.REF_LEC_NO = L.LEC_NO)
+		<if test="userNo != null"> 
+			 JOIN BOOKMARK_LECTURE B ON(L.LEC_NO = B.LEC_NO)
+		</if>
+		<if test="cgName != null">
+			 JOIN CATEGORY C ON(C.CG_NO = L.CG_NO)
+		</if> 		
+		<where>
+			<if test="userNo != null">
+				B.USER_NO = #{userNo}
+			</if>
+			
+			<if test="cgName != null">
+				C.CG_NAME = #{cgName}
+			</if>
+		</where>
 	</select>
 	
 	<select id="chapterCount">
@@ -105,11 +133,5 @@
 		FROM BOOKMARK_LECTURE
 		WHERE USER_NO = #{userNo} AND LEC_NO = #{lecNo}
 	</delete>
-	
-	<select id="bookmarkCategory">
-		SELECT * 
-		FROM LECTURE JOIN BOOKMARK_LECTURE USING(LEC_NO) 
-		WHERE LEC_NO = #{lecNo} AND USER_NO = #{userNo} 
-		ORDER BY LEC_NO
-	</select>
+
 </mapper>

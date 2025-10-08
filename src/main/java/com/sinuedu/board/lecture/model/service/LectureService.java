@@ -73,8 +73,8 @@ public class LectureService {
 		return cMapper.deleteBookmark(map);
 	}
 
-	public Lecture bookmarkCategory(HashMap<String, Integer> map) {
-		return cMapper.bookmarkCategory(map);
+	public ArrayList<Lecture> bookmarkCategory(int userNo) {
+		return cMapper.bookmarkCategory(userNo);
 	}
 
 	public ArrayList<Image> selectImageList(Integer lecNo) {
@@ -85,5 +85,8 @@ public class LectureService {
 		return cMapper.selectImage(lecNo);
 	}
 
+	public ArrayList<Image> CBImageList(HashMap<String, Object> map) {
+		return cMapper.CBImageList(map);
+	}
 	
 }

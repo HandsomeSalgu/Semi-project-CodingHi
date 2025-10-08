@@ -43,11 +43,13 @@ public interface LectureMapper {
 
 	int deleteBookmark(HashMap<String, Integer> map);
 
-	Lecture bookmarkCategory(HashMap<String, Integer> map);
+	ArrayList<Lecture> bookmarkCategory(int userNo);
 
 	ArrayList<Image> selectImageList(Integer lecNo);
 
 	Image selectImage(int lecNo);
+
+	ArrayList<Image> CBImageList(HashMap<String, Object> map);
 
 	
 
