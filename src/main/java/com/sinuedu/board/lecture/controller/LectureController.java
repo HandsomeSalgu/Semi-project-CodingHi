@@ -46,8 +46,17 @@ public class LectureController {
 		
 		if(iList.isEmpty()) {
 			iList.add(new Image());
+		}else {
+			for(Lecture l : list) {
+				for(Image i : iList) {
+					if(i.getRefLecNo() == l.getLecNo()) {
+						l.setLecImg(i.getImgPath());
+						break;
+					}
+				}
+			}
 		}
-		
+			
 		for(Lecture lec : list) {
 			int lecNo = lec.getLecNo();
 			int capCount = cService.chapterCount(lecNo);
@@ -71,7 +80,7 @@ public class LectureController {
 			}
 		}
 		
-		mv.addObject("list", list).addObject("iList", iList).setViewName("category");
+		mv.addObject("list", list).setViewName("category");
 		
 		return mv;
 	}
@@ -252,7 +261,16 @@ public class LectureController {
 		
 		//아무것도 안담기면 category.html의 th:block if문 자체가 발생이 안돼서 임의의 값 한 개를 넣어줌
 		if(iList.isEmpty()) {
-			iList.add(0, new Image());
+			iList.add(new Image());
+		}else {
+			for(Lecture l : list) {
+				for(Image i : iList) {
+					if(i.getRefLecNo() == l.getLecNo()) {
+						l.setLecImg(i.getImgPath());
+						break;
+					}
+				}
+			}
 		}
 		
 		//유저별 강의 진도율 및 북마크 표시
