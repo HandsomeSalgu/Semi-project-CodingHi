@@ -50,8 +50,13 @@ public class MemberController {
 		Member loginUser = mService.login(m);
 		if(loginUser != null && bcrypt.matches(m.getUserPw(), loginUser.getUserPw())) {
 			session.setAttribute("loginUser", loginUser);
-			System.out.println(loginUser);
-			return "redirect:/home";
+			
+			if(loginUser.getAdmin().equals("Y")) {
+				return "redirect:/manager/userList";
+			}else {
+				return "redirect:/home";
+			}
+			
 		} else {
 			throw new MemberException("로그인을 실패하였습니다");
 		}
