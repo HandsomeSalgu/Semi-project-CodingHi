@@ -158,7 +158,11 @@ td:hover {
 	            const userId = this.getAttribute('data-userid');
 	            const currentStatus = this.textContent;
 	            const newStatus = currentStatus === '회원' ? 'Y' : 'N';
-	            toggleStatus(userId, newStatus, 'admin');
+	            if(confirm("정말로 해당 회원을 관리자 권한을 변경하겠습니까?")){
+	            	toggleStatus(userId, newStatus, 'admin');
+	            }else{
+	            	alert('관리자 권한 변경을 취소하였습니다.');
+	            }            
 	        };
 	    });
 	
@@ -168,7 +172,12 @@ td:hover {
 	            const userId = this.getAttribute('data-userid');
 	            const currentStatus = this.textContent;
 	            const newStatus = currentStatus === '사용' ? 'N' : 'Y';
-	            toggleStatus(userId, newStatus, 'status');
+	            if(confirm("정말로 해당 회원 상태를 변경하겠습니까?")){
+	            	toggleStatus(userId, newStatus, 'status');
+	            }else{
+	            	alert('회원 상태 변경을 취소하였습니다.');
+	            }
+	            
 	        };
 	    });
 	    
