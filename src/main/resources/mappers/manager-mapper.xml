@@ -22,14 +22,37 @@
 		WHERE REF_LEC_NO = #{lecNo}
 	</select>
 	
-	<select id="lectureList" resultType="com.sinuedu.board.lecture.model.vo.Lecture"> SELECT L.*, C.CG_NAME FROM LECTURE L INNER JOIN CATEGORY C ON L.CG_NO = C.CG_NO ORDER BY L.LEC_NO </select>
-	<select id="chapterList" resultType="com.sinuedu.board.lecture.model.vo.Chapter"> SELECT CH.CHAP_NO AS chapNo, C.CG_NAME AS cgname, L.LEC_TITLE AS lectitle, CH.CHAP_TITLE AS chaptitle, CH.UPDATE_DATE AS updatedate FROM CHAPTER CH INNER JOIN LECTURE L ON CH.LEC_NO = L.LEC_NO INNER JOIN CATEGORY C ON L.CG_NO = C.CG_NO ORDER BY CH.UPDATE_DATE DESC </select>
-	<delete id="deleteViewChapter"> DELETE FROM VIEW_CHAPTER WHERE CHAP_NO = #{chapNo} </delete>
-	<delete id="deleteChapter"> DELETE FROM CHAPTER WHERE CHAP_NO = #{chapNo} </delete>
-	<delete id="deleteAllChapter"> DELETE FROM CHAPTER WHERE LEC_NO = #{lecNo} </delete>
-	<delete id="deleteLecture"> DELETE FROM LECTURE WHERE LEC_NO = #{lecNo} </delete>
+	<select id="lectureList" resultType="com.sinuedu.board.lecture.model.vo.Lecture">
+		SELECT L.*, C.CG_NAME FROM LECTURE L INNER JOIN CATEGORY C ON L.CG_NO = C.CG_NO ORDER BY L.LEC_NO
+	</select>
+	
+	<select id="chapterList" resultType="com.sinuedu.board.lecture.model.vo.Chapter"> 
+		SELECT CH.CHAP_NO AS chapNo, C.CG_NAME AS cgname, L.LEC_TITLE AS lectitle, CH.CHAP_TITLE AS chaptitle, CH.UPDATE_DATE AS updatedate, CH.LEC_NO AS lecNo
+		FROM CHAPTER CH INNER JOIN LECTURE L ON CH.LEC_NO = L.LEC_NO INNER JOIN CATEGORY C ON L.CG_NO = C.CG_NO 
+		ORDER BY lecNo, chapNo
+	</select>
+		
+	<delete id="deleteViewChapter">
+		DELETE FROM VIEW_CHAPTER WHERE CHAP_NO = #{chapNo}
+	</delete>
+	
+	<delete id="deleteChapter">
+		DELETE FROM CHAPTER WHERE CHAP_NO = #{chapNo}
+	</delete>
+	
+	<delete id="deleteAllChapter">
+		DELETE FROM CHAPTER WHERE LEC_NO = #{lecNo}
+	</delete>
+	
+	<delete id="deleteLecture">
+		DELETE FROM LECTURE WHERE LEC_NO = #{lecNo}
+	</delete>
+	
 	<!--  AUTO_INCREMENT 및 DEFAULT 컬럼 반영 (CHAP_NO/CREATE_DATE/UPDATE_DATE/VIEWS 자동 처리)  -->
-	<insert id="insertChapter" parameterType="com.sinuedu.board.lecture.model.vo.Chapter"> INSERT INTO CHAPTER (CHAP_TITLE, CHAP_DETAIL, LEC_NO, CHAP_RATE) VALUES (#{chapTitle}, #{chapDetail}, #{lecNo}, #{chapRate}) </insert>
+	<insert id="insertChapter" parameterType="com.sinuedu.board.lecture.model.vo.Chapter">
+		INSERT INTO CHAPTER (CHAP_TITLE, CHAP_DETAIL, LEC_NO, CHAP_RATE) VALUES (#{chapTitle}, #{chapDetail}, #{lecNo}, #{chapRate})
+	</insert>
+	
 	<select id="getChapterByTitle" resultType="com.sinuedu.board.lecture.model.vo.Chapter"> SELECT CH.*, L.LEC_TITLE AS lectitle, C.CG_NAME AS cgname FROM CHAPTER CH INNER JOIN LECTURE L ON CH.LEC_NO = L.LEC_NO INNER JOIN CATEGORY C ON L.CG_NO = C.CG_NO WHERE CH.CHAP_NO = #{chapNo} </select>
 	<update id="updateChapter"> UPDATE CHAPTER SET CHAP_TITLE = #{chapTitle}, CHAP_DETAIL = #{chapDetail}, UPDATE_DATE = NOW(), LEC_NO = #{lecNo} WHERE CHAP_NO = #{chapNo} </update>
 	<update id="updateAdminStatus"> UPDATE USERS SET ADMIN = #{adminStatus} WHERE USER_ID = #{userId} </update>
