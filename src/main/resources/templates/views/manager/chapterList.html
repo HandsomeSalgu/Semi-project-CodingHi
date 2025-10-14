@@ -338,7 +338,10 @@ body {
 							<tr th:each="chapter : ${list}">
 								<td th:text="${chapter.cgName}"></td>
 								<td th:text="${chapter.lecTitle}"></td>
-								<td th:text="${chapter.chapTitle}"></td>
+								<td th:text="${chapter.chapTitle}" 
+									style="color: blue; text-decoration: underline; cursor: pointer;"
+									onmouseover="this.style.color='#0056b3'"
+									onmouseout="this.style.color='blue'"></td>
 								<td th:text="${#dates.format(chapter.updateDate, 'yyyy-MM-dd')}"></td>
 								<td class="action-buttons">
 									<button class="edit-btn">
@@ -353,6 +356,8 @@ body {
 									</button>
 								</td>
 								<td th:text="${chapter.chapNo}" style="display: none;"></td>
+								<td th:text="${chapter.lecNo}" style="display: none;"></td>
+								<td th:text="${chapter.lecChapNum}" style="display: none;"></td>
 							</tr>
 							<tr th:if="${list.empty}">
 								<td colspan="5">No chapters found</td>
@@ -526,6 +531,48 @@ body {
 	            row.style.display = categoryMatch && lectureMatch ? '' : 'none';
 	        });
 	    }
+	    
+	    //강의 클릭 시 해당 강의로 이동
+	    [...document.querySelectorAll('tbody tr')].map((tr, i, array) => {
+	    	const title = tr.children[2];
+	    	const lecNo = tr.children[6].innerText;
+	    	const chapNo = tr.children[5].innerText;
+	    	const lecChapNum = tr.children[7].innerText;
+	    	
+	    	console.log("lecNo : " + lecNo);
+	    	console.log("lecChapNum : " + lecChapNum);
+    		
+	    	title.addEventListener('click', function(){
+	    		
+	    		//form 태그 안에 값들을 다 담아서 보내야 controller에서 오류 없이 받으므로 미리 세팅을 해준다
+	    		const form = document.createElement('form');
+	    		form.method = 'POST';
+	    		form.action = '/lecture/' + lecNo + '/' + lecChapNum;
+	    		
+	    		const input1 = document.createElement('input');
+	    		input1.type = 'hidden';
+	    		input1.name = 'lecNo';
+	    		input1.value = lecNo;
+	    		
+	    		const input2 = document.createElement('input');
+	    		input2.type = 'hidden';
+	    		input2.name = 'lecChapNum';
+	    		input2.value = lecChapNum;
+	    		
+	    		const input3 = document.createElement('input');
+	    		input3.type = 'hidden';
+	    		input3.name = 'chapNo';
+	    		input3.value = chapNo;
+	    		
+	    		form.appendChild(input1);
+	    		form.appendChild(input2);
+	    		form.appendChild(input3);
+	    		document.body.appendChild(form);
+	    		
+	    		form.submit();
+
+	    	})
+	    });
 	}
 </script>
 </body>

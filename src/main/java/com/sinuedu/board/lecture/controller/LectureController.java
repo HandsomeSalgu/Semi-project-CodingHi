@@ -111,6 +111,7 @@ public class LectureController {
 		for(int i =1 ; i<=cList.size() ; i++) {
 			cList.get(i-1).setLecChapNum(i);
 		}
+		System.out.println(cList.toString());
 		
 		double svgRate = svgRate(cList);
 		int progressRate = progressRate(capCount, userNo, lecNo);

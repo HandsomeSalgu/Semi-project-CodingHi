@@ -56,7 +56,27 @@ public class ManagerController {
 	@GetMapping("/chapterList")
 	public String chapterList(Model model) {
 		List<Chapter> list = mService.chapterList();
-		System.out.println(list);
+		
+		
+		int nowLecNo = list.get(0).getLecNo();
+		int nowlecChapNum = 1;
+		
+		for(int i = 1; i<= list.size(); i++) {
+			if(nowLecNo == list.get(i-1).getLecNo()) {
+				list.get(i-1).setLecChapNum(nowlecChapNum);
+				nowlecChapNum++;
+			}else {
+				nowLecNo = list.get(i-1).getLecNo();
+				nowlecChapNum = 1;
+				list.get(i-1).setLecChapNum(nowlecChapNum);
+				nowlecChapNum++;
+			}
+			
+			System.out.println("lecNo : " + list.get(i-1).getLecNo() + " / " + "lecChapNum : " + list.get(i-1).getLecChapNum());
+			
+		}
+		
+		
 		Set<String> categories = list.stream().map(Chapter::getCgName).collect(Collectors.toSet());
 		model.addAttribute("list", list);
 		model.addAttribute("categories", categories);
