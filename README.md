@@ -31,16 +31,11 @@
 <br>
 
 ## 사용기술 및 개발 환경 :computer:
-- 운영체제 : Windows 10
-- 사용언어 : Java, JavaScript, HTML5, CSS3, SQL
-- FrameWork/Library : Spring Boot, jQuery, MyBatis, Ajax
-- DB : Oracle, MYSQL(배포)
-- Tool : Eclipse, Visual Studio Code
-- WAS : Apache Tomcat
-- Collaboration : GitHub
-- CDN / 파일관리 : Cloudflare
-- DesignPattern : MVC Model 2
-- 배포 : AWS EC2 / Ubuntu / Linux
+- Backend: Java, Spring Boot, MyBatis
+- Frontend: JavaScript, HTML/CSS, jQuery
+- Database: MySQL, Oracle
+- Infrastructure: AWS EC2, Linux(Ubuntu), Cloudflare(CDN)
+- Tools & DevOps: GitHub
 <br>
 
 ## 프로젝트 주요 기능 :heavy_exclamation_mark:
